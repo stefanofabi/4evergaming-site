@@ -1,5 +1,9 @@
 @extends('base')
 
+@section('description', 'Servidores de Juegos en Argentina: Rápido, Seguro y Soporte 365. Activación automática. ¡Encontrá el Servidor más barato con mejor servicio en 4evergaming!')
+
+@section('robots', 'index, follow')
+
 @section('title', 'Servidores de Juegos en Argentina desde $217 al mes | 4evergaming')
 
 @section('content')
@@ -8,15 +12,47 @@
     <div class="col">
 
       <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="10000">
-            <img src="{{ asset('images/carousel/4everg2.png') }}" class="d-block w-100" alt="..." height="400">
+            <img loading="lazy" src="{{ asset('images/carousel/cs-wallpaper-01.jpg') }}" class="d-block w-100" alt="..." height="400">
+
+            <div class="carousel-caption d-none d-md-block">
+              <h3>Protección Anticheat y Mitigación DDoS</h3>
+              <p> Redes confiables y ultra rápidas sobre los carriers más importantes y reconocidos de la región.</p>
+
+              <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-300fps?currency=2" class="btn btn-danger" > 300 FPS </a>
+              <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-1000fps?currency=2" class="btn btn-success"> 1000 FPS </a>
+              <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-500fps?currency=2" class="btn btn-warning"> 500 FPS </a>
+            </div>
           </div>
+
           <div class="carousel-item" data-bs-interval="2000">
-            <img src="{{ asset('images/carousel/mundial-portada.png') }}" class="d-block w-100" alt="..." height="400">
+            <img loading="lazy" src="{{ asset('images/carousel/csgo-wallpaper-01.jpeg') }}" class="d-block w-100" alt="..." height="400">
+            
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Sin contratos, cancelá en cualquier momento. </h3>
+              <p> Sin Compromisos, ni contratos. Facturado cada mes. Sin costos ocultos. Servicio con garantía de reembolso. </p>
+            
+              <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-64-tickrate?currency=2" class="btn btn-danger" > 64 Tick</a>
+              <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-128-tickrate?currency=2" class="btn btn-success"> 128 Tick </a>
+            </div>
           </div>
+
           <div class="carousel-item">
-            <img src="{{ asset('images/carousel/4everg3.png') }}" class="d-block w-100" alt="..." height="400">
+            <img loading="lazy" src="{{ asset('images/carousel/mta-wallpaper-01.jpg') }}" class="d-block w-100" alt="..." height="400">
+
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Recursos sin límites </h3>
+              <p> Tu Comunidad crece y necesitas más... perfecto!!! te ayudamos a reconfigurar tu servidor o migrar a otro hardware. </p>
+            
+              <a href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/san-andreas-multi-player-samp?currency=2" class="btn btn-success" > GTA San Andreas MP</a>
+              <a href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/multi-theft-auto-mta?currency=2" class="btn btn-success"> MTA San Andreas </a>
+            </div>
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -90,7 +126,7 @@
     <div class="row">
       <div class="col">
         <div class="card" style="width: 18rem;">
-          <img src="{{ asset('images/acceso-panel-tcadmin.jpg') }}" class="card-img-top" alt="Setup de computadora con RGB">
+          <img loading="lazy" src="{{ asset('images/acceso-panel-tcadmin.jpg') }}" class="card-img-top" alt="Setup de computadora con RGB">
           <div class="card-body">
             <h5 class="card-title"> TCAdmin </h5>
             <p class="card-text">Administrá desde la web tu Servidor reduciendo cualquier acción a simples clicks. </p>
@@ -112,7 +148,7 @@
 
       <div class="col">
         <div class="card" style="width: 18rem;">
-          <img src="{{ asset('images/banner-acceso-clientes.jpg') }}" class="card-img-top" alt="Ingreso de credenciales web">
+          <img loading="lazy" src="{{ asset('images/banner-acceso-clientes.jpg') }}" class="card-img-top" alt="Ingreso de credenciales web">
           <div class="card-body">
             <h5 class="card-title"> Acceso para clientes </h5>
             <p class="card-text"> 100% Online. Gestioná todos tus servicios de manera cómoda desde tu casa sin perder tu valioso tiempo. </p>
@@ -134,7 +170,7 @@
 
       <div class="col">
         <div class="card" style="width: 18rem;">
-          <img src="{{ asset('images/banner-medios-de-pago.jpg') }}" class="card-img-top" alt="Medios de pago aceptados">
+          <img loading="lazy" src="{{ asset('images/banner-medios-de-pago.jpg') }}" class="card-img-top" alt="Medios de pago aceptados">
           <div class="card-body">
             <h5 class="card-title"> Medios de pago </h5>
             <p class="card-text"> Disfruta los mejores beneficios y participá de sorteos exclusivos! </p>
