@@ -10,12 +10,18 @@ class PingController extends Controller
 
     function pingGameServers() 
     {
-        $pingreply = exec("ping gameservers.4evergaming.com.ar");
-        $ping = substr($pingreply, 28, 4);
+        // Server on windows
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $pingreply = exec("ping gameservers.4evergaming.com.ar");
+            $ping = substr($pingreply, 28, 4);
+        } else {
+            $pingreply = exec("ping -c 1 gameservers.4evergaming.com.ar");
+            $ping = substr($pingreply, 22, 5);
+        }
 
         if (empty($ping))
             return response()->json(['message' => 'Status Offline'], 500);
 
-        return $ping;
+        return intval($ping)." ms";
     }
 }
