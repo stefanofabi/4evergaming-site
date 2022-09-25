@@ -157,7 +157,7 @@
           </ul>
         
           <div class="card-body">
-            <a href="http://tcadmin.4evergaming.com.ar" class="card-link">Ingresar</a>
+            <a href="https://clientes.4evergaming.com.ar" class="card-link">Ingresar</a>
             <a href="https://clientes.4evergaming.com.ar/affiliates.php" target="_blank" class="card-link">Ver programa de Afiliados</a>
           </div>
         </div>
