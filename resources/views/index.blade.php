@@ -120,7 +120,7 @@
   <div class="container text-center">
     <div class="row">
       <div class="col">
-        <div class="card" style="width: 18rem;">
+        <div class="card mt-3" style="width: 18rem;">
           <img loading="lazy" src="{{ asset('images/acceso-panel-tcadmin.jpg') }}" class="card-img-top" alt="Setup de computadora con RGB">
           <div class="card-body">
             <h5 class="card-title"> TCAdmin </h5>
@@ -142,7 +142,7 @@
       </div>
 
       <div class="col">
-        <div class="card" style="width: 18rem;">
+        <div class="card mt-3" style="width: 18rem;">
           <img loading="lazy" src="{{ asset('images/banner-acceso-clientes.jpg') }}" class="card-img-top" alt="Ingreso de credenciales web">
           <div class="card-body">
             <h5 class="card-title"> Acceso para clientes </h5>
@@ -164,7 +164,7 @@
       </div>
 
       <div class="col">
-        <div class="card" style="width: 18rem;">
+        <div class="card mt-3" style="width: 18rem;">
           <img loading="lazy" src="{{ asset('images/banner-medios-de-pago.jpg') }}" class="card-img-top" alt="Medios de pago aceptados">
           <div class="card-body">
             <h5 class="card-title"> Medios de pago </h5>
