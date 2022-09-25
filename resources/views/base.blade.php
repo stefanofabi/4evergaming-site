@@ -7,6 +7,7 @@
         <link rel="canonical" href="{{ route('index') }}">
         <meta name="robots" content="@yield('robots')">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- SEO Social Media -->
         <meta property="og:type" content="website" />
@@ -21,7 +22,31 @@
         <title> @yield('title') </title>
 
         @vite(['resources/js/app.js'])
-
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+      
+            $( document ).ready(function() {
+                $.ajax({
+                    url: "{{ route('ping/gameservers') }}",
+                    type: 'post',
+                    error: function (xhr, status) {
+                        $("#statusServer").removeClass("text-success");
+                        $("#statusServer").addClass("text-danger");
+                        $("#ping-gameservers").html('Desconectado');
+                    },
+                    success: function (response) {
+                        $("#ping-gameservers").html("En línea ("+response+")");
+                    }
+                });
+            });
+        </script>
+        
         @include('tawkto')
 
         <!-- Fonts -->

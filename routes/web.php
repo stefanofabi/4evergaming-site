@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\PingController;
+
 Route::get('/', function () {
     return view('index');
 })->name('index');
+
+Route::post('/ping/gameservers', [PingController::class, 'pingGameServers'])->name('ping/gameservers');
