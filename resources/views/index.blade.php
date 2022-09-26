@@ -204,8 +204,8 @@
           </ul>
         
           <div class="card-body">
-            <a href="https://clientes.4evergaming.com.ar" class="card-link">Ingresar</a>
-            <a href="https://clientes.4evergaming.com.ar/affiliates.php" target="_blank" class="card-link">Ver programa de Afiliados</a>
+            <a href="https://clientes.4evergaming.com.ar?currency=2" class="card-link">Ingresar</a>
+            <a href="https://clientes.4evergaming.com.ar/affiliates.php?currency=2" target="_blank" class="card-link">Ver programa de Afiliados</a>
           </div>
         </div>
       </div>
