@@ -14,7 +14,7 @@
       <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="10000">
-            <img loading="lazy" src="{{ asset('images/carousel/cs-wallpaper-01.jpg') }}" class="d-block w-100" alt="Jugador terrorista recargando el arma" height="400">
+            <img loading="lazy" src="{{ asset('images/carousel/cs-wallpaper-01.jpg') }}" class="d-block img-fluid" alt="Jugador terrorista recargando el arma" height="400">
 
             <div class="carousel-caption d-none d-md-block">
               <h3>Protección Anticheat y Mitigación DDoS</h3>
@@ -27,7 +27,7 @@
           </div>
 
           <div class="carousel-item" data-bs-interval="2000">
-            <img loading="lazy" src="{{ asset('images/carousel/csgo-wallpaper-01.jpeg') }}" class="d-block w-100" alt="Jugador Terrorista tomando la posicion a otro jugador Policia" height="400">
+            <img loading="lazy" src="{{ asset('images/carousel/csgo-wallpaper-01.jpeg') }}" class="d-block img-fluid" alt="Jugador Terrorista tomando la posicion a otro jugador Policia" height="400">
             
             <div class="carousel-caption d-none d-md-block">
               <h3> Sin contratos, cancelá en cualquier momento. </h3>
@@ -39,7 +39,7 @@
           </div>
 
           <div class="carousel-item">
-            <img loading="lazy" src="{{ asset('images/carousel/mta-wallpaper-01.jpg') }}" class="d-block w-100" alt="Gangster disparando por la ventana del auto" height="400">
+            <img loading="lazy" src="{{ asset('images/carousel/mta-wallpaper-01.jpg') }}" class="d-block img-fluid" alt="Gangster disparando por la ventana del auto" height="400">
 
             <div class="carousel-caption d-none d-md-block">
               <h3> Recursos sin límites </h3>
@@ -115,7 +115,6 @@
       Tenemos un conjunto de características y herramientas que convierten nuestros sistemas en los más versátiles del mercado al permitirle tomar el control de prácticamente de todo el servicio. Las potentes opciones y características de personalización le brindan flexibilidad para modificar su servicio como desea.
     </div>
   </div>
-
 
   <div class="container text-center">
     <div class="row">
