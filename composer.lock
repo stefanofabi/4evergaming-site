@@ -4,8 +4,104 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95b694b18e97667437a84c0f7c711826",
+    "content-hash": "bb3faef6bda25f43e1fce09e135b0c4c",
     "packages": [
+        {
+            "name": "austinb/gameq",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Austinb/GameQ.git",
+                "reference": "44e7906661ae90c68d77005f42cbbf151caea478"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Austinb/GameQ/zipball/44e7906661ae90c68d77005f42cbbf151caea478",
+                "reference": "44e7906661ae90c68d77005f42cbbf151caea478",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bz2": "*",
+                "ext-xml": "*",
+                "php": ">=5.6.40"
+            },
+            "require-dev": {
+                "corneltek/getoptionkit": "~2",
+                "ext-curl": "*",
+                "phpmd/phpmd": "@stable",
+                "phpunit/php-invoker": "*",
+                "phpunit/phpunit": "^5.7 | ^6.0 | ^7.0 | ^8.0 | ^9.0",
+                "squizlabs/php_codesniffer": "3.*@stable"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GameQ\\": "src/GameQ/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Austin Bischoff",
+                    "email": "austin.bischoff@gmail.com",
+                    "homepage": "https://github.com/Austinb",
+                    "role": "Packagist/Composer Maintainer, Developer"
+                },
+                {
+                    "name": "Christoph Kretzschmar",
+                    "email": "blackskyliner@googlemail.com",
+                    "homepage": "https://github.com/Blackskyliner",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Marcel Bößendörfer",
+                    "email": "m.boessendoerfer@marbis.net",
+                    "homepage": "https://github.com/nitrado",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Alexander Hambalgo",
+                    "homepage": "http://balgo.users.sourceforge.net/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Holger",
+                    "homepage": "http://icet33.users.sourceforge.net/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sebastian Weidenbach",
+                    "homepage": "http://sebastianwe.users.sourceforge.net/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Patrick Henninger",
+                    "email": "privat@skyraptor.eu",
+                    "homepage": "https://skyraptor.eu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "GameQ Gameserver Library",
+            "keywords": [
+                "gameq",
+                "serverstatus"
+            ],
+            "support": {
+                "issues": "https://github.com/Austinb/GameQ/issues",
+                "source": "https://github.com/Austinb/GameQ/v3",
+                "wiki": "https://github.com/Austinb/GameQ/wiki"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VAU2KADATP5PU",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-08-28T16:06:34+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.10.2",
@@ -7875,5 +7971,5 @@
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }

@@ -6,6 +6,82 @@
 
 @section('title', 'Servidores de Juegos en Argentina desde $217 al mes | 4evergaming')
 
+@section('javascript')
+<script>
+  
+  var cs_servers = [
+      @foreach ($cs_servers as $server)
+      ["{{ $server[0] }}", "{{ $server[1] }}"],
+      @endforeach
+  ];
+
+  function removeTags(str) {
+      if ((str===null) || (str===''))
+          return false;
+      else
+          str = str.toString();
+            
+      // Regular expression to identify HTML tags in 
+      // the input string. Replacing the identified 
+      // HTML tag with a null string.
+      return str.replace( /(<([^>]+)>)/ig, '');
+  }
+
+  function getGameState(game)
+  {
+    let index = 1;
+    cs_servers.forEach(
+      server => {
+        loadGame(game, server[0], server[1], index); index++;
+      }
+    )
+  }
+
+  
+  function loadGame(game, ip, port, index)
+  {
+
+    var parameters = {
+      "game": game,
+      "ip": ip,
+      "port": port,
+    };
+
+    $.ajax({
+        data: parameters,
+        url: "{{ route('api/games') }}",
+        type: 'get',
+        error: function (xhr, status) {
+
+        },
+        success: function (response) {
+          let server = response[0];
+
+          $("#cs16-name-"+index).html(removeTags(server.var.gq_hostname));
+
+          let capacity = server.var.gq_numplayers * 100 / server.var.gq_maxplayers;
+          if (capacity == 100) {
+            $("#cs16-players-"+index).html('<div class="progress"> <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" aria-label="Danger striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div>');
+          } else if (capacity == 0) { 
+            $("#cs16-players-"+index).html('<div class="progress"> <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Warning striped example" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div>');
+          } else if (capacity > 75) {
+            $("#cs16-players-"+index).html('<div class="progress"> <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" aria-label="Warning striped example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div></div>');
+          } else if (capacity > 50) {
+            $("#cs16-players-"+index).html('<div class="progress"> <div class="progress-bar progress-bar-striped bg-info" role="progressbar" aria-label="Info striped example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div></div>');
+          } else {
+            $("#cs16-players-"+index).html('<div class="progress"> <div class="progress-bar progress-bar-striped bg-success" role="progressbar" aria-label="Success striped example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div></div>');
+          }
+          
+          $("#cs16-map-"+index).html(removeTags(server.var.gq_mapname));
+          $("#cs16-steam-"+index).html($("#cs16-steam-"+index).val()+'<a class="text-decoration-none text-dark text-end" href="'+removeTags(server.var.gq_joinlink)+'"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-steam" viewBox="0 0 16 16"> <path d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.198 2.198 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.217 2.217 0 0 1-1.312-1.568L.33 10.333Z"/> <path d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.705 1.705 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027Zm2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048Z"/> </svg> </a>');
+        }
+    });
+  }
+
+
+</script>
+@endsection
+
 @section('content')
 <div class="container mt-3">
   <div class="row">
@@ -74,7 +150,11 @@
       <ol class="list-group list-group-numbered">
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
-            <div class="fw-bold">Counter-Strike 1.6</div>
+            <div class="fw-bold">
+              <a type="button" class="text-decoration-none text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCounterStrike16" aria-controls="offcanvasCounterStrike16" onclick="getGameState('cs16')">
+                Counter-Strike 1.6 
+              </a> 
+            </div>
             Para salir más rápido de tus problemas necesitas un cuchillo.
           </div>
           <span class="badge bg-danger rounded-pill">+200</span>
@@ -82,7 +162,9 @@
 
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
-            <div class="fw-bold">MTA San Andreas</div>
+            <div class="fw-bold">
+              MTA San Andreas
+            </div>
             ¿Me veo como un gángster? ¡Soy un hombre de negocios!
           </div>
           <span class="badge bg-danger rounded-pill">+50</span>
@@ -90,7 +172,11 @@
 
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
-            <div class="fw-bold">Counter-Strike: Global Offensive</div>
+            <div class="fw-bold">
+              <a type="button" class="text-decoration-none text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCounterStrikeGlobalOffensive" aria-controls="offcanvasCounterStrikeGlobalOffensive">
+                Counter-Strike: Global Offensive
+              </a> 
+            </div>
             Todos alguna vez lo hemos jugado. Pasan los años y sigue dando risas.
           </div>
           <span class="badge bg-danger rounded-pill">+30</span>
@@ -98,13 +184,49 @@
 
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
-            <div class="fw-bold">MU Online</div>
+            <div class="fw-bold">
+                MU Online
+            </div>
             Esperame que ahora traigo a mi BK. 
           </div>
           <span class="badge bg-danger rounded-pill">+5</span>
         </li>
       </ol>
-    </div>
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCounterStrike16" aria-labelledby="offcanvasCounterStrike16Label">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title"> Counter-Strike 1.6</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        
+        <div class="offcanvas-body">
+          <p> Gracias por seguir confiando en 4evergaming. Te presentamos el Top 5 para que disfrutes al máximo: </p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-left" scope="col"> Comunidad </th>
+                <th class="text-center" scope="col"> Jugadores</th>
+                <th class="text-center" scope="col"> Mapa</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ([1,2,3,4,5] as $value)
+              <tr>
+                <td style="font-size: 12px" id="cs16-name-{{ $value }}"></td>
+                <td style="font-size: 12px" id="cs16-players-{{ $value }}"></td>
+                <td style="font-size: 12px" id="cs16-map-{{ $value }}"></td>
+                <td style="font-size: 12px" id="cs16-steam-{{ $value }}"></td>
+              @endforeach
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="text-center" id="endMessage"> Estas buscando mas servidores? Visitá <a href="https://cincoya.net"> cincoya.net </a> </p>
+        </div>
+
+      </div>
+    </div>  
   </div>
 
   <div class="alert alert-primary d-flex align-items-center mt-3" role="alert">
