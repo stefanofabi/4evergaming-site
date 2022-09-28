@@ -90,9 +90,10 @@
       <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="10000">
-            <img loading="lazy" src="{{ asset('images/carousel/cs-wallpaper-01.jpg') }}" class="d-block img-fluid" alt="Jugador terrorista recargando el arma" height="400">
-
-            <div class="carousel-caption d-none d-md-block">
+            <a href="https://clientes.4evergaming.com.ar/store/counter-strike?currency=2"> 
+              <img loading="lazy" src="{{ asset('images/carousel/cs-wallpaper-01.jpg') }}" class="d-block img-fluid" alt="Jugador terrorista recargando el arma" height="400">
+            </a>
+            <div class="carousel-caption">
               <h3>Protección Anticheat y Mitigación DDoS</h3>
               <p> Redes confiables y ultra rápidas sobre los carriers más importantes y reconocidos de la región </p>
 
@@ -103,8 +104,9 @@
           </div>
 
           <div class="carousel-item" data-bs-interval="2000">
-            <img loading="lazy" src="{{ asset('images/carousel/csgo-wallpaper-01.jpeg') }}" class="d-block img-fluid" alt="Jugador Terrorista tomando la posicion a otro jugador Policia" height="400">
-            
+            <a href="https://clientes.4evergaming.com.ar/store/counter-strike?currency=2">
+              <img loading="lazy" src="{{ asset('images/carousel/csgo-wallpaper-01.jpeg') }}" class="d-block img-fluid" alt="Jugador Terrorista tomando la posicion a otro jugador Policia" height="400">
+            </a>
             <div class="carousel-caption d-none d-md-block">
               <h3> Sin contratos, cancelá en cualquier momento. </h3>
               <p> Sin Compromisos, ni contratos. Facturado cada mes. Sin costos ocultos. Servicio con garantía de reembolso </p>
@@ -115,7 +117,9 @@
           </div>
 
           <div class="carousel-item">
-            <img loading="lazy" src="{{ asset('images/carousel/mta-wallpaper-01.jpg') }}" class="d-block img-fluid" alt="Gangster disparando por la ventana del auto" height="400">
+            <a href="https://clientes.4evergaming.com.ar/store/grand-theft-auto?currency=2">
+              <img loading="lazy" src="{{ asset('images/carousel/mta-wallpaper-01.jpg') }}" class="d-block img-fluid" alt="Gangster disparando por la ventana del auto" height="400">
+            </a>
 
             <div class="carousel-caption d-none d-md-block">
               <h3> Recursos sin límites </h3>
