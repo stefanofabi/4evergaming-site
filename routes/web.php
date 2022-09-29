@@ -17,7 +17,7 @@ use App\Http\Controllers\PingController;
 use App\Http\Controllers\GameController;
 
 Route::get('/', function () {
-    return view('index')
+    return view('pages/index/index')
     ->with('cs_servers', [
         ['45.235.98.67', '27025'],
         ['45.235.98.61', '27015'],
