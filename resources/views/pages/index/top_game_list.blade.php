@@ -11,7 +11,7 @@
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
             <div class="fw-bold">
-              <a type="button" class="text-decoration-none text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCounterStrike16" aria-controls="offcanvasCounterStrike16" onclick="getGameState('cs16')">
+              <a type="button" class="text-decoration-none text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCounterStrike16" aria-controls="offcanvasCounterStrike16" onclick="loadGame('cs16')">
                 Counter-Strike 1.6 
               </a> 
             </div>
@@ -33,7 +33,7 @@
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
             <div class="fw-bold">
-              <a type="button" class="text-decoration-none text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCounterStrikeGlobalOffensive" aria-controls="offcanvasCounterStrikeGlobalOffensive">
+              <a type="button" class="text-decoration-none text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCounterStrikeGlobalOffensive" aria-controls="offcanvasCounterStrikeGlobalOffensive"  onclick="loadGame('csgo')">
                 Counter-Strike: Global Offensive
               </a> 
             </div>
