@@ -126,8 +126,42 @@
 @section('content')
 <div class="container mt-3">
   <div class="row">
-    @include('pages/index/carousel')
-    @include('pages/index/most_populars') 
+    <div class="col">
+      <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          @include('pages/index/carousel-slides/counter-strike16')
+          @include('pages/index/carousel-slides/counter-strike-global-offensive')
+          @include('pages/index/carousel-slides/multi-theft-auto')
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+      
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  
+    <div class="col-4 d-none d-sm-none d-md-block ps-4">
+      <h2> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+        </svg> 
+
+        <strong> Más populares </strong> 
+      </h2>
+      
+      <ol class="list-group">
+        @include('pages/index/popular-games/counter-strike16')
+        @include('pages/index/popular-games/multi-theft-auto')
+        @include('pages/index/popular-games/counter-strike-global-offensive')
+        @include('pages/index/popular-games/minecraft')
+      </ol>
+    </div>
   </div>
 
   <div class="alert alert-primary d-flex align-items-center mt-3" role="alert">
@@ -145,9 +179,9 @@
     @include('pages/index/cards/payment_methods')
   </div>
 
-  @include('pages/index/offcanvas/counter_strike16')
-  @include('pages/index/offcanvas/counter_strike_global_offensive')
-  @include('pages/index/offcanvas/multi_theft_auto')
+  @include('pages/index/offcanvas/counter-strike16')
+  @include('pages/index/offcanvas/counter-strike-global-offensive')
+  @include('pages/index/offcanvas/multi-theft-auto')
   @include('pages/index/offcanvas/minecraft')
 </div>
 @endsection
