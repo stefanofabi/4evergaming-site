@@ -41,6 +41,11 @@ Route::get('/', function () {
     ]);
 })->name('index');
 
-Route::post('/ping/gameservers', [PingController::class, 'pingGameServers'])->name('ping/gameservers');
-
-Route::get('/api/games', [GameController::class, 'getGameState'])->name('api/games');
+Route::group([
+    'middleware' => ['throttle:100,1'],
+    'prefix' => 'api',
+    'as' => 'api/',
+], function () {
+    Route::post('ping/gameservers', [PingController::class, 'pingGameServers'])->name('ping/gameservers');
+    Route::get('games', [GameController::class, 'getGameState'])->name('games');
+});

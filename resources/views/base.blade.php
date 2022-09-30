@@ -33,7 +33,7 @@
       
             $( document ).ready(function() {
                 $.ajax({
-                    url: "{{ route('ping/gameservers') }}",
+                    url: "{{ route('api/ping/gameservers') }}",
                     type: 'post',
                     error: function (xhr, status) {
                         $("#statusServer").removeClass("text-success");

@@ -72,7 +72,7 @@
         url: "{{ route('api/games') }}",
         type: 'get',
         error: function (xhr, status) {
-
+          $("#"+game+"-name-"+index).html(xhr.statusText);
         },
         success: function (response) {
           let server = response[0];
