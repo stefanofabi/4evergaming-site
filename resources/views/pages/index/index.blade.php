@@ -132,6 +132,7 @@
           @include('pages/index/carousel-slides/counter-strike16')
           @include('pages/index/carousel-slides/counter-strike-global-offensive')
           @include('pages/index/carousel-slides/multi-theft-auto')
+          @include('pages/index/carousel-slides/minecraft')
         </div>
 
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
