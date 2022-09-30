@@ -13,7 +13,7 @@
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Servidores de Juegos en Argentina | 4evergaming " />
         <meta property="og:description" content="Alquiler de Servidores de Juegos. Activación automática. Rápido, simple y seguro." />
-        <meta property="og:image" content="{{ asset('public/og-image.png') }}" />
+        <meta property="og:image" content="{{ asset('images/og-image.png') }}" />
         <meta property="og:url" content="{{ route('index') }}" />
         <meta property="og:locale" content="es_ES" />
         <meta property="og:locale:alternate" content="en_US" />
