@@ -26,6 +26,12 @@
       @endforeach
   ];
 
+  var minecraft_servers = [
+      @foreach ($minecraft_servers as $server)
+      ["{{ $server[0] }}", "{{ $server[1] }}"],
+      @endforeach
+  ];
+
 
   function removeTags(str) {
       if ((str===null) || (str===''))
@@ -49,6 +55,7 @@
       case 'cs16' : servers = cs_servers; break;
       case 'csgo' : servers = csgo_servers; break;
       case 'mta' : servers = mta_servers; break;
+      case 'minecraft' : servers = minecraft_servers; break;
     }
 
     servers.forEach(
@@ -60,7 +67,6 @@
   
   function getGameState(game, ip, port, index)
   {
-
     var parameters = {
       "game": game,
       "ip": ip,
@@ -77,7 +83,17 @@
         success: function (response) {
           let server = response[0];
 
-          $("#"+game+"-name-"+index).html(removeTags(server.var.gq_hostname).substr(0, 45));
+          let hostname = removeTags(server.var.gq_hostname);
+
+          if (hostname) 
+          {
+            $("#"+game+"-name-"+index).html(hostname.substr(0, 45));
+          } 
+          else 
+          {
+            $("#"+game+"-name-"+index).html("Servidor no encontrado: "+server.var.ip);
+            return;
+          }
 
           let capacity = server.var.gq_numplayers * 100 / server.var.gq_maxplayers;
           if (capacity == 100) {
@@ -102,6 +118,7 @@
     loadGame('cs16'); 
     loadGame('mta');
     loadGame('csgo');
+    loadGame('minecraft');
   });
 </script>
 @endsection
@@ -110,7 +127,7 @@
 <div class="container mt-3">
   <div class="row">
     @include('pages/index/carousel')
-    @include('pages/index/top_game_list') 
+    @include('pages/index/most_populars') 
   </div>
 
   <div class="alert alert-primary d-flex align-items-center mt-3" role="alert">
@@ -131,6 +148,6 @@
   @include('pages/index/offcanvas/counter_strike16')
   @include('pages/index/offcanvas/counter_strike_global_offensive')
   @include('pages/index/offcanvas/multi_theft_auto')
-  
+  @include('pages/index/offcanvas/minecraft')
 </div>
 @endsection

@@ -1,13 +1,17 @@
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMultiTheftAuto" aria-labelledby="offcanvasMultiTheftAuto">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title"> MTA San Andreas
-            <button class="btn btn-secondary ms-3" onclick="loadGame('mta')"> 
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-              </svg> 
-            </button>
-          </h5>
+          <h6 class="offcanvas-title"> 
+            <img loading="lazy" src="{{ asset('images/games-icons/multi-theft-auto.ico') }}" alt="Logo de Multi Theft Auto" width="40" height="40" title="The Multi Theft Auto Logo"> 
+            MTA San Andreas
+          </h6>
+          
+          <button class="btn btn-secondary btn-sm ms-3" onclick="loadGame('mta')"> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+            </svg> 
+          </button>
+          
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         
@@ -23,14 +27,14 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ([1,2,3,4,5] as $value)
+              @for ($i = 1; $i <= count($mta_servers); $i++)
               <tr>
-                <td style="font-size: 12px" id="mta-name-{{ $value }}"></td>
-                <td style="font-size: 12px" id="mta-players-{{ $value }}"></td>
-                <td style="font-size: 12px" id="mta-map-{{ $value }}"></td>
-                <td style="font-size: 12px" id="mta-joinlink-{{ $value }}"></td>
-              @endforeach
+                <td style="font-size: 12px" id="mta-name-{{ $i }}"></td>
+                <td style="font-size: 12px" id="mta-players-{{ $i }}"></td>
+                <td style="font-size: 12px" id="mta-map-{{ $i }}"></td>
+                <td style="font-size: 12px" id="mta-joinlink-{{ $i }}"></td>
               </tr>
+              @endfor
             </tbody>
           </table>
 

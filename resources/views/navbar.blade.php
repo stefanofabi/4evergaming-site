@@ -50,7 +50,7 @@
 <nav class="navbar navbar-dark navbar-expand-lg bg-dark shadow">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ route('index') }}">
-            <img src="{{ asset('images/logo/transparent-official-logo.png') }}" alt="Logo 4evergaming" width="80" height="60" title="The 4evergaming Logo"> </img>
+            <img loading="lazy" src="{{ asset('images/logo/transparent-official-logo.png') }}" alt="Logo 4evergaming" width="80" height="60" title="The 4evergaming Logo">
         </a>
     
         <div class="collapse navbar-collapse" id="navbarNav">
