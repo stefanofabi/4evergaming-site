@@ -97,6 +97,12 @@
         }
     });
   }
+
+  $(document).ready(function() {
+    loadGame('cs16'); 
+    loadGame('mta');
+    loadGame('csgo');
+  });
 </script>
 @endsection
 
