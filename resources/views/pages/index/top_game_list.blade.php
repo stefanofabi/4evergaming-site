@@ -23,7 +23,9 @@
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
             <div class="fw-bold">
-              MTA San Andreas
+              <a type="button" class="text-decoration-none text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMultiTheftAuto" aria-controls="offcanvasMultiTheftAuto"  onclick="loadGame('mta')">
+                MTA San Andreas
+              </a>
             </div>
             ¿Me veo como un gángster? ¡Soy un hombre de negocios!
           </div>

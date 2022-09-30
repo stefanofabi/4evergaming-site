@@ -9,10 +9,10 @@
           <table class="table">
             <thead>
               <tr>
-                <th class="text-left" scope="col"> Comunidad </th>
+                <th class="text-left" scope="col"> Servidor </th>
                 <th class="text-center" scope="col"> Jugadores</th>
                 <th class="text-center" scope="col"> Mapa</th>
-                <th scope="col"></th>
+                <th class="text-end"></th>
               </tr>
             </thead>
             <tbody>
@@ -21,7 +21,7 @@
                 <td style="font-size: 12px" id="cs16-name-{{ $value }}"></td>
                 <td style="font-size: 12px" id="cs16-players-{{ $value }}"></td>
                 <td style="font-size: 12px" id="cs16-map-{{ $value }}"></td>
-                <td style="font-size: 12px" id="cs16-steam-{{ $value }}"></td>
+                <td style="font-size: 12px" id="cs16-joinlink-{{ $value }}"></td>
               @endforeach
               </tr>
             </tbody>
