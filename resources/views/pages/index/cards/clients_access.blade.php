@@ -1,4 +1,4 @@
-      <div class="col">
+      <div class="col ms-4">
         <div class="card mt-3" style="width: 18rem;">
           <img loading="lazy" src="{{ asset('images/banner-acceso-clientes.jpg') }}" class="card-img-top" alt="Ingreso de credenciales web">
           <div class="card-body text-center">

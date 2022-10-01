@@ -59,7 +59,7 @@
                 font-family: 'Nunito', sans-serif;
                 position: relative;
                 min-height: 100vh;
-                padding-bottom: 10em;
+                padding-bottom: 12em;
             }
         </style>
 

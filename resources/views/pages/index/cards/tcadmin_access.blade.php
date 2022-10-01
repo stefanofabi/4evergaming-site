@@ -1,4 +1,4 @@
-      <div class="col">
+      <div class="col ms-4">
         <div class="card mt-3" style="width: 18rem;">
           <img loading="lazy" src="{{ asset('images/acceso-panel-tcadmin.jpg') }}" class="card-img-top" alt="Setup de computadora con RGB">
           <div class="card-body text-center">
