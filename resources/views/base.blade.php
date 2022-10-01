@@ -57,13 +57,19 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
+                position: relative;
+                min-height: 100vh;
+                padding-bottom: 10em;
             }
         </style>
+
+        @section('css') @show
     </head>
     
     <body>
+        @include('top-bar')
         @include('navbar')
-        
+
         @yield('content') 
 
         @include('footer')

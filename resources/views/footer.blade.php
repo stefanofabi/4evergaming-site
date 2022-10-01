@@ -1,4 +1,4 @@
-<div class="container-fluid bg-dark pt-3 pb-3 mt-3">
+<div class="container-fluid bg-dark pt-3 pb-3 mt-3 ps-3 position-absolute bottom-0">
     <div class="row">
         <div class="col">
             <a class="text-decoration-none" href="http://qr.afip.gob.ar/?qr=ADUBYCIcloypCirX1s4PsA,," target="_F960AFIPInfo">
