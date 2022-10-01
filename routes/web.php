@@ -47,6 +47,8 @@ Route::get('/', function () {
     ]);
 })->name('index');
 
+require('old_urls.php');
+
 Route::group([
     'middleware' => ['throttle:100,1'],
     'prefix' => 'api',
