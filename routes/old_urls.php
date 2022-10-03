@@ -9,7 +9,7 @@ Route::get('hosting/web/dominios', function () {
 });
 
 Route::get('hosting/games/counter-strike', function () {
-    return redirect()->away('https://clientes.4evergaming.com.ar/store/counter-strike?currency=2');
+    return redirect('games/counter-strike');
 });
 
 Route::get('hosting/games/counter-strike-source', function () {

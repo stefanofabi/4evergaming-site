@@ -8,8 +8,8 @@
               <p> Máximo control sobre tu servidor sin restricciones. Instalación de plugins, módulos y todo lo que tenga en mente con tan solo un click. </p>
 
               <div class="d-none d-md-block">
-                <a href="https://clientes.4evergaming.com.ar/store/minecraft/minecraft-java?currency=2" class="btn btn-success" > Minecraft Java</a>
-                <a href="https://clientes.4evergaming.com.ar/store/minecraft/minecraft-bedrock?currency=2" class="btn btn-success"> Minecraft Bedrock </a>
+                <a href="https://clientes.4evergaming.com.ar/store/minecraft/minecraft-java?currency=2" target="_blank" class="btn btn-success" > Minecraft Java</a>
+                <a href="https://clientes.4evergaming.com.ar/store/minecraft/minecraft-bedrock?currency=2" target="_blank" class="btn btn-success"> Minecraft Bedrock </a>
               </div>
             </div>
           </div>

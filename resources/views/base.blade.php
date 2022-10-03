@@ -7,11 +7,12 @@
         <link rel="canonical" href="{{ route('index') }}">
         <meta name="robots" content="@yield('robots')">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- SEO Social Media -->
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Servidores de Juegos en Argentina | 4evergaming " />
+        <meta property="og:title" content="4evergaming: Servidores de Juegos en Argentina" />
         <meta property="og:description" content="Alquiler de Servidores de Juegos. Activación automática. Rápido, simple y seguro." />
         <meta property="og:image" content="{{ asset('images/og-image.png') }}" />
         <meta property="og:url" content="{{ route('index') }}" />

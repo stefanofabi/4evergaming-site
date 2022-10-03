@@ -14,6 +14,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    background-position: center;
   }
 
   .error-code {

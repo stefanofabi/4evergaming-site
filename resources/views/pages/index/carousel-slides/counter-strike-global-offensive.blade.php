@@ -8,8 +8,8 @@
               <p> Sin Compromisos. Facturado cada mes. Sin costos ocultos.</p>
 
               <div class="d-none d-md-block">
-                <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-64-tickrate?currency=2" class="btn btn-danger" > 64 Tick</a>
-                <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-128-tickrate?currency=2" class="btn btn-success"> 128 Tick </a>
+                <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-64-tickrate?currency=2" target="_blank" class="btn btn-danger" > 64 Tick</a>
+                <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-128-tickrate?currency=2" target="_blank" class="btn btn-success"> 128 Tick </a>
               </div>
             </div>
           </div>

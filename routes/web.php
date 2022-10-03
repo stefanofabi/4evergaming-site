@@ -49,6 +49,14 @@ Route::get('/', function () {
 
 require('old_urls.php');
 
+Route::get('/games/counter-strike', function () {
+    return view('pages/counter-strike/index')
+    ->with('dollar_price', 160)
+    ->with('slot_300fps_price', 0.35)
+    ->with('slot_500fps_price', 0.45)
+    ->with('slot_1000fps_price', 0.50);
+})->name('games/counter-strike');
+
 Route::group([
     'middleware' => ['throttle:100,1'],
     'prefix' => 'api',
