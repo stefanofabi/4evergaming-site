@@ -6,6 +6,9 @@
         </h6>
 
         <div class="mt-3"> 
-            <button class="btn btn-danger"> Ver puntos de interconexión </button> 
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#IxpPointsModal">
+                Ver puntos de interconexión
+            </button>
         </div>
     </div>  

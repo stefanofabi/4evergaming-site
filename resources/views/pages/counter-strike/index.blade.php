@@ -86,4 +86,6 @@
         @include('pages/counter-strike/contact-by-whatsapp')
     </div>
 </div>
+
+@include('modals/ixp-points')
 @endsection
