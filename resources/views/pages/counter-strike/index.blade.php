@@ -72,12 +72,18 @@
         <div class="col">
             @include('pages/counter-strike/what-are-fps-server')
 
-            @include('pages/counter-strike/contact-by-whatsapp')
+            <div class="d-none d-lg-block">
+                @include('pages/counter-strike/contact-by-whatsapp')
+            </div>
         </div>
 
         <div class="col-md">
             @include('pages/counter-strike/plan-tabs')
         </div>
+    </div>
+
+    <div class="d-lg-none">
+        @include('pages/counter-strike/contact-by-whatsapp')
     </div>
 </div>
 @endsection

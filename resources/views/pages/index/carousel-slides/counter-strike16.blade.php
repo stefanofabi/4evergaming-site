@@ -9,8 +9,8 @@
 
               <div class="d-none d-md-block">
                 <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-300fps?currency=2" target="_blank" class="btn btn-danger" > 300 FPS </a>
-                <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-1000fps?currency=2" target="_blank" class="btn btn-success"> 1000 FPS </a>
                 <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-500fps?currency=2" target="_blank" class="btn btn-warning"> 500 FPS </a>
+                <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-1000fps?currency=2" target="_blank" class="btn btn-success"> 1000 FPS </a>
               </div>
             </div>
           </div>
