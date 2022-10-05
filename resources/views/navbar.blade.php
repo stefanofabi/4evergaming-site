@@ -12,8 +12,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('games/counter-strike') }}">Counter-Strike 1.6</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/counter-strike?currency=2">Counter-Strike: Source</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/counter-strike?currency=2">Counter-Strike: Global Offensive</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/counter-strike?currency=2" target="_blank">Counter-Strike: Source</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/counter-strike?currency=2" target="_blank">Counter-Strike: Global Offensive</a></li>
                     </ul>
                 </li>
 
@@ -22,8 +22,8 @@
                         Grand Theft Auto Hosting
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/san-andreas-multi-player-samp?currency=2">San Andreas Multi Player</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/multi-theft-auto-mta?currency=2">Multi Theft Auto</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/san-andreas-multi-player-samp?currency=2" target="_blank">San Andreas Multi Player</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/multi-theft-auto-mta?currency=2" target="_blank">Multi Theft Auto</a></li>
                     </ul>
                 </li>
 
@@ -32,8 +32,8 @@
                     Minecraft Hosting
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/minecraft/minecraft-java?currency=2">Minecraft Java Edition</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/minecraft/minecraft-bedrock?currency=2">Minecraft Bedrock</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/minecraft/minecraft-java?currency=2" target="_blank">Minecraft Java Edition</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/minecraft/minecraft-bedrock?currency=2" target="_blank">Minecraft Bedrock</a></li>
                     </ul>
                 </li>
 
@@ -42,25 +42,39 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="https://clientes.4evergaming.com.ar/store/alojamiento-web?currency=2">Web Hosting</a>
+                    <a class="nav-link" href="https://clientes.4evergaming.com.ar/store/alojamiento-web?currency=2" target="_blank">Web Hosting</a>
                 </li>
+                
+                <!--
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Hosting Revendedores
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/hosting-revendedores/reseller-pack-hlds-3005001000fps?currency=2" target="_blank">Reseller Pack HLDS</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/hosting-revendedores/reseller-pack-srcds-64100128-tick?currency=2" target="_blank">Reseller Pack SRCDS</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/hosting-revendedores/reseller-pack-gta?currency=2" target="_blank">Reseller Pack GTA</a></li>
+                    </ul>
+                </li>
+                -->
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Más...
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-carreras-and-competicion?currency=2">Carreras & Competicion</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-futbol?currency=2">Futbol</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/half-life?currency=2">Half-Life</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/team-fortress?currency=2">Team Fortress</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/day-of-defeat?currency=2">Day of Defeat</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-zombies-and-vampiros?currency=2">Zombies & Vampiros</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-dragon-ball-z?currency=2">Dragon Ball Z</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/call-of-duty?currency=2">Call Of Duty</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/shooters?currency=2">Shooters</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/sandbox-y-supervivencia?currency=2">Sandbox & Supervivencia</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/mmorpg?currency=2">MMORPG</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-carreras-and-competicion?currency=2" target="_blank">Carreras & Competicion</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-futbol?currency=2" target="_blank">Futbol</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/half-life?currency=2" target="_blank">Half-Life</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/team-fortress?currency=2" target="_blank">Team Fortress</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/day-of-defeat?currency=2" target="_blank">Day of Defeat</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-zombies-and-vampiros?currency=2" target="_blank">Zombies & Vampiros</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-dragon-ball-z?currency=2" target="_blank">Dragon Ball Z</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/call-of-duty?currency=2" target="_blank">Call Of Duty</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/shooters?currency=2" target="_blank">Shooters</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/sandbox-y-supervivencia?currency=2" target="_blank">Sandbox & Supervivencia</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/mmorpg?currency=2" target="_blank">MMORPG</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/hosting-revendedores?currency=2" target="_blank">Hosting para revendedores</a></li>
                     </ul>
                 </li>
             </ul>
