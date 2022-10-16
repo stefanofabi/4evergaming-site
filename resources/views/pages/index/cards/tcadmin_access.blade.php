@@ -38,7 +38,7 @@
           </ul>
         
           <div class="card-body text-center">
-            <a href="http://tcadmin.4evergaming.com.ar" class="card-link">Ingresar</a>
+            <a href="http://tcadmin.4evergaming.com.ar" target="_blank" class="card-link">Ingresar</a>
             <a href="https://www.youtube.com/watch?v=--Ejk7Mq824" target="_blank" class="card-link">Realizar tour virtual</a>
           </div>
         </div>
