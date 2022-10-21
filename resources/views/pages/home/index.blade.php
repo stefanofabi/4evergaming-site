@@ -129,10 +129,10 @@
     <div class="col">
       <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
-          @include('pages/index/carousel-slides/counter-strike16')
-          @include('pages/index/carousel-slides/counter-strike-global-offensive')
-          @include('pages/index/carousel-slides/multi-theft-auto')
-          @include('pages/index/carousel-slides/minecraft')
+          @include('pages/home/carousel-slides/counter-strike16')
+          @include('pages/home/carousel-slides/counter-strike-global-offensive')
+          @include('pages/home/carousel-slides/multi-theft-auto')
+          @include('pages/home/carousel-slides/minecraft')
         </div>
 
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -157,10 +157,10 @@
       </h2>
       
       <ol class="list-group">
-        @include('pages/index/popular-games/counter-strike16')
-        @include('pages/index/popular-games/multi-theft-auto')
-        @include('pages/index/popular-games/counter-strike-global-offensive')
-        @include('pages/index/popular-games/minecraft')
+        @include('pages/home/popular-games/counter-strike16')
+        @include('pages/home/popular-games/multi-theft-auto')
+        @include('pages/home/popular-games/counter-strike-global-offensive')
+        @include('pages/home/popular-games/minecraft')
       </ol>
     </div>
   </div>
@@ -175,14 +175,14 @@
   </div>
 
   <div class="row">
-    @include('pages/index/cards/tcadmin_access')
-    @include('pages/index/cards/clients_access')
-    @include('pages/index/cards/payment_methods')
+    @include('pages/home/cards/tcadmin_access')
+    @include('pages/home/cards/clients_access')
+    @include('pages/home/cards/payment_methods')
   </div>
 
-  @include('pages/index/offcanvas/counter-strike16')
-  @include('pages/index/offcanvas/counter-strike-global-offensive')
-  @include('pages/index/offcanvas/multi-theft-auto')
-  @include('pages/index/offcanvas/minecraft')
+  @include('pages/home/offcanvas/counter-strike16')
+  @include('pages/home/offcanvas/counter-strike-global-offensive')
+  @include('pages/home/offcanvas/multi-theft-auto')
+  @include('pages/home/offcanvas/minecraft')
 </div>
 @endsection

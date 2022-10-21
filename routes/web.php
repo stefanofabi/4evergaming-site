@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PingController;
 use App\Http\Controllers\GameController;
 
+const DOLLAR_PRICE = 170;
+
 Route::get('/', function () {
-    return view('pages/index/index')
+    return view('pages/home/index')
     ->with('cs_servers', [
         ['45.235.98.67', '27025'],
         ['45.235.98.61', '27015'],
@@ -51,11 +53,19 @@ require('old_urls.php');
 
 Route::get('/games/counter-strike', function () {
     return view('pages/counter-strike/index')
-    ->with('dollar_price', 160)
+    ->with('dollar_price', DOLLAR_PRICE)
     ->with('slot_300fps_price', 0.35)
     ->with('slot_500fps_price', 0.45)
     ->with('slot_1000fps_price', 0.50);
 })->name('games/counter-strike');
+
+Route::get('/games/counter-strike-global-offensive', function () {
+    return view('pages/counter-strike-global-offensive/index')
+    ->with('dollar_price', DOLLAR_PRICE)
+    ->with('slot_64tickrate_price', 0.90)
+    ->with('slot_128tickrate_price', 1.05);
+})->name('games/counter-strike-global-offensive');
+
 
 Route::group([
     'middleware' => ['throttle:100,1'],

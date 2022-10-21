@@ -4,7 +4,9 @@
 
 @section('robots', 'index, follow')
 
-@section('title', '4evergaming: Hosting de Counter-Strike 1.6 en Argentina desde $224 al mes')
+@section('title')
+4evergaming: Hosting de Counter-Strike 1.6 en Argentina desde ${{ $slot_300fps_price * $dollar_price * 4 }} al mes
+@endsection
 
 @section('css')
 <style>
