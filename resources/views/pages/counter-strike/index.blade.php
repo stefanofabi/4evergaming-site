@@ -38,6 +38,16 @@
     background-position: 75% 25%;
     opacity: 0.95;
 }
+
+.payment-method-large {
+    width: 160px;
+	height: 60px;
+}
+
+.payment-method-narrow {
+    width: 80px;
+	height: 120px;
+}
 </style>
 @endsection
 
@@ -87,7 +97,11 @@
     <div class="d-lg-none">
         @include('pages/counter-strike/contact-by-whatsapp')
     </div>
+    
+    @include('pages.counter-strike.frequently-questions')
 </div>
 
 @include('modals/ixp-points')
+
+
 @endsection

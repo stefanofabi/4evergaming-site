@@ -1,4 +1,4 @@
-              <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+              <div id="carouselExampleFade" class="carousel slide carousel-fade d-none d-lg-block" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="10000">
                         <img loading="lazy" class="carousel-slides" src="{{ asset('images/games/counter-strike-global-offensive/carousel/terrorist-players-with-ak47-ready-to-attack.jpg') }}" class="d-block w-100" alt="Terrorista armado con Glock saliendo de Nuke Base TT">

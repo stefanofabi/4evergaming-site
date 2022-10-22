@@ -1,5 +1,9 @@
+  <div class="text-center mt-4">
+    <h3> Nuestras recomendaciones </h3>
+  </div>
+  
   <div class="row mt-4">
-    <div class="col">
+    <div class="col-md mt-2">
       <div class="card">
         <div class="card-body">
           <h3 class="card-title fw-bold"> Mini </h3>
@@ -13,7 +17,7 @@
       </div>
     </div>
 
-    <div class="col">
+    <div class="col-md mt-2">
       <div class="card">
         <div class="card-body">
           <h3 class="card-title fw-bold"> Competitivo</h3>
@@ -29,7 +33,7 @@
     </div>
 
 
-    <div class="col">
+    <div class="col-md mt-2">
       <div class="card">
         <div class="card-body">
           <h3 class="card-title fw-bold"> Comunidad</h3>
@@ -44,7 +48,7 @@
       </div>
     </div>
 
-    <div class="col">
+    <div class="col-md mt-2">
       <div class="card">
         <div class="card-body">
           <h3 class="card-title fw-bold"> Personalizado</h3>
