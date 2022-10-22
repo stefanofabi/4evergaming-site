@@ -38,7 +38,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="https://clientes.4evergaming.com.ar/store/servidores-virtuales?currency=2">VPS Hosting</a>
+                    <a class="nav-link" href="https://clientes.4evergaming.com.ar/store/servidores-virtuales?currency=2" target="_blank">VPS Hosting</a>
                 </li>
 
                 <li class="nav-item">
