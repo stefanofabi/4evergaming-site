@@ -39,14 +39,8 @@ The site is developed under the Laravel framework for PHP. The framework offers 
 The website has a small public API to check if the servers are online or not, check server information such as server name, number of connected players, current map, etc. This API is protected under a certain acceptable threshold of requests, otherwise it blocks the user from making these requests for a short period of time.
 
 ## Site photos
-Some pages of the site that I have designed. Soon I will upload new sections to the [photo gallery](https://ibb.co/album/qkv6Zr)
-
+In this [photo gallery](https://ibb.co/album/qkv6Zr) you will be able to see the new pages that I will be designing.
 
 ### Site home page
-<a href="https://4evergaming.com.ar" target="_blank"><img src="https://i.ibb.co/FgsB0qw/home-4evergaming.png" width="450" height="500" alt="4evergaming Official Logo"></a> 
 
-### Counter-Strike page
-<a href="https://4evergaming.com.ar/games/counter-strike" target="_blank"><img src="https://i.ibb.co/CWD7c8s/counter-strike-page-4evergaming.png" width="450" height="500" alt="Counter-Strike page"></a>
-
-### Counter-Strike: Global Offensive page
-<a href="https://4evergaming.com.ar/games/counter-strike-global-offensive" target="_blank"><img src="https://i.ibb.co/fGSc21B/counter-strike-global-offensive-page-4evergaming.png" width="450" height="500" alt="Counter-Strike: Global Offensive page"></a>
+<a href="https://4evergaming.com.ar" target="_blank"><img src="https://i.ibb.co/FgsB0qw/home-4evergaming.png" alt="home-4evergaming" border="0"></a> 
