@@ -7,7 +7,12 @@
   </url>
    <url>
     <loc>https://4evergaming.com.ar/games/counter-strike</loc>
-    <lastmod>2022-10-04</lastmod>
+    <lastmod>2022-10-22</lastmod>
+    <priority>0.9</priority>
+  </url> 
+   <url>
+    <loc>https://4evergaming.com.ar/games/counter-strike-global-offensive</loc>
+    <lastmod>2022-10-22</lastmod>
     <priority>0.9</priority>
   </url> 
 </urlset>
