@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-body">
           <h3 class="card-title fw-bold"> Mini </h3>
-          <p class="card-text"> Paquete más pequeño para divertirse y jugar con amigos. </p>
+          <p class="card-text"> Un paquete más pequeño para divertirse y jugar con amigos con tranquilidad. </p>
           <p class="card-text"> Jugadores: 8 </p>
           <p class="card-text fs-4"> <strong> ${{ $slot_64tickrate_price * $dollar_price * 8 }} </strong> / mes </p>
         </div>

@@ -11,63 +11,71 @@
         <h4> Transferencias / Depósitos Bancarios </h4> 
         <div class="row mt-4 text-center">
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/banks/brubank-bank-logo.png') }}" loading="lazy" style="width: 200px; height: 40px">
+            <img src="{{ asset('images/payment-methods/banks/brubank-bank-logo.png') }}" loading="lazy" style="width: 200px; height: 40px" alt="Brubank Logo" title="Banco Brubank">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/banks/santander-bank-logo.png') }}" loading="lazy" style="width: 160px; height: 40px">
+            <img src="{{ asset('images/payment-methods/banks/santander-bank-logo.png') }}" loading="lazy" style="width: 160px; height: 40px" alt="Logo Banco Santander Rio" title="Banco Santander Río">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/banks/bbva-bank-logo.png') }}" loading="lazy" style="width: 160px; height: 40px">
+            <img src="{{ asset('images/payment-methods/banks/bbva-bank-logo.png') }}" loading="lazy" style="width: 160px; height: 40px" alt="Logo Banco BBVA" title="Banco BBVA">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/banks/galicia-bank-logo.png') }}" loading="lazy" style="width: 160px; height: 40px">
+            <img src="{{ asset('images/payment-methods/banks/galicia-bank-logo.png') }}" loading="lazy" style="width: 160px; height: 40px" alt="Logo Banco Galicia" title="Banco Galicia">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/banks/national-bank-logo.png') }}" loading="lazy" style="width: 160px; height: 40px">
+            <img src="{{ asset('images/payment-methods/banks/national-bank-logo.png') }}" loading="lazy" style="width: 160px; height: 40px" alt="Logo Banco Nación" title="Banco Nación">
           </div>
         </div>
         
         <h4 class="mt-4"> Billeteras virtuales </h4> 
         <div class="row mt-4 text-center">
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/virtual-wallets/mercadopago-logo.jpg') }}" loading="lazy" style="width: 160px; height: 100px">
+            <img src="{{ asset('images/payment-methods/virtual-wallets/mercadopago-logo.png') }}" loading="lazy" style="width: 200px; height: 60px" alt="Logo de MercadoPago" title="MercadoPago">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/virtual-wallets/uala-logo.png') }}" loading="lazy" style="width: 140px; height: 40px">
+            <img src="{{ asset('images/payment-methods/virtual-wallets/uala-logo.png') }}" loading="lazy" style="width: 140px; height: 40px" alt="Logo de Ualá" title="Ualá">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/virtual-wallets/dni-account-logo.png') }}" loading="lazy" style="width: 160px; height: 60px">
+            <img src="{{ asset('images/payment-methods/virtual-wallets/dni-account-logo.png') }}" loading="lazy" style="width: 160px; height: 60px" alt="Logo de Cuenta DNI" title="Cuenta DNI">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/virtual-wallets/paypal-logo.png') }}" loading="lazy" style="width: 160px; height: 40px">
+            <img src="{{ asset('images/payment-methods/virtual-wallets/paypal-logo.png') }}" loading="lazy" style="width: 160px; height: 40px" alt="Logo de PayPal" title="PayPal">
           </div>
         </div>
 
         <h4 class="mt-4"> Puntos De Pago </h4> 
         <div class="row mt-4 text-center">
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/payment-points/pagofacil-logo.png') }}" loading="lazy" style="width: 100px; height: 100px">
+            <img src="{{ asset('images/payment-methods/payment-points/pagofacil-logo.png') }}" loading="lazy" style="width: 100px; height: 100px" alt="Logo de Pago Facil" title="Pago Facil">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/payment-points/rapipago-logo.png') }}" loading="lazy" style="width: 140px; height: 100px">
+            <img src="{{ asset('images/payment-methods/payment-points/rapipago-logo.png') }}" loading="lazy" style="width: 200px; height: 140px" alt="Logo de Rapipago" title="Rapipago">
           </div>
         </div>
 
         <h4 class="mt-4"> Tarjetas de Crédito / Débito </h4> 
         <div class="row mt-4 text-center">
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/cards/visa-logo.png') }}" loading="lazy" style="width: 160px; height: 40px">
+            <img src="{{ asset('images/payment-methods/cards/visa-logo.png') }}" loading="lazy" style="width: 160px; height: 40px" alt="Logo de Visa" title="Tarjeta Visa">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/cards/mastercard-logo.png') }}" loading="lazy" style="width: 100px; height: 40px">
+            <img src="{{ asset('images/payment-methods/cards/mastercard-logo.png') }}" loading="lazy" style="width: 120px; height: 60px" alt="Logo de MasterCard" title="Tarjeta MasterCard">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/cards/american-express-logo.png') }}" loading="lazy" style="width: 90px; height: 50px">
+            <img src="{{ asset('images/payment-methods/cards/american-express-logo.png') }}" loading="lazy" style="width: 150px; height: 60px" alt="Logo de American Express" title="Tarjeta American Express">
           </div>
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/cards/naranja-logo.png') }}" loading="lazy" style="width: 120px; height: 60px">
+            <img src="{{ asset('images/payment-methods/cards/naranja-logo.png') }}" loading="lazy" style="width: 140px; height: 80px" alt="Logo de tarjeta Naranja" title="Tarjeta Naranja">
           </div>
         </div>
+
+        <h4> Criptomonedas </h4> 
+        <div class="row mt-4 text-center">
+          <div class="col mt-3">
+            <img src="{{ asset('images/payment-methods/cryptocurrencies/bitcoin-logo.png') }}" loading="lazy" style="width: 200px; height: 40px" alt="Logo de Bitcoin" title="Bitcoin">
+          </div>
+        </div>
+
 
       </div>
     </div>
