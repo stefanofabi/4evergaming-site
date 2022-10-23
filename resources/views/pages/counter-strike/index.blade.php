@@ -10,44 +10,66 @@
 
 @section('css')
 <style>
-.game-header-image-full {
-	width: 100%;
-	height: 151px;
-}
+    .game-header-image-full {
+        width: 100%;
+        height: 151px;
+    }
 
-.game-description-snippet {
-    margin-top: 10px;
-	max-height: 111px;
-	overflow: hidden;
-    //font-size: 13px;
-    line-height: 18px;
-    padding-right: 16px;
-}
+    .game-description-snippet {
+        margin-top: 10px;
+        max-height: 111px;
+        overflow: hidden;
+        //font-size: 13px;
+        line-height: 18px;
+        padding-right: 16px;
+    }
 
-.carousel-slides {
-    width: 100%;
-	height: 400px;
-}
+    .carousel-slides {
+        width: 100%;
+        height: 400px;
+    }
 
-.latency-image {
-    background-color: transparent;
-    background-image: url("{{ asset('images/games/counter-strike/counter-strike-latency.jpg') }}");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: 75% 25%;
-    opacity: 0.95;
-}
+    .latency-image {
+        position: relative;
+        background-color: transparent;
+        background-image: url("{{ asset('images/games/counter-strike/counter-strike-latency.jpg') }}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: 75% 25%;
+        opacity: 0.90;
+        height: 250px;
+    }
 
-.payment-method-large {
-    width: 160px;
-	height: 60px;
-}
+    .latency-image::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0,0,0, 0.6);
+    }
 
-.payment-method-narrow {
-    width: 80px;
-	height: 120px;
-}
+    .text-latency {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 50px;
+        color: white;
+        transform: translate(-50%,-50%);
+        //-ms-transform: translate(-50%,-50%);
+    }
+
+    .payment-method-large {
+        width: 160px;
+        height: 60px;
+    }
+
+    .payment-method-narrow {
+        width: 80px;
+        height: 120px;
+    }
 </style>
 @endsection
 
