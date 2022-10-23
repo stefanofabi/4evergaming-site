@@ -2,7 +2,7 @@
   <div class="text">
     <div class="row">
       <div class="col">
-        <img src="{{ asset('images/games/counter-strike-global-offensive/csgo_logo_smaller.png') }}">
+        <img src="{{ asset('images/games/counter-strike-global-offensive/csgo_logo_smaller.png') }}" alt="Logo Oficial de Counter-Strike">
       </div>
 
       <div class="col">

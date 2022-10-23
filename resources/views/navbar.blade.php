@@ -72,6 +72,7 @@
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-dragon-ball-z?currency=2" target="_blank">Dragon Ball Z</a></li>
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/call-of-duty?currency=2" target="_blank">Call Of Duty</a></li>
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/shooters?currency=2" target="_blank">Shooters</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/shooter-terror-games?currency=2" target="_blank">Shooters Terror Game</a></li>
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/sandbox-y-supervivencia?currency=2" target="_blank">Sandbox & Supervivencia</a></li>
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/mmorpg?currency=2" target="_blank">MMORPG</a></li>
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/hosting-revendedores?currency=2" target="_blank">Hosting para revendedores</a></li>
