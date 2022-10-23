@@ -69,14 +69,24 @@
           </div>
         </div>
 
-        <h4> Criptomonedas </h4> 
+        <h4 class="mt-4"> Criptomonedas </h4> 
         <div class="row mt-4 text-center">
           <div class="col mt-3">
-            <img src="{{ asset('images/payment-methods/cryptocurrencies/bitcoin-logo.png') }}" loading="lazy" style="width: 200px; height: 40px" alt="Logo de Bitcoin" title="Bitcoin">
+            <img src="{{ asset('images/payment-methods/cryptocurrencies/bitcoin-logo.png') }}" loading="lazy" style="width: 80px; height: 80px" alt="Logo de Bitcoin" title="Bitcoin">
+          </div>
+          <div class="col mt-3">
+            <img src="{{ asset('images/payment-methods/cryptocurrencies/usdt-logo.png') }}" loading="lazy" style="width: 80px; height: 80px" alt="Logo de USDT" title="USDT">
+          </div>
+          <div class="col mt-3">
+            <img src="{{ asset('images/payment-methods/cryptocurrencies/dai-logo.png') }}" loading="lazy" style="width: 80px; height: 80px" alt="Logo de DAI" title="DAI">
+          </div>
+          <div class="col mt-3">
+            <img src="{{ asset('images/payment-methods/cryptocurrencies/usdc-logo.png') }}" loading="lazy" style="width: 80px; height: 80px" alt="Logo de USDC" title="USDC">
+          </div>
+          <div class="col mt-3">
+            <img src="{{ asset('images/payment-methods/cryptocurrencies/busd-logo.png') }}" loading="lazy" style="width: 80px; height: 80px" alt="Logo de BUSD" title="BUSD">
           </div>
         </div>
-
-
       </div>
     </div>
 </div>
