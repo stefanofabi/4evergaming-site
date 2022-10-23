@@ -1,66 +1,39 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://4evergaming.com.ar" target="_blank"><img src="https://i.ibb.co/dPX03cF/4evergaming-official-logo.png" width="320" height="250" alt="4evergaming Official Logo"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# About 4evergaming
 
-## About Laravel
+[4evergaming](https://4evergaming.com.ar) is one of the leading companies in the sale of game server rentals in Argentina. It offers high-performance servers for leagues, high-competition tournaments, professional e-Sports teams, matchmaking platforms, and even playing with friends.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Your social media is:
+- [Facebook](https://facebook.com/4evergaming.com.ar)
+- [Instagram](https://instagram.com/4evergaming.com.ar)
+- [Twitter](https://twitter.com/4evergamingOK)
+- [WhatsApp](https://wa.me/5491124002295)
+- [Youtube](https://www.youtube.com/channel/UCOGkRP2uNamUAsWnYUPd2xg)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+4evergaming is characterized by offering a service with zero knowledge required. Their service caters to those new to game server hosting by offering pre-built configurations, all of which can be activated with just one click.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Site thinking :thinking:
+I designed the 4evergaming sections with the main objective of loading the site to show how fast their servers are and how easy it is to understand the content by the user so that they can choose their best option without requiring human intervention.
 
-## Learning Laravel
+Everything is combined with the company's main color palette of red and black. The red color gives a feeling of attraction, of more attention and greater power. In turn, the black color could not be missing in the gaming sector since it provides exclusivity and is also related to the night, where people spend their time playing online.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+To give a visual balance as an alternative palette I chose white and gray. White served to not give a feeling of authoritarianism, I want to give a good appearance on the internet to generate trust with users and not be afraid to make their purchase. With gray I show maturity by providing information that is useful to users and that they believe in me.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Scope :earth_americas:
+Internet is a very big world. The business is focused on Argentina, but it is planned to expand to Latin American countries such as Chile, Uruguay, Brazil, etc. in the future. The site will have its default language, which will be Spanish, and will have its corresponding translations into Portuguese and American English as a universal language for visitors of other languages.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Optimization :rocket:
+The texts are written for better positioning against search engines, with keywords such as 4evergaming, Argentina, game servers, game hosting, vps gaming, counter-strike, minecraft, grand theft auto, fps, tickrate, rcon, pcw, mix, competitive servers, rates, latency, loss, choke, var, tcadmin, among other words.
 
-## Laravel Sponsors
+The site is linked with CloudFlare to provide fast loading of javascript resources, images, css, etc. Certain parts of the site are lazy loaded so that the user gets to the main content as quickly as possible.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Legal issues :necktie:
+For legal reasons in Argentina, a QR form must be displayed on all e-commerce sites that allows the company's fiscal data to be displayed.
 
-### Premium Partners
+By another law, a repentance button must be displayed so that the buyer can easily revoke their purchase. It must be an easy and direct access link from the home page of the Internet site and must be in a prominent and visible place.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Security :shield:
+The site is developed under the Laravel framework for PHP. The framework offers a "secure" way of dealing with sensitive application information such as access keys, authentication keys, among others.
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The website has a small public API to check if the servers are online or not, check server information such as server name, number of connected players, current map, etc. This API is protected under a certain acceptable threshold of requests, otherwise it blocks the user from making these requests for a short period of time.
