@@ -11,10 +11,10 @@ Your social media is:
 - [WhatsApp](https://wa.me/5491124002295)
 - [Youtube](https://www.youtube.com/channel/UCOGkRP2uNamUAsWnYUPd2xg)
 
-4evergaming is characterized by offering a service with zero knowledge required. Their service caters to those new to game server hosting by offering pre-built configurations, all of which can be activated with just one click.
+4evergaming is characterized by offering a service with zero knowledge required. Their service caters to those new to game server hosting by offering pre-built configurations, which can be activated with just one click.
 
 ## Site thinking :thinking:
-I designed the 4evergaming sections with the main objective of loading the site to show how fast their servers are and how easy it is to understand the content by the user so that they can choose their best option without requiring human intervention.
+I designed the 4evergaming pages with the dynamic loading of the site in mind to demonstrate how fast the servers and how easy it is for the user to understand the content so that they can choose their best option without requiring human intervention.
 
 Everything is combined with the company's main color palette of red and black. The red color gives a feeling of attraction, of more attention and greater power. In turn, the black color could not be missing in the gaming sector since it provides exclusivity and is also related to the night, where people spend their time playing online.
 
@@ -37,3 +37,16 @@ By another law, a repentance button must be displayed so that the buyer can easi
 The site is developed under the Laravel framework for PHP. The framework offers a "secure" way of dealing with sensitive application information such as access keys, authentication keys, among others.
 
 The website has a small public API to check if the servers are online or not, check server information such as server name, number of connected players, current map, etc. This API is protected under a certain acceptable threshold of requests, otherwise it blocks the user from making these requests for a short period of time.
+
+## Site photos
+Some pages of the site that I have designed. Soon I will upload new sections to the [photo gallery](https://ibb.co/album/qkv6Zr)
+
+
+### Site home page
+<a href="https://4evergaming.com.ar" target="_blank"><img src="https://i.ibb.co/FgsB0qw/home-4evergaming.png" width="450" height="500" alt="4evergaming Official Logo"></a> 
+
+### Counter-Strike page
+<a href="https://4evergaming.com.ar/games/counter-strike" target="_blank"><img src="https://i.ibb.co/CWD7c8s/counter-strike-page-4evergaming.png" width="450" height="500" alt="Counter-Strike page"></a>
+
+### Counter-Strike: Global Offensive page
+<a href="https://4evergaming.com.ar/games/counter-strike-global-offensive" target="_blank"><img src="https://i.ibb.co/fGSc21B/counter-strike-global-offensive-page-4evergaming.png" width="450" height="500" alt="Counter-Strike: Global Offensive page"></a>
