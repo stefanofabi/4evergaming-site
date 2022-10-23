@@ -5,7 +5,7 @@
 
             <div class="carousel-caption">
               <h3> Sin contratos, cancelá en cualquier momento </h3>
-              <p> Sin Compromisos. Facturado cada mes. Sin costos ocultos.</p>
+              <p class="d-none d-md-block"> Sin Compromisos. Facturado cada mes. Sin costos ocultos.</p>
 
               <div class="d-none d-md-block">
                 <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-64-tickrate?currency=2" target="_blank" class="btn btn-danger" > 64 Tick</a>

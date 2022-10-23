@@ -5,7 +5,7 @@
 
             <div class="carousel-caption">
               <h3>Protección Anticheat y Mitigación DDoS</h3>
-              <p> Redes confiables y ultra rápidas sobre los carriers más importantes y reconocidos de la región </p>
+              <p class="d-none d-md-block"> Redes confiables y ultra rápidas sobre los carriers más importantes y reconocidos de la región </p>
 
               <div class="d-none d-md-block">
                 <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-300fps?currency=2" target="_blank" class="btn btn-danger" > 300 FPS </a>

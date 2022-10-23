@@ -5,7 +5,7 @@
 
             <div class="carousel-caption">
               <h3> Fácil administración </h3>
-              <p> Máximo control sobre tu servidor sin restricciones. Instalación de plugins, módulos y todo lo que tenga en mente con tan solo un click. </p>
+              <p class="d-none d-md-block"> Máximo control sobre tu servidor sin restricciones. Instalación de plugins, módulos y todo lo que tenga en mente con tan solo un click. </p>
 
               <div class="d-none d-md-block">
                 <a href="https://clientes.4evergaming.com.ar/store/minecraft/minecraft-java?currency=2" target="_blank" class="btn btn-success" > Minecraft Java</a>

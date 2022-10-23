@@ -1,4 +1,3 @@
-    <div class="col d-none d-lg-block">
       <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
           @include('pages/home/carousel-slides/counter-strike16')
@@ -17,4 +16,4 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-    </div>
+    
