@@ -72,6 +72,6 @@ Route::group([
     'prefix' => 'api',
     'as' => 'api/',
 ], function () {
-    Route::post('ping/gameservers', [PingController::class, 'pingGameServers'])->name('ping/gameservers');
+    Route::get('ping/gameservers', [PingController::class, 'pingGameServers'])->name('ping/gameservers');
     Route::get('games', [GameController::class, 'getGameState'])->name('games');
 });

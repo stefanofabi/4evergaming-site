@@ -17,7 +17,7 @@ Route::get('hosting/games/counter-strike-source', function () {
 });
 
 Route::get('hosting/games/counter-strike-global-offensive', function () {
-    return redirect()->away('https://clientes.4evergaming.com.ar/store/counter-strike?currency=2');
+    return redirect('games/counter-strike-global-offensive');
 });
 
 Route::get('hosting/games/half-life-2-deathmatch', function () {

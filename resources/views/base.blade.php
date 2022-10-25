@@ -35,7 +35,7 @@
             $( document ).ready(function() {
                 $.ajax({
                     url: "{{ route('api/ping/gameservers') }}",
-                    type: 'post',
+                    type: 'get',
                     error: function (xhr, status) {
                         $("#statusServer").removeClass("text-success");
                         $("#statusServer").addClass("text-danger");
