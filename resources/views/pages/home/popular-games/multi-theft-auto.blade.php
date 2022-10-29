@@ -7,5 +7,5 @@
             </div>
             ¿Me veo como un gángster? ¡Soy un hombre de negocios!
           </div>
-          <span class="badge bg-danger rounded-pill">+50</span>
+          <span class="badge bg-danger rounded-pill"> {{ $mta_servers_total }} </span>
         </li>

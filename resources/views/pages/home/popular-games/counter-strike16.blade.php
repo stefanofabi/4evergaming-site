@@ -7,5 +7,5 @@
             </div>
             Para salir más rápido de tus problemas necesitas un cuchillo.
           </div>
-          <span class="badge bg-danger rounded-pill">+200</span>
+          <span class="badge bg-danger rounded-pill"> {{ $cs_servers_total }}</span>
         </li>

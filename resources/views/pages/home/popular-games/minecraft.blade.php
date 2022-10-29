@@ -8,5 +8,5 @@
             </div>
             No basta con tener un buen pico, lo principal es usarlo bien.
           </div>
-          <span class="badge bg-danger rounded-pill">+5</span>
+          <span class="badge bg-danger rounded-pill"> {{ $minecraft_servers_total }} </span>
         </li>

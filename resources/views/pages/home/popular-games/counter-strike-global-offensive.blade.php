@@ -7,5 +7,5 @@
             </div>
             Todos alguna vez lo hemos jugado. Pasan los años y sigue dando risas.
           </div>
-          <span class="badge bg-danger rounded-pill">+30</span>
+          <span class="badge bg-danger rounded-pill"> {{ $csgo_servers_total }} </span>
         </li>
