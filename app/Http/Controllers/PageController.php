@@ -14,10 +14,11 @@ class PageController extends Controller
     {
 
         return view('pages/home/index')
-        ->with('cs_servers_total', $this->getHostingAccounts([1,2,3])->count())
-        ->with('mta_servers_total', $this->getHostingAccounts([22])->count())
-        ->with('csgo_servers_total', $this->getHostingAccounts([28, 29])->count())
-        ->with('minecraft_servers_total', $this->getHostingAccounts([41, 85])->count())
+        ->with('total_cs_servers', $this->getHostingAccounts([1,2,3])->count())
+        ->with('total_mta_servers', $this->getHostingAccounts([22])->count())
+        ->with('total_csgo_servers', $this->getHostingAccounts([28, 29])->count())
+        ->with('total_minecraft_servers', $this->getHostingAccounts([41, 85])->count())
+        ->with('total_clients', $this->getTotalClients())
         ->with('cs_servers', [
             ['45.235.98.67', '27025'],
             ['45.235.98.61', '27015'],

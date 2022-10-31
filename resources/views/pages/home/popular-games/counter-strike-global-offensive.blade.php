@@ -7,5 +7,7 @@
             </div>
             Todos alguna vez lo hemos jugado. Pasan los años y sigue dando risas.
           </div>
-          <span class="badge bg-danger rounded-pill"> {{ $csgo_servers_total }} </span>
+          <span class="badge bg-danger rounded-pill"> +{{ $total_csgo_servers }} </span>
         </li>
+
+        @include('pages/home/offcanvas/counter-strike-global-offensive')

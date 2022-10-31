@@ -7,5 +7,7 @@
             </div>
             ¿Me veo como un gángster? ¡Soy un hombre de negocios!
           </div>
-          <span class="badge bg-danger rounded-pill"> {{ $mta_servers_total }} </span>
+          <span class="badge bg-danger rounded-pill"> +{{ $total_mta_servers }} </span>
         </li>
+
+        @include('pages/home/offcanvas/multi-theft-auto')

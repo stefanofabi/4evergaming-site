@@ -15,11 +15,14 @@ trait WHMCS {
         ->rate;
     }
 
-    function getTotalClients() 
+    function getTotalClients($status = null) 
     {
-        return DB::connection('whmcs')
-        ->table('tblclients')
-        ->where('status', 'Active')
+        $clients = DB::connection('whmcs')
+        ->table('tblclients');
+
+        if (! is_null($status)) $clients = $clients->where('status', $status);
+        
+        return $clients
         ->get()
         ->count();
     }

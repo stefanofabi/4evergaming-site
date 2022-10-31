@@ -8,5 +8,7 @@
             </div>
             No basta con tener un buen pico, lo principal es usarlo bien.
           </div>
-          <span class="badge bg-danger rounded-pill"> {{ $minecraft_servers_total }} </span>
+          <span class="badge bg-danger rounded-pill"> +{{ $total_minecraft_servers }} </span>
         </li>
+
+        @include('pages/home/offcanvas/minecraft')

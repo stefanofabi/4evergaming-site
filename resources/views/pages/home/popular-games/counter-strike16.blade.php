@@ -7,5 +7,7 @@
             </div>
             Para salir más rápido de tus problemas necesitas un cuchillo.
           </div>
-          <span class="badge bg-danger rounded-pill"> {{ $cs_servers_total }}</span>
+          <span class="badge bg-danger rounded-pill"> +{{ $total_cs_servers}}</span>
         </li>
+
+        @include('pages/home/offcanvas/counter-strike16')
