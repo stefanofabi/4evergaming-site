@@ -18,7 +18,7 @@ class PageController extends Controller
         ->with('total_mta_servers', $this->getHostingAccounts([22])->count())
         ->with('total_csgo_servers', $this->getHostingAccounts([28, 29])->count())
         ->with('total_minecraft_servers', $this->getHostingAccounts([41, 85])->count())
-        ->with('total_clients', $this->getTotalClients())
+        ->with('total_clients', ceil($this->getTotalClients() / 1000) * 1000)
         ->with('cs_servers', [
             ['45.235.98.67', '27025'],
             ['45.235.98.61', '27015'],

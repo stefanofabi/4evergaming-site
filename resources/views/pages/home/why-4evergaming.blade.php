@@ -22,7 +22,7 @@
           <img class="img-fluid" src="{{ asset('images/4evergaming-support.png') }}" loading="lazy" alt="Soporte técnico de 4evergaming">
           
           <h5 class="card-title mt-4 fw-bold"> Profesionales a tu lado </h5>
-          <p> Tenemos un gran Equipo de expertos dispuestos a ayudarte en todo lo que necesites. </p>
+          <p> Tenemos un gran equipo de expertos dispuestos a ayudarte en todo lo que necesites. </p>
         </div>
       </div>
     </div>
