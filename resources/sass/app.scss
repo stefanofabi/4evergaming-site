@@ -5,8 +5,8 @@
 @import 'variables';
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
-@import 'node_modules/swiper/swiper';
-@import 'node_modules/swiper/modules/navigation/navigation';
-@import 'node_modules/swiper/modules/pagination/pagination';
+@import '~swiper/swiper';
+@import '~swiper/modules/navigation/navigation';
+@import '~swiper/modules/pagination/pagination';

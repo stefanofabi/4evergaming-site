@@ -13,8 +13,8 @@
       <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://i.pinimg.com/originals/d5/19/de/d519defd6202682b3dba315c58521db7.png"></div>
       <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://graphicsfamily.com/wp-content/uploads/edd/2020/12/The-King-Esports-Gaming-Clan-Mascot-Logo-PNG-Transparent.png"></div>
       <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://seeklogo.com/images/K/kemain-ft-esport-logo-9B3138C2DC-seeklogo.com.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://i.pinimg.com/originals/14/68/e3/1468e3b32cc2b1289d924ee6b468ced8.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://play-lh.googleusercontent.com/BlGGwlx9ExLSrXx4ONENCf53ce90L_VV3HDKETYqeiAiwxdhneUgyI6q-rL30wPdSBu6=w600-h300-pc0xffffff-pd"></div>
+      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://i.imgur.com/JXWvy7q.png"></div>
+      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://img.pikbest.com/png-images/20210330/e-sports-game-logo_6276419.png!c1024wm0"></div>
       <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://play-lh.googleusercontent.com/WPBccM654_TWFUUC_U5Y3lOOWmOaaShV8nMyTpp4GktpoI7Xevsiysdko0_e7c0esDM=w600-h300-pc0xffffff-pd"></div>
       <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://i.pinimg.com/originals/69/a8/04/69a804c8143949464484240e358b3c63.png"></div>
       <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://media1.thehungryjpeg.com/thumbs2/ori_3832133_67blciuxmdn0o4vlgrviu4ur0g7qropfe00rtkv5_hermes-esport-mascot-logo-design.png"></div>
