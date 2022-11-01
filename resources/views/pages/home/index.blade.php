@@ -27,5 +27,7 @@
   @include('pages.home.cases-success')
 
   @include('pages.home.link-interests')
+
+  @include('pages.home.about-4evergaming')
 </div>
 @endsection
