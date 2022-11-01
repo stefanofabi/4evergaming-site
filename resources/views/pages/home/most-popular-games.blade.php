@@ -1,5 +1,5 @@
 @section('javascript')
-<script>
+<script type="module">
 
   var cs_servers = [
       @foreach ($cs_servers as $server)

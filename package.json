@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.9.1",
+        "jquery": "^3.6.1",
         "swiper": "^8.4.4"
     }
 }

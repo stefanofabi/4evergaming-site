@@ -80,13 +80,13 @@
     <h1 class="d-none d-md-block mt-2"> Counter-Strike 1.6 </h1>
 
     <div class="row">
-        <div class="col-md-8 d-none d-md-block">   
+        <div class="col-md-8 d-none d-lg-block">   
             @include('pages/counter-strike/carousel-slides')
         </div>
 
         <div class="col">
             <img loading="lazy" class="game-header-image-full" src="{{ asset('images/games/counter-strike/official-banner-counter-strike16.jpg') }}" alt="Logo oficial de Counter-Strike 1.6" title="El Logo Oficial de Counter-Strike 1.6">
-            <h1 class="d-block d-sm-none mt-2"> Counter-Strike 1.6 </h1>
+            <h1 class="d-block d-md-none mt-2"> Counter-Strike 1.6 </h1>
 
             <p class="game-description-snippet"> Disfruta del juego de acción en línea n° 1 en el mundo. Sumérgete en el fragor de la guerra antiterrorista más realista con este archiconocido juego por equipos. Alíate con compañeros para superar misiones estratégicas, asalta bases enemigas, rescata rehenes, y recuerda que tu personaje contribuye al éxito del equipo...</p>							
             

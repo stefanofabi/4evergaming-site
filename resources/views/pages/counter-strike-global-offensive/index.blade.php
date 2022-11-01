@@ -71,16 +71,16 @@
 <div class="container mt-3">
   <div class="d-none d-md-block"> Todos los juegos > Shooters > Counter-Strike: Global Offensive </div>
   
-  <h1 class="mt-2 d-none d-lg-block"> Counter-Strike: Global Offensive </h1> 
+  <h1 class="mt-2 d-none d-md-block"> Counter-Strike: Global Offensive </h1> 
   
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 d-none d-lg-block">
       @include('pages.counter-strike-global-offensive.carousel-slides')
     </div> 
 
     <div class="col">
       <img loading="lazy" class="game-header-image-full" src="{{ asset('images/games/counter-strike-global-offensive/counter-strike-global-offensive-banner.jpg') }}" alt="Banner Oficial de Counter-Strike: Global Offensive" title="El banner Oficial de Counter-Strike: Global Offensive">
-      <h1 class="mt-2 d-lg-none"> Counter-Strike: Global Offensive </h1>       
+      <h1 class="mt-2 d-md-none"> Counter-Strike: Global Offensive </h1>       
       <p class="game-description-snippet"> Counter-Strike: Global Offensive (CS:GO) amplía el juego de acción por equipos del que fue pionero cuando salió hace más de 20 años. CS:GO incluye nuevos mapas, personajes, armas y modos de juego, y ofrece versiones actualizadas del contenido clásico de Counter-Strike (de_dust2, etc.).
     
       @include('pages.counter-strike-global-offensive.qualification-service')
