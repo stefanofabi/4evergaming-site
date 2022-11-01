@@ -26,8 +26,6 @@
 </div>
 
 @section('javascript')
-<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
 <!-- Initialize Swiper -->
 <script>
   $(document).ready(function() {
@@ -51,8 +49,6 @@
 @append
 
 @section('css')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
-
 <style>
   .clientsSwipperImage {
     max-width: 400px;
