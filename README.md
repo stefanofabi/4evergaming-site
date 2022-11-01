@@ -43,4 +43,4 @@ In this [photo gallery](https://ibb.co/album/qkv6Zr) you will be able to see the
 
 ### Site home page
 
-<a href="https://4evergaming.com.ar" target="_blank"><img src="https://i.ibb.co/FgsB0qw/home-4evergaming.png" alt="home-4evergaming" border="0"></a> 
+<a href="https://4evergaming.com.ar" target="_blank"><img src="https://i.ibb.co/f1YxzCP/4evergaming-home-page.png" alt="home-4evergaming" border="0"></a> 
