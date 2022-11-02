@@ -14,6 +14,7 @@ class PageController extends Controller
     {
 
         return view('pages/home/index')
+        ->with('dollar_price', $this->getCurrencyPrice('ARS'))
         ->with('total_cs_servers', $this->getHostingAccounts([1,2,3])->count())
         ->with('total_mta_servers', $this->getHostingAccounts([22])->count())
         ->with('total_csgo_servers', $this->getHostingAccounts([28, 29])->count())

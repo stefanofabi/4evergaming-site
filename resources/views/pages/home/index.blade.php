@@ -4,7 +4,9 @@
 
 @section('robots', 'index, follow')
 
-@section('title', '4evergaming: Servidores de Juegos en Argentina desde $217 al mes')
+@section('title')
+4evergaming: Servidores de Juegos en Argentina desde ${{ $dollar_price * 4 * 0.35 }} al mes
+@endsection
 
 @section('content')
 <div class="container mt-3">
