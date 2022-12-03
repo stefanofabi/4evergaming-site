@@ -31,8 +31,6 @@ The site is linked with CloudFlare to provide fast loading of javascript resourc
 ## Legal issues :necktie:
 For legal reasons in Argentina, a QR form must be displayed on all e-commerce sites that allows the company's fiscal data to be displayed.
 
-By another law, a repentance button must be displayed so that the buyer can easily revoke their purchase. It must be an easy and direct access link from the home page of the Internet site and must be in a prominent and visible place.
-
 ## Security :shield:
 The site is developed under the Laravel framework for PHP. The framework offers a "secure" way of dealing with sensitive application information such as access keys, authentication keys, among others.
 
