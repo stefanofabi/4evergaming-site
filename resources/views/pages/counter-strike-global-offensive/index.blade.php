@@ -93,12 +93,8 @@
   @include('pages.counter-strike-global-offensive.server-information')
 
   <div class="row">
-    <div class="col-md">
+    <div class="col-md-6">
       @include('pages.counter-strike-global-offensive.contact-by-whatsapp')
-    </div>
-
-    <div class="col-md d-none d-lg-block">
-      @include('pages.counter-strike-global-offensive.csgo-tools')
     </div>
   </div>
 </div>

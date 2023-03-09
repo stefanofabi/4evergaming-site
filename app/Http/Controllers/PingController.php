@@ -13,7 +13,8 @@ class PingController extends Controller
         // Server on windows
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $pingreply = exec("ping gameservers.4evergaming.com.ar");
-            $ping = substr($pingreply, 28, 4);
+            //$ping = substr($pingreply, 28, 4);
+            $ping = substr($pingreply, 30, 4);          // Windows 11
         } else {
             $pingreply = exec("ping -c 1 gameservers.4evergaming.com.ar");
             $ping = substr($pingreply, 22, 5);
