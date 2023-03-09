@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pages;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
@@ -10,7 +11,7 @@ class PageController extends Controller
 
     use \App\Traits\WHMCS;
 
-    function getHomePage(Request $request)
+    function index(Request $request)
     {
 
         return view('pages/home/index')
@@ -48,22 +49,4 @@ class PageController extends Controller
             ['45.235.98.62', '25565']
         ]);
     }
-
-    function getCounterStrikePage(Request $request)
-    {
-        return view('pages/counter-strike/index')
-        ->with('dollar_price', $this->getCurrencyPrice('ARS'))
-        ->with('slot_300fps_price', 0.35)
-        ->with('slot_500fps_price', 0.45)
-        ->with('slot_1000fps_price', 0.50);
-    }
-
-    function getCounterStrikeGlobalOffensivePage(Request $request)
-    {
-        return view('pages/counter-strike-global-offensive/index')
-        ->with('dollar_price', $this->getCurrencyPrice('ARS'))
-        ->with('slot_64tickrate_price', 0.60)
-        ->with('slot_128tickrate_price', 0.75);
-    }
-
 }

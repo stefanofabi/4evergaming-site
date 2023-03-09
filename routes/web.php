@@ -15,15 +15,17 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PingController;
 use App\Http\Controllers\GameController;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\Pages\PageController;
+use App\Http\Controllers\Pages\CounterStrikePageController;
+use App\Http\Controllers\Pages\CounterStrikeGlobalOffensivePageController;
 
-Route::get('/', [PageController::class, 'getHomePage'])->name('index');
+Route::get('/', [PageController::class, 'index'])->name('index');
 
 require('old_urls.php');
 
-Route::get('/games/counter-strike', [PageController::class, 'getCounterStrikePage'])->name('games/counter-strike');
+Route::get('/games/counter-strike', [CounterStrikePageController::class, 'index'])->name('games/counter-strike');
 
-Route::get('/games/counter-strike-global-offensive', [PageController::class, 'getCounterStrikeGlobalOffensivePage'])->name('games/counter-strike-global-offensive');
+Route::get('/games/counter-strike-global-offensive', [CounterStrikeGlobalOffensivePageController::class, 'index'])->name('games/counter-strike-global-offensive');
 
 Route::group([
     'middleware' => ['throttle:100,1'],
