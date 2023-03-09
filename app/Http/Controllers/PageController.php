@@ -62,8 +62,8 @@ class PageController extends Controller
     {
         return view('pages/counter-strike-global-offensive/index')
         ->with('dollar_price', $this->getCurrencyPrice('ARS'))
-        ->with('slot_64tickrate_price', 0.90)
-        ->with('slot_128tickrate_price', 1.05);
+        ->with('slot_64tickrate_price', 0.60)
+        ->with('slot_128tickrate_price', 0.75);
     }
 
 }
