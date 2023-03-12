@@ -8,7 +8,7 @@ Your social media is:
 - [Facebook](https://facebook.com/4evergaming.com.ar)
 - [Instagram](https://instagram.com/4evergaming.com.ar)
 - [Twitter](https://twitter.com/4evergamingOK)
-- [WhatsApp](https://wa.me/5491124002295)
+- [WhatsApp](https://wa.me/5491133972764)
 - [Youtube](https://www.youtube.com/channel/UCOGkRP2uNamUAsWnYUPd2xg)
 
 4evergaming is characterized by offering a service with zero knowledge required. Their service caters to those new to game server hosting by offering pre-built configurations, which can be activated with just one click.
