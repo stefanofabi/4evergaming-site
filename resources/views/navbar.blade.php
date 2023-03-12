@@ -23,7 +23,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/san-andreas-multi-player-samp?currency=2" target="_blank">San Andreas Multi Player</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/multi-theft-auto-mta?currency=2" target="_blank">Multi Theft Auto</a></li>
+                        <li><a class="dropdown-item" href="{{ route('games/multi-theft-auto') }}"> Multi Theft Auto </a></li>
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/ragemp?currency=2" target="_blank">RageMP</a></li>
                     </ul>
                 </li>

@@ -37,7 +37,7 @@ Route::get('hosting/games/san-andreas-multi-player', function () {
 });
 
 Route::get('hosting/games/multi-theft-auto', function () {
-    return redirect()->away('https://clientes.4evergaming.com.ar/store/grand-theft-auto/multi-theft-auto-mta?currency=2');
+    return redirect('games/multi-theft-auto');
 });
 
 Route::get('hosting/games/garrys-mod', function () {

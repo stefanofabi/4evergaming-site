@@ -18,6 +18,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Pages\CounterStrikePageController;
 use App\Http\Controllers\Pages\CounterStrikeGlobalOffensivePageController;
+use App\Http\Controllers\Pages\MultiTheftAutoPageController;
 
 Route::get('/', [PageController::class, 'index'])->name('index');
 
@@ -26,6 +27,8 @@ require('old_urls.php');
 Route::get('/games/counter-strike', [CounterStrikePageController::class, 'index'])->name('games/counter-strike');
 
 Route::get('/games/counter-strike-global-offensive', [CounterStrikeGlobalOffensivePageController::class, 'index'])->name('games/counter-strike-global-offensive');
+
+Route::get('/games/multi-theft-auto', [MultiTheftAutoPageController::class, 'index'])->name('games/multi-theft-auto');
 
 Route::group([
     'middleware' => ['throttle:100,1'],
