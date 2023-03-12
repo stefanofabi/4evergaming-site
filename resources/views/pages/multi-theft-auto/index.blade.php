@@ -1,12 +1,12 @@
 @extends('base')
 
+@section('title')
+4evergaming: Host MTA:SA Barato con Panel Web, Anti-DDoS, MySQL y baja latencia. Alojado en Argentina
+@endsection
+
 @section('description', 'Servidores de Juegos en Argentina: Rápido, Seguro y Soporte 365. Activación automática. ¡Encontrá el Servidor más barato con mejor servicio en 4evergaming!')
 
 @section('robots', 'index, follow')
-
-@section('title')
-4evergaming: Servidores de Juegos en Argentina desde ${{ $dollar_price }} al mes
-@endsection
 
 @section('css')
 <style>
