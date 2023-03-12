@@ -9,7 +9,7 @@
 
               <div class="d-none d-md-block">
                 <a href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/san-andreas-multi-player-samp?currency=2" target="_blank" class="btn btn-success" > GTA San Andreas</a>
-                <a href="https://clientes.4evergaming.com.ar/store/grand-theft-auto/multi-theft-auto-mta?currency=2" target="_blank" class="btn btn-success"> MTA San Andreas </a>
+                <a href="{{ route('games/multi-theft-auto') }}" class="btn btn-success"> MTA San Andreas </a>
               </div>
             </div>
           </div>
