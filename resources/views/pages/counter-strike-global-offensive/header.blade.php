@@ -1,11 +1,11 @@
 <div class="overlay">
   <div class="text">
-    <div class="row">
-      <div class="col">
+    <div class="d-md-flex d-inline">
+      <div class="col-md d-flex justify-content-md-end justify-content-sm-center justify-content-center pe-5">
         <img src="{{ asset('images/games/counter-strike-global-offensive/csgo_logo_smaller.png') }}" alt="Logo Oficial de Counter-Strike">
       </div>
 
-      <div class="col">
+      <div class="col-md text-md-start text-center pt-5">
         <h1 class="fw-bold"> CS:GO Server Hosting </h1>
         <h5> 
           • Activación automática <br />
