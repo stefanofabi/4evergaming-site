@@ -21,7 +21,7 @@
     background-attachment: fixed;
     background-position: top;
     opacity: 0.95;
-    height: 350px;
+    height: 100vh;
   }
 
   .overlay::before {
@@ -36,6 +36,7 @@
 
   .text{
     position: absolute;
+    width: 100%;
     top: 50%;
     left: 50%;
     font-size: 50px;

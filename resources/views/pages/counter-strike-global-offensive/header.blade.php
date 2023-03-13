@@ -1,4 +1,4 @@
-<div class="overlay d-none d-xl-block">
+<div class="overlay">
   <div class="text">
     <div class="row">
       <div class="col">
