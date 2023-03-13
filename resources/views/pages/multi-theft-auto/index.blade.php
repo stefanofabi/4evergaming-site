@@ -19,7 +19,7 @@
     background-attachment: fixed;
     background-position: top;
     opacity: 0.95;
-    height: 95vh;
+    height: 100vh;
   }
 
   .overlay::before {
