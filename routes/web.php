@@ -19,6 +19,7 @@ use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Pages\CounterStrikePageController;
 use App\Http\Controllers\Pages\CounterStrikeGlobalOffensivePageController;
 use App\Http\Controllers\Pages\MultiTheftAutoPageController;
+USE App\Http\Controllers\Auth\SteamAuthController;
 
 Route::get('/', [PageController::class, 'index'])->name('index');
 
@@ -38,3 +39,5 @@ Route::group([
     Route::get('ping/gameservers', [PingController::class, 'pingGameServers'])->name('ping/gameservers');
     Route::get('games', [GameController::class, 'getGameState'])->name('games');
 });
+
+Route::get('login', [SteamAuthController::class, 'login']);

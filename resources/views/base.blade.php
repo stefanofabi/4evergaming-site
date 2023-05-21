@@ -30,7 +30,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-      
+
             $( document ).ready(function() {
                 $.ajax({
                     url: "{{ route('api/ping/gameservers') }}",
@@ -46,6 +46,7 @@
                 });
             });
         </script>
+
 
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-WT4PPNWNN5"></script>
