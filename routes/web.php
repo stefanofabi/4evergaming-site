@@ -13,17 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\PingController;
-use App\Http\Controllers\GameController;
+use App\Http\Controllers\Auth\SteamAuthController;
+use App\Http\Controllers\Auth\LogoutController;
+
 use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Pages\CounterStrikePageController;
 use App\Http\Controllers\Pages\CounterStrikeGlobalOffensivePageController;
 use App\Http\Controllers\Pages\MultiTheftAutoPageController;
-USE App\Http\Controllers\Auth\SteamAuthController;
 
-Route::get('/', [PageController::class, 'index'])->name('index');
+use App\Http\Controllers\Communities\CommunityController;
+
+use App\Http\Controllers\Api\PingController;
+use App\Http\Controllers\Api\GameController;
 
 require('old_urls.php');
+
+Route::get('login', [SteamAuthController::class, 'login'])->name('login');
+Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
+
+Route::get('/', [PageController::class, 'index'])->name('index');
 
 Route::get('/games/counter-strike', [CounterStrikePageController::class, 'index'])->name('games/counter-strike');
 
@@ -40,4 +48,10 @@ Route::group([
     Route::get('games', [GameController::class, 'getGameState'])->name('games');
 });
 
-Route::get('login', [SteamAuthController::class, 'login']);
+Route::group([
+    'prefix' => 'communities',
+    'as' => 'communities/',
+], function () {
+    Route::post('store', [CommunityController::class, 'store'])->name('store')->middleware('auth');
+});
+

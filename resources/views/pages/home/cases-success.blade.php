@@ -18,6 +18,36 @@
       },
     });
   });
+
+  $("#communityForm").on('submit', function(e){
+    e.preventDefault();
+    
+    $.ajax({
+            type: 'POST',
+            url: "{{ route('communities/store') }}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(){
+                $('#saveCommunityButton').addClass("disabled");
+                $('#communityForm').css("opacity",".5");
+                $('#responseCommunity').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
+            },
+            success: function(msg){
+                $('#responseCommunity').html('<span style="font-size:18px;color:#34A853"> Tu Comunidad fue agregada con éxito. Gracias por ser parte! </span>');
+                $('#communityForm').css("opacity","");
+                $("#saveCommunityButton").removeClass("disabled");
+            }
+          });
+  });
+</script>
+
+<script>
+  function saveCommunity() 
+  {
+    $('#saveCommunityButton').click();
+  }
 </script>
 @append
 
@@ -38,18 +68,13 @@
   <!-- Swiper -->
   <div class="swiper mySwiper mt-3">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://esportsteams.es/wp-content/uploads/2021/02/LOGO-PNG_LITE.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://www.zarla.com/images/zarla-ocho-players-1x1-2400x2400-20220325-rkm6mfhpfc64y8bw4vdr.png?crop=1:1,smart&width=250&dpr=2"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://seeklogo.com/images/E/esport-logo-B80AF9936C-seeklogo.com.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://s3.amazonaws.com/cdn.designcrowd.com/blog/2018/July/Powerful-Gaming-Logos/OG-Redbull-Logo.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://i.pinimg.com/originals/d5/19/de/d519defd6202682b3dba315c58521db7.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://graphicsfamily.com/wp-content/uploads/edd/2020/12/The-King-Esports-Gaming-Clan-Mascot-Logo-PNG-Transparent.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://seeklogo.com/images/K/kemain-ft-esport-logo-9B3138C2DC-seeklogo.com.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://i.imgur.com/JXWvy7q.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://img.pikbest.com/png-images/20210330/e-sports-game-logo_6276419.png!c1024wm0"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://play-lh.googleusercontent.com/WPBccM654_TWFUUC_U5Y3lOOWmOaaShV8nMyTpp4GktpoI7Xevsiysdko0_e7c0esDM=w600-h300-pc0xffffff-pd"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://i.pinimg.com/originals/69/a8/04/69a804c8143949464484240e358b3c63.png"></div>
-      <div class="swiper-slide"><img class="clientsSwipperImage" loading="lazy" src="https://media1.thehungryjpeg.com/thumbs2/ori_3832133_67blciuxmdn0o4vlgrviu4ur0g7qropfe00rtkv5_hermes-esport-mascot-logo-design.png"></div>
+      @foreach ($communities as $community)
+      <div class="swiper-slide">
+        <a href="{{ $community->contact_url }}" target="_blank"> 
+          <img class="clientsSwipperImage" loading="lazy" src="{{ asset('storage/communities/'.$community->logo) }}" title="{{ $community->name }}">
+        </a>
+      </div>
+      @endforeach
     </div>
     
     <div class="swiper-button-next"></div>
@@ -57,7 +82,69 @@
   </div>
 </div>
 
-<p class="mt-3 text-center"> 
-  Compartí el perfil de tu Comunidad y ayudanos a hacerla crecer junto a nosotros. <br>
-  <a class="btn btn-danger mt-2" href="#" onclick="alert('Function not available now')"> Agregar Comunidad </a>
-</p>
+<div class="mt-3 text-center"> 
+    <div> Compartí el perfil de tu Comunidad y ayudanos a hacerla crecer junto a nosotros. </div>
+
+    <div class="mt-2">   
+      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addCommunityModal"> Agregar Comunidad </button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addCommunityModal" tabindex="-1" aria-labelledby="addCommunityModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCommunityModalLabel"> Formulario para agregar Comunidad </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <h4 class="fw-bold"> Potenciá tu Comunidad y alcanzá el reconocimiento que merecés en línea </h4>
+        <p> 
+          Al unirte a <span class="fw-bold">4evergaming</span>, podrás aumentar tu exposición y obtener un mayor reconocimiento en Internet al agregar tu comunidad. Unite a nosotros y maximizá el potencial de tu Comunidad.
+        </p>
+
+        @guest
+        <div class="text-danger"> Antes de poder registrar tu Comunidad, es necesario que <a href="{{ route('login') }}"> inicies sesión </a> </div> 
+        @endguest
+
+        <div class="row">
+          <form enctype="multipart/form-data" id="communityForm">
+            @csrf
+
+            <div class="form-group col-md-9">
+                  <label for="name" class="fw-bold"> Nombre de la Comunidad </label>
+                  <input type="text" class="form-control" name="name" id="name" value="" aria-describedby="nameHelp" required @guest disabled @endguest>
+
+                  <small id="nameHelp" class="form-text text-muted"> El nombre de tu Comunidad tal como la reconocen en el juego </small>
+            </div>
+
+            <div class="form-group mt-2 col-md-9">
+                  <label for="name" class="fw-bold"> Página web / Discord / Redes Sociales / Grupo WhatsApp / Etc. </label>
+                  <input type="url" class="form-control" name="contact_url" id="contact_url" value="" aria-describedby="websiteHelp" required @guest disabled @endguest>
+
+                  <small id="websiteHelp" class="form-text text-muted"> Dejanos un enlace para invitar a futuros jugadores a unirse a tu Comunidad </small>
+            </div>
+
+            <div class="form-group mt-2 col-md-9">
+                  <label for="name" class="fw-bold"> Logo </label>
+                  <input type="file" class="form-control" name="logo" id="logo" value="" aria-describedby="logoHelp" required @guest disabled @endguest>
+
+                  <small id="logoHelp" class="form-text text-muted"> Subí el logo que identifica tu Comunidad. Una mala calidad puede reducir tu calificación. </small>
+            </div>
+
+            <input type="submit" class="d-none" id="saveCommunityButton">
+          </form>
+        </div>
+
+        <div class="mt-3" id="responseCommunity"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Cerrar </button>
+        <button type="button" class="btn btn-primary @guest disabled @endguest" onclick="saveCommunity()"> Guardar </button>
+      </div>
+    </div>
+  </div>
+</div>

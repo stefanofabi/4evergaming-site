@@ -53,7 +53,7 @@ class SteamAuthController extends Controller
         }
 
         Auth::login(
-            $this->firstOrCreate($data),
+            $this->updateOrCreate($data),
             true
         );
 
@@ -61,14 +61,14 @@ class SteamAuthController extends Controller
     }
 
     /**
-     * Get the first user by SteamID or create new
+     * Update the first user by SteamID or create new
      *
      * @param SteamData $data
      * @return User|\Illuminate\Database\Eloquent\Model
      */
-    protected function firstOrCreate(SteamData $data)
+    protected function updateOrCreate(SteamData $data)
     {
-        return User::firstOrCreate([
+        return User::updateOrCreate([
             'steam_id' => $data->getSteamId(),
         ], [
             'name' => $data->getPersonaName(),
