@@ -15,7 +15,7 @@
       @include('pages/home/carousel')
     </div>
     
-    <div class="col-lg-4 col-sm-12 mt-2">
+    <div class="col-lg-4 col-sm-12">
       @include('pages/home/most-popular-games')
     </div>
   </div>
