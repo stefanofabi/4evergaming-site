@@ -7,47 +7,22 @@ use Illuminate\Http\Request;
 
 use Exception;
 
+use App\Traits\ServerInfo;
+
 class GameController extends Controller
 {
     //
 
+    use ServerInfo;
+
     public function getGameState(Request $request)
     {
-        try {
-            $request->validate([
-                'game' => 'required',
-                'ip' => 'required|ip',
-                'port' => 'required|numeric|min:0|max:65535',
-            ]);
+        $request->validate([
+            'game' => 'required',
+            'ip' => 'required|ip',
+            'port' => 'required|numeric|min:0|max:65535',
+        ]);
 
-            $ip = $request->ip . ':' . $request->port;
-
-            $GameQ = new \GameQ\GameQ();
-
-            $GameQ->addServer([
-                'type' => $request->game,
-                'host' => $ip,
-            ]);
-
-            $GameQ->addFilter('secondstohuman');
-            $results = $GameQ->process();
-
-            foreach ($results as $id => $var) {
-                $players = $var['players'];
-                $players = collect($var['players'])->sortBy('score')->reverse()->toArray();
-                unset(
-                    $var['players'],
-                );
-                $var['ip'] = $ip;
-
-                return array([
-                    'id' => $id,
-                    'var' => $var,
-                    'players' => $players,
-                ]);
-            }
-        } catch (Exception $e) {
-            return response()->json(['errors' => $e->getMessage()]);
-        }
+        return $this->getServerInfo($request->game, $request->ip, $request->port);
     }
 }

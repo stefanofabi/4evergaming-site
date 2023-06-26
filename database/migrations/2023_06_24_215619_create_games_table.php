@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('communities', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
-            $table->string('contact_url');
+            $table->string('short_name');
             $table->string('logo');
-            $table->double('calification')->default(1.0);
-            $table->unsignedBigInteger('user_id')->unique();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-
+            $table->string('large_logo');
+            $table->string('protocol');
+            
             $table->timestamps();
+
+            $table->engine = 'InnoDB';
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('communities');
+        Schema::dropIfExists('games');
     }
 };

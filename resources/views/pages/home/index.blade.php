@@ -16,7 +16,7 @@
     </div>
     
     <div class="col-lg-4 col-sm-12">
-      @include('pages/home/most-popular-games')
+      @include('pages/home/game-tracker')
     </div>
   </div>
 

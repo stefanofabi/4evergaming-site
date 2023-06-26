@@ -133,4 +133,3 @@
   @include('pages/home/popular-games/counter-strike-global-offensive')
   @include('pages/home/popular-games/minecraft')
 </ol>
-

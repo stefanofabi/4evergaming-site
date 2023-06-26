@@ -26,6 +26,8 @@ use App\Http\Controllers\Communities\CommunityController;
 use App\Http\Controllers\Api\PingController;
 use App\Http\Controllers\Api\GameController;
 
+use App\Http\Controllers\Server\ServerController;
+
 require('old_urls.php');
 
 Route::get('login', [SteamAuthController::class, 'login'])->name('login');
@@ -55,3 +57,16 @@ Route::group([
     Route::post('store', [CommunityController::class, 'store'])->name('store')->middleware('auth');
 });
 
+Route::group([
+    'prefix' => 'servers',
+    'as' => 'servers/',
+], function () {
+    
+    Route::get('create', [ServerController::class, 'create'])->name('create');
+
+    Route::post('store', [ServerController::class, 'store'])->name('store');
+
+    Route::get('search/{game}', [ServerController::class, 'search'])->name('search');
+
+    Route::get('info', [ServerController::class, 'showInfo'])->name('info');
+});

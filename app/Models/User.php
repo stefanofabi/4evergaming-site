@@ -43,4 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the community associated with the user.
+     */
+    public function community()
+    {
+        return $this->hasOne(Community::class);
+    }
 }
