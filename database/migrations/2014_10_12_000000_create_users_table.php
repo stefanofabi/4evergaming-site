@@ -23,8 +23,12 @@ return new class extends Migration
             $table->string('avatar');
             $table->string('country_code');
 
+            $table->timestamp('banned_at')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
+
+            $table->engine = 'InnoDB';
         });
     }
 

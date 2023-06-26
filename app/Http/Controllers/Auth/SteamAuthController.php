@@ -51,10 +51,15 @@ class SteamAuthController extends Controller
         if (is_null($data)) {
             return $this->steamAuth->redirect();
         }
+        $user = $this->updateOrCreate($data);
+        
+        if ($user->isBanned()) {
+            return redirect($this->redirectTo);
+        }
 
         Auth::login(
-            $this->updateOrCreate($data),
-            true
+            $user,
+            true // remember me
         );
 
         return redirect($this->redirectTo);
