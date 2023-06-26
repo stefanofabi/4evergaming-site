@@ -26,25 +26,6 @@ class ServerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
-    {
-        //
-
-        $game = Game::where('protocol', $request->game)->first();
-
-        $games = Game::orderBy('name', 'ASC')->get();
-        
-        $countries = Country::orderBy('name', 'ASC')->get();
-
-        return view('servers.create')
-            ->with('games', $games)
-            ->with('game', $game)
-            ->with('countries', $countries);
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -89,10 +70,10 @@ class ServerController extends Controller
                 ]
             );
         } catch (Exception $e) {
-            return back()->withInput($request->all())->withErrors('No se pudo guardar el servidor en la base de datos');
+            return response()->json(['errors' => true, 'message' => 'No se pudo guardar el servidor en la base de datos'], 500);
         }
         
-        return redirect()->route('servers/search', ['game' => $game->protocol]);
+        return response()->json(['message' => 'Servidor agregado con éxito'], 200);
     }
 
     public function search(Request $request, string $game)
@@ -113,13 +94,16 @@ class ServerController extends Controller
         ->get()->skip(3);
         
         $top_servers = Server::where('game_id', $game->id)->orderBy('rank', 'ASC')->limit(3)->get();
+        
+        $countries = Country::orderBy('name', 'ASC')->get();
 
         return view('servers.search')
             ->with('game', $game)
             ->with('games', $games)
             ->with('servers', $servers)
             ->with('top_servers', $top_servers)
-            ->with('filter', $request->filter);
+            ->with('filter', $request->filter)
+            ->with('countries', $countries);
     }
 
     public function showInfo() 

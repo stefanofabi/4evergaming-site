@@ -1,75 +1,107 @@
-@extends('base')
-
-@section('description', 'Encontrá servidores de juegos en línea, conocé nuevos jugadores y divertite al máximo')
-
-@section('robots', 'index, follow')
-
-@section('title')
-4evergaming: Formulario de registro de Servidor de Juegos
-@endsection
-
 @section('javascript')
 <script type="module">
-	$(document).ready(function() {
-        // Select a option from list
-        $('#jueguito').val("{{ old('game_id') ?? $game->id ?? '' }}");
-        $('#country').val("{{ old('country_id') }}");
-    });
+  $("#serverForm").on('submit', function(e){
+    e.preventDefault();
+    
+    $.ajax({
+            type: 'POST',
+            url: "{{ route('servers/store') }}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(){
+                $('#saveServerButton').addClass("disabled");
+                $('#serverForm').css("opacity",".5");
+                $('#responseServer').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
+            },
+            success: function(msg){
+                $('#responseServer').html('<span style="font-size:18px;color:#34A853"> Tu Servidor fue agregada con éxito. Gracias por ser parte! </span>');
+                $('#serverForm').css("opacity","");
+                $("#saveServerButton").removeClass("disabled");
+            }
+          });
+  });
+</script>
+
+<script>
+  function saveServer() 
+  {
+    $('#saveServerButton').click();
+  }
 </script>
 @append
 
-@section('content')
+<!-- Modal -->
+<div class="modal fade" id="addServerModal" tabindex="-1" aria-labelledby="addServerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addServerModal"> Formulario para agregar Servidor </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-<div class="container">
-    <h2 class="mt-3"> Agregar servidor </h2>
-    <p> 
-        ¡Añadí tu servidor de juegos y llegá al Top! Unite a nuestra plataforma de estadísticas y rankings para mejorar tu audiencia y convertirte en el líder indiscutible. 
-        Obtené análisis detallados, competí con jugadores de élite y atraé a nuevos seguidores a tu comunidad. 
-        ¡No te conformes con menos, sé el protagonista de la competición y demostrá quién manda en el mundo gamer! 🔥🔥
-    </p>
+      <div class="modal-body">
+        <h4 class="fw-bold"> ¡Añadí tu servidor de juegos y llegá al Top! </h4>
 
-    <p> Agregar tu servidor es muy simple! No te vamos a solicitar más datos y es completamente seguro </p>
+        <p> 
+          Unite a nuestra plataforma de estadísticas y rankings para mejorar tu audiencia y convertirte en el líder indiscutible. 
+          Obtené análisis detallados, competí con jugadores de élite y atraé a nuevos seguidores a tu comunidad. 
+          ¡No te conformes con menos, sé el protagonista de la competición y demostrá quién manda en el mundo gamer! 🔥🔥
+        </p>
 
-    <form method="post" action="{{ route('servers/store') }}">
-        @csrf
+        @guest
+        <div class="text-danger"> Antes de poder registrar tu Servidor, es necesario que <a href="{{ route('login') }}"> inicies sesión </a> </div> 
+        @endguest
 
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <select class="form-select" name="game_id" id="jueguito">
-                    <option value=""> Seleccioná el juego </option>
-                    @foreach ($games as $game)
-                    <option value="{{ $game->id }}"> {{ $game->name }}</option>
-                    @endforeach
-                </select>
+        <div class="row">
+          <form id="serverForm">
+            @csrf
+
+            <div class="row">
+              <div class="col-md-6">
+                  <select class="form-select" name="game_id" id="jueguito">
+                      <option value=""> Seleccioná el juego </option>
+                      @foreach ($games as $game_aux)
+                      <option value="{{ $game_aux->id }}" @if ($game == $game_aux) selected @endif> {{ $game_aux->name }}</option>
+                      @endforeach
+                  </select>
+              </div>
             </div>
-        </div>
 
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="ip" value="{{ old('ip') }}" placeholder="IP" aria-label="IP">
-                    <span class="input-group-text">:</span>
-                    <input type="number" class="form-control" name="port" value="{{ old('port') }}" placeholder="Puerto" aria-label="Puerto" min="0" max="65535">
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="ip" value="{{ old('ip') }}" placeholder="IP" aria-label="IP">
+                        <span class="input-group-text">:</span>
+                        <input type="number" class="form-control" name="port" value="{{ old('port') }}" placeholder="Puerto" aria-label="Puerto" min="0" max="65535">
+                    </div>
                 </div>
             </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <select class="form-select" name="country_id" id="country">
+                        <option value="" selected> Seleccioná el país al que pertenece el servidor </option>
+                        @foreach ($countries as $country)
+                        <option value="{{ $country->id }}"> {{ $country->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+
+            <input type="submit" class="d-none" id="saveServerButton">
+          </form>
         </div>
 
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <select class="form-select" name="country_id" id="country">
-                    <option value="" selected> Seleccioná el país al que pertenece el servidor </option>
-                    @foreach ($countries as $country)
-                    <option value="{{ $country->id }}"> {{ $country->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
+        <div class="mt-3" id="responseServer"></div>
+      </div>
 
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-danger float-end"> ➕ Agregar Servidor </button>
-            </div>
-        </div>
-    </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Cerrar </button>
+        <button type="button" class="btn btn-danger @guest disabled @endguest" onclick="saveServer()"> Guardar </button>
+      </div>
+    </div>
+  </div>
 </div>
-@endsection

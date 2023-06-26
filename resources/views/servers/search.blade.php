@@ -1,5 +1,48 @@
 @extends('base')
 
+@section('javascript')
+<script type="module">
+    var servers = [
+        @foreach ($top_servers as $server)
+        ["{{ $server->game->protocol }}", "{{ $server->ip }}", "{{ $server->port }}"],
+        @endforeach
+
+        @foreach ($servers as $server)
+        ["{{ $server->game->protocol }}", "{{ $server->ip }}", "{{ $server->port }}"],
+        @endforeach
+    ];
+
+    $(document).ready(function() {
+        servers.forEach(
+        server => {
+            getGameState(server[0], server[1], server[2]);
+        }
+        );
+    });
+
+    function getGameState(game, ip, port)
+    {
+        var parameters = {
+        "game": game,
+        "ip": ip,
+        "port": port,
+        };
+
+        $.ajax({
+            data: parameters,
+            url: "{{ route('api/games') }}",
+            type: 'get',
+            error: function (xhr, status) {
+                console.log(xhr.statusText);
+            },
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
+</script>
+@append
+
 @section('description', 'Encontrá servidores de juegos en línea, conocé nuevos jugadores y divertite al máximo')
 
 @section('robots', 'index, follow')
@@ -43,12 +86,13 @@
                     <button type="submit" class="btn btn-danger ms-3"> Buscar </button>
                 </div>     
             </form>
+            
             <div class="d-flex justify-content-md-end w-100 me-3">
                 @if (auth()->user())
                     @if (is_null(auth()->user()->community))
-                    <button type="button" class="btn btn-outline-dark ms-5" data-bs-toggle="modal" data-bs-target="#addCommunityModal"> ➕ Agregar Comunidad </button>
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addCommunityModal"> ➕ Agregar Comunidad </button>
                     @else 
-                    <a class="btn btn-outline-dark ms-5" href="{{ route('servers/create', ['game' => $game->protocol]) }}"> ➕ Agregar Servidor </a>
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addServerModal"> ➕ Agregar Servidor </button>
                     @endif
                 @else
                 <a class="btn btn-outline-dark ms-5" href="{{ route('login') }}"> Iniciar sesión con Steam </a>
@@ -64,5 +108,6 @@
     @include('servers.ranking_table')
 </div>
 
-@include('communities.store')
+@include('communities.create')
+@include('servers.create')
 @endsection

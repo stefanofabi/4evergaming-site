@@ -60,4 +60,4 @@
     </div>
 </div>
 
-@include('communities.store')
+@include('communities.create')

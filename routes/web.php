@@ -62,9 +62,7 @@ Route::group([
     'as' => 'servers/',
 ], function () {
     
-    Route::get('create', [ServerController::class, 'create'])->name('create');
-
-    Route::post('store', [ServerController::class, 'store'])->name('store');
+    Route::post('store', [ServerController::class, 'store'])->name('store')->middleware('auth');
 
     Route::get('search/{game}', [ServerController::class, 'search'])->name('search');
 
