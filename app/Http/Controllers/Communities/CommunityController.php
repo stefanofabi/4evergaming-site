@@ -36,25 +36,32 @@ class CommunityController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'contact_url' => 'required|url',
-            'logo' => 'required|mimes:jpg,jpeg,png|max:1048',
+            'contact_url' => 'url|nullable',
+            'logo' => 'mimes:jpg,jpeg,png|max:1048|nullable',
         ]);
 
         $user = auth()->user();
 
-        $logo = $request->file('logo');
-        $ext = $logo->guessExtension();
-        $logo_name = "logo_$user->id.$ext";
+        if ($request->has('logo')) 
+        {
+            $logo = $request->file('logo');
+            $ext = $logo->guessExtension();
+            $logo_name = "logo_$user->id.$ext";
+
+            Storage::disk('public')->put("communities/$logo_name",  File::get($logo));
+        } else 
+        {
+            $logo_name = "default.png";
+        }
 
         $community = Community::updateOrCreate([
             'user_id' => $user->id,
         ], [
             'name' => $request->name,
+            'description' => $request->description,
             'contact_url' => $request->contact_url,
             'logo' => $logo_name,
         ]);
-
-        Storage::disk('public')->put("communities/$logo_name",  File::get($logo));
 
         return response()->json($community, 200);
     }

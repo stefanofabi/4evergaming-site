@@ -33,10 +33,11 @@ class GameController extends Controller
         ->update([
             'hostname' => $server_info['var']['gq_hostname'],
             'map' => $server_info['var']['gq_mapname'],
+            'num_players' => $server_info['var']['gq_numplayers'],
             'max_players' => $server_info['var']['gq_maxplayers'],
-            'users_online' => $server_info['var']['gq_numplayers'],
             'status' => $server_info['var']['gq_online'],
             'vars' => json_encode($server_info['var']),
+            'players' => json_encode($server_info['players']),
         ]);
 
         return response()->json($server_info);

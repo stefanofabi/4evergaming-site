@@ -15,15 +15,29 @@ class Server extends Model
     'server_address',
     'hostname',
     'map',
+    'num_players',
     'max_players',
-    'users_online',
     'status',
     'join_link',
     'vars',
+    'players',
     'country_id',
     'community_id',
     'game_id',
     'rank',
+    'description',
+    
+  ];
+
+  /**
+    * The attributes that should be cast to native types.
+    *
+    * @var array
+    */
+    protected $casts = [
+      'vars' => 'json',
+      'players' => 'json',
+      
   ];
 
   /**

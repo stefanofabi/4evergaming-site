@@ -64,15 +64,22 @@
             </div>
 
             <div class="form-group mt-2 col-md-9">
+                  <label for="name" class="fw-bold"> Descripción </label>
+                  <textarea class="form-control" name="description" id="description" style="height: 100px" aria-describedby="nameHelp" @guest disabled @endguest></textarea>
+
+                  <small id="nameHelp" class="form-text text-muted"> Una breve descripción de como las personas conocen tu comunidad </small>
+            </div>
+
+            <div class="form-group mt-2 col-md-9">
                   <label for="name" class="fw-bold"> Página web / Discord / Redes Sociales / Grupo WhatsApp / Etc. </label>
-                  <input type="url" class="form-control" name="contact_url" id="contact_url" value="" aria-describedby="websiteHelp" required @guest disabled @endguest>
+                  <input type="url" class="form-control" name="contact_url" id="contact_url" value="" aria-describedby="websiteHelp" @guest disabled @endguest>
 
                   <small id="websiteHelp" class="form-text text-muted"> Dejanos un enlace para invitar a futuros jugadores a unirse a tu Comunidad </small>
             </div>
 
             <div class="form-group mt-2 col-md-9">
                   <label for="name" class="fw-bold"> Logo </label>
-                  <input type="file" class="form-control" name="logo" id="logo" value="" aria-describedby="logoHelp" required @guest disabled @endguest>
+                  <input type="file" class="form-control" name="logo" id="logo" value="" aria-describedby="logoHelp" @guest disabled @endguest>
 
                   <small id="logoHelp" class="form-text text-muted"> Subí el logo que identifica tu Comunidad. Una mala calidad puede reducir tu calificación. </small>
             </div>

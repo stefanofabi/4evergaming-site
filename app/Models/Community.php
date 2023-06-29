@@ -14,6 +14,16 @@ class Community extends Model
         'contact_url',
         'logo',
         'user_id',
+        'description',
+        
     ];
+
+    /**
+  * Get the user associated with the community.
+  */
+	public function user() 
+    {
+          return $this->belongsTo(User::class);
+      }
 
 }

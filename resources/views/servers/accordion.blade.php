@@ -11,30 +11,50 @@
             
             <div id="collapse{{ $rank }}" class="accordion-collapse collapse @if ($rank == 1) show @endif" data-bs-parent="#topServers">
                 <div class="accordion-body">
+
                     <div class="row">
-                        <div class="col-9">
-                            <h2 class="fw-bold text-warning"> {{ $server->community->name }} </h2> 
-                            
-                            <p class="fs-5"> {{ $server->community->description }} </p>
-                                
-                            <p class="fw-bold fs-5"> IP: {{ $server->server_address }} <a class="btn btn-danger btn-md ms-3" href="{{ $server->join_link }}"> Entrar </a></p>
+                        <div class="col">
+                            <h3> ➡️ Resumen del Servidor </h3>
+                            <div> <strong> Nombre: </strong> {{ $server->hostname }} </div>
+                            <div> <strong> Juego: </strong> <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> {{ $server->game->name }} </a> </div>
+                            <div> <strong> IP: </strong> {{ $server->server_address }}  </div>
+                            <div> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
+                            <div> <strong> Administrado por: </strong> <a href="{{ $server->community->user->profile_url }}" target="_blank"> {{ $server->community->user->name }} </a> </div>
+                        </div>
 
-                            <p>
-                            <span class="fw-bold fs-5"> Mapa actual: </span> <br />
-                            @if ($server->game->protocol == "cs16")
-                            <img src="https://image.gametracker.com/images/maps/160x120/cs/{{ $server->map }}.jpg" title="{{ $server->map }}" />
-                            @else 
-                            <img src="https://image.gametracker.com/images/maps/160x120/{{ $server->game->protocol }}/{{ $server->map }}.jpg" title="{{ $server->map }}" />
-                            @endif
-                            <br />
-                            <span class="fw-bold fs-4"> Jugadores: {{ $server->users_online }}/{{ $server->max_players }} </span>
-                            </p>
-                            
-                            <p class="fw-bold fs-5"> URL de contacto: {{ $server->community->contact_url }} </p>
+                        <div class="col">
+                            <h3> ➡️ Mapa actual </h3>
+                            <div> 
+                                @if ($server->game->protocol == "cs16")
+                                <img src="https://image.gametracker.com/images/maps/160x120/cs/{{ $server->map }}.jpg" title="{{ $server->map }}" />
+                                @else 
+                                <img src="https://image.gametracker.com/images/maps/160x120/{{ $server->game->protocol }}/{{ $server->map }}.jpg" title="{{ $server->map }}" />
+                                @endif
+                            </div>
 
-                            <p class="fw-bold fs-5"> Calificación: @for ($i = 1; $i <= $server->community->calification; $i++) ⭐ @endfor </p>
+                            <div> Jugando {{ $server->num_players }} / {{ $server->max_players }} </div>
+                            <a type="button" class="btn btn-outline-dark btn-sm ms-1" href="{{ $server->join_link }}"> Conectarse </a>
                         </div>
                     </div>
+
+                    <div class="mt-4">
+                        <h3> ➡️ Comunidad </h3>
+                        <div class="row">
+                            <div class="col-2">
+                                <a href="{{ $server->community->contact_url }}" target="_blank"> 
+                                    <img src="{{ asset('storage/communities/'.$server->community->logo) }}" alt="{{ $server->community->name }}" width="150" height="150">
+                                </a>
+                            </div>
+
+                            <div class="col-6">
+                                <div> <strong> Nombre: </strong> {{ $server->community->name }} </div>
+                                <div> <strong> URL de contacto: </strong> <a href="{{ $server->community->contact_url }}" target="_blank"> {{ $server->community->contact_url }} </a> </div> 
+
+                                <p class="mt-4"> {{ $server->community->description }} </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

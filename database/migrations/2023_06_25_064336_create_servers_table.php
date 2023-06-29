@@ -13,23 +13,26 @@ return new class extends Migration
     {
         Schema::create('servers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('rank');
             $table->string('ip');
             $table->integer('port');
             $table->string('server_address');
             $table->string('hostname');
             $table->string('map');
+            $table->integer('num_players');
             $table->integer('max_players');
-            $table->integer('users_online');
             $table->boolean('status');
             $table->string('join_link');
             $table->json('vars');
+            $table->json('players');
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('community_id');
             $table->unsignedBigInteger('game_id');
             $table->unsignedBigInteger('rank_points')->default(0);
-            $table->unsignedBigInteger('rank');
-
-            $table->unique(['ip', 'port', 'community_id']);
+            $table->string('description')->nullable();
+            
+            $table->unique(['ip', 'port']);
+            $table->unique(['rank', 'game_id']);
 
             $table->foreign('community_id')->references('id')->on('communities')->onDelete('restrict')->onUpdate('cascade');
             $table->foreign('game_id')->references('id')->on('games')->onDelete('restrict')->onUpdate('cascade');

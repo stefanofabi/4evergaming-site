@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('contact_url');
-            $table->string('logo');
-            $table->double('calification')->default(1.0);
+            $table->string('contact_url')->nullable();
+            $table->string('logo')->default('default.png');
+            $table->double('calification')->default(0.0);
             $table->unsignedBigInteger('user_id')->unique();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

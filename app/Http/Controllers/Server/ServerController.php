@@ -33,7 +33,7 @@ class ServerController extends Controller
         //
       
         $request->validate([
-            'ip' => 'required|string',
+            'ip' => 'required|ip',
             'port' => 'required|numeric|min:0|max:65535',
         ]);
 
@@ -52,21 +52,24 @@ class ServerController extends Controller
             Server::updateOrCreate(
                 [
                     'ip' => $request->ip,
-                    'port' => $request->port,
-                    'community_id' => auth()->user()->community->id
+                    'port' => $request->port
                 ], 
                 [
                     'server_address' => $server_info['id'],
                     'hostname' => $server_info['var']['gq_hostname'],
                     'map' => $server_info['var']['gq_mapname'],
+                    'num_players' => $server_info['var']['gq_numplayers'],
                     'max_players' => $server_info['var']['gq_maxplayers'],
-                    'users_online' => $server_info['var']['gq_numplayers'],
                     'status' => $server_info['var']['gq_online'],
-                    'join_link' => $server_info['var']['gq_joinlink'],
                     'vars' => json_encode($server_info['var']),
+                    'players' => json_encode($server_info['players']),
+                    'join_link' => $server_info['var']['gq_joinlink'],
                     'country_id' => $request->country_id,
                     'game_id' => $game->id,
-                    'rank' => $rank
+                    'rank' => $rank,
+                    'community_id' => auth()->user()->community->id,
+                    'description' => $request->description,
+
                 ]
             );
         } catch (Exception $e) {
@@ -106,8 +109,19 @@ class ServerController extends Controller
             ->with('countries', $countries);
     }
 
-    public function showInfo() 
+    public function showInfo(Request $request) 
     {
-        return back();
+        $request->validate([
+            'ip' => 'required|ip',
+            'port' => 'required|numeric|min:0|max:65535',
+        ]);
+
+        $server = Server::where('ip', $request->ip)->where('port', $request->port)->firstOrFail();
+
+        $games = Game::orderBy('name', 'ASC')->get();
+
+        return view('servers.info')
+            ->with('server', $server)
+            ->with('games', $games);
     }
 }
