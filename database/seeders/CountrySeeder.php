@@ -20,52 +20,52 @@ class CountrySeeder extends Seeder
             [
                 'name' => 'Argentina',
                 'short_name' => 'AR',
-                'flag' => 'ar.ico'
+                'flag' => 'ar.png'
             ],
             [
                 'name' => 'Brasil',
                 'short_name' => 'BR',
-                'flag' => 'br.ico'
+                'flag' => 'br.png'
             ],
             [
                 'name' => 'Canadá',
                 'short_name' => 'CA',
-                'flag' => 'ca.ico'
+                'flag' => 'ca.png'
             ],
             [
                 'name' => 'Chile',
                 'short_name' => 'CL',
-                'flag' => 'cl.ico'
+                'flag' => 'cl.png'
             ],
             [
                 'name' => 'Estados Unidos',
                 'short_name' => 'US',
-                'flag' => 'us.ico'
+                'flag' => 'us.png'
             ],
             [
                 'name' => 'México',
                 'short_name' => 'MX',
-                'flag' => 'mx.ico'
+                'flag' => 'mx.png'
             ],
             [
                 'name' => 'Paraguay',
                 'short_name' => 'PY',
-                'flag' => 'py.ico'
+                'flag' => 'py.png'
             ],
             [
                 'name' => 'Perú',
                 'short_name' => 'PE',
-                'flag' => 'pe.ico'
+                'flag' => 'pe.png'
             ],
             [
                 'name' => 'Uruguay',
                 'short_name' => 'UY',
-                'flag' => 'uy.ico'
+                'flag' => 'uy.png'
             ],
             [
                 'name' => 'Venezuela',
                 'short_name' => 'VE',
-                'flag' => 've.ico'
+                'flag' => 've.png'
             ]
         ]);
     }
