@@ -131,20 +131,18 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Score</th>
-                    <th scope="col">Tiempo jugado</th>
+                    <th class="text-center" scope="col">Score</th>
+                    <th class="text-center" scope="col">Tiempo jugado</th>
                     </tr>
                 </thead>
                 
                 <tbody>
                     @forelse (collect($server->players)->sortByDesc('gq_score') as $player)
                     <tr>
-                        <th scope="row"> {{ $player['id'] }} </th>
                         <td> {{ $player['name'] }} </td>
-                        <td> {{ $player['gq_score'] }} </td>
-                        <td> {{ floor($player['gq_time'] / 60) }} minutos </td>
+                        <td class="text-center"> {{ $player['gq_score'] }} </td>
+                        <td class="text-center"> {{ $player['gq_time_human'] }} </td>
                     </tr>
                     @empty
                         @if ($server->num_players > 0)
