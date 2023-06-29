@@ -80,16 +80,16 @@
 <div class="container mt-3">
     <div class="card p-3">        
         <div class="row">
-            <div class="col">
+            <div class="col-md mt-md-1">
                 <h3> ➡️ Resumen del Servidor </h3>
-                <div> <strong> Nombre: </strong> {{ $server->hostname }} </div>
-                <div> <strong> Juego: </strong> <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> {{ $server->game->name }} </a> </div>
-                <div> <strong> IP: </strong> {{ $server->server_address }}  </div>
-                <div> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
-                <div> <strong> Administrado por: </strong> <a href="{{ $server->community->user->profile_url }}" target="_blank"> {{ $server->community->user->name }} </a> </div>
+                <div class="fs-5"> <strong> Nombre: </strong> {{ $server->hostname }} </div>
+                <div class="fs-5"> <strong> Juego: </strong> <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> {{ $server->game->name }} </a> </div>
+                <div class="fs-5"> <strong> IP: </strong> {{ $server->server_address }}  </div>
+                <div class="fs-5"> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
+                <div class="fs-5"> <strong> Administrado por: </strong> <a href="{{ $server->community->user->profile_url }}" target="_blank"> {{ $server->community->user->name }} </a> </div>
             </div>
 
-            <div class="col">
+            <div class="col-md mt-md-1 mt-3">
                 <h3> ➡️ Mapa actual </h3>
                 <div> 
                     @if ($server->game->protocol == "cs16")
@@ -104,21 +104,20 @@
             </div>
         </div>
 
-        <div class="mt-4">
-            <h3> ➡️ Comunidad </h3>
-            <div class="row">
-                <div class="col-2">
-                    <a href="{{ $server->community->contact_url }}" target="_blank"> 
-                        <img src="{{ asset('storage/communities/'.$server->community->logo) }}" alt="{{ $server->community->name }}" width="150" height="150">
-                    </a>
-                </div>
+        <div class="row mt-3">
+            <div class="col-md-2" style="width: 200px">
+                <h3> ➡️ Comunidad </h3>
+                
+                <a href="{{ $server->community->contact_url }}" target="_blank"> 
+                    <img src="{{ asset('storage/communities/'.$server->community->logo) }}" alt="{{ $server->community->name }}" width="150" height="150">
+                </a>
+            </div>
 
-                <div class="col-6">
-                    <div> <strong> Nombre: </strong> {{ $server->community->name }} </div>
-                    <div> <strong> URL de contacto: </strong> <a href="{{ $server->community->contact_url }}" target="_blank"> {{ $server->community->contact_url }} </a> </div> 
+            <div class="col-md-6">
+                <div class="fs-5 mt-md-5 mt-3"> <strong> Nombre: </strong> {{ $server->community->name }} </div>
+                <div class="fs-5"> <strong> URL de contacto: </strong> <a href="{{ $server->community->contact_url }}" target="_blank"> {{ $server->community->contact_url }} </a> </div> 
 
-                    <p class="mt-4"> {{ $server->community->description }} </p>
-                </div>
+                <p class="mt-3"> {{ $server->community->description }} </p>
             </div>
         </div>
     </div>
@@ -140,12 +139,12 @@
                 </thead>
                 
                 <tbody>
-                    @forelse ($server->players as $player)
+                    @forelse (collect($server->players)->sortByDesc('gq_score') as $player)
                     <tr>
                         <th scope="row"> {{ $player['id'] }} </th>
                         <td> {{ $player['name'] }} </td>
                         <td> {{ $player['gq_score'] }} </td>
-                        <td> {{ $player['gq_time'] }} </td>
+                        <td> {{ floor($player['gq_time'] / 60) }} minutos </td>
                     </tr>
                     @empty
                         @if ($server->num_players > 0)
