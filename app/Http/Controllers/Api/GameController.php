@@ -34,11 +34,12 @@ class GameController extends Controller
             return response()->json(['errors' => true, 'message' => 'No existe este servidor en nuestra base de datos']);
         }
 
-        $now = new DateTime();
-        $lastUpdate = new DateTime($server->updated_at);
-        $diff = $now->diff($lastUpdate);
+        $lastUpdate = strtotime($server->updated_at);
+        $now = time();	
 
-        if ($diff->s > 300) {
+        $diffSeconds = $now - $lastUpdate;
+	
+        if ($diffSeconds > 300) {
         
             $server_info = $this->getServerInfo($request->game, $request->ip, $request->port);
 
