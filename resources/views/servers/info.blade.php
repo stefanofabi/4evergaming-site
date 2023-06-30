@@ -45,10 +45,11 @@
         Ver todos los juegos ⬇️
     </a>
 </div>
+
 <div class="d-flex justify-content-center mt-3">
-    <div class="collapse" id="gamesCollapse">
+    <div class="collapse text-center" id="gamesCollapse">
         @foreach ($games as $game)
-        <a type="button" class="btn btn-outline-danger ms-3" href="{{ route('servers/search', ['game' => $game->protocol]) }}">
+        <a type="button" class="btn btn-outline-danger m-1" href="{{ route('servers/search', ['game' => $game->protocol]) }}">
             <img loading="lazy" src="{{ asset('images/games-icons/'.$game->logo) }}" alt="Logo de {{ $game->name }}" width="30" height="30" title="{{ $game->name }}">
             {{ $game->name }} 
         </a>
@@ -59,14 +60,14 @@
 <div class="container mt-3">
     <div class="card p-3">
         <div class="row">
-            <div class="col-1">
+            <div class="col-md-1 d-none d-md-block">
                 <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> 
                     <img class="pt-1 ps-3" src="{{ asset('images/games-icons/'.$server->game->logo) }}" alt="{{ $server->game->name }}">
                 </a>
             </div>
             
-            <div class="col">
-                <h3 class="fw-bold"> {{ $server->hostname }} </h3>
+            <div class="col-md">
+                <h3 class="fw-bold text-nowrap"> {{ $server->hostname }} </h3>
                 
                 <div>
                     <img class="me-1" src="{{ asset('images/country-flags/'.$server->country->flag) }}" title="{{ $server->country->name }}" alt="{{ $server->country->name }}"> 
@@ -82,14 +83,14 @@
         <div class="row">
             <div class="col-md mt-md-1">
                 <h3> ➡️ Resumen del Servidor </h3>
-                <div class="fs-5"> <strong> Nombre: </strong> {{ $server->hostname }} </div>
+                <div class="fs-5 text-nowrap"> <strong> Nombre: </strong> {{ $server->hostname }} </div>
                 <div class="fs-5"> <strong> Juego: </strong> <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> {{ $server->game->name }} </a> </div>
                 <div class="fs-5"> <strong> IP: </strong> {{ $server->server_address }}  </div>
                 <div class="fs-5"> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
                 <div class="fs-5"> <strong> Administrado por: </strong> <a href="{{ $server->community->user->profile_url }}" target="_blank"> {{ $server->community->user->name }} </a> </div>
             </div>
 
-            <div class="col-md mt-md-1 mt-3">
+            <div class="col-md mt-md-1 mt-3 text-md-center">
                 <h3> ➡️ Mapa actual </h3>
                 <div> 
                     @if ($server->game->protocol == "cs16")
@@ -99,8 +100,8 @@
                     @endif
                 </div>
 
-                <div> Jugando {{ $server->num_players }} / {{ $server->max_players }} </div>
-                <a type="button" class="btn btn-outline-dark btn-sm ms-1" href="{{ $server->join_link }}"> Conectarse </a>
+                <div class="fs-5 mt-1"> Jugando {{ $server->num_players }} / {{ $server->max_players }} </div>
+                <a type="button" class="btn btn-outline-dark ms-1" href="{{ $server->join_link }}"> Conectarse </a>
             </div>
         </div>
 
