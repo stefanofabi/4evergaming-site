@@ -22,10 +22,11 @@ trait ServerInfo {
 
             foreach ($results as $id => $var) {
                 $players = $var['players'];
-                $players = collect($var['players'])->sortBy('score')->reverse()->toArray();
+
                 unset(
                     $var['players'],
                 );
+
                 $var['ip'] = $ip;
 
                 return [

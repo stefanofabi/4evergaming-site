@@ -50,8 +50,8 @@ class GameController extends Controller
                     'num_players' => $server_info['var']['gq_numplayers'],
                     'max_players' => $server_info['var']['gq_maxplayers'],
                     'status' => $server_info['var']['gq_online'],
-                    'vars' => json_encode($server_info['var']),
-                    'players' => json_encode($server_info['players']),
+                    'vars' => $server_info['var'],
+                    'players' => $server_info['players'],
                 ]);
             } catch (Exception $e) {
                 return response()->json(['errors' => true, 'message' => 'Falló al actualizar los datos del servidor']);
