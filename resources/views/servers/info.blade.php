@@ -67,7 +67,7 @@
             </div>
             
             <div class="col-md">
-                <h3 class="fw-bold text-nowrap"> {{ $server->hostname }} </h3>
+                <h3 class="fw-bold"> {{ $server->hostname }} </h3>
                 
                 <div>
                     <img class="me-1" src="{{ asset('images/country-flags/'.$server->country->flag) }}" title="{{ $server->country->name }}" alt="{{ $server->country->name }}"> 
@@ -83,11 +83,14 @@
         <div class="row">
             <div class="col-md mt-md-1">
                 <h3> ➡️ Resumen del Servidor </h3>
-                <div class="fs-5 text-nowrap"> <strong> Nombre: </strong> {{ $server->hostname }} </div>
+                <div class="fs-5"> <strong> Nombre: </strong> {{ $server->hostname }} </div>
                 <div class="fs-5"> <strong> Juego: </strong> <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> {{ $server->game->name }} </a> </div>
                 <div class="fs-5"> <strong> IP: </strong> {{ $server->server_address }}  </div>
                 <div class="fs-5"> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
-                <div class="fs-5"> <strong> Administrado por: </strong> <a href="{{ $server->community->user->profile_url }}" target="_blank"> {{ $server->community->user->name }} </a> </div>
+                <div class="fs-5 mt-3"> 
+                    <strong> Administrado por: </strong> <a href="{{ $server->community->user->profile_url }}" target="_blank">{{ $server->community->user->name }}</a> 
+                    <span class="fs-6"> <a class="btn btn-danger btn-sm ms-1 @guest disabled @endguest" data-bs-toggle="modal" data-bs-target="#claimServerModal"> Reclamar servidor </a> </span>
+                </div>
             </div>
 
             <div class="col-md mt-md-1 mt-3 text-md-center">
@@ -132,9 +135,9 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                    <th scope="col">Nombre</th>
-                    <th class="text-center" scope="col">Score</th>
-                    <th class="text-center" scope="col">Tiempo jugado</th>
+                        <th scope="col"> Nombre </th>
+                        <th class="text-center" scope="col"> Score </th>
+                        <th class="text-center" scope="col"> Tiempo jugado </th>
                     </tr>
                 </thead>
                 
@@ -158,6 +161,5 @@
     </div>
 </div>
 
-
-
+@include('servers.claim_server')
 @endsection

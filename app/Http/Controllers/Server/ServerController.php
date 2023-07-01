@@ -124,4 +124,25 @@ class ServerController extends Controller
             ->with('server', $server)
             ->with('games', $games);
     }
+
+    public function claimServer(Request $request) 
+    {
+        $request->validate([
+            'ip' => 'required|ip',
+            'port' => 'required|numeric|min:0|max:65535',
+        ]);
+
+        $server = Server::where('ip', $request->ip)->where('port', $request->port)->firstOrFail();
+
+        $server_info = $this->getServerInfo($server->game->protocol, $server->ip, $server->port);
+
+        if ($server_info['var']['gq_hostname'] != "GameTrackerClaimServer") {
+            return response()->json(['errors' => true, 'message' => 'El nombre del servidor no coincide con GameTrackerClaimServer']);
+        }
+
+        $server->community_id = auth()->user()->community->id;
+        $server->save();
+
+        return response()->json('Reclamaste exitosamente este Servidor');
+    }
 }

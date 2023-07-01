@@ -67,4 +67,6 @@ Route::group([
     Route::get('search/{game}', [ServerController::class, 'search'])->name('search');
 
     Route::get('info', [ServerController::class, 'showInfo'])->name('info');
+
+    Route::post('claim-server', [ServerController::class, 'claimServer'])->name('claim_server')->middleware('auth');
 });
