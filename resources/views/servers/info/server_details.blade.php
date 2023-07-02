@@ -49,7 +49,7 @@
 
 
             <div class="row mt-4">
-                <div class="col-md-2" style="width: 200px">
+                <div class="col-md-auto">
                     <h3> ➡️ Comunidad </h3>
                     
                     <a href="{{ $server->community->contact_url }}" target="_blank"> 
@@ -57,11 +57,10 @@
                     </a>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md">
                     <div class="fs-5 mt-md-5 mt-3"> <strong> Nombre: </strong> {{ $server->community->name }} </div>
-                    <div class="fs-5"> <strong> URL de contacto: </strong> <a href="{{ $server->community->contact_url }}" target="_blank"> {{ $server->community->contact_url }} </a> </div> 
 
-                    <p class="mt-3"> {{ $server->community->description }} </p>
+                    <p class="mt-1"> {{ substr($server->community->description, 0, 200) }}... </p>
                 </div>
             </div>
 
