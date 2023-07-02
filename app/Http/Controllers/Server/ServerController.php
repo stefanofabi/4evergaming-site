@@ -78,6 +78,20 @@ class ServerController extends Controller
         return response()->json($server, 200);
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+
+        $server = Server::findOrFail($id);
+        
+        $server->update($request->all());
+
+        return response()->json($server, 200);
+    }
+
     public function search(Request $request, string $game)
     {
         $game = Game::where('protocol', $game)->firstOrFail();
@@ -119,9 +133,12 @@ class ServerController extends Controller
 
         $games = Game::orderBy('name', 'ASC')->get();
 
+        $countries = Country::orderBy('name', 'ASC')->get();
+
         return view('servers.info.index')
             ->with('server', $server)
-            ->with('games', $games);
+            ->with('games', $games)
+            ->with('countries', $countries);
     }
 
     public function claimServer(Request $request) 

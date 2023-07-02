@@ -77,5 +77,5 @@
 </div>
 
 @include('communities.create')
-@include('servers.create')
+@include('servers.search.create')
 @endsection

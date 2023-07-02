@@ -27,7 +27,11 @@
                     <div class="fs-5"> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
                     <div class="fs-5 mt-3"> 
                         @auth
-                        <span class="fs-6"> <a class="btn btn-danger btn-sm ms-1" data-bs-toggle="modal" data-bs-target="#claimServerModal"> Reclamar propiedad </a> </span>
+                            @if (auth()->user()->id == $server->community->user_id) 
+                                <div> <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editServerModal"> Editar servidor </a> </div>
+                            @else 
+                                <div> <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#claimServerModal"> Reclamar propiedad </a> </div>
+                            @endif
                         @endauth
                     </div>
                 </div>
@@ -47,7 +51,6 @@
                 </div>
             </div>
 
-
             <div class="row mt-4">
                 <div class="col-md-auto">
                     <h3> ➡️ Comunidad </h3>
@@ -60,9 +63,8 @@
                 <div class="col-md">
                     <div class="fs-5 mt-md-5 mt-3"> <strong> Nombre: </strong> {{ $server->community->name }} </div>
 
-                    <p class="mt-1"> {{ substr($server->community->description, 0, 200) }}... </p>
+                    <p class="mt-1"> @if (! $server->description) {{ substr($server->community->description, 0, 200) }}... @endif </p>
                 </div>
             </div>
-
         </div>
     </div>

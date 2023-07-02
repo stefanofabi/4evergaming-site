@@ -92,7 +92,6 @@
     </div>
 </div>
 
-
-
 @include('servers.info.claim_server')
+@include('servers.info.edit')
 @endsection

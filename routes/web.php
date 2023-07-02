@@ -64,6 +64,12 @@ Route::group([
     
     Route::post('store', [ServerController::class, 'store'])->name('store')->middleware('auth');
 
+    Route::post('update/{id}', [ServerController::class, 'update'])->name('update')
+    ->where('id', '[1-9][0-9]*')
+    ->middleware('auth')
+    ->middleware('user_have_community')
+    ->middleware('verify_owner');
+
     Route::get('search/{game}', [ServerController::class, 'search'])->name('search');
 
     Route::get('info', [ServerController::class, 'showInfo'])->name('info');

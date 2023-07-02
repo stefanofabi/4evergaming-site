@@ -19,11 +19,18 @@ class Community extends Model
     ];
 
     /**
-  * Get the user associated with the community.
-  */
+     * Get the user associated with the community.
+    */
 	public function user() 
     {
-          return $this->belongsTo(User::class);
-      }
+        return $this->belongsTo(User::class);
+    }
 
+    /**
+     * Get the servers for the community.
+     */
+    public function servers()
+    {
+        return $this->hasMany(Server::class);
+    }
 }

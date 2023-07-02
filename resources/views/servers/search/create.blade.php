@@ -53,11 +53,7 @@
           Obtené análisis detallados, competí con jugadores de élite y atraé a nuevos seguidores a tu comunidad. 
           ¡No te conformes con menos, sé el protagonista de la competición y demostrá quién manda en el mundo gamer! 🔥🔥
         </p>
-
-        @guest
-        <div class="text-danger"> Antes de poder registrar tu Servidor, es necesario que <a href="{{ route('login') }}"> inicies sesión </a> </div> 
-        @endguest
-
+        
         <div class="row">
           <form id="serverForm">
             @csrf
