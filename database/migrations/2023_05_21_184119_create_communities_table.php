@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('communities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->string('description', 10000)->nullable();
             $table->string('contact_url')->nullable();
             $table->string('logo')->default('default.png');
             $table->double('calification')->default(0.0);
