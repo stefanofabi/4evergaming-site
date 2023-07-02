@@ -98,7 +98,7 @@ class ServerController extends Controller
         
         $countries = Country::orderBy('name', 'ASC')->get();
 
-        return view('servers.search')
+        return view('servers.search.index')
             ->with('game', $game)
             ->with('games', $games)
             ->with('servers', $servers)
@@ -118,7 +118,7 @@ class ServerController extends Controller
 
         $games = Game::orderBy('name', 'ASC')->get();
 
-        return view('servers.info')
+        return view('servers.info.index')
             ->with('server', $server)
             ->with('games', $games);
     }
