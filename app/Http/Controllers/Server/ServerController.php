@@ -9,10 +9,12 @@ use Stevebauman\Purify\Facades\Purify;
 use App\Models\Server;
 use App\Models\Game;
 use App\Models\Country;
+use App\Models\ServerTag;
 
 use App\Traits\ServerInfo;
 
 use Exception;
+use DB;
 
 class ServerController extends Controller
 {
@@ -47,6 +49,8 @@ class ServerController extends Controller
             return response()->json(['errors' => true, 'message' => 'No se pudo obtener los datos del servidor. Verifique que el servidor esté encendido y acepte conexiones'], 500);
         }
         
+        DB::beginTransaction();
+
         try {
             $rank = Server::selectRaw('MAX(rank) as max_rank')->where('game_id', $request->game_id)->first()->max_rank + 1;
 
@@ -68,8 +72,20 @@ class ServerController extends Controller
             $server->community_id = auth()->user()->community->id;
             $server->description = Purify::clean($request->description);
 
-            $server->saveOrFail();
+            $server->save();
+
+            ServerTag::where('server_id', $server->id)->delete();
+
+            if ($request->has('server_tags') && is_array($request->server_tags)) {
+                foreach ($request->server_tags as $server_tag) {
+                    ServerTag::create(['server_id' => $server->id, 'game_tag_id' => $server_tag]);
+                }            
+            }
+
+            DB::commit();
         } catch (Exception $e) {
+            DB::rollBack();
+
             return response()->json(['errors' => true, 'message' => 'El servidor ya está registrado en la plataforma'], 412);
         }
         
@@ -85,14 +101,27 @@ class ServerController extends Controller
 
         $server = Server::findOrFail($id);
         
+        DB::beginTransaction();
+
         try {
             $server->game_id = $request->game_id;
             $server->country_id = $request->country_id;
             $server->description = Purify::clean($request->description);
 
-            $server->saveOrFail();
+            $server->save();
+            
+            ServerTag::where('server_id', $server->id)->delete();
+
+            if ($request->has('server_tags') && is_array($request->server_tags)) {
+                foreach ($request->server_tags as $server_tag) {
+                    ServerTag::create(['server_id' => $server->id, 'game_tag_id' => $server_tag]);
+                }            
+            }
+
+            DB::commit();
         } catch (Exception $e) {
-            dd($e);
+            DB::rollBack();
+
             return response()->json(['errors' => true, 'message' => 'El servidor no se puedo actualizar'], 500);
         }
         

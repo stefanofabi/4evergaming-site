@@ -64,4 +64,12 @@ class Server extends Model
   {
 		return $this->belongsTo(Country::class);
 	}
+
+  /**
+  * Get the game tags for the server.
+  */
+  public function serverTags()
+  {
+    return $this->hasMany(ServerTag::class);
+  }
 }

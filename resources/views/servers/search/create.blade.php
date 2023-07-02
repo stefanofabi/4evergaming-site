@@ -93,17 +93,31 @@
             </div>
 
             <div class="row mt-3">
-                <div class="col-md-9">
-                  <label for="country" class="fw-bold"> País </label>
-                    <select class="form-select" name="country_id" id="country" required>
-                        <option value="" selected> Seleccioná el país al que pertenece el servidor </option>
-                        @foreach ($countries as $country)
-                        <option value="{{ $country->id }}"> {{ $country->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+              <div class="col-md-9">
+                <label for="country" class="fw-bold"> País </label>
+                
+                <select class="form-select" name="country_id" id="country" required>
+                  <option value="" selected> Seleccioná el país al que pertenece el servidor </option>
+                    
+                  @foreach ($countries as $country)
+                  <option value="{{ $country->id }}"> {{ $country->name }}</option>
+                  @endforeach
+                </select>
+              </div>
             </div>
 
+            <div class="row mt-3">
+              <div class="col-md-9">
+                <div> <label for="country" class="fw-bold"> Etiquetas del servidor </label> </div>
+
+                @foreach ($game->gameTags as $game_tag)
+                <div class="form-check form-check-inline mt-1">
+                  <input class="form-check-input" type="checkbox" id="gameTag_{{ $game_tag->id }}" name="server_tags[]" value="{{ $game_tag->id }}">
+                  <label class="form-check-label" for="gameTag_{{ $game_tag->id }}"> {{ $game_tag->name }} </label> 
+                </div>
+                @endforeach 
+              </div>
+            </div>   
 
             <input type="submit" class="d-none" id="serverFormSubmit">
           </form>

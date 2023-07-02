@@ -16,4 +16,12 @@ class Game extends Model
     {
         return $this->hasMany(Server::class);
     }
+
+    /**
+    * Get the game tags for the game.
+    */
+    public function gameTags()
+    {
+        return $this->hasMany(GameTag::class);
+    }
 }
