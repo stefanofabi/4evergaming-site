@@ -27,6 +27,7 @@ class Server extends Model
     'vars',
     'players',
     'rank',
+    'description',
   ];
 
   /**

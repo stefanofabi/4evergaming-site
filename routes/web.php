@@ -70,6 +70,12 @@ Route::group([
     ->middleware('user_have_community')
     ->middleware('verify_owner');
 
+    Route::delete('delete/{id}', [ServerController::class, 'destroy'])->name('destroy')
+    ->where('id', '[1-9][0-9]*')
+    ->middleware('auth')
+    ->middleware('user_have_community')
+    ->middleware('verify_owner');
+
     Route::get('search/{game}', [ServerController::class, 'search'])->name('search');
 
     Route::get('info', [ServerController::class, 'showInfo'])->name('info');

@@ -1,3 +1,11 @@
+@section('javascript')    
+<script>
+    function deleteServer() {
+        $('#deleteServerForm').submit();
+    }
+</script>
+@append
+
     <div class="card">    
         <div class="card-header">
             <div class="row p-1">
@@ -28,7 +36,15 @@
                     <div class="fs-5 mt-3"> 
                         @auth
                             @if (auth()->user()->id == $server->community->user_id) 
-                                <div> <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editServerModal"> Editar servidor </a> </div>
+                                <div class="d-inline-flex"> 
+                                    <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editServerModal"> Editar servidor </a> 
+                                    <a class="btn btn-danger btn-sm ms-2" onclick="deleteServer()"> Eliminar servidor </a> 
+
+                                    <form method="post" action="{{ route('servers/destroy', ['id' => $server->id]) }}" id="deleteServerForm">
+                                        @csrf
+                                        @method('DELETE') 
+                                    </form>
+                                </div>
                             @else 
                                 <div> <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#claimServerModal"> Reclamar propiedad </a> </div>
                             @endif
@@ -63,7 +79,7 @@
                 <div class="col-md">
                     <div class="fs-5 mt-md-5 mt-3"> <strong> Nombre: </strong> {{ $server->community->name }} </div>
 
-                    <p class="mt-1"> @if (! $server->description) {{ substr($server->community->description, 0, 200) }}... @endif </p>
+                    <p class="mt-1"> @if (strlen($server->community->description) > 0) {{ substr($server->community->description, 0, 200) }}... @endif </p>
                 </div>
             </div>
         </div>

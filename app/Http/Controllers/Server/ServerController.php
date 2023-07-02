@@ -85,9 +85,33 @@ class ServerController extends Controller
 
         $server = Server::findOrFail($id);
         
-        $server->update($request->all());
+        try {
+            $server->game_id = $request->game_id;
+            $server->country_id = $request->country_id;
+            $server->description = Purify::clean($request->description);
+
+            $server->saveOrFail();
+        } catch (Exception $e) {
+            dd($e);
+            return response()->json(['errors' => true, 'message' => 'El servidor no se puedo actualizar'], 500);
+        }
+        
 
         return response()->json($server, 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+
+        $server = Server::findOrFail($id);
+        
+        $server->delete();
+
+        return redirect()->route('servers/search', ['game' => $server->game->protocol]);
     }
 
     public function search(Request $request, string $game)
