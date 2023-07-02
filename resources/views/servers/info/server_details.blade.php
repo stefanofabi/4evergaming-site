@@ -1,9 +1,9 @@
     <div class="card">    
         <div class="card-header">
             <div class="row p-1">
-                <div class="col-md-8"> <h4> <strong> Detalles del servidor </strong> </h4> </div>
+                <div class="col-md-6"> <h4> <strong> Detalles del servidor </strong> </h4> </div>
 
-                <div class="col-md-auto fst-italic">
+                <div class="col-md-6 fst-italic text-end">
                     @php 
                     $lastUpdate = strtotime($server->updated_at);
                     $now = time();	
