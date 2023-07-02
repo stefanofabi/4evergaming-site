@@ -19,7 +19,6 @@
                             <div class="fs-5"> <strong> Juego: </strong> <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> {{ $server->game->name }} </a> </div>
                             <div class="fs-5"> <strong> IP: </strong> {{ $server->server_address }}  </div>
                             <div class="fs-5"> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
-                            <div class="fs-5"> <strong> Administrado por: </strong> <a href="{{ $server->community->user->profile_url }}" target="_blank"> {{ $server->community->user->name }} </a> </div>
                         
                             <a class="btn btn-danger mt-3" href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}"> Más estadísticas </a>
                         </div>

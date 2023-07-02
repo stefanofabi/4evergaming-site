@@ -3,7 +3,7 @@
         <div class="text-center"> <h4> <strong> Descripción </strong> </h4> </div>
     </div>    
 
-    <div class="card-body h-100">
-    {!! $server->description !!}
+    <div class="card-body">
+        <div class="container" style="font-size: 10px; mix-blend-mode: difference;"> {!! $server->description !!} </div>
     </div>
 </div>

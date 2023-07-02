@@ -18,7 +18,7 @@
 
         <div class="card-body">
             <div class="row">
-                <div class="col-md mt-md-1">
+                <div class="col-md-8 mt-md-1">
                     <h3> ➡️ Resumen del Servidor </h3>
                     <div class="fs-5"> <strong> Nombre: </strong> {{ $server->hostname }} </div>
                     <div class="fs-5"> <strong> Juego: </strong> <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> {{ $server->game->name }} </a> </div>
@@ -26,10 +26,8 @@
                     <div class="fs-5"> <strong> Rank: </strong> #{{ $server->rank }}  </div>
                     <div class="fs-5"> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
                     <div class="fs-5 mt-3"> 
-                        <strong> Administrado por: </strong> <a href="{{ $server->community->user->profile_url }}" target="_blank">{{ $server->community->user->name }}</a> 
-                        
                         @auth
-                        <span class="fs-6"> <a class="btn btn-danger btn-sm ms-1" data-bs-toggle="modal" data-bs-target="#claimServerModal"> Reclamar servidor </a> </span>
+                        <span class="fs-6"> <a class="btn btn-danger btn-sm ms-1" data-bs-toggle="modal" data-bs-target="#claimServerModal"> Reclamar propiedad </a> </span>
                         @endauth
                     </div>
                 </div>
@@ -50,7 +48,7 @@
             </div>
 
 
-            <div class="row mt-3">
+            <div class="row mt-4">
                 <div class="col-md-2" style="width: 200px">
                     <h3> ➡️ Comunidad </h3>
                     

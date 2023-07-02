@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Server;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Stevebauman\Purify\Facades\Purify;
 
 use App\Models\Server;
 use App\Models\Game;
@@ -66,7 +67,7 @@ class ServerController extends Controller
                     'game_id' => $game->id,
                     'rank' => $rank,
                     'community_id' => auth()->user()->community->id,
-                    'description' => $request->description,
+                    'description' => Purify::clean($request->description),
 
                 ]
             );

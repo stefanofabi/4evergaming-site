@@ -80,17 +80,19 @@
 
 <div class="container mt-3">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
             @include('servers.info.server_details')
+
+            @include('servers.info.players_online')
         </div>
 
-        <div class="col">
+        <div class="col-md-4">
             @include('servers.info.server_description')
         </div>
     </div>
 </div>
 
-@include('servers.info.players_online')
+
 
 @include('servers.info.claim_server')
 @endsection

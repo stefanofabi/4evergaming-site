@@ -1,5 +1,4 @@
-<div class="container mt-3">
-    <div class="card p-3">
+    <div class="card mt-3 p-3">
         <h3> ➡️ Jugadores en línea </h3>
         
         <div class="table-responsive">
@@ -30,4 +29,3 @@
             </table>
         </div>
     </div>
-</div>
