@@ -3,7 +3,7 @@
             <div class="row p-1">
                 <div class="col-md-6"> <h4> <strong> Detalles del servidor </strong> </h4> </div>
 
-                <div class="col-md-6 fst-italic text-end">
+                <div class="col-md-6 fst-italic text-md-end">
                     @php 
                     $lastUpdate = strtotime($server->updated_at);
                     $now = time();	
