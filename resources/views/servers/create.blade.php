@@ -60,7 +60,8 @@
 
             <div class="row">
               <div class="col-md-9">
-                  <select class="form-select" name="game_id" id="jueguito" required>
+                <label for="game_id" class="fw-bold"> Juego </label>
+                  <select class="form-select" name="game_id" id="game_id" required>
                       <option value=""> Seleccioná el juego </option>
                       @foreach ($games as $game_aux)
                       <option value="{{ $game_aux->id }}" @if ($game == $game_aux) selected @endif> {{ $game_aux->name }}</option>
@@ -71,6 +72,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-9">
+                  <label for="ip" class="fw-bold"> Servidor </label>
                     <div class="input-group">
                         <input type="text" class="form-control" name="ip" value="{{ old('ip') }}" placeholder="IP" aria-label="IP">
                         <span class="input-group-text">:</span>

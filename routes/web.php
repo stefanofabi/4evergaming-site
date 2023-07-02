@@ -68,5 +68,7 @@ Route::group([
 
     Route::get('info', [ServerController::class, 'showInfo'])->name('info');
 
-    Route::post('claim-server', [ServerController::class, 'claimServer'])->name('claim_server')->middleware('auth');
+    Route::post('claim-server', [ServerController::class, 'claimServer'])->name('claim_server')
+    ->middleware('auth')
+    ->middleware('user_have_community');
 });
