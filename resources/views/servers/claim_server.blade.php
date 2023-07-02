@@ -15,17 +15,15 @@
                 $('#claimServerButton').addClass("disabled");
                 $('#claimServerForm').css("opacity",".5");
                 $('#responseClaimServer').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
-            },
-            success: function(response){
-              if (response.errors) {
-                $('#responseClaimServer').html('<span style="font-size:18px;color: red"> '+ response.message +' </span>');
-              } else {
-                $('#responseClaimServer').html('<span style="font-size:18px;color:#34A853"> '+ response.message +'</span>');
-              }
-                
-                $('#claimServerForm').css("opacity","");
-                $("#claimServerButton").removeClass("disabled");
             }
+          }).done(function(response) {
+            $('#responseClaimServer').html('<span style="font-size:18px;color:#34A853"> '+ response.message +'  </span>');
+            $('#claimServerForm').css("opacity","");
+            $("#claimServerButton").removeClass("disabled");
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            $('#responseClaimServer').html('<span style="font-size:18px;color: red"> '+ jqXHR.responseJSON.message +' </span>');
+            $('#claimServerForm').css("opacity","");
+            $("#claimServerButton").removeClass("disabled");
           });
   });
 </script>

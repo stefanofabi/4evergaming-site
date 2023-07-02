@@ -38,23 +38,21 @@ class ServerController extends Controller
         ]);
 
         $game = Game::findOrFail($request->game_id);
-
+        
         $server_info = $this->getServerInfo($game->protocol, $request->ip, $request->port);
 
-        if (isset($server_info['errors'])) 
+        if (isset($server_info['errors']) || is_null($server_info['var']['gq_hostname'])) 
         {
-            return back()->withInput($request->all())->withErrors('No se pudo obtener los datos del servidor. Verifique que el servidor esté encendido y acepte conexiones');
+            return response()->json(['errors' => true, 'message' => 'No se pudo obtener los datos del servidor. Verifique que el servidor esté encendido y acepte conexiones'], 500);
         }
         
         try {
-            $rank = Server::where('game_id', $request->game_id)->count() + 1;
+            $rank = Server::selectRaw('MAX(rank) as max_rank')->where('game_id', $request->game_id)->first()->max_rank + 1;
 
-            Server::updateOrCreate(
+            $server = Server::create(
                 [
                     'ip' => $request->ip,
-                    'port' => $request->port
-                ], 
-                [
+                    'port' => $request->port,
                     'server_address' => $server_info['id'],
                     'hostname' => $server_info['var']['gq_hostname'],
                     'map' => $server_info['var']['gq_mapname'],
@@ -73,10 +71,10 @@ class ServerController extends Controller
                 ]
             );
         } catch (Exception $e) {
-            return response()->json(['errors' => true, 'message' => 'No se pudo guardar el servidor en la base de datos'], 500);
+            return response()->json(['errors' => true, 'message' => 'El servidor ya está registrado en la plataforma'], 412);
         }
         
-        return response()->json(['message' => 'Servidor agregado con éxito'], 200);
+        return response()->json($server, 200);
     }
 
     public function search(Request $request, string $game)
@@ -132,17 +130,21 @@ class ServerController extends Controller
             'port' => 'required|numeric|min:0|max:65535',
         ]);
 
-        $server = Server::where('ip', $request->ip)->where('port', $request->port)->firstOrFail();
+        $server = Server::where('ip', $request->ip)->where('port', $request->port)->first();
+
+        if (is_null($server)) {
+            return response()->json(['errors' => true, 'message' => 'Servidor no encontrado'], 404);
+        }
 
         $server_info = $this->getServerInfo($server->game->protocol, $server->ip, $server->port);
 
         if ($server_info['var']['gq_hostname'] != "GameTrackerClaimServer") {
-            return response()->json(['errors' => true, 'message' => 'El nombre del servidor no coincide con GameTrackerClaimServer']);
+            return response()->json(['errors' => true, 'message' => 'El nombre del servidor no coincide con GameTrackerClaimServer'], 412);
         }
 
         $server->community_id = auth()->user()->community->id;
         $server->save();
 
-        return response()->json('Reclamaste exitosamente este Servidor');
+        return response()->json(['message' => 'Reclamaste exitosamente este servidor']);
     }
 }

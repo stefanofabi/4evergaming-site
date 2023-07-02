@@ -82,7 +82,6 @@
     <div class="card">    
         <div class="card-header">
             <div class="row p-1">
-                
                 <div class="col-md-9"> <h4> <strong> Detalles del servidor </strong> </h4> </div>
 
                 <div class="col-md-3 fst-italic">
@@ -109,7 +108,10 @@
                     <div class="fs-5"> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
                     <div class="fs-5 mt-3"> 
                         <strong> Administrado por: </strong> <a href="{{ $server->community->user->profile_url }}" target="_blank">{{ $server->community->user->name }}</a> 
-                        <span class="fs-6"> <a class="btn btn-danger btn-sm ms-1 @guest disabled @endguest" data-bs-toggle="modal" data-bs-target="#claimServerModal"> Reclamar servidor </a> </span>
+                        
+                        @auth
+                        <span class="fs-6"> <a class="btn btn-danger btn-sm ms-1" data-bs-toggle="modal" data-bs-target="#claimServerModal"> Reclamar servidor </a> </span>
+                        @endauth
                     </div>
                 </div>
 

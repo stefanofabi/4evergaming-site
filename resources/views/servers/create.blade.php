@@ -10,24 +10,28 @@
             contentType: false,
             cache: false,
             processData:false,
+            dataType: "json",
             beforeSend: function(){
-                $('#saveServerButton').addClass("disabled");
+                $('#addServerButton').addClass("disabled");
                 $('#serverForm').css("opacity",".5");
                 $('#responseServer').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
-            },
-            success: function(msg){
-                $('#responseServer').html('<span style="font-size:18px;color:#34A853"> Tu Servidor fue agregada con éxito. Gracias por ser parte! </span>');
-                $('#serverForm').css("opacity","");
-                $("#saveServerButton").removeClass("disabled");
             }
+          }).done(function(response) {
+            $('#responseServer').html('<span style="font-size:18px;color:#34A853"> Servidor '+ response.hostname +' agregado exitosamente  </span>');
+            $('#serverForm').css("opacity","");
+            $("#addServerButton").removeClass("disabled");
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            $('#responseServer').html('<span style="font-size:18px;color: red"> '+ jqXHR.responseJSON.message +' </span>');
+            $('#serverForm').css("opacity","");
+            $("#addServerButton").removeClass("disabled");
           });
   });
 </script>
 
 <script>
-  function saveServer() 
+  function addServer() 
   {
-    $('#saveServerButton').click();
+    $('#serverFormSubmit').click();
   }
 </script>
 @append
@@ -74,9 +78,9 @@
                 <div class="col-md-9">
                   <label for="ip" class="fw-bold"> Servidor </label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="ip" value="{{ old('ip') }}" placeholder="IP" aria-label="IP">
+                        <input type="text" class="form-control" name="ip" id="ip" value="{{ old('ip') }}" placeholder="IP" aria-label="IP" required>
                         <span class="input-group-text">:</span>
-                        <input type="number" class="form-control" name="port" value="{{ old('port') }}" placeholder="Puerto" aria-label="Puerto" min="0" max="65535">
+                        <input type="number" class="form-control" name="port" value="{{ old('port') }}" placeholder="Puerto" aria-label="Puerto" min="0" max="65535" required>
                     </div>
                 </div>
             </div>
@@ -84,16 +88,17 @@
             <div class="row mt-3">
               <div class="col-md-9">
                 <div class="form-group">
-                  <label for="name" class="fw-bold"> Descripción </label>
+                  <label for="description" class="fw-bold"> Descripción </label>
                   <textarea class="form-control" name="description" id="description" style="height: 100px" aria-describedby="nameHelp" @guest disabled @endguest></textarea>
 
-                  <small id="nameHelp" class="form-text text-muted"> Una breve descripción de las reglas de tu servidor </small>
+                  <small id="nameHelp" class="form-text text-muted"> Una breve descripción de tu servidor y las reglas que se deben cumplir </small>
                 </div>
               </div>
             </div>
 
             <div class="row mt-3">
                 <div class="col-md-9">
+                  <label for="country" class="fw-bold"> País </label>
                     <select class="form-select" name="country_id" id="country" required>
                         <option value="" selected> Seleccioná el país al que pertenece el servidor </option>
                         @foreach ($countries as $country)
@@ -104,7 +109,7 @@
             </div>
 
 
-            <input type="submit" class="d-none" id="saveServerButton">
+            <input type="submit" class="d-none" id="serverFormSubmit">
           </form>
         </div>
 
@@ -113,7 +118,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Cerrar </button>
-        <button type="button" class="btn btn-danger @guest disabled @endguest" onclick="saveServer()"> Guardar </button>
+        <button type="button" class="btn btn-danger @guest disabled @endguest" id="addServerButton" onclick="addServer()"> Agregar servidor </button>
       </div>
     </div>
   </div>

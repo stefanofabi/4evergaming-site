@@ -14,12 +14,15 @@
                 $('#saveCommunityButton').addClass("disabled");
                 $('#communityForm').css("opacity",".5");
                 $('#responseCommunity').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
-            },
-            success: function(msg){
-                $('#responseCommunity').html('<span style="font-size:18px;color:#34A853"> Tu Comunidad fue agregada con éxito. Gracias por ser parte! </span>');
-                $('#communityForm').css("opacity","");
-                $("#saveCommunityButton").removeClass("disabled");
             }
+          }).done(function(response) {
+            $('#responseCommunity').html('<span style="font-size:18px;color:#34A853"> Comunidad '+ response.name +' agregada exitosamente </span>');
+            $('#communityForm').css("opacity","");
+            $("#saveCommunityButton").removeClass("disabled");
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            $('#responseCommunity').html('<span style="font-size:18px;color: red"> '+ jqXHR.responseJSON.message +' </span>');
+            $('#communityForm').css("opacity","");
+            $("#saveCommunityButton").removeClass("disabled");
           });
   });
 </script>
@@ -28,7 +31,7 @@
 <script>
   function saveCommunity() 
   {
-    $('#saveCommunityButton').click();
+    $('#communityFormSubmitButton').click();
   }
 </script>
 @append
@@ -84,7 +87,7 @@
                   <small id="logoHelp" class="form-text text-muted"> Subí el logo que identifica tu Comunidad. Una mala calidad puede reducir tu calificación. </small>
             </div>
 
-            <input type="submit" class="d-none" id="saveCommunityButton">
+            <input type="submit" class="d-none" id="communityFormSubmitButton">
           </form>
         </div>
 
@@ -93,7 +96,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Cerrar </button>
-        <button type="button" class="btn btn-primary @guest disabled @endguest" onclick="saveCommunity()"> Guardar </button>
+        <button type="button" class="btn btn-primary @guest disabled @endguest" id="saveCommunityButton" onclick="saveCommunity()"> Guardar </button>
       </div>
     </div>
   </div>

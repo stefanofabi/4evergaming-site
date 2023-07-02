@@ -90,14 +90,34 @@
             <div class="d-flex justify-content-md-end w-100 me-3">
                 @if (auth()->user())
                     @if (is_null(auth()->user()->community))
-                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addCommunityModal"> ➕ Agregar Comunidad </button>
+                    <button type="button" class="btn btn-outline-dark d-none d-md-block" data-bs-toggle="modal" data-bs-target="#addCommunityModal"> ➕ Agregar Comunidad </button>
                     @else 
-                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addServerModal"> ➕ Agregar Servidor </button>
+                    <button type="button" class="btn btn-outline-dark d-none d-md-block" data-bs-toggle="modal" data-bs-target="#addServerModal"> ➕ Agregar Servidor </button>
                     @endif
                 @else
-                <a class="btn btn-outline-dark ms-5" href="{{ route('login') }}"> Iniciar sesión con Steam </a>
+                <a class="btn btn-outline-dark ms-5 d-none d-md-block" href="{{ route('login') }}"> Iniciar sesión con Steam </a>
                 @endif
             </div>
+
+            <ul class="navbar-nav d-md-none">
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link text-center" aria-current="page" href="{{ route('login') }}"> Iniciar sesión con Steam </a>
+                </li>
+                @endguest
+
+                @auth
+                    @if (is_null(auth()->user()->community))
+                    <li class="nav-item">
+                        <a class="nav-link text-center" aria-current="page" data-bs-toggle="modal" data-bs-target="#addCommunityModal"> Agregar Comunidad </a>
+                    </li>
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link text-center" aria-current="page" data-bs-toggle="modal" data-bs-target="#addServerModal"> Agregar Servidor </a>
+                    </li>
+                    @endif
+                @endauth
+            </ul>
         </div>
     </nav>
 </div>

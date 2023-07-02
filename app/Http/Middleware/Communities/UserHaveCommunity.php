@@ -18,7 +18,7 @@ class UserHaveCommunity
         $community = auth()->user()->community;
 
         if (is_null($community)) {
-            return response()->json(['errors' => true, 'message' => 'No registraste tu comunidad en la plataforma']);
+            return response()->json(['errors' => true, 'message' => 'No registraste tu comunidad en la plataforma'], 412);
         }
         
         return $next($request);
