@@ -4,6 +4,6 @@
     </div>    
 
     <div class="card-body">
-        <div class="container" style="font-size: 10px; mix-blend-mode: difference;"> {!! $server->description !!} </div>
+        <div class="container p-0"> {!! $server->description !!} </div>
     </div>
 </div>

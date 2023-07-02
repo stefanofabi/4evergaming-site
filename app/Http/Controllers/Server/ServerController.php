@@ -50,27 +50,25 @@ class ServerController extends Controller
         try {
             $rank = Server::selectRaw('MAX(rank) as max_rank')->where('game_id', $request->game_id)->first()->max_rank + 1;
 
-            $server = Server::create(
-                [
-                    'ip' => $request->ip,
-                    'port' => $request->port,
-                    'server_address' => $server_info['id'],
-                    'hostname' => $server_info['var']['gq_hostname'],
-                    'map' => $server_info['var']['gq_mapname'],
-                    'num_players' => $server_info['var']['gq_numplayers'],
-                    'max_players' => $server_info['var']['gq_maxplayers'],
-                    'status' => $server_info['var']['gq_online'],
-                    'vars' => $server_info['var'],
-                    'players' => $server_info['players'],
-                    'join_link' => $server_info['var']['gq_joinlink'],
-                    'country_id' => $request->country_id,
-                    'game_id' => $game->id,
-                    'rank' => $rank,
-                    'community_id' => auth()->user()->community->id,
-                    'description' => Purify::clean($request->description),
+            $server = new Server();
+            $server->ip = $request->ip;
+            $server->port = $request->port;
+            $server->server_address = $server_info['id'];
+            $server->hostname = $server_info['var']['gq_hostname'];
+            $server->map = $server_info['var']['gq_mapname'];
+            $server->num_players = $server_info['var']['gq_numplayers'];
+            $server->max_players = $server_info['var']['gq_maxplayers'];
+            $server->status = $server_info['var']['gq_online'];
+            $server->vars = $server_info['var'];
+            $server->players = $server_info['players'];
+            $server->join_link = $server_info['var']['gq_joinlink'];
+            $server->country_id = $request->country_id;
+            $server->game_id = $game->id;
+            $server->rank = $rank;
+            $server->community_id = auth()->user()->community->id;
+            $server->description = Purify::clean($request->description);
 
-                ]
-            );
+            $server->saveOrFail();
         } catch (Exception $e) {
             return response()->json(['errors' => true, 'message' => 'El servidor ya está registrado en la plataforma'], 412);
         }

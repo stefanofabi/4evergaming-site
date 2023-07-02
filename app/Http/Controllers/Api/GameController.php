@@ -44,15 +44,15 @@ class GameController extends Controller
             $server_info = $this->getServerInfo($request->game, $request->ip, $request->port);
 
             try {
-                $server->update([
-                    'hostname' => $server_info['var']['gq_hostname'],
-                    'map' => $server_info['var']['gq_mapname'],
-                    'num_players' => $server_info['var']['gq_numplayers'],
-                    'max_players' => $server_info['var']['gq_maxplayers'],
-                    'status' => $server_info['var']['gq_online'],
-                    'vars' => $server_info['var'],
-                    'players' => $server_info['players'],
-                ]);
+                $server->hostname = $server_info['var']['gq_hostname'];
+                $server->map = $server_info['var']['gq_mapname'];
+                $server->num_players = $server_info['var']['gq_numplayers'];
+                $server->max_players = $server_info['var']['gq_maxplayers'];
+                $server->status = $server_info['var']['gq_online'];
+                $server->vars = $server_info['var'];
+                $server->players = $server_info['players'];
+                
+                $server->saveOrFail();
             } catch (Exception $e) {
                 return response()->json(['errors' => true, 'message' => 'Falló al actualizar los datos del servidor']);
             }

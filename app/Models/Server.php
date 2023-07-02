@@ -9,7 +9,12 @@ class Server extends Model
 {
   use HasFactory;
 
-  protected $fillable = [
+  /**
+  * The attributes that aren't mass assignable.
+  *
+  * @var array
+  */
+  protected $guarded = [
     'ip',
     'port',
     'server_address',
@@ -21,12 +26,7 @@ class Server extends Model
     'join_link',
     'vars',
     'players',
-    'country_id',
-    'community_id',
-    'game_id',
     'rank',
-    'description',
-    
   ];
 
   /**

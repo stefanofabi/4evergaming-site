@@ -62,7 +62,7 @@
         <div class="row">
             <div class="col-md-1 d-none d-md-block">
                 <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> 
-                    <img class="pt-1 ps-3" src="{{ asset('images/games-icons/'.$server->game->logo) }}" alt="{{ $server->game->name }}">
+                    <img class="img-fluid pt-1 ps-3" src="{{ asset('images/games-icons/'.$server->game->logo) }}" alt="{{ $server->game->name }}">
                 </a>
             </div>
             
