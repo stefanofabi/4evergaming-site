@@ -78,7 +78,17 @@
     </div>
 </div>
 
-@include('servers.info.server_details')
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-9">
+            @include('servers.info.server_details')
+        </div>
+
+        <div class="col">
+            @include('servers.info.server_description')
+        </div>
+    </div>
+</div>
 
 @include('servers.info.players_online')
 
