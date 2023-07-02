@@ -86,7 +86,7 @@
             @include('servers.info.players_online')
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mt-3 mt-md-0">
             @include('servers.info.server_description')
         </div>
     </div>
