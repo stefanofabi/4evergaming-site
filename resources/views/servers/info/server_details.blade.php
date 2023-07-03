@@ -57,11 +57,11 @@
 
                     @if(! Storage::exists('public/maps/'. $server->game->protocol .'/'.$server->map .'.jpg'))
                     <div class="m-1">
-                        <p> Por favor, ayudános y subí el mapa del servidor. <a data-bs-toggle="modal" data-bs-target="#uploadMapModal"> Click aquí </a></p>
+                        <a class="text-danger text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#uploadMapModal"> Por favor, ayudános y subí el mapa del servidor. Click aquí </a>
                     </div>
                     @endif
                     
-                    <img class="img-fluid rounded" src="{{ asset('storage/maps/'. $server->game->protocol .'/'. $server->map .'.jpg') }}" alt="{{ $server->map }}" title="{{ $server->map }}" />
+                    <img class="img-fluid rounded mt-1" src="{{ asset('storage/maps/'. $server->game->protocol .'/'. $server->map .'.jpg') }}" alt="{{ $server->map }}" title="{{ $server->map }}" />
 
                     <div class="fs-5 mt-1"> Jugadores {{ $server->num_players }} / {{ $server->max_players }} </div>
                     <a type="button" class="btn btn-outline-dark m-1" href="{{ $server->join_link }}"> Conectarse </a>
