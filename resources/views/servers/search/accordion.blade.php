@@ -23,18 +23,16 @@
                             <a class="btn btn-danger mt-3" href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}"> Más estadísticas </a>
                         </div>
 
-                        <div class="col-md mt-md-1 mt-3 text-md-center">
+                        <div class="col-md-4 mt-md-1 mt-3 text-md-center">
                             <h3> ➡️ Mapa actual </h3>
-                            <div> 
-                                @if ($server->game->protocol == "cs16")
-                                <img src="https://image.gametracker.com/images/maps/160x120/cs/{{ $server->map }}.jpg" title="{{ $server->map }}" />
-                                @else 
-                                <img src="https://image.gametracker.com/images/maps/160x120/{{ $server->game->protocol }}/{{ $server->map }}.jpg" title="{{ $server->map }}" />
-                                @endif
-                            </div>
 
-                            <div class="fs-5 mt-1"> Jugando {{ $server->num_players }} / {{ $server->max_players }} </div>
-                            <a type="button" class="btn btn-outline-dark ms-1" href="{{ $server->join_link }}"> Conectarse </a>
+                            @if(Storage::exists('public/maps/'. $server->game->protocol .'/'.$server->map .'.jpg'))
+                            <img class="img-fluid rounded" src="{{ asset('storage/maps/'. $server->game->protocol .'/'. $server->map .'.jpg') }}" alt="{{ $server->map }}" title="{{ $server->map }}" />
+                            @else 
+                            <div class="fs-4 fw-bold"> {{ $server->map }} </div>
+                            @endif
+                            <div class="fs-5 mt-1"> Jugadores {{ $server->num_players }} / {{ $server->max_players }} </div>
+                            <a type="button" class="btn btn-outline-dark m-1" href="{{ $server->join_link }}"> Conectarse </a>
                         </div>
                     </div>
 

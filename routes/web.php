@@ -83,4 +83,7 @@ Route::group([
     Route::post('claim-server', [ServerController::class, 'claimServer'])->name('claim_server')
     ->middleware('auth')
     ->middleware('user_have_community');
+
+    Route::post('upload-map', [ServerController::class, 'uploadMap'])->name('upload_map')
+    ->middleware('auth');
 });

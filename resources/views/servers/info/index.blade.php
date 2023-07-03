@@ -94,4 +94,5 @@
 
 @include('servers.info.claim_server')
 @include('servers.info.edit')
+@include('servers.info.upload_map')
 @endsection

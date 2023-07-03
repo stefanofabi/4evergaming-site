@@ -54,16 +54,17 @@
 
                 <div class="col-md mt-md-1 mt-3 text-md-center">
                     <h3> ➡️ Mapa actual </h3>
-                    <div> 
-                        @if ($server->game->protocol == "cs16")
-                        <img src="https://image.gametracker.com/images/maps/160x120/cs/{{ $server->map }}.jpg" title="{{ $server->map }}" />
-                        @else 
-                        <img src="https://image.gametracker.com/images/maps/160x120/{{ $server->game->protocol }}/{{ $server->map }}.jpg" title="{{ $server->map }}" />
-                        @endif
-                    </div>
 
-                    <div class="fs-5 mt-1"> Jugando {{ $server->num_players }} / {{ $server->max_players }} </div>
-                    <a type="button" class="btn btn-outline-dark ms-1" href="{{ $server->join_link }}"> Conectarse </a>
+                    @if(! Storage::exists('public/maps/'. $server->game->protocol .'/'.$server->map .'.jpg'))
+                    <div class="m-1">
+                        <p> Por favor, ayudános y subí el mapa del servidor. <a data-bs-toggle="modal" data-bs-target="#uploadMapModal"> Click aquí </a></p>
+                    </div>
+                    @endif
+                    
+                    <img class="img-fluid rounded" src="{{ asset('storage/maps/'. $server->game->protocol .'/'. $server->map .'.jpg') }}" alt="{{ $server->map }}" title="{{ $server->map }}" />
+
+                    <div class="fs-5 mt-1"> Jugadores {{ $server->num_players }} / {{ $server->max_players }} </div>
+                    <a type="button" class="btn btn-outline-dark m-1" href="{{ $server->join_link }}"> Conectarse </a>
                 </div>
             </div>
 
@@ -71,8 +72,8 @@
                 <div class="col-md-auto">
                     <h3> ➡️ Comunidad </h3>
                     
-                    <a href="{{ $server->community->contact_url }}" target="_blank"> 
-                        <img src="{{ asset('storage/communities/'.$server->community->logo) }}" alt="{{ $server->community->name }}" width="150" height="150">
+                    <a href="@if (empty($server->community->contact_url)) # @else {{ $server->community->contact_url }} @endif" @if (! empty($server->community->contact_url)) target="_blank" @endif> 
+                        <img class="img-fluid rounded" src="{{ asset('storage/communities/'.$server->community->logo) }}" alt="{{ $server->community->name }}">
                     </a>
                 </div>
 

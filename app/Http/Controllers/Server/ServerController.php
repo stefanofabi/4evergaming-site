@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Server;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Stevebauman\Purify\Facades\Purify;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 use App\Models\Server;
 use App\Models\Game;
@@ -215,5 +217,29 @@ class ServerController extends Controller
         $server->save();
 
         return response()->json(['message' => 'Reclamaste exitosamente este servidor']);
+    }
+
+    public function uploadMap(Request $request)
+    {
+        //
+
+        $request->validate([
+            'mapname' => 'required|string',
+            'map' => 'required|mimes:jpg,jpeg|max:1048',
+        ]);
+
+        $server = Server::findOrFail($request->server_id);
+
+        if ($request->mapname != $server->map) {
+            return response()->json(['errors' => true, 'message' => 'El mapa del servidor no corresponde con el mapa subido'], 412);
+        }
+
+        if (Storage::disk('public')->exists('maps/'. $server->game->protocol .'/'.$server->map .'.jpg')) {
+            return response()->json(['errors' => true, 'message' => 'Ya tenemos una imágen para este mapa. Gracias por colaborar!'], 412);
+        }
+
+        Storage::disk('public')->put('maps/'. $server->game->protocol .'/'.$server->map .'.jpg',  File::get($request->file('map')));      
+
+        return response()->json(['message' => 'Imagen cargada con éxito. Gracias por colaborar.'], 200);
     }
 }
