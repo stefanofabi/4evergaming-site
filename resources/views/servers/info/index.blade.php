@@ -26,6 +26,23 @@
             }
         });
     }
+
+    var ctx = document.getElementById('favoriteMapsChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: @json($server->favoriteMaps()->pluck('map')->toArray()),
+            datasets: [{
+                label: 'Cantidad de veces jugadas',
+                data: @json($server->favoriteMaps()->pluck('count')->toArray()),
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
 </script>
 @append
 
@@ -88,6 +105,8 @@
 
         <div class="col-md-4 mt-3 mt-md-0">
             @include('servers.info.server_description')
+
+            @include('servers.info.favorite_maps')
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
-<div class="card h-100">    
+<div class="card">    
     <div class="card-header">
-        <div class="text-center"> <h4> <strong> Descripción </strong> </h4> </div>
+        <div> <h4 class="text-center fw-bold"> Descripción </h4> </div>
     </div>    
 
     <div class="card-body">

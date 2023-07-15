@@ -72,4 +72,12 @@ class Server extends Model
   {
     return $this->hasMany(ServerTag::class);
   }
+
+  /**
+  * Get the favorite maps for the server.
+  */
+  public function favoriteMaps()
+  {
+    return $this->hasMany(FavoriteMap::class);
+  }
 }

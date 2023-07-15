@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 use Exception;
 
 use App\Models\Server;
+use App\Models\FavoriteMap;
 
 use App\Traits\ServerInfo;
 
 use DateTime;
+use DB;
 
 class GameController extends Controller
 {
@@ -42,6 +44,7 @@ class GameController extends Controller
         if ($diffSeconds > 300) {
         
             $server_info = $this->getServerInfo($request->game, $request->ip, $request->port);
+            DB::beginTransaction();
 
             try {
                 $server->hostname = $server_info['var']['gq_hostname'];
@@ -52,10 +55,29 @@ class GameController extends Controller
                 $server->vars = $server_info['var'];
                 $server->players = $server_info['players'];
                 
-                $server->saveOrFail();
+                $server->save();
+
+                $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();
+
+                if (is_null($lastMapUpdated) || $lastMapUpdated->map != $server->map) {
+                    FavoriteMap::updateOrCreate([
+                            'server_id' => $server->id,
+                            'map' => $server->map,
+                        ], [
+                            'count' => DB::raw('count + 1')
+                        ]
+                    );
+                }
+
+                FavoriteMap::where('updated_at', '<=', DB::raw('DATE_SUB(CURDATE(), INTERVAL 30 DAY)'))->delete();
+                
+                DB::commit();
             } catch (Exception $e) {
+                DB::rollBack();
+
                 return response()->json(['errors' => true, 'message' => 'Falló al actualizar los datos del servidor']);
             }
+
         }
 
         return response()->json($server);

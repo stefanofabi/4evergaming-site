@@ -15,6 +15,7 @@ export default defineConfig({
         alias: {
           '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
           '~swiper': path.resolve(__dirname, 'node_modules/swiper'),
+          '~chart.js': path.resolve(__dirname, 'node_modules/chart.js'),
         }
     },
 });
