@@ -140,6 +140,8 @@
             @include('servers.info.server_details')
 
             @include('servers.info.players_online')
+
+            @include('servers.info.player_ranking')
         </div>
 
         <div class="col-md-4 mt-3 mt-md-0">

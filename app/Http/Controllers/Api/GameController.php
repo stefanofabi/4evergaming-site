@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 use Exception;
 
 use App\Models\Server;
 use App\Models\FavoriteMap;
 use App\Models\OnlinePlayerHistory;
+use App\Models\PlayerRanking;
 
 use App\Traits\ServerInfo;
 
@@ -41,13 +43,16 @@ class GameController extends Controller
         $now = Carbon::now();	
 
         $diffSeconds = $now->diffInSeconds($lastUpdate);
-	
+        
         if ($diffSeconds > 300) {
         
             $server_info = $this->getServerInfo($request->game, $request->ip, $request->port);
             DB::beginTransaction();
 
             try {
+                // save old players
+                $lastPlayers = $server->players;
+                
                 $server->hostname = $server_info['var']['gq_hostname'];
                 $server->map = $server_info['var']['gq_mapname'];
                 $server->num_players = $server_info['var']['gq_numplayers'];
@@ -80,10 +85,28 @@ class GameController extends Controller
                 
                 $server->onlinePlayerHistories()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
 
+                $playersCollection = new Collection($server->players);
+                
+                foreach ($lastPlayers as $player) 
+                {
+                    if (! in_array($player['gq_name'], $playersCollection->pluck('gq_name')->toArray())) {
+                        PlayerRanking::updateOrCreate([
+                                'server_id' => $server->id,
+                                'name' => $player['gq_name'],
+                            ], [
+                                'score' => DB::raw('score + '. $player['gq_score']),
+                                'time' => DB::raw('time + '. ceil($player['gq_time'] / 60)),
+                            ]
+                        );
+                    }
+                }
+
+                $server->playerRankings()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
+
                 DB::commit();
             } catch (Exception $e) {
                 DB::rollBack();
-                
+
                 return response()->json(['errors' => true, 'message' => 'Falló al actualizar los datos del servidor']);
             }
 

@@ -88,4 +88,12 @@ class Server extends Model
   {
     return $this->hasMany(OnlinePlayerHistory::class);
   }
+
+  /**
+  * Get the player rankings for the server.
+  */
+  public function playerRankings()
+  {
+    return $this->hasMany(PlayerRanking::class);
+  }
 }
