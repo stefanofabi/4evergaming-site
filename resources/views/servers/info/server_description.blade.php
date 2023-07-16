@@ -1,4 +1,4 @@
-<div class="card">    
+<div class="card @if (empty($server->description)) d-none @endif">    
     <div class="card-header">
         <div> <h4 class="text-center fw-bold"> Descripción </h4> </div>
     </div>    
