@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use Exception;
 
 use App\Models\Server;
 use App\Models\FavoriteMap;
+use App\Models\OnlinePlayerHistory;
 
 use App\Traits\ServerInfo;
 
@@ -29,8 +31,7 @@ class GameController extends Controller
             'port' => 'required|numeric|min:0|max:65535',
         ]);
 
-        $server = Server::where('ip', $request->ip)
-        ->where('port', $request->port)->first();
+        $server = Server::where('ip', $request->ip)->where('port', $request->port)->first();
 
         if (! $server) {
             return response()->json(['errors' => true, 'message' => 'No existe este servidor en nuestra base de datos']);
@@ -69,12 +70,20 @@ class GameController extends Controller
                     );
                 }
 
-                FavoriteMap::where('updated_at', '<=', DB::raw('DATE_SUB(CURDATE(), INTERVAL 30 DAY)'))->delete();
+                $server->favoriteMaps()->where('updated_at', '<=', Carbon::now()->subDays(7)->toDateString())->delete();
+
+                $lastHistoricalOnlinePlayer = $server->onlinePlayerHistories()->where('updated_at', '>', Carbon::now()->subMinutes(15)->toDateTimeString())->first();
+
+                if (is_null($lastHistoricalOnlinePlayer)) {
+                    OnlinePlayerHistory::create(['server_id' => $server->id, 'count' => $server->num_players]);
+                }
                 
+                $server->onlinePlayerHistories()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
+
                 DB::commit();
             } catch (Exception $e) {
                 DB::rollBack();
-
+                
                 return response()->json(['errors' => true, 'message' => 'Falló al actualizar los datos del servidor']);
             }
 

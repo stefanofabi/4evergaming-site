@@ -27,8 +27,8 @@
         });
     }
 
-    var ctx = document.getElementById('favoriteMapsChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    var favoriteMapsChart = document.getElementById('favoriteMapsChart');
+    var myChart = new Chart(favoriteMapsChart, {
         type: 'pie',
         data: {
             labels: @json($server->favoriteMaps()->pluck('map')->toArray()),
@@ -43,6 +43,27 @@
             maintainAspectRatio: false
         }
     });
+
+    var onlinePlayerHistoryChart = document.getElementById('onlinePlayerHistoryChart');
+    var myChart = new Chart(onlinePlayerHistoryChart, {
+        type: 'line',
+        radius: 500,
+        data: {
+            labels: @json($server->onlinePlayerHistories()->select(DB::raw("DATE_FORMAT(updated_at, '%D %M %H:%iHs.') as day"))->get()->pluck('day')->toArray()),
+            datasets: [{
+                label: 'Cantidad de jugadores en línea',
+                data: @json($server->onlinePlayerHistories()->pluck('count')->toArray()),
+                backgroundColor: '#f47363',
+                borderColor: '#f47363',
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
 </script>
 @append
 
@@ -107,6 +128,8 @@
             @include('servers.info.server_description')
 
             @include('servers.info.favorite_maps')
+
+            @include('servers.info.online_player_history')
         </div>
     </div>
 </div>

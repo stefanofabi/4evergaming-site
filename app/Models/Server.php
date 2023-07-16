@@ -80,4 +80,12 @@ class Server extends Model
   {
     return $this->hasMany(FavoriteMap::class);
   }
+
+  /**
+  * Get the historical online players for the server.
+  */
+  public function onlinePlayerHistories()
+  {
+    return $this->hasMany(OnlinePlayerHistory::class);
+  }
 }

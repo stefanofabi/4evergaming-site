@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('favorite_maps', function (Blueprint $table) {
+        Schema::create('online_player_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('server_id');
-            $table->string('map');
             $table->unsignedBigInteger('count');
 
-            $table->unique(['server_id', 'map']);
-
             $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade')->onUpdate('cascade');
-            
+
             $table->timestamps();
 
             $table->engine = 'InnoDB';
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('favorite_maps');
+        Schema::dropIfExists('online_player_histories');
     }
 };
