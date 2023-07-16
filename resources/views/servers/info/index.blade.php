@@ -1,10 +1,27 @@
 @extends('base')
 
 @section('javascript')
+
 <script type="module">
+    var timer = 0;
+
     $(document).ready(function() {
-        getGameState('{{ $server->game->protocol }}', '{{ $server->ip }}', '{{ $server->port }}');
+        setTimeout(function() {
+            getGameState('{{ $server->game->protocol }}', '{{ $server->ip }}', '{{ $server->port }}');
+        }, 300000 - {{ \Carbon\Carbon::now()->diffInMilliseconds($server->updated_at) }});
+        
+        setTimeout(updateTimer, {{ \Carbon\Carbon::now()->diffInMilliseconds($server->updated_at) }} % 60000);
+
+        timer = {{ \Carbon\Carbon::now()->diffInMinutes($server->updated_at) }};
     });
+
+    function updateTimer()
+    {
+        timer++;
+        updateValue("lastUpdate", timer);
+
+        setTimeout(updateTimer, 60000);        
+    }
 
     function getGameState(game, ip, port)
     {
@@ -18,13 +35,52 @@
             data: parameters,
             url: "{{ route('api/games') }}",
             type: 'get',
+            dataType: 'json',
             error: function (xhr, status) {
                 console.log(xhr.statusText);
             },
             success: function (response) {
                 console.log(response);
+
+                timer = 0;
+                updateTimer();
+
+                updateValue("rank", "#"+ response.rank);
+                
+                if (response.status) 
+                {
+                    $('#status').removeClass('bg-danger');
+                    $('#status').addClass('bg-success');
+                    updateValue("status", "ONLINE");
+                } else {
+                    $('#status').removeClass('bg-success');
+                    $('#status').addClass('bg-danger');
+                    updateValue("status", "OFFLINE");
+                }
+
+                if ($('#map').attr('title') != response.map) {
+                    $('#uploadMapMessage').addClass('d-none');
+
+                    $('#map').attr('src', '{{ env('APP_URL') }}/storage/maps/{{ $server->game->protocol }}/'+ response.map +'.jpg');
+                    $('#map').attr('alt', response.map);
+                    $('#map').attr('title', response.map);
+                }
+
+                updateValue("num_players", response.num_players);
+
+                setTimeout(function() {
+                    getGameState('{{ $server->game->protocol }}', '{{ $server->ip }}', '{{ $server->port }}');
+                }, 300000);
             }
         });
+    }
+
+    function updateValue(fieldId, value)
+    {
+        $('#'+ fieldId).fadeOut(300, function() {
+            $('#'+ fieldId).text(value);
+            $('#'+ fieldId).fadeIn(300);
+        });        
     }
 </script>
 @append

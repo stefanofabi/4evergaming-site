@@ -12,14 +12,7 @@
                 <div class="col-md-6"> <h4> <strong> Detalles del servidor </strong> </h4> </div>
 
                 <div class="col-md-6 fst-italic text-md-end">
-                    @php 
-                    $lastUpdate = strtotime($server->updated_at);
-                    $now = time();	
-
-                    $diffMinutes = floor(($now - $lastUpdate) / 60 );
-                    @endphp
-
-                    Ultima actualización hace {{ $diffMinutes }} minutos
+                    <div> Ultima actualización hace <span id="lastUpdate">{{ \Carbon\Carbon::now()->diffInMinutes($server->updated_at) }} </span> minutos </div>
                 </div>
             </div>
         </div>    
@@ -31,8 +24,8 @@
                     <div class="fs-5"> <strong> Nombre: </strong> {{ $server->hostname }} </div>
                     <div class="fs-5"> <strong> Juego: </strong> <a href="{{ route('servers/search', ['game' => $server->game->protocol]) }}"> {{ $server->game->name }} </a> </div>
                     <div class="fs-5"> <strong> IP: </strong> {{ $server->server_address }}  </div>
-                    <div class="fs-5"> <strong> Rank: </strong> #{{ $server->rank }}  </div>
-                    <div class="fs-5"> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success"> ONLINE </span> @else <span class="badge text-bg-danger"> OFFLINE </span> @endif </div>
+                    <div class="fs-5"> <strong> Rank: </strong> <span id="rank"> #{{ $server->rank }} </span> </div>
+                    <div class="fs-5"> <strong> Estado: </strong> @if ($server->status) <span class="badge text-bg-success" id="status"> ONLINE </span> @else <span class="badge text-bg-danger" id="status"> OFFLINE </span> @endif </div>
                     <div class="fs-5 mt-3"> 
                         @auth
                             @if (auth()->user()->id == $server->community->user_id) 
@@ -56,14 +49,14 @@
                     <h3> ➡️ Mapa actual </h3>
 
                     @if(! Storage::exists('public/maps/'. $server->game->protocol .'/'.$server->map .'.jpg'))
-                    <div class="m-1">
+                    <div class="m-1" id="uploadMapMessage">
                         <a class="text-danger text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#uploadMapModal"> Por favor, ayudános y subí el mapa del servidor. Click aquí </a>
                     </div>
                     @endif
                     
-                    <img class="img-fluid rounded mt-1" src="{{ asset('storage/maps/'. $server->game->protocol .'/'. $server->map .'.jpg') }}" alt="{{ $server->map }}" title="{{ $server->map }}" />
+                    <img class="img-fluid rounded mt-1" src="{{ asset('storage/maps/'. $server->game->protocol .'/'. $server->map .'.jpg') }}" alt="{{ $server->map }}" title="{{ $server->map }}" id="map" />
 
-                    <div class="fs-5 mt-1"> Jugadores {{ $server->num_players }} / {{ $server->max_players }} </div>
+                    <div class="fs-5 mt-1"> Jugadores <span id="num_players"> {{ $server->num_players }} </span> / {{ $server->max_players }} </div>
                     <a type="button" class="btn btn-outline-dark m-1" href="{{ $server->join_link }}"> Conectarse </a>
                 </div>
             </div>

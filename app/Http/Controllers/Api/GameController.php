@@ -37,10 +37,10 @@ class GameController extends Controller
             return response()->json(['errors' => true, 'message' => 'No existe este servidor en nuestra base de datos']);
         }
 
-        $lastUpdate = strtotime($server->updated_at);
-        $now = time();	
+        $lastUpdate = Carbon::parse($server->updated_at);
+        $now = Carbon::now();	
 
-        $diffSeconds = $now - $lastUpdate;
+        $diffSeconds = $now->diffInSeconds($lastUpdate);
 	
         if ($diffSeconds > 300) {
         
