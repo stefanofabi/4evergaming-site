@@ -107,7 +107,7 @@ class GameController extends Controller
             } catch (Exception $e) {
                 DB::rollBack();
 
-                return response()->json(['errors' => true, 'message' => 'Falló al actualizar los datos del servidor']);
+                return response()->json(['errors' => true, 'message' => 'Falló al actualizar los datos del servidor'], 500);
             }
 
         }

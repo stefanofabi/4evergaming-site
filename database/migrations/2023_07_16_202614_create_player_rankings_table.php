@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('player_rankings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('score');
+            $table->integer('score');
             $table->unsignedBigInteger('time');
             $table->unsignedBigInteger('server_id');
             
