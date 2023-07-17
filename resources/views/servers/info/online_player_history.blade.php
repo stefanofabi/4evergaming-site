@@ -3,9 +3,8 @@
     var onlinePlayerHistoryChart = document.getElementById('onlinePlayerHistoryChart');
     var myChart = new Chart(onlinePlayerHistoryChart, {
         type: 'line',
-        radius: 500,
         data: {
-            labels: @json($server->onlinePlayerHistories()->select(DB::raw("DATE_FORMAT(updated_at, '%D %M %H:%iHs.') as day"))->get()->pluck('day')->toArray()),
+            labels: @json($server->onlinePlayerHistories()->select(DB::raw("DATE_FORMAT(updated_at, '%D %M') as day"))->get()->pluck('day')->toArray()),
             datasets: [{
                 label: 'Cantidad de jugadores en línea',
                 data: @json($server->onlinePlayerHistories()->pluck('count')->toArray()),
@@ -16,7 +15,18 @@
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    ticks: {
+                        maxTicksLimit: 5
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: {{ $server->max_players }},
+                }
+            }
         }
     });
 </script>
