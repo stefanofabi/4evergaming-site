@@ -6,6 +6,7 @@
         data: {
             labels: @json($server->onlinePlayerHistories()->select(DB::raw("DATE_FORMAT(updated_at, '%D %M') as day"))->get()->pluck('day')->toArray()),
             datasets: [{
+                radius: 1,
                 label: 'Cantidad de jugadores en línea',
                 data: @json($server->onlinePlayerHistories()->pluck('count')->toArray()),
                 backgroundColor: '#f47363',
@@ -23,8 +24,7 @@
                     }
                 },
                 y: {
-                    min: 0,
-                    max: {{ $server->max_players }},
+                    min: 0
                 }
             }
         }
