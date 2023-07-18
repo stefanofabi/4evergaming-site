@@ -50,6 +50,8 @@ class GameController extends Controller
 
             if (empty($server_info['var']['gq_hostname'])) {
                 $server->status = false;
+                $server->num_players = 0;
+                $server->players = [];
                 $server->save();
 
                 return response()->json($server);
