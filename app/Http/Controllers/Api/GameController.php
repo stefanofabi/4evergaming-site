@@ -47,6 +47,14 @@ class GameController extends Controller
         if ($diffSeconds > 300) {
         
             $server_info = $this->getServerInfo($request->game, $request->ip, $request->port);
+
+            if (empty($server_info['var']['gq_hostname'])) {
+                $server->status = false;
+                $server->save();
+
+                return response()->json($server);
+            }
+
             DB::beginTransaction();
 
             try {
