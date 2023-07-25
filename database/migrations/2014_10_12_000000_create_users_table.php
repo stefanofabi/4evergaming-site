@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('steam_id')->unique();
             $table->string('profile_url');
             $table->string('avatar');
-            $table->string('country_code');
+            $table->string('country_code')->nullable();
 
             $table->timestamp('banned_at')->nullable();
 
