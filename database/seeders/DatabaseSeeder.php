@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CounterStrikeGameTagSeeder::class);
         $this->call(CounterStrikeGlobbalOffensiveGameTagSeeder::class);
         $this->call(MinecraftGameTagSeeder::class);
+        $this->call(MultiTheftAutoGameTagSeeder::class);
     }
 }
