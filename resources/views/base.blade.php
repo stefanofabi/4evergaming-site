@@ -84,6 +84,7 @@
     <body>
         @include('top-bar')
         @include('navbar')
+        @include('network-issues')
 
         @yield('content') 
 

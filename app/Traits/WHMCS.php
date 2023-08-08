@@ -67,4 +67,12 @@ trait WHMCS {
         ->orderBy('packageid')
         ->get();
     }
+
+    function getNetworkIssues() 
+    {
+        return DB::connection('whmcs')
+        ->table('tblnetworkissues')
+        ->where('status', '<>', 'Resolved')
+        ->get();  
+    }
 }
