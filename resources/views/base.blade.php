@@ -23,7 +23,7 @@
         <title> @yield('title') </title>
 
         @vite(['resources/js/app.js'])
-        
+
         <script type="module">
             $.ajaxSetup({
                 headers: {
@@ -84,7 +84,7 @@
     <body>
         @include('top-bar')
         @include('navbar')
-        @include('network-issues')
+        @include('network-issues/network-issues')
 
         @yield('content') 
 
