@@ -19,16 +19,16 @@
                         </thead>
                         
                         <tbody>
-                            @for ($i=4; $i <= 32; $i=$i+4)
+                        @foreach ($slot_500fps_price->filter(function ($item) { return $item->sortorder % 2 == 0; }) as $slot_500fps)
                             <tr>
                                 <td> 
-                                    {{ $i }} jugadores
-                                    @if ($i == 4) <span class="badge text-bg-success"> Ideal para Mod 2vs2 </span> @endif
-                                    @if ($i == 12) <span class="badge text-bg-success"> Ideal para Mod 5vs5 </span> @endif
-                                    @if ($i == 16) <span class="badge text-bg-danger">Más vendido</span> @endif
-                                    @if ($i == 24) <span class="badge text-bg-success">Ideal para Mod público</span> @endif 
+                                    {{ explode("|", $slot_500fps->optionname)[1] }} 
+                                    @if ($slot_500fps->sortorder == 4) <span class="badge text-bg-success"> Ideal para Mod 2vs2 </span> @endif
+                                    @if ($slot_500fps->sortorder == 12) <span class="badge text-bg-success"> Ideal para Mod 5vs5 </span> @endif
+                                    @if ($slot_500fps->sortorder == 16) <span class="badge text-bg-danger">Más vendido</span> @endif
+                                    @if ($slot_500fps->sortorder == 24) <span class="badge text-bg-success">Ideal para Mod público</span> @endif 
                                 </td>
-                                <td> ${{ $i * $slot_500fps_price * $dollar_price}}/mes </td>
+                                <td> ${{ $slot_500fps->monthly }}/mes </td>
                                 <td class="text-end"> 
                                     <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-500fps?currency=2" target="_blank" class="text-dark"> 
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
@@ -37,7 +37,7 @@
                                     </a> 
                                 </td>
                             </tr>
-                            @endfor
+                            @endforeach
                         </tbody>
                     </table> 
                 </div>

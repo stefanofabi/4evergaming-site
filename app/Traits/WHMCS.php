@@ -75,4 +75,17 @@ trait WHMCS {
         ->where('status', '<>', 'Resolved')
         ->get();  
     }
+
+    function getGamePrices($configid, $currency) {
+        return DB::connection('whmcs')
+        ->table('tblproductconfigoptionssub')
+        ->select('tblproductconfigoptionssub.optionname', 'tblpricing.monthly', 'tblproductconfigoptionssub.sortorder')
+        ->join('tblpricing', 'tblpricing.relid', '=', 'tblproductconfigoptionssub.id')
+        ->where('tblproductconfigoptionssub.configid', $configid)
+        ->where('tblproductconfigoptionssub.hidden', 0)
+        ->where('tblpricing.currency', $currency)
+        ->where('tblpricing.type', 'configoptions')
+        ->orderBy('tblproductconfigoptionssub.sortorder', 'ASC')
+        ->get();
+    }
 }

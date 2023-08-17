@@ -15,8 +15,8 @@ class CounterStrikePageController extends Controller
     {
         return view('pages/counter-strike/index')
         ->with('dollar_price', $this->getCurrencyPrice('ARS'))
-        ->with('slot_300fps_price', 0.35)
-        ->with('slot_500fps_price', 0.45)
-        ->with('slot_1000fps_price', 0.50);
+        ->with('slot_300fps_price', $this->getGamePrices(3, 2))
+        ->with('slot_500fps_price', $this->getGamePrices(2, 2))
+        ->with('slot_1000fps_price', $this->getGamePrices(1, 2));
     }
 }

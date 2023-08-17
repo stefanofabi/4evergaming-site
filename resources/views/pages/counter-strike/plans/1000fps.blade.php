@@ -21,16 +21,16 @@
         </thead>
         
         <tbody>
-            @for ($i=4; $i <= 32; $i=$i+4)
+            @foreach ($slot_1000fps_price->filter(function ($item) { return $item->sortorder % 2 == 0; }) as $slot_1000fps)
             <tr>
                 <td> 
-                    {{ $i }} jugadores 
-                    @if ($i == 8) <span class="badge text-bg-success"> Ideal para practicar </span> @endif
-                    @if ($i == 12) <span class="badge text-bg-danger"> Más vendido </span> @endif
-                    @if ($i == 20) <span class="badge text-bg-success"> Ideal para Mod Deathmatch </span> @endif  
-                    @if ($i == 24) <span class="badge text-bg-success"> Ideal para Mods exigentes </span> @endif 
+                    {{ explode("|", $slot_1000fps->optionname)[1] }} 
+                    @if ($slot_1000fps->sortorder == 8) <span class="badge text-bg-success"> Ideal para practicar </span> @endif
+                    @if ($slot_1000fps->sortorder == 12) <span class="badge text-bg-danger"> Más vendido </span> @endif
+                    @if ($slot_1000fps->sortorder == 20) <span class="badge text-bg-success"> Ideal para Mod Deathmatch </span> @endif  
+                    @if ($slot_1000fps->sortorder == 24) <span class="badge text-bg-success"> Ideal para Mods exigentes </span> @endif 
                 </td>
-                <td>  ${{ $i * $slot_1000fps_price * $dollar_price}}/mes </td>
+                <td>  ${{ $slot_1000fps->monthly }}/mes </td>
                 <td class="text-end"> 
                     <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-1000fps?currency=2" target="_blank" class="text-dark"> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
@@ -39,7 +39,7 @@
                     </a> 
                 </td>
             </tr>
-            @endfor
+            @endforeach
         </tbody>
     </table> 
 </div>
