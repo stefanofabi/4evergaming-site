@@ -18,12 +18,15 @@ class PageController extends Controller
         $communities = Community::orderBy('calification', 'DESC')->limit(15)->get();
 
         $network_issues = $this->getNetworkIssues();
-        
+
+        $last_orders = $this->getLastOrders();
+
         return view('pages/home/index')
         ->with('dollar_price', $this->getCurrencyPrice('ARS'))
         ->with('total_clients', ceil($this->getTotalClients() / 1000) * 1000)
         ->with('communities', $communities)
-        ->with('network_issues', $network_issues);
+        ->with('network_issues', $network_issues)
+        ->with('last_orders', $last_orders);
 
         /*
         ->with('total_cs_servers', $this->getHostingAccounts([1,2,3])->count())

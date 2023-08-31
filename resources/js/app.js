@@ -1,6 +1,7 @@
 import './bootstrap';
 
-import { Button, Carousel, Collapse, Modal, Dropdown, Offcanvas, Tab } from 'bootstrap';
+import { Button, Carousel, Collapse, Modal, Dropdown, Offcanvas, Tab, Toast } from 'bootstrap';
+window.Toast = Toast;
 
 import $ from 'jquery';
 window.$ = $;

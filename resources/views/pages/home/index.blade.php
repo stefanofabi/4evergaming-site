@@ -32,4 +32,6 @@
 
   @include('pages.home.about-4evergaming')
 </div>
+
+@include('pages.home.last_orders')
 @endsection

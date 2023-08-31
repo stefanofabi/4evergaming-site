@@ -88,4 +88,17 @@ trait WHMCS {
         ->orderBy('tblproductconfigoptionssub.sortorder', 'ASC')
         ->get();
     }
+
+    function getLastOrders() {
+        return DB::connection('whmcs')
+        ->table('tblorders')
+        ->select('tblorders.id', 'tblorders.date', 'tblclients.firstname', 'tblclients.lastname', 'tblclients.city', 'tblclients.state', 'tblclients.country', 'tblproducts.name as product')
+        ->selectRaw('TIMESTAMPDIFF(MINUTE, tblorders.date, CURDATE()) AS diff_minutes')
+        ->join('tblclients', 'tblclients.id', '=', 'tblorders.userid')
+        ->join('tblhosting', 'tblhosting.orderid', '=', 'tblorders.id')
+        ->join('tblproducts', 'tblproducts.id', '=', 'tblhosting.packageid')
+        ->whereRaw('tblorders.date >= DATE_SUB(NOW(), INTERVAL 7 DAY)')
+        ->orderBy('tblorders.date', 'ASC')
+        ->get();
+    }
 }
