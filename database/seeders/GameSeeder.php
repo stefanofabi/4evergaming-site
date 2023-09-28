@@ -57,6 +57,13 @@ class GameSeeder extends Seeder
                 'logo' => 'mohaa.ico',
                 'large_logo' => 'medal-of-honor-allied-assault-large-logo.png',
                 'protocol' => 'mohaa',
+            ],
+            [
+                'name' => 'Call Of Duty: United Offensive', 
+                'short_name' => 'CODUO',
+                'logo' => 'coduo.ico',
+                'large_logo' => 'call-of-duty-united-offensive-large-logo.png',
+                'protocol' => 'coduo',
             ]
         ]);
 
