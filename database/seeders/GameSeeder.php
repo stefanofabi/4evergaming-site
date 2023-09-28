@@ -71,6 +71,13 @@ class GameSeeder extends Seeder
                 'logo' => 'bf2.ico',
                 'large_logo' => 'battlefield-2-large-logo.png',
                 'protocol' => 'bf2',
+            ],
+            [
+                'name' => 'Day Of Defeat', 
+                'short_name' => 'DOD',
+                'logo' => 'dod.ico',
+                'large_logo' => 'day-of-defeat-large-logo.png',
+                'protocol' => 'dod',
             ]
         ]);
 
