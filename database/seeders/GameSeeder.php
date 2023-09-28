@@ -99,6 +99,13 @@ class GameSeeder extends Seeder
                 'logo' => 'css.ico',
                 'large_logo' => 'counter-strike-source-large-logo.png',
                 'protocol' => 'css',
+            ],
+            [
+                'name' => 'No More Room In Hell', 
+                'short_name' => 'NMRIH',
+                'logo' => 'nmrih.ico',
+                'large_logo' => 'no-more-room-in-hell-large-logo.png',
+                'protocol' => 'nmrih',
             ]
         ]);
 
