@@ -85,6 +85,20 @@ class GameSeeder extends Seeder
                 'logo' => 'cod4.ico',
                 'large_logo' => 'call-of-duty-4-large-logo.png',
                 'protocol' => 'cod4',
+            ],
+            [
+                'name' => 'Left 4 Dead 2', 
+                'short_name' => 'L4D2',
+                'logo' => 'l4d2.ico',
+                'large_logo' => 'left-4-dead-2-large-logo.png',
+                'protocol' => 'l4d2',
+            ],
+            [
+                'name' => 'Counter-Strike: Source', 
+                'short_name' => 'CSS',
+                'logo' => 'css.ico',
+                'large_logo' => 'counter-strike-source-large-logo.png',
+                'protocol' => 'css',
             ]
         ]);
 
