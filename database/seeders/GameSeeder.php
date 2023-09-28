@@ -50,6 +50,13 @@ class GameSeeder extends Seeder
                 'logo' => 'cod2.ico',
                 'large_logo' => 'call-of-duty-2-large-logo.png',
                 'protocol' => 'cod2',
+            ],
+            [
+                'name' => 'Medal Of Honor: Allied Assault', 
+                'short_name' => 'MOHAA',
+                'logo' => 'mohaa.ico',
+                'large_logo' => 'medal-of-honor-allied-assault-large-logo.png',
+                'protocol' => 'mohaa',
             ]
         ]);
 
