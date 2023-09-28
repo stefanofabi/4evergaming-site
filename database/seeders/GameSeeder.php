@@ -43,7 +43,14 @@ class GameSeeder extends Seeder
                 'logo' => 'minecraft.ico',
                 'large_logo' => 'minecraft-large-logo.png',
                 'protocol' => 'minecraft',
-            ]   
+            ],    
+            [
+                'name' => 'Call Of Duty 2', 
+                'short_name' => 'COD2',
+                'logo' => 'cod2.ico',
+                'large_logo' => 'call-of-duty-2-large-logo.png',
+                'protocol' => 'cod2',
+            ]
         ]);
 
     }
