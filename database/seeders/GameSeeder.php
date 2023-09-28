@@ -106,6 +106,13 @@ class GameSeeder extends Seeder
                 'logo' => 'nmrih.ico',
                 'large_logo' => 'no-more-room-in-hell-large-logo.png',
                 'protocol' => 'nmrih',
+            ],
+            [
+                'name' => 'Project Zomboid', 
+                'short_name' => 'PZ',
+                'logo' => 'pz.ico',
+                'large_logo' => 'project-zomboid-large-logo.png',
+                'protocol' => 'nmrih',
             ]
         ]);
 
