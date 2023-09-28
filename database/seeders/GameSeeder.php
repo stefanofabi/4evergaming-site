@@ -78,6 +78,13 @@ class GameSeeder extends Seeder
                 'logo' => 'dod.ico',
                 'large_logo' => 'day-of-defeat-large-logo.png',
                 'protocol' => 'dod',
+            ],
+            [
+                'name' => 'Call Of Duty 4', 
+                'short_name' => 'COD4',
+                'logo' => 'cod4.ico',
+                'large_logo' => 'call-of-duty-4-large-logo.png',
+                'protocol' => 'cod4',
             ]
         ]);
 
