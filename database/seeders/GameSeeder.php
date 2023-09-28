@@ -64,6 +64,13 @@ class GameSeeder extends Seeder
                 'logo' => 'coduo.ico',
                 'large_logo' => 'call-of-duty-united-offensive-large-logo.png',
                 'protocol' => 'coduo',
+            ],
+            [
+                'name' => 'Battlefield 2', 
+                'short_name' => 'BF2',
+                'logo' => 'bf2.ico',
+                'large_logo' => 'battlefield-2-large-logo.png',
+                'protocol' => 'bf2',
             ]
         ]);
 

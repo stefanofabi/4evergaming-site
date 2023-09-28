@@ -14,9 +14,9 @@
                 <tbody>
                     @forelse (collect($server->players)->sortByDesc('gq_score') as $player)
                     <tr>
-                        <td> {{ $player['name'] }} </td>
+                        <td> {{ $player['gq_name'] }} </td>
                         <td class="text-center"> {{ $player['gq_score'] }} </td>
-                        <td class="text-center"> {{ $player['gq_time_human'] }} </td>
+                        <td class="text-center"> {{ $player['gq_time_human'] ?? 'No time' }} </td>
                     </tr>
                     @empty
                         @if ($server->num_players > 0)
