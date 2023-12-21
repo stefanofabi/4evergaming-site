@@ -23,6 +23,8 @@ class GameController extends Controller
 {
     //
 
+    private const MAX_FAILED_ATTEMPTS = 2000; 
+
     use ServerInfo;
 
     public function getGameState(Request $request)
@@ -36,7 +38,13 @@ class GameController extends Controller
         $server = Server::where('ip', $request->ip)->where('port', $request->port)->first();
 
         if (! $server) {
-            return response()->json(['errors' => true, 'message' => 'No existe este servidor en nuestra base de datos']);
+            return response()->json(['message' => 'No existe este servidor en nuestra base de datos'], 404);
+        }
+
+        if ($server->failed_attempts > self::MAX_FAILED_ATTEMPTS) {
+            $server->delete();
+            
+            return response()->json(['message' => 'No existe este servidor en nuestra base de datos'], 404);
         }
 
         $lastUpdate = Carbon::parse($server->updated_at);
@@ -44,14 +52,16 @@ class GameController extends Controller
 
         $diffSeconds = $now->diffInSeconds($lastUpdate);
         
-        if ($diffSeconds > 300) {
-        
+        if ($diffSeconds > 300) 
+        {
             $server_info = $this->getServerInfo($request->game, $request->ip, $request->port);
 
             if (empty($server_info['var']['gq_hostname'])) {
                 $server->status = false;
                 $server->num_players = 0;
                 $server->players = [];
+                $server->failed_attempts++;
+
                 $server->save();
 
                 return response()->json($server);
@@ -62,6 +72,9 @@ class GameController extends Controller
             try {
                 // save old players
                 $lastPlayers = $server->players;
+
+                // reset failed attempts
+                $server->failed_attempts = 0;
                 
                 $server->hostname = $server_info['var']['gq_hostname'];
                 $server->map = $server_info['var']['gq_mapname'];

@@ -28,6 +28,8 @@ class Server extends Model
     'players',
     'rank',
     'description',
+    'failed_attempts',
+    
   ];
 
   /**

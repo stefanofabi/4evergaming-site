@@ -31,6 +31,8 @@ return new class extends Migration
             $table->unsignedBigInteger('rank_points')->default(0);
             $table->string('description', 10000)->nullable();
             
+            $table->unsignedBigInteger('failed_attempts')->default(0);
+
             $table->unique(['ip', 'port']);
             $table->unique(['rank', 'game_id']);
 
