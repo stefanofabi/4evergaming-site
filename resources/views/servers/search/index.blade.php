@@ -57,6 +57,7 @@
         Ver todos los juegos ⬇️
     </a>
 </div>
+
 <div class="d-flex justify-content-center mt-3">
     <div class="collapse text-center" id="gamesCollapse">
         @foreach ($games as $game_aux)

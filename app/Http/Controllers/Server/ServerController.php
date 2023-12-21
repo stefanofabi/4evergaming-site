@@ -160,7 +160,7 @@ class ServerController extends Controller
                     ->orWhere("servers.hostname", "like", "%$filter%");
             }
         })->orderBy('rank', 'ASC')
-        ->get()->skip(3);
+        ->get();
         
         $top_servers = Server::where('game_id', $game->id)->orderBy('rank', 'ASC')->limit(3)->get();
         
