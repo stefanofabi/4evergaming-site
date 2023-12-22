@@ -100,11 +100,12 @@ class GameController extends Controller
                 }               
 
                 Server::where('game_id', $server->game_id)->update(['rank' => null]);
-                $servers = Server::orderBy('rank_points', 'DESC')->get();
+                $servers = Server::where('game_id', $server->game_id)->orderBy('rank_points', 'DESC')->get();
                 $next = 1;
                 foreach ($servers as $sv) {
-                    $sv->rank = $next++;
+                    $sv->rank = $next;
                     $sv->save();
+                    $next++;
                 }
 
                 $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();
