@@ -75,7 +75,7 @@ class GameController extends Controller
 
                 // reset failed attempts
                 $server->failed_attempts = 0;
-                
+
                 $server->hostname = $server_info['var']['gq_hostname'];
                 $server->map = $server_info['var']['gq_mapname'];
                 $server->num_players = $server_info['var']['gq_numplayers'];
@@ -83,7 +83,22 @@ class GameController extends Controller
                 $server->status = $server_info['var']['gq_online'];
                 $server->vars = $server_info['var'];
                 $server->players = $server_info['players'];
+
+                // calculate points
+                $player_percentage = $porcentaje_jugadores = ($server->num_players / $server->max_players) * 100;
                 
+                if ($player_percentage == 0) {
+                    $server->rank_points--;
+                } else if ($player_percentage > 85) {
+                    $server->rank_points += 5;
+                } else if ($player_percentage >= 70 && $player_percentage <= 85) {
+                    $server->rank_points += 3;
+                } else if ($player_percentage >= 50 && $player_percentage < 70) {
+                    $server->rank_points += 2;
+                } else {
+                    $server->rank_points += 1;
+                }
+
                 $server->save();
 
                 $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();

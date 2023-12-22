@@ -28,7 +28,7 @@ return new class extends Migration
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('community_id');
             $table->unsignedBigInteger('game_id');
-            $table->unsignedBigInteger('rank_points')->default(0);
+            $table->bigInteger('rank_points')->default(0);
             $table->string('description', 10000)->nullable();
             
             $table->unsignedBigInteger('failed_attempts')->default(0);
