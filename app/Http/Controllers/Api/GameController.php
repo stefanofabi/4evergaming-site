@@ -85,7 +85,7 @@ class GameController extends Controller
                 $server->players = $server_info['players'];
 
                 // calculate points
-                $player_percentage = $porcentaje_jugadores = ($server->num_players / $server->max_players) * 100;
+                $player_percentage = ($server->num_players / $server->max_players) * 100;;
                 
                 if ($player_percentage == 0) {
                     $server->rank_points--;
@@ -97,9 +97,15 @@ class GameController extends Controller
                     $server->rank_points += 2;
                 } else {
                     $server->rank_points += 1;
-                }
+                }               
 
-                $server->save();
+                Server::where('game_id', $server->game_id)->update(['rank' => null]);
+                $servers = Server::orderBy('rank_points', 'DESC')->get();
+                $next = 1;
+                foreach ($servers as $sv) {
+                    $sv->rank = $next++;
+                    $sv->save();
+                }
 
                 $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();
 
@@ -145,9 +151,8 @@ class GameController extends Controller
             } catch (Exception $e) {
                 DB::rollBack();
 
-                return response()->json(['errors' => true, 'message' => 'Falló al actualizar los datos del servidor'], 500);
+                return response()->json(['message' => 'Fallo al actualizar los datos del servidor', 'errors' => $e->getMessage()], 500);
             }
-
         }
 
         return response()->json($server);

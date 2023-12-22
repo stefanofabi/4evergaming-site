@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('servers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('rank');
+            $table->unsignedBigInteger('rank')->nullable();
             $table->string('ip');
             $table->integer('port');
             $table->string('server_address');
