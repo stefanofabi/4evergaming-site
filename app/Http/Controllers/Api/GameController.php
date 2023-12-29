@@ -52,7 +52,7 @@ class GameController extends Controller
 
         $diffSeconds = $now->diffInSeconds($lastUpdate);
         
-        if ($diffSeconds > 300) 
+        if ($diffSeconds > 300 || $request->force_update == 1) 
         {
             $server_info = $this->getServerInfo($request->game, $request->ip, $request->port);
 
@@ -147,6 +147,8 @@ class GameController extends Controller
                 }
 
                 $server->playerRankings()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
+
+                $server->saveOrFail();
 
                 DB::commit();
             } catch (Exception $e) {
