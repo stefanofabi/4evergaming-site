@@ -1,3 +1,6 @@
+<div class="fs-3 mt-5">
+    ⚔️ Listado de servidores
+</div>
 <div class="table-responsive">
     <table class="table table-light table-striped table-hover mt-4">
         <thead>

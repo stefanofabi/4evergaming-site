@@ -72,7 +72,7 @@
 @include('servers.search.filter_servers')
 
 <div class="mt-4 ms-4 me-4">
-    @include('servers.search.accordion')
+    @include('servers.search.winners_podium')
 
     @include('servers.search.ranking_table')
 </div>
