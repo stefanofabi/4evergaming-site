@@ -19,7 +19,12 @@
             @forelse ($servers as $server)
             <tr>
                 <td class="text-center"> <span class="badge text-bg-dark"> {{ $server->rank }} </span>  </td>
-                <td> <a class="text-decoration-none text-dark ms-2 text-nowrap" href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" title="{{ $server->hostname }}"> {{ substr($server->hostname, 0, 80) }} </a> </td>
+                
+                <td> 
+                    <a class="text-decoration-none text-dark ms-2 text-nowrap" href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" title="{{ $server->hostname }}"> {{ substr($server->hostname, 0, 80) }} </a> 
+                    @if (! $server->status) <span class="badge badge-danger"> OFFLINE </span> @endif
+                </td>
+                    
                 <td class="text-center"> {{ $server->server_address }} </td>
                 <td class="text-center"> {{ $server->num_players .'/'. $server->max_players }} </td>
                 <td class="text-center"> <img src="{{ asset('images/country-flags/'.$server->country->flag) }}" title="{{ $server->country->name }}" alt="{{ $server->country->name }}"> </td>
