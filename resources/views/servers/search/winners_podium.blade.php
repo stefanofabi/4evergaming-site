@@ -1,10 +1,5 @@
 @section('css')
 <style>
-
-.podium__item {
-  width: 200px;
-}
-
 .podium__number {
   width: 27px;
   height: 75px;
@@ -13,12 +8,7 @@
 .podium .first {
   min-height: 300px;
   background: rgb(255,172,37);
-background: 
-  linear-gradient(333deg, 
-  rgba(255,172,37,1) 0%, 
-  rgba(254,207,51,1) 13%, 
-  rgba(254,224,51,1) 53%, 
-  rgba(255,172,37,1) 100%);
+  background: linear-gradient(333deg, rgba(255,172,37,1) 0%, rgba(254,207,51,1) 13%, rgba(254,224,51,1) 53%, rgba(255,172,37,1) 100%);
 }
 
 .podium .second {
@@ -36,7 +26,7 @@ background:
       height: 150px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #fff;
+      border: 3px solid #000000;
       margin-bottom: 10px;
     }
 
@@ -53,19 +43,28 @@ background:
 </div>
 
 <div class="d-flex justify-content-center align-items-end podium mt-4">
-    <div class="podium__item">
+    <div class="w-100 p-0 p-md-3">
         <div class="text-center"> 
-            <img class="winner-image" src="{{ asset('storage/communities/'.$top_servers->skip(1)->take(1)->first()->community->logo) }}" alt="Ganador 2">
-            <div class="text-center fs-2"> {{ $top_servers->skip(1)->take(1)->first()->community->name }} </div>
+          @if ($top_servers->skip(1)->take(1)->first()) 
+          <img class="winner-image img-fluid" src="{{ asset('storage/communities/'.$top_servers->skip(1)->take(1)->first()->community->logo) }}" alt="Ganador 2">
+          @else 
+          <img class="winner-image img-fluid" src="{{ asset('storage/communities/default.png') }}" alt="Ganador 2">
+          @endif
+          <div class="text-center fs-2 m-1"> {{ $top_servers->skip(1)->take(1)->first()->community->name ?? 'Vacante' }} </div>
         </div>
 
       <div class="d-flex justify-content-center align-items-center fs-2 text-white second"> 2 </div>
     </div>
 
-    <div class="podium__item">
+    <div class="w-100 p-0 p-md-3">
         <div class="text-center"> 
-            <img class="winner-image" src="{{ asset('storage/communities/'.$top_servers->first()->community->logo) }}" alt="Ganador 1">
-            <div class="text-center fs-2"> {{ $top_servers->first()->community->name }} </div>
+            @if ($top_servers->skip(1)->take(1)->first()) 
+            <img class="winner-image img-fluid" src="{{ asset('storage/communities/'.$top_servers->first()->community->logo) }}" alt="Ganador 1">
+            @else 
+            <img class="winner-image img-fluid" src="{{ asset('storage/communities/default.png') }}" alt="Ganador 1">
+            @endif
+            
+            <div class="text-center fs-2 m-1"> {{ $top_servers->first()->community->name ?? 'Vacante' }} </div>
         </div>
 
       <div class="d-flex justify-content-center align-items-center fs-1 text-white first">
@@ -77,10 +76,14 @@ background:
       </div>
     </div>
   
-    <div class="podium__item">
+    <div class="w-100 p-0 p-md-3">
         <div class="text-center"> 
-            <img class="winner-image" src="{{ asset('storage/communities/'.$top_servers->skip(2)->take(1)->first()->community->logo) }}" alt="Ganador 3">
-            <div class="text-center fs-2"> {{ $top_servers->skip(2)->take(1)->first()->community->name }} </div>
+            @if ($top_servers->skip(2)->take(1)->first())
+            <img class="winner-image img-fluid" src="{{ asset('storage/communities/'.$top_servers->skip(2)->take(1)->first()->community->logo ?? 'storage/communities/default.png') }}" alt="Ganador 3">
+            @else 
+            <img class="winner-image img-fluid" src="{{ asset('storage/communities/default.png') }}" alt="Ganador 3">
+            @endif
+            <div class="text-center fs-2 m-1"> {{ $top_servers->skip(2)->take(1)->first()->community->name ?? 'Vacante' }} </div>
         </div>
 
       <div class="d-flex justify-content-center align-items-center fs-3 text-white third"> 3 </div>

@@ -85,7 +85,7 @@ class GameController extends Controller
                 $server->players = $server_info['players'];
 
                 // calculate points
-                $player_percentage = ($server->num_players / $server->max_players) * 100;;
+                $player_percentage = ($server->num_players / $server->max_players) * 100;
                 
                 if ($player_percentage == 0) {
                     $server->rank_points--;
