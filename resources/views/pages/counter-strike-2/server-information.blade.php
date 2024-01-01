@@ -7,7 +7,7 @@
       
       <p class="mt-2"> 
         Alojamos servidores para torneos, ligas, equipos profesionales y plataformas de emparejamiento. 
-        Hemos optimizado nuestros servidores específicamente para el mejor rendimiento de un servidor CS: GO. 
+        Hemos optimizado nuestros servidores específicamente para el mejor rendimiento de un servidor CS2. 
         Nuestros servidores se ejecutan en hardware empresarial y en redes premium protegidas contra DDoS
       </p>
     </div>
@@ -18,7 +18,7 @@
       </svg> <span> Sin ayudas extras, todo con un clic</span>    
       <h2 class="mt-3"> Cero conocimiento requerido </h2>
       <p class="mt-2"> 
-        Dado que hemos creado nuestro sistema específicamente para CS:GO y pensando en las personas nuevas en el alojamiento de servidores CS:GO, no encontrará una configuración más sencilla en ningún otro lugar. 
+        Dado que hemos creado nuestro sistema específicamente para CS2 y pensando en las personas nuevas en el alojamiento de servidores CS2, no encontrará una configuración más sencilla en ningún otro lugar. 
         Tenemos configuraciones preconstruidas para servidores Competitivos, DM, KZ, Surf, Retakes y servidores de práctica. 
         Puedes saltar directamente al juego y disfrutar.
       </p>

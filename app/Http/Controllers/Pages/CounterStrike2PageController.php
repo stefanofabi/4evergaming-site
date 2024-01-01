@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Pages;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CounterStrikeGlobalOffensivePageController extends Controller
+class CounterStrike2PageController extends Controller
 {
     //
 
@@ -13,10 +13,10 @@ class CounterStrikeGlobalOffensivePageController extends Controller
 
     function index(Request $request)
     {
-        return view('pages/counter-strike-global-offensive/index')
+        return view('pages/counter-strike-2/index')
         ->with('dollar_price', $this->getCurrencyPrice('ARS'))
-        ->with('slot_64tickrate_price', 0.60)
-        ->with('slot_128tickrate_price', 0.75);
+        //->with('slot_64tickrate_price', 0.60)
+        ->with('slot_128tickrate_price', 1.00);
     }
 
 }

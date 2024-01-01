@@ -13,7 +13,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('games/counter-strike') }}">Counter-Strike 1.6</a></li>
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/counter-strike?currency=2" target="_blank">Counter-Strike: Source</a></li>
-                        <li><a class="dropdown-item" href="{{ route('games/counter-strike-global-offensive') }}">Counter-Strike: Global Offensive</a></li>
+                        <li><a class="dropdown-item" href="{{ route('games/counter-strike-2') }}">Counter-Strike 2</a></li>
                     </ul>
                 </li>
 

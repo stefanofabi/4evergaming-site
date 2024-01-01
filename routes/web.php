@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\LogoutController;
 
 use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Pages\CounterStrikePageController;
-use App\Http\Controllers\Pages\CounterStrikeGlobalOffensivePageController;
+use App\Http\Controllers\Pages\CounterStrike2PageController;
 use App\Http\Controllers\Pages\MultiTheftAutoPageController;
 
 use App\Http\Controllers\Communities\CommunityController;
@@ -37,7 +37,7 @@ Route::get('/', [PageController::class, 'index'])->name('index');
 
 Route::get('/games/counter-strike', [CounterStrikePageController::class, 'index'])->name('games/counter-strike');
 
-Route::get('/games/counter-strike-global-offensive', [CounterStrikeGlobalOffensivePageController::class, 'index'])->name('games/counter-strike-global-offensive');
+Route::get('/games/counter-strike-2', [CounterStrike2PageController::class, 'index'])->name('games/counter-strike-2');
 
 Route::get('/games/multi-theft-auto', [MultiTheftAutoPageController::class, 'index'])->name('games/multi-theft-auto');
 

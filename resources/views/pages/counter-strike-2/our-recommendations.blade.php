@@ -9,10 +9,10 @@
           <h3 class="card-title fw-bold"> Mini </h3>
           <p class="card-text"> Un paquete más pequeño para divertirse y jugar con amigos con tranquilidad. </p>
           <p class="card-text"> Jugadores: 8 </p>
-          <p class="card-text fs-4"> <strong> ${{ $slot_64tickrate_price * $dollar_price * 8 }} </strong> / mes </p>
+          <p class="card-text fs-4"> <strong> ${{ $slot_128tickrate_price * $dollar_price * 8 }} </strong> / mes </p>
         </div>
         <div class="card-footer text-center bg-danger fs-5" style="--bs-bg-opacity: .8;">
-          <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-64-tickrate?currency=2" target="_blank" class="text-decoration-none text-dark fw-bold text-uppercase"> EMPEZAR </a>
+          <a href="https://clientes.4evergaming.com.ar/store/counter-strike-2/counter-strike-2-128-tickrate?currency=2" target="_blank" class="text-decoration-none text-dark fw-bold text-uppercase"> EMPEZAR </a>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="card-footer text-center bg-danger fs-5" style="--bs-bg-opacity: .8;">
-          <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-128-tickrate?currency=2" target="_blank" class="text-decoration-none text-dark fw-bold text-uppercase"> EMPEZAR </a>
+          <a href="https://clientes.4evergaming.com.ar/store/counter-strike-2/counter-strike-2-128-tickrate?currency=2" target="_blank" class="text-decoration-none text-dark fw-bold text-uppercase"> EMPEZAR </a>
         </div>
       </div>
     </div>
@@ -39,11 +39,11 @@
           <h3 class="card-title fw-bold"> Comunidad</h3>
           <p class="card-text">Hecho a medida para grandes servidores comunitarios como DM, Surf y más.</p>
           <p class="card-text"> Jugadores: 20 </p>
-          <p class="card-text fs-4"> <strong> ${{ $slot_64tickrate_price * $dollar_price * 20 }} </strong> / mes </p>
+          <p class="card-text fs-4"> <strong> ${{ $slot_128tickrate_price * $dollar_price * 20 }} </strong> / mes </p>
         </div>
 
         <div class="card-footer text-center bg-danger fs-5" style="--bs-bg-opacity: .8;">
-          <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-global-offensive-64-tickrate?currency=2" target="_blank" class="text-decoration-none text-dark fw-bold text-uppercase"> EMPEZAR </a>
+          <a href="https://clientes.4evergaming.com.ar/store/counter-strike-2/counter-strike-2-128-tickrate?currency=2" target="_blank" class="text-decoration-none text-dark fw-bold text-uppercase"> EMPEZAR </a>
         </div>
       </div>
     </div>
@@ -53,11 +53,11 @@
         <div class="card-body">
           <h3 class="card-title fw-bold"> Personalizado</h3>
           <p class="card-text"> Cree su propia configuración. Seleccione la capacidad del servidor, tickrate y el precio. </p>
-          <p class="card-text fs-4"> Desde <br /> <strong> ${{ $slot_64tickrate_price * $dollar_price }} </strong> / slot </p>
+          <p class="card-text fs-4"> Desde <br /> <strong> ${{ $slot_128tickrate_price * $dollar_price }} </strong> / slot </p>
         </div>
 
         <div class="card-footer text-center bg-danger fs-5" style="--bs-bg-opacity: .8;">
-          <a href="https://clientes.4evergaming.com.ar/store/counter-strike-global-offensive?currency=2" target="_blank" class="text-decoration-none text-dark fw-bold text-uppercase"> EMPEZAR </a>
+          <a href="https://clientes.4evergaming.com.ar/store/counter-strike-2/counter-strike-2-128-tickrate?currency=2" target="_blank" class="text-decoration-none text-dark fw-bold text-uppercase"> EMPEZAR </a>
         </div>
       </div>
     </div>
