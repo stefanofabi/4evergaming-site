@@ -22,7 +22,7 @@
                 
                 <td> 
                     <a class="text-decoration-none text-dark ms-2 text-nowrap" href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" title="{{ $server->hostname }}"> {{ substr($server->hostname, 0, 80) }} </a> 
-                    @if (! $server->status) <span class="badge badge-danger"> OFFLINE </span> @endif
+                    @if (! $server->status) <span class="badge text-bg-danger"> OFFLINE </span> @endif
                 </td>
                     
                 <td class="text-center"> {{ $server->server_address }} </td>

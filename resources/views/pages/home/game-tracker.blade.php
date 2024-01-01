@@ -21,11 +21,11 @@
   <div class="text-center">
     <a type="button" class="btn btn-outline-danger m-1 getBig" href="{{ route('servers/search', ['game' => 'cs16']) }}"> <img loading="lazy" src="{{ asset('images/games-icons/counter-strike16.ico') }}" alt="Logo de Counter-Strike 1.6" width="30" height="30" title="The Counter Strike Logo"> CS 1.6 </a>
 
-    <a type="button" class="btn btn-outline-danger m-1 getBig" href="{{ route('servers/search', ['game' => 'csgo']) }}"> <img loading="lazy" src="{{ asset('images/games-icons/counter-strike-global-offensive.ico') }}" alt="Logo de Counter-Strike 1.6" width="30" height="30" title="The Counter Strike: Global Offensive Logo">  CS:GO </a>
+    <a type="button" class="btn btn-outline-danger m-1 getBig" href="{{ route('servers/search', ['game' => 'cs2']) }}"> <img loading="lazy" src="{{ asset('images/games-icons/counter-strike-2.bmp') }}" alt="Logo de Counter-Strike 2" width="30" height="30" title="The Counter Strike 2 Logo">  CS2 </a>
 
-    <a type="button" class="btn btn-outline-danger m-1 getBig" href="{{ route('servers/search', ['game' => 'mta']) }}"> <img loading="lazy" src="{{ asset('images/games-icons/multi-theft-auto.ico') }}" alt="Logo de Counter-Strike 1.6" width="30" height="30" title="The Counter Strike: Global Offensive Logo">  MTA </a>
+    <a type="button" class="btn btn-outline-danger m-1 getBig" href="{{ route('servers/search', ['game' => 'mta']) }}"> <img loading="lazy" src="{{ asset('images/games-icons/multi-theft-auto.ico') }}" alt="Logo de Multi Theft Auto" width="30" height="30" title="The Multi Theft Auto Logo">  MTA </a>
 
-    <a type="button" class="btn btn-outline-danger m-1 getBig" href="{{ route('servers/search', ['game' => 'minecraft']) }}"> <img loading="lazy" src="{{ asset('images/games-icons/minecraft.ico') }}" alt="Logo de Counter-Strike 1.6" width="30" height="30" title="The Counter Strike: Global Offensive Logo">  Minecraft </a>
+    <a type="button" class="btn btn-outline-danger m-1 getBig" href="{{ route('servers/search', ['game' => 'minecraft']) }}"> <img loading="lazy" src="{{ asset('images/games-icons/minecraft.ico') }}" alt="Logo de Minecraft" width="30" height="30" title="The Minecraft Logo">  Minecraft </a>
 
     <a type="button" class="btn btn-outline-danger m-1 getBig"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
