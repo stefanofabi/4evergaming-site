@@ -47,7 +47,9 @@ Route::group([
     'as' => 'api/',
 ], function () {
     Route::get('ping/gameservers', [PingController::class, 'pingGameServers'])->name('ping/gameservers');
-    Route::get('games', [GameController::class, 'getGameState'])->name('games');
+    
+    Route::get('games', [GameController::class, 'getGameState'])->name('games')
+    ->middleware(['check_if_exists_server', 'check_maximum_failed_attempts', 'check_last_update']);
 });
 
 Route::group([
@@ -86,4 +88,7 @@ Route::group([
 
     Route::post('upload-map', [ServerController::class, 'uploadMap'])->name('upload_map')
     ->middleware('auth');
+
+    Route::get('update-all', [ServerController::class, 'updateAll'])->name('update_all')
+    ->middleware('throttle:100,1');
 });

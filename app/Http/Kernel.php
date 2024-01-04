@@ -68,6 +68,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'user_have_community' => \App\Http\Middleware\Communities\UserHaveCommunity::class,
         'verify_owner' => \App\Http\Middleware\Servers\VerifyOwner::class,
-
+        'check_if_exists_server' => \App\Http\Middleware\Servers\CheckIfExistsServer::class,
+        'check_maximum_failed_attempts' => \App\Http\Middleware\Servers\CheckMaximumFailedAttempts::class,
+        'check_last_update' => \App\Http\Middleware\Servers\CheckLastUpdate::class,
+          
     ];
 }

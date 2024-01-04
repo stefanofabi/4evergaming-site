@@ -4,29 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Collection;
-
-use Exception;
 
 use App\Models\Server;
-use App\Models\FavoriteMap;
-use App\Models\OnlinePlayerHistory;
-use App\Models\PlayerRanking;
 
 use App\Traits\ServerInfo;
-
-use DateTime;
-use DB;
+use App\Traits\UpdateServer;
 
 class GameController extends Controller
 {
     //
 
-    private const MAX_FAILED_ATTEMPTS = 2000; 
-
     use ServerInfo;
-
+    use UpdateServer;
+    
     public function getGameState(Request $request)
     {
         $request->validate([
@@ -37,127 +27,23 @@ class GameController extends Controller
 
         $server = Server::where('ip', $request->ip)->where('port', $request->port)->first();
 
-        if (! $server) {
-            return response()->json(['message' => 'No existe este servidor en nuestra base de datos'], 404);
+        $server_info = $this->getServerInfo($request->game, $request->ip, $request->port);
+
+        if (empty($server_info['var']['gq_hostname'])) {
+            $server->status = false;
+            $server->num_players = 0;
+            $server->players = [];
+            $server->failed_attempts++;
+
+            $server->save();
+
+            return response()->json($server);
         }
 
-        if ($server->failed_attempts > self::MAX_FAILED_ATTEMPTS) {
-            $server->delete();
-            
-            return response()->json(['message' => 'No existe este servidor en nuestra base de datos'], 404);
+        if (! $server_updated = $this->updateServer($server, $server_info)) {
+            return response()->json(['message' => 'Fallo al actualizar los datos del servidor', 'errors' => $e->getMessage()], 500);
         }
 
-        $lastUpdate = Carbon::parse($server->updated_at);
-        $now = Carbon::now();	
-
-        $diffSeconds = $now->diffInSeconds($lastUpdate);
-        
-        if ($diffSeconds > 300 || $request->force_update == 1) 
-        {
-            $server_info = $this->getServerInfo($request->game, $request->ip, $request->port);
-
-            if (empty($server_info['var']['gq_hostname'])) {
-                $server->status = false;
-                $server->num_players = 0;
-                $server->players = [];
-                $server->failed_attempts++;
-
-                $server->save();
-
-                return response()->json($server);
-            }
-
-            DB::beginTransaction();
-
-            try {
-                // save old players
-                $lastPlayers = $server->players;
-
-                // reset failed attempts
-                $server->failed_attempts = 0;
-
-                $server->hostname = $server_info['var']['gq_hostname'];
-                $server->map = $server_info['var']['gq_mapname'];
-                $server->num_players = $server_info['var']['gq_numplayers'];
-                $server->max_players = $server_info['var']['gq_maxplayers'];
-                $server->status = $server_info['var']['gq_online'];
-                $server->vars = $server_info['var'];
-                $server->players = $server_info['players'];
-
-                // calculate points
-                $player_percentage = ($server->num_players / $server->max_players) * 100;
-                
-                if ($player_percentage == 0) {
-                    $server->rank_points--;
-                } else if ($player_percentage > 85) {
-                    $server->rank_points += 5;
-                } else if ($player_percentage >= 70 && $player_percentage <= 85) {
-                    $server->rank_points += 3;
-                } else if ($player_percentage >= 50 && $player_percentage < 70) {
-                    $server->rank_points += 2;
-                } else {
-                    $server->rank_points += 1;
-                }               
-
-                Server::where('game_id', $server->game_id)->update(['rank' => null]);
-                $servers = Server::where('game_id', $server->game_id)->orderBy('rank_points', 'DESC')->get();
-                $next = 1;
-                foreach ($servers as $sv) {
-                    $sv->rank = $next;
-                    $sv->save();
-                    $next++;
-                }
-
-                $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();
-
-                if (is_null($lastMapUpdated) || $lastMapUpdated->map != $server->map) {
-                    FavoriteMap::updateOrCreate([
-                            'server_id' => $server->id,
-                            'map' => $server->map,
-                        ], [
-                            'count' => DB::raw('count + 1')
-                        ]
-                    );
-                }
-
-                $server->favoriteMaps()->where('updated_at', '<=', Carbon::now()->subDays(7)->toDateString())->delete();
-
-                $lastHistoricalOnlinePlayer = $server->onlinePlayerHistories()->where('updated_at', '>', Carbon::now()->subMinutes(15)->toDateTimeString())->first();
-
-                if (is_null($lastHistoricalOnlinePlayer)) {
-                    OnlinePlayerHistory::create(['server_id' => $server->id, 'count' => $server->num_players]);
-                }
-                
-                $server->onlinePlayerHistories()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
-
-                $playersCollection = new Collection($server->players);
-                
-                foreach ($lastPlayers as $player) 
-                {
-                    if (! in_array($player['gq_name'], $playersCollection->pluck('gq_name')->toArray())) {
-                        PlayerRanking::updateOrCreate([
-                                'server_id' => $server->id,
-                                'name' => $player['gq_name'],
-                            ], [
-                                'score' => DB::raw('score + '. $player['gq_score']),
-                                'time' => DB::raw('time + '. ceil($player['gq_time'] / 60)),
-                            ]
-                        );
-                    }
-                }
-
-                $server->playerRankings()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
-
-                $server->saveOrFail();
-
-                DB::commit();
-            } catch (Exception $e) {
-                DB::rollBack();
-
-                return response()->json(['message' => 'Fallo al actualizar los datos del servidor', 'errors' => $e->getMessage()], 500);
-            }
-        }
-
-        return response()->json($server);
+        return response()->json($server_updated);
     }
 }
