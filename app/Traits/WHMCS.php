@@ -101,4 +101,17 @@ trait WHMCS {
         ->orderBy('tblorders.date', 'ASC')
         ->get();
     }
+
+    function getBilling(int $year) 
+    {
+        return DB::connection('whmcs')
+        ->table('tblinvoices')
+        ->selectRaw("DATE_FORMAT(tblinvoices.date, '%M %Y') as label, MONTH(tblinvoices.date) AS month, YEAR(tblinvoices.date) AS year, SUM(tblinvoices.total) as total")
+        ->where('tblinvoices.status', 'Paid')
+        ->whereRaw("YEAR(tblinvoices.date) = $year")
+        ->orderBy('year', 'ASC')
+        ->orderBy('month', 'ASC')
+        ->groupBy(['label', 'month', 'year'])
+        ->get();
+    }
 }

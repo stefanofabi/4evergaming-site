@@ -28,6 +28,8 @@ use App\Http\Controllers\Api\GameController;
 
 use App\Http\Controllers\Server\ServerController;
 
+use App\Http\Controllers\Stats\StatsController;
+
 require('old_urls.php');
 
 Route::get('login', [SteamAuthController::class, 'login'])->name('login');
@@ -91,4 +93,13 @@ Route::group([
 
     Route::get('update-all', [ServerController::class, 'updateAll'])->name('update_all')
     ->middleware('throttle:100,1');
+});
+
+Route::group([
+    'middleware' => ['auth', 'is_admin'],
+    'prefix' => 'admin',
+    'as' => 'admin/',
+], function () {
+    Route::get('stats/index', [StatsController::class, 'index'])->name('stats/index');
+   
 });
