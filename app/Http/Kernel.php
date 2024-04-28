@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'check_maximum_failed_attempts' => \App\Http\Middleware\Servers\CheckMaximumFailedAttempts::class,
         'check_last_update' => \App\Http\Middleware\Servers\CheckLastUpdate::class,
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
+        'register_server_if_official' => \App\Http\Middleware\Servers\RegisterServerIfOfficial::class,
     ];
 }

@@ -82,7 +82,7 @@ Route::group([
 
     Route::get('search/{game}', [ServerController::class, 'search'])->name('search');
 
-    Route::get('info', [ServerController::class, 'showInfo'])->name('info');
+    Route::get('info', [ServerController::class, 'showInfo'])->name('info')->middleware('register_server_if_official');
 
     Route::post('claim-server', [ServerController::class, 'claimServer'])->name('claim_server')
     ->middleware('auth')
