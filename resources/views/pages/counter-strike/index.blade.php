@@ -75,8 +75,10 @@
 
 @section('content')
 <div class="container mt-3">
+    <!-- 
     <div class="d-none d-md-block"> Todos los juegos > Shooters > Counter-Strike </div>
-
+    -->
+    
     <h1 class="d-none d-md-block mt-2"> Counter-Strike 1.6 </h1>
 
     <div class="row">

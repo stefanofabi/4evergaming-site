@@ -22,8 +22,6 @@
 
   @include('pages.home.clients-who-trust')
 
-  @include('pages.home.without-taxation')
-
   @include('pages.home.why-4evergaming')
 
   @include('pages.home.cases-success')

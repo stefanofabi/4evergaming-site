@@ -72,7 +72,7 @@
         </div>
         
         <div class="d-none d-md-block">
-            <a type="button" class="btn btn-outline-dark btn-sm ms-3" href="http://tcadmin.4evergaming.com.ar" target="_blank"> TCAdmin </a>
+            <a type="button" class="btn btn-outline-dark btn-sm ms-3" href="http://tcadmin.4evergaming.net" target="_blank"> TCAdmin </a>
 
             <a type="button" class="btn btn-outline-dark btn-sm ms-3" href="https://clientes.4evergaming.com.ar" target="_blank"> Área de clientes </a>
         </div>

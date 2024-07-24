@@ -52,6 +52,7 @@
   </div>
 </div>
 
+<!-- Boton Agregar Comunidad
 <div class="mt-3 text-center"> 
     <div> Compartí el perfil de tu Comunidad y ayudanos a hacerla crecer junto a nosotros. </div>
 
@@ -59,5 +60,6 @@
       <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addCommunityModal"> Agregar Comunidad </button>
     </div>
 </div>
+-->
 
 @include('communities.create')

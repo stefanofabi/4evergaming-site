@@ -37,8 +37,8 @@
     <div class="col-9 fs-1 text-center"> Podio de los Ganadores 🏆 </div>
 
     <div class="col-9 text-center fs-5"> 
-        ¡Enhorabuena al trío ganador! 🏆 Cada uno de ustedes ha brillado con un talento excepcional. <br /> 
-        Su dedicación y habilidad han elevado este evento a nuevas alturas. ¡Felicidades por sus merecidos logros! 🌟🎉 
+        ¡Felicitaciones a los campeones! 🥳 Cada uno de ustedes ha brillado con un talento excepcional. <br /> 
+        Su dedicación y habilidad han elevado este evento a nuevas alturas. ¡Los seguimos acompañando! 🌟🎉 
     </div>
 </div>
 

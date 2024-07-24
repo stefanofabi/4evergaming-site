@@ -12,7 +12,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('games/counter-strike') }}">Counter-Strike 1.6</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/counter-strike?currency=2" target="_blank">Counter-Strike: Source</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/counter-strike-source?currency=2" target="_blank">Counter-Strike: Source</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/counter-strike-source?currency=2" target="_blank">Counter-Strike: Source Offensive</a></li>
+                        <li><a class="dropdown-item" href="{{ route('games/counter-strike-global-offensive') }}">Counter-Strike: Global Offensive</a></li>
                         <li><a class="dropdown-item" href="{{ route('games/counter-strike-2') }}">Counter-Strike 2</a></li>
                     </ul>
                 </li>
@@ -63,20 +65,29 @@
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Más...
                     </a>
+
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-carreras-and-competicion?currency=2" target="_blank">Carreras & Competicion</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-futbol?currency=2" target="_blank">Futbol</a></li>
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/half-life?currency=2" target="_blank">Half-Life</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/team-fortress?currency=2" target="_blank">Team Fortress</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/day-of-defeat?currency=2" target="_blank">Day of Defeat</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-zombies-and-vampiros?currency=2" target="_blank">Zombies & Vampiros</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-dragon-ball-z?currency=2" target="_blank">Dragon Ball Z</a></li>
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/half-life-2?currency=2" target="_blank"> Half-Life 2 </a></li> -->
                         <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/call-of-duty?currency=2" target="_blank">Call Of Duty</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/shooters?currency=2" target="_blank">Shooters</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/shooter-terror-games?currency=2" target="_blank">Shooters Terror Game</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/sandbox-y-supervivencia?currency=2" target="_blank">Sandbox & Supervivencia</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/mmorpg?currency=2" target="_blank">MMORPG</a></li>
-                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/hosting-revendedores?currency=2" target="_blank">Hosting para revendedores</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/battlefield?currency=2" target="_blank"> Battlefield </a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/left-4-dead?currency=2" target="_blank"> Left 4 Dead </a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/team-fortress?currency=2" target="_blank">Team Fortress</a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/killing-floor?currency=2" target="_blank"> Killing Floor </a></li>
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/medal-of-honor?currency=2" target="_blank"> Medal Of Honor </a></li>
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/day-of-defeat?currency=2" target="_blank">Day of Defeat</a></li> -->
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/carreras-and-competicion?currency=2" target="_blank">Carreras & Competicion</a></li> -->
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-futbol?currency=2" target="_blank">Futbol</a></li> -->
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/simuladores?currency=2" target="_blank"> Simuladores </a></li> -->
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-zombies-and-vampiros?currency=2" target="_blank">Zombies & Vampiros</a></li> -->
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/servidores-de-dragon-ball-z?currency=2" target="_blank">Dragon Ball Z</a></li>
+                        <!--<li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/shooters?currency=2" target="_blank">Shooters</a></li> -->
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/shooter-terror-games?currency=2" target="_blank">Shooters Terror Game</a></li> -->
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/sandbox-y-supervivencia?currency=2" target="_blank">Sandbox & Supervivencia</a></li> -->
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/mmorpg?currency=2" target="_blank">MMORPG</a></li> -->
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/game-hosting-reseller?currency=2" target="_blank"> Game Hosting Reseller </a></li> -->
+                        <!-- <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store/cpanel-hosting-reseller?currency=2" target="_blank"> cPanel Hosting Reseller </a></li> -->
+                        <li><a class="dropdown-item" href="https://clientes.4evergaming.com.ar/store?currency=2" target="_blank"> Ver todos </a></li>
                     </ul>
                 </li>
             </ul>
