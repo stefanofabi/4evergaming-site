@@ -13,7 +13,6 @@ class FavoriteMap extends Model
         'server_id',
         'map',
         'name',
-        'count',
         
     ];
 }

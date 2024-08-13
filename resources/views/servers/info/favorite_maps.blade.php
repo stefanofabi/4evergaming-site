@@ -4,10 +4,10 @@
     var myChart = new Chart(favoriteMapsChart, {
         type: 'pie',
         data: {
-            labels: @json($server->favoriteMaps()->orderBy('count', 'DESC')->limit(5)->pluck('map')->toArray()),
+            labels: @json($server->favoriteMaps()->select('map', \DB::raw('COUNT(*) as count'))->groupBy('map')->orderBy('count', 'DESC')->limit(10)->pluck('map')->toArray()),
             datasets: [{
                 label: 'Cantidad de veces jugadas',
-                data: @json($server->favoriteMaps()->orderBy('count', 'DESC')->limit(5)->pluck('count')->toArray()),
+                data: @json($server->favoriteMaps()->select('map', \DB::raw('COUNT(*) as count'))->groupBy('map')->orderBy('count', 'DESC')->limit(10)->pluck('count')->toArray()),
                 hoverOffset: 10
             }]
         },

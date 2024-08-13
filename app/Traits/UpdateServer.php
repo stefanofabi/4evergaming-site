@@ -48,25 +48,21 @@ trait UpdateServer {
             $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();
 
             if (is_null($lastMapUpdated) || $lastMapUpdated->map != $server->map) {
-                FavoriteMap::updateOrCreate([
-                        'server_id' => $server->id,
-                        'map' => $server->map,
-                    ], [
-                        'count' => DB::raw('count + 1')
-                    ]
-                );
+                FavoriteMap::create([
+                    'server_id' => $server->id,
+                    'map' => $server->map
+                ]);
             }
 
-            // delete history of favorite maps from the last 7 days
-            $server->favoriteMaps()->where('updated_at', '<=', Carbon::now()->subDays(7)->toDateString())->delete();
+            // delete history of favorite maps from the last days
+            $server->favoriteMaps()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
 
             
             // add to the historial online players
-            $lastHistoricalOnlinePlayer = $server->onlinePlayerHistories()->where('updated_at', '>', Carbon::now()->subMinutes(15)->toDateTimeString())->first();
-
-            if (is_null($lastHistoricalOnlinePlayer)) {
-                OnlinePlayerHistory::create(['server_id' => $server->id, 'count' => $server->num_players]);
-            }
+            OnlinePlayerHistory::create([
+                'server_id' => $server->id, 
+                'count' => $server->num_players
+            ]);
 
             // delete history of connected players from the last 30 days
             $server->onlinePlayerHistories()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
@@ -96,7 +92,7 @@ trait UpdateServer {
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
-          
+            
             return false;
         }
 
