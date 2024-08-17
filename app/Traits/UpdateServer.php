@@ -22,8 +22,8 @@ trait UpdateServer {
 
         try {
             // save old players
-            $lastPlayers = $server->players;
-
+            $lastPlayers = new Collection($server->players);
+            
             // reset failed attempts
             $server->failed_attempts = 0;
 
@@ -41,8 +41,9 @@ trait UpdateServer {
 
             // add to the favorite maps counter
             $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();
-
-            if (is_null($lastMapUpdated) || $lastMapUpdated->map != $server->map) {
+            $map_changed = is_null($lastMapUpdated) || $lastMapUpdated->map != $server->map;
+            
+            if ($map_changed) {
                 FavoriteMap::create([
                     'server_id' => $server->id,
                     'map' => $server->map
@@ -67,7 +68,17 @@ trait UpdateServer {
                 
             foreach ($lastPlayers as $player) 
             {
-                if (! in_array($player['gq_name'], $playersCollection->pluck('gq_name')->toArray())) {
+                $player_playing= $playersCollection->firstWhere('gq_name', $player['gq_name']);
+                
+                if ($player_playing) {
+                    $player_reconnect = $player['gq_time'] > $player_playing->gq_time;
+                } else {
+                    $player_reconnect = false;
+                }
+
+                //$player_disconnected = ! in_array($player['gq_name'], $playersCollection->pluck('gq_name')->toArray());
+                
+                if (! $player_playing || $map_changed || $player_reconnect) {
                     PlayerRanking::updateOrCreate([
                             'server_id' => $server->id,
                             'name' => $player['gq_name'],

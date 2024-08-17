@@ -26,6 +26,5 @@ Route::group([
     
     Route::get('servers/show', [ServerController::class, 'show'])->name('servers/show');
 
-    Route::get('servers/update-all', [ServerController::class, 'updateAll'])->name('servers/update_all')
-    ->middleware('throttle:100,1');
+    Route::get('servers/update-all', [ServerController::class, 'updateAll'])->name('servers/update_all');
 });
