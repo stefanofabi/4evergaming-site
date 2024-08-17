@@ -71,13 +71,11 @@ trait UpdateServer {
                 $player_playing= $playersCollection->firstWhere('gq_name', $player['gq_name']);
                 
                 if ($player_playing) {
-                    $player_reconnect = $player['gq_time'] > $player_playing->gq_time;
+                    $player_reconnect = $player['gq_time'] > $player_playing['gq_time'];
                 } else {
                     $player_reconnect = false;
                 }
 
-                //$player_disconnected = ! in_array($player['gq_name'], $playersCollection->pluck('gq_name')->toArray());
-                
                 if (! $player_playing || $map_changed || $player_reconnect) {
                     PlayerRanking::updateOrCreate([
                             'server_id' => $server->id,
