@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
-use Carbon\Carbon;
 
 use App\Models\Server;
 use App\Models\Game;
@@ -15,7 +14,6 @@ use App\Models\Country;
 use App\Models\ServerTag;
 
 use App\Traits\ServerInfo;
-use App\Traits\UpdateServer;
 
 use DB;
 use Exception;
@@ -23,7 +21,6 @@ use Exception;
 class ServerController extends Controller
 {
     use ServerInfo;
-    use UpdateServer;
 
     /**
      * Display a listing of the resource.
@@ -244,69 +241,5 @@ class ServerController extends Controller
         Storage::disk('public')->put('maps/'. $server->game->protocol .'/'.$server->map .'.jpg',  File::get($request->file('map')));      
 
         return response()->json(['message' => 'Imagen cargada con éxito. Gracias por colaborar.'], 200);
-    }
-
-    public function updateAll(Request $request) 
-    {
-        $games = Game::get();
-
-        $now = Carbon::now();
-
-        foreach ($games as $game) 
-        {
-            $servers = Server::where('game_id', $game->id)->orderBy('updated_at', 'ASC')->get();
-
-            echo "Comenzando actualizacion del juego $game->name <br />";
-            echo "Total de servidores a actualizar: ".$servers->count(). " <br />";
-
-            foreach ($servers as $server) {
-                $lastUpdate = Carbon::parse($server->updated_at);
-                $diffSeconds = $now->diffInSeconds($lastUpdate);
-                
-                if ($diffSeconds > 300) 
-                {
-                    $server_info = $this->getServerInfo($game->protocol, $server->ip, $server->port);
-    
-                    if (empty($server_info['var']['gq_hostname'])) {
-                        $server->status = false;
-                        $server->num_players = 0;
-                        $server->players = [];
-                        $server->failed_attempts++;
-            
-                        $server->save();
-
-                        echo "<div style='color: red'> Servidor ".$server->server_address ." Status: OFFLINE </div>";
-                    } else {
-                        if ($this->updateServer($server, $server_info)) {
-                            echo "<div style='color: green'> Servidor $server->server_address actualizado </div>";
-                        } else {
-                            echo "<div style='color: red'> Error al actualizar el servidor ".$server->server_address ." </div>";
-                        }
-                    }
-                }
-            }
-
-            // update ranks
-            DB::transaction(function () use ($game) {
-                echo "Actualizando Nro. de Rankings <br />";
-
-                // set null for all
-                Server::where('game_id', $game->id)->update(['rank' => null]);
-
-                // get servers order by rank points desc
-                $servers = Server::where('game_id', $game->id)->orderBy('rank_points', 'DESC')->get();
-                $next = 1;
-                foreach ($servers as $server) {
-                    $server->rank = $next;
-                    $server->save();
-                    $next++;
-                }
-            });
-
-            echo "Actualizacion completada <br />";
-            echo "============================ <br />";
-        }
-
-        echo "Actualizacion completada <br />";
     }
 }

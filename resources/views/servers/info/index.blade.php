@@ -33,7 +33,7 @@
 
         $.ajax({
             data: parameters,
-            url: "{{ route('api/games') }}",
+            url: "{{ route('api/servers/show') }}",
             type: 'get',
             dataType: 'json',
             error: function (xhr, status) {

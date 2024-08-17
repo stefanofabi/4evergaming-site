@@ -36,13 +36,8 @@ trait UpdateServer {
             $server->players = $server_info['players'];
 
             // calculate points
-            $player_percentage = ($server->num_players / $server->max_players) * 100;
-                
-            if ($player_percentage <= 30) {
-                $server->rank_points -= $server->num_players;
-            } else {
-                $server->rank_points += ceil($player_percentage) + $server->num_players;
-            }          
+            $server->rank_points += $server->num_players;
+                    
 
             // add to the favorite maps counter
             $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();

@@ -24,14 +24,12 @@ use App\Http\Controllers\Pages\MultiTheftAutoPageController;
 
 use App\Http\Controllers\Communities\CommunityController;
 
-use App\Http\Controllers\Api\PingController;
-use App\Http\Controllers\Api\GameController;
-
 use App\Http\Controllers\Server\ServerController;
 
 use App\Http\Controllers\Stats\StatsController;
 
 require('old_urls.php');
+require('api.php');
 
 Route::get('login', [SteamAuthController::class, 'login'])->name('login');
 Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
@@ -45,17 +43,6 @@ Route::get('/games/counter-strike-global-offensive', [CounterStrikeGlobalOffensi
 Route::get('/games/counter-strike-2', [CounterStrike2PageController::class, 'index'])->name('games/counter-strike-2');
 
 Route::get('/games/multi-theft-auto', [MultiTheftAutoPageController::class, 'index'])->name('games/multi-theft-auto');
-
-Route::group([
-    'middleware' => ['throttle:100,1'],
-    'prefix' => 'api',
-    'as' => 'api/',
-], function () {
-    Route::get('ping/gameservers', [PingController::class, 'pingGameServers'])->name('ping/gameservers');
-    
-    Route::get('games', [GameController::class, 'getGameState'])->name('games')
-    ->middleware(['check_if_exists_server', 'check_maximum_failed_attempts', 'check_last_update']);
-});
 
 Route::group([
     'prefix' => 'communities',
@@ -93,9 +80,6 @@ Route::group([
 
     Route::post('upload-map', [ServerController::class, 'uploadMap'])->name('upload_map')
     ->middleware('auth');
-
-    Route::get('update-all', [ServerController::class, 'updateAll'])->name('update_all')
-    ->middleware('throttle:100,1');
 });
 
 Route::group([
