@@ -15,7 +15,7 @@
                 <tbody>
                     @php $rank_player = 1 @endphp 
 
-                    @forelse ($server->playerRankings()->limit(10)->get()->sortByDesc('score') as $player)
+                    @forelse ($server->playerRankings()->orderBy('score', 'desc')->limit(10)->get() as $player)
                     <tr>
                         <td> #{{ $rank_player }} </td>
                         <td> {{ $player->name }} </td>
