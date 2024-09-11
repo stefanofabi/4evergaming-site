@@ -102,16 +102,69 @@ trait WHMCS {
         ->get();
     }
 
+    function getBillingForToday() 
+    {
+        return DB::connection('whmcs')
+            ->table('tblinvoices')
+            ->join('tblclients', 'tblinvoices.userid', '=', 'tblclients.id')
+            ->join('tblcurrencies', 'tblclients.currency', '=', 'tblcurrencies.id')
+            ->selectRaw("
+                tblcurrencies.code as currency_code,
+                SUM(tblinvoices.total) as total
+            ")
+            ->where('tblinvoices.status', 'Paid')
+            ->whereDate('tblinvoices.date', '=', now()->toDateString())
+            ->groupBy('currency_code')
+            ->get();
+    }
+
     function getBilling(int $year) 
     {
         return DB::connection('whmcs')
         ->table('tblinvoices')
-        ->selectRaw("DATE_FORMAT(tblinvoices.date, '%M %Y') as label, MONTH(tblinvoices.date) AS month, YEAR(tblinvoices.date) AS year, SUM(tblinvoices.total) as total")
+        ->join('tblclients', 'tblinvoices.userid', '=', 'tblclients.id')
+        ->join('tblcurrencies', 'tblclients.currency', '=', 'tblcurrencies.id')
+        ->selectRaw("
+            DATE_FORMAT(tblinvoices.date, '%M %Y') as label, 
+            MONTH(tblinvoices.date) AS month, 
+            YEAR(tblinvoices.date) AS year, 
+            tblcurrencies.code as currency_code, 
+            SUM(tblinvoices.total) as total
+        ")
         ->where('tblinvoices.status', 'Paid')
         ->whereRaw("YEAR(tblinvoices.date) = $year")
+        ->groupBy('label', 'month', 'year', 'currency_code')
         ->orderBy('year', 'ASC')
         ->orderBy('month', 'ASC')
-        ->groupBy(['label', 'month', 'year'])
+        ->get();
+    }
+
+    function getBillingByYear() 
+    {
+        return DB::connection('whmcs')
+            ->table('tblinvoices')
+            ->join('tblclients', 'tblinvoices.userid', '=', 'tblclients.id')
+            ->join('tblcurrencies', 'tblclients.currency', '=', 'tblcurrencies.id')
+            ->selectRaw("
+                DATE_FORMAT(tblinvoices.date, '%Y') as label, 
+                tblcurrencies.code as currency_code, 
+                SUM(tblinvoices.total) as total
+            ")
+            ->where('tblinvoices.status', 'Paid')
+            ->groupBy('label', 'currency_code')
+            ->orderBy('label', 'ASC')
+            ->orderBy('currency_code', 'ASC')
+            ->get();
+    }
+
+
+    function GetMoreFrequentPaymentMethods() 
+    {
+        return DB::connection('whmcs')
+        ->table('tblinvoices')
+        ->selectRaw('paymentmethod as label, count(*) as count')
+        ->where('tblinvoices.status', 'Paid')
+        ->groupBy('paymentmethod')
         ->get();
     }
 }

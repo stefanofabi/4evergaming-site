@@ -87,6 +87,15 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'admin/',
 ], function () {
-    Route::get('stats/index', [StatsController::class, 'index'])->name('stats/index');
+
+    Route::group([
+        'prefix' => 'stats',
+        'as' => 'stats/',
+    ], function () {
+        Route::get('index', [StatsController::class, 'index'])->name('index');
+   
+        Route::get('billing', [StatsController::class, 'billing'])->name('billing');
+
+    });
    
 });

@@ -8,47 +8,17 @@
 4evergaming: Panel de Administración
 @endsection
 
-@section('javascript')
-<script type="module">
-    var totalPaidAmountChart = document.getElementById('totalPaidAmountChart');
-    var myChart = new Chart(totalPaidAmountChart, {
-        type: 'bar',
-        data: {
-            labels: @json($totalPaid->pluck('label')->toArray()),
-            datasets: [{
-                radius: 1,
-                label: 'Total recaudado',
-                data: @json($totalPaid->pluck('total')->toArray()),
-                backgroundColor: '#f47363',
-                borderColor: '#f47363',
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    ticks: {
-                        maxTicksLimit: 5
-                    }
-                },
-                y: {
-                    min: 0
-                }
-            }
-        }
-    });
-</script>
-@append
-
 @section('content')
-<div class="container">
-    <div class="row mt-5">
+    <div class="row mt-5 ms-3 me-3">
+        <div class="col-2"> 
+            <ul class="list-group">
+                <li class="list-group-item"> <a href="{{ route('admin/stats/index') }}"> Tablero </a> </li>
+                <li class="list-group-item"> <a href="{{ route('admin/stats/billing') }}"> Facturación </a> </li>
+            </ul>      
+        </div>
+
         <div class="col">
-            <div> <h4 class="text-center fw-bold"> Monto facturado este año </h4> </div>
-            <div> <canvas id="totalPaidAmountChart"></canvas> </div>
+           
         </div>
     </div>
-</div>
 @endsection
