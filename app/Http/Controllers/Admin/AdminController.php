@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Stats;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 use App\Traits\WHMCS;
 
-class StatsController extends Controller
+class AdminController extends Controller
 {
     //
 
@@ -16,7 +16,7 @@ class StatsController extends Controller
 
     public function index()
     {
-        return view('stats.index');
+        return view('admin.index');
     }
 
     public function billing()
@@ -37,7 +37,7 @@ class StatsController extends Controller
 
         $getMoreFrequentPaymentMethods = $this->GetMoreFrequentPaymentMethods();
         
-        return view('stats.billing')
+        return view('admin.billing')
             ->with('billingToday', $billingToday)
             ->with('moreFrequentPaymentMethods', $getMoreFrequentPaymentMethods)
             ->with('billing', $this->getDatasets($billing))

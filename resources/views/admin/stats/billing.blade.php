@@ -1,15 +1,6 @@
-@extends('base')
-
-@section('description', 'Administracion interna de 4evergaming')
-
-@section('robots', 'noindex, nofollow')
-
-@section('title')
-4evergaming: Panel de Administración
-@endsection
+@extends('admin.index')
 
 @section('javascript')
-
 <script type="module">
     var moreFrequentPaymentMethodsChart = document.getElementById('moreFrequentPaymentMethodsChart');
     var myChart = new Chart(moreFrequentPaymentMethodsChart, {
@@ -107,43 +98,32 @@
 </script>
 @append
 
-@section('content')
-    <div class="row mt-5 ms-3 me-3">
-        <div class="col-2"> 
-            <ul class="list-group">
-                <li class="list-group-item"> <a href="{{ route('admin/stats/index') }}"> Tablero </a> </li>
-                <li class="list-group-item"> <a href="{{ route('admin/stats/billing') }}"> Facturación </a> </li>
-            </ul>      
-        </div>
-
-        <div class="col">
-            <div class="row"> 
-                <div class="col">
-                    <div class="border p-4 mb-3 rounded bg-light text-dark">
-                        <span class="fs-4 fw-bold">Total facturado hoy</span>
-                        @foreach ($billingToday as $payment)
-                            <div style="color: {{ $payment->color }};">
-                                <span class="fs-4 fw-bold">{{ $payment->currency_code }} {{ $payment->total }}</span>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div> <h4 class="text-center fw-bold"> Medios de pago más frecuentes </h4> </div>
-                    <div> <canvas id="moreFrequentPaymentMethodsChart"></canvas> </div>
-                </div>
+@section('right-content')
+<div class="row"> 
+    <div class="col">
+        <div class="border p-4 mb-3 rounded bg-light text-dark">
+            <span class="fs-4 fw-bold">Total facturado hoy</span>
+            @foreach ($billingToday as $payment)
+            <div style="color: {{ $payment->color }};">
+                <span class="fs-4 fw-bold">{{ $payment->currency_code }} {{ $payment->total }}</span>
             </div>
-            
-            <div class="m-5">
-                <div> <h4 class="text-center fw-bold"> Monto facturado este año </h4> </div>
-                <div> <canvas id="billingChart"></canvas> </div>
-            </div>
-
-            <div class="m-5">
-                <div> <h4 class="text-center fw-bold"> Monto facturado por año </h4> </div>
-                <div> <canvas id="billingByYearChart"></canvas> </div>
-            </div>
-        </div>
+            @endforeach
+        </div>   
     </div>
+
+    <div class="col">
+        <div> <h4 class="text-center fw-bold"> Medios de pago más frecuentes </h4> </div>
+        <div> <canvas id="moreFrequentPaymentMethodsChart"></canvas> </div>
+    </div>
+</div>
+            
+<div class="m-5">
+    <div> <h4 class="text-center fw-bold"> Monto facturado este año </h4> </div>
+    <div> <canvas id="billingChart"></canvas> </div>
+</div>
+
+<div class="m-5">
+    <div> <h4 class="text-center fw-bold"> Monto facturado por año </h4> </div>
+    <div> <canvas id="billingByYearChart"></canvas> </div>
+</div>
 @endsection

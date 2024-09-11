@@ -26,7 +26,7 @@ use App\Http\Controllers\Communities\CommunityController;
 
 use App\Http\Controllers\Server\ServerController;
 
-use App\Http\Controllers\Stats\StatsController;
+use App\Http\Controllers\Admin\AdminController;
 
 require('old_urls.php');
 require('api.php');
@@ -88,14 +88,8 @@ Route::group([
     'as' => 'admin/',
 ], function () {
 
-    Route::group([
-        'prefix' => 'stats',
-        'as' => 'stats/',
-    ], function () {
-        Route::get('index', [StatsController::class, 'index'])->name('index');
+    Route::get('index', [AdminController::class, 'index'])->name('index');
    
-        Route::get('billing', [StatsController::class, 'billing'])->name('billing');
-
-    });
+    Route::get('billing', [AdminController::class, 'billing'])->name('billing');
    
 });

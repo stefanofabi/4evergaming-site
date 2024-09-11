@@ -12,13 +12,13 @@
     <div class="row mt-5 ms-3 me-3">
         <div class="col-2"> 
             <ul class="list-group">
-                <li class="list-group-item"> <a href="{{ route('admin/stats/index') }}"> Tablero </a> </li>
-                <li class="list-group-item"> <a href="{{ route('admin/stats/billing') }}"> Facturación </a> </li>
+                <li class="list-group-item"> <a href="{{ route('admin/index') }}"> Tablero </a> </li>
+                <li class="list-group-item"> <a href="{{ route('admin/billing') }}"> Facturación </a> </li>
             </ul>      
         </div>
 
         <div class="col">
-           
+           @section('right-content') @show
         </div>
     </div>
 @endsection
