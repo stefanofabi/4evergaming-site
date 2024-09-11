@@ -17,7 +17,7 @@ class CounterStrikeGlobbalOffensiveGameTagSeeder extends Seeder
     {
         //
 
-        $csgo = Game::where('protocol', 'cs2')->firstOrFail();
+        $csgo = Game::where('protocol', 'csgo')->firstOrFail();
 
         $tags = [
             'bomb',

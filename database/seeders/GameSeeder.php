@@ -24,11 +24,11 @@ class GameSeeder extends Seeder
                 'protocol' => 'cs16'
             ],
             [
-                'name' => 'Counter-Strike 2', 
-                'short_name' => 'CS2',
-                'logo' => 'counter-strike-2.bmp',
+                'name' => 'Counter-Strike: Global Offensive', 
+                'short_name' => 'CSGO',
+                'logo' => 'counter-strike-global-offensive.bmp',
                 'protocol' => 'csgo',
-                'large_logo' => 'counter-strike-2-large-logo.png'
+                'large_logo' => 'counter-strike-global-offensive-large-logo.png'
             ],
             [
                 'name' => 'Multi Theft Auto', 
