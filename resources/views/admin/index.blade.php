@@ -14,7 +14,7 @@
             <ul class="list-group">
                 <li class="list-group-item"> <a href="{{ route('admin/index') }}"> Tablero </a> </li>
                 <li class="list-group-item"> <a href="{{ route('admin/billing') }}"> Facturación </a> </li>
-                <li class="list-group-item"> <a href="{{ route('admin/system-monitoring') }}"> Monitoreo </a> </li>
+                <li class="list-group-item"> <a href="{{ route('admin/nodes') }}"> Nodos </a> </li>
             </ul>      
         </div>
 

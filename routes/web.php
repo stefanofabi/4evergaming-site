@@ -91,5 +91,6 @@ Route::group([
     Route::get('index', [AdminController::class, 'index'])->name('index');
    
     Route::get('billing', [AdminController::class, 'billing'])->name('billing');
-   
+    
+    Route::get('nodes', [AdminController::class, 'nodes'])->name('nodes');
 });

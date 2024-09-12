@@ -33,6 +33,8 @@ class NodeSeeder extends Seeder
 
                 'mysql_connection' => 'chain',
                 'phpmyadmin' => 'https://chain.4evergaming.net/phpmyadmin',
+
+                'enable_monitor' => 1,
             ],
             [
                 'name' => 'Ester', 
@@ -51,6 +53,8 @@ class NodeSeeder extends Seeder
 
                 'mysql_connection' => 'ester',
                 'phpmyadmin' => 'https://ester.4evergaming.net/phpmyadmin',
+
+                'enable_monitor' => 1,
             ],
             [
                 'name' => 'Ghost', 
@@ -69,6 +73,8 @@ class NodeSeeder extends Seeder
 
                 'mysql_connection' => 'ghost',
                 'phpmyadmin' => 'https://ghost.4evergaming.net/phpmyadmin',
+                
+                'enable_monitor' => 1,
             ],
             [
                 'name' => 'Lava', 
@@ -87,6 +93,8 @@ class NodeSeeder extends Seeder
 
                 'mysql_connection' => 'lava',
                 'phpmyadmin' => 'https://lava.4evergaming.net/phpmyadmin',
+
+                'enable_monitor' => 1,
             ],
             [
                 'name' => 'Raider', 
@@ -105,6 +113,8 @@ class NodeSeeder extends Seeder
 
                 'mysql_connection' => 'raider',
                 'phpmyadmin' => 'https://raider.4evergaming.net/phpmyadmin',
+
+                'enable_monitor' => 1,
             ],
             [
                 'name' => 'Ray', 
@@ -123,6 +133,8 @@ class NodeSeeder extends Seeder
 
                 'mysql_connection' => 'ray',
                 'phpmyadmin' => 'https://ray.4evergaming.net/phpmyadmin',
+
+                'enable_monitor' => 1,
             ],
             [
                 'name' => 'Storm', 
@@ -141,6 +153,8 @@ class NodeSeeder extends Seeder
 
                 'mysql_connection' => 'storm',
                 'phpmyadmin' => 'https://storm.4evergaming.net/phpmyadmin',
+
+                'enable_monitor' => 1,
             ],
         ]);
 

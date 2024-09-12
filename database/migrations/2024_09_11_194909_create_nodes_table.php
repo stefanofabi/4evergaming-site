@@ -35,6 +35,8 @@ return new class extends Migration
             $table->string('mysql_connection')->nullable();  
             $table->string('phpmyadmin')->nullable();  
 
+            $table->boolean('enable_monitor'); 
+
             $table->timestamps();               
         });
     }

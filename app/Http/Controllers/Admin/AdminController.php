@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
+use App\Models\Node;
+
 use App\Traits\WHMCS;
+use DB;
 
 class AdminController extends Controller
 {
@@ -42,6 +45,52 @@ class AdminController extends Controller
             ->with('moreFrequentPaymentMethods', $getMoreFrequentPaymentMethods)
             ->with('billing', $this->getDatasets($billing))
             ->with('billingByYear', $this->getDatasets($billingByYear));
+    }
+
+    public function nodes(Request $request) 
+    {
+        $billing = $this->getBilling(2024);
+        
+        $nodes = Node::all();
+
+        $node = Node::find($request->node);
+
+        $view = view('admin.nodes')
+            ->with('nodes', $nodes)
+            ->with('node', $node);
+
+        if (! empty($node) && $node->enable_monitor) 
+        { 
+            $now = Carbon::now();
+            $twentyFourHoursAgo = $now->subHours(24);
+
+            $data = DB::connection($node->mysql_connection)
+                        ->table('system_stats')
+                        ->select('timestamp', 'cpu_total', 'memory_used', 'disk_read', 'disk_write', 'network_receive_mbps', 'network_transmit_mbps')
+                        ->where('timestamp', '>=', $twentyFourHoursAgo)
+                        ->orderBy('timestamp', 'asc')
+                        ->get();
+
+            // Preparar los datos para enviar a la vista
+            $timestamps = $data->pluck('timestamp');
+            $cpu_total = $data->pluck('cpu_total');
+            $memory_used = $data->pluck('memory_used');
+            $disk_read = $data->pluck('disk_read');
+            $disk_write = $data->pluck('disk_write');
+            $network_receive_mbps = $data->pluck('network_receive_mbps');
+            $network_transmit_mbps = $data->pluck('network_transmit_mbps');
+            
+            $view
+            ->with('timestamps', $timestamps)
+            ->with('cpu_total', $cpu_total)
+            ->with('memory_used', $memory_used)
+            ->with('disk_read', $disk_read)
+            ->with('disk_write', $disk_write)
+            ->with('network_receive_mbps', $network_receive_mbps)
+            ->with('network_transmit_mbps', $network_transmit_mbps);
+        }
+
+        return $view->with('billing', $this->getDatasets($billing));
     }
     
     private function getDatasets($billing) 

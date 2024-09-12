@@ -70,6 +70,70 @@ return [
             'username'  => env('DB_USERNAME_WHMCS'),
             'password'  => env('DB_PASSWORD_WHMCS'),
         ],
+
+        'chain' => [
+            'driver'    => env('DB_CONNECTION_CHAIN'),
+            'host'      => env('DB_HOST_CHAIN'),
+            'port'      => env('DB_PORT_CHAIN'),
+            'database'  => env('DB_DATABASE_CHAIN'),
+            'username'  => env('DB_USERNAME_CHAIN'),
+            'password'  => env('DB_PASSWORD_CHAIN'),
+        ],
+
+        'ester' => [
+            'driver'    => env('DB_CONNECTION_ESTER'),
+            'host'      => env('DB_HOST_ESTER'),
+            'port'      => env('DB_PORT_ESTER'),
+            'database'  => env('DB_DATABASE_ESTER'),
+            'username'  => env('DB_USERNAME_ESTER'),
+            'password'  => env('DB_PASSWORD_ESTER'),
+        ],
+
+        'ghost' => [
+            'driver'    => env('DB_CONNECTION_GHOST'),
+            'host'      => env('DB_HOST_GHOST'),
+            'port'      => env('DB_PORT_GHOST'),
+            'database'  => env('DB_DATABASE_GHOST'),
+            'username'  => env('DB_USERNAME_GHOST'),
+            'password'  => env('DB_PASSWORD_GHOST'),
+        ],
+
+        'lava' => [
+            'driver'    => env('DB_CONNECTION_LAVA'),
+            'host'      => env('DB_HOST_LAVA'),
+            'port'      => env('DB_PORT_LAVA'),
+            'database'  => env('DB_DATABASE_LAVA'),
+            'username'  => env('DB_USERNAME_LAVA'),
+            'password'  => env('DB_PASSWORD_LAVA'),
+        ],
+
+        'raider' => [
+            'driver'    => env('DB_CONNECTION_RAIDER'),
+            'host'      => env('DB_HOST_RAIDER'),
+            'port'      => env('DB_PORT_RAIDER'),
+            'database'  => env('DB_DATABASE_RAIDER'),
+            'username'  => env('DB_USERNAME_RAIDER'),
+            'password'  => env('DB_PASSWORD_RAIDER'),
+        ],
+
+        'ray' => [
+            'driver'    => env('DB_CONNECTION_RAY'),
+            'host'      => env('DB_HOST_RAY'),
+            'port'      => env('DB_PORT_RAY'),
+            'database'  => env('DB_DATABASE_RAY'),
+            'username'  => env('DB_USERNAME_RAY'),
+            'password'  => env('DB_PASSWORD_RAY'),
+        ],
+
+        'storm' => [
+            'driver'    => env('DB_CONNECTION_STORM'),
+            'host'      => env('DB_HOST_STORM'),
+            'port'      => env('DB_PORT_STORM'),
+            'database'  => env('DB_DATABASE_STORM'),
+            'username'  => env('DB_USERNAME_STORM'),
+            'password'  => env('DB_PASSWORD_STORM'),
+        ],
+        
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
