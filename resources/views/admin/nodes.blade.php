@@ -3,7 +3,6 @@
 @section('javascript')
 @if (!empty($node) && $node->enable_monitor)
 <script type="module">
-    // Función para crear gráficos
     function createCharts() {
         // Gráfico de CPU
         var cpuCtx = document.getElementById('cpuChart');
@@ -18,6 +17,28 @@
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     fill: false,
                 }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + ' %'; // Agrega el símbolo de porcentaje
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Uso de CPU (%)'
+                        }
+                    }
+                }
             }
         });
 
@@ -28,12 +49,34 @@
             data: {
                 labels: @json($timestamps),
                 datasets: [{
-                    label: 'Memory Used',
+                    label: 'Memoria usada',
                     data: @json($memory_used),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     fill: false,
                 }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + ' MB'; // Agrega el sufijo MB
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Memoria Usada (MB)'
+                        }
+                    }
+                }
             }
         });
 
@@ -44,18 +87,40 @@
             data: {
                 labels: @json($timestamps),
                 datasets: [{
-                    label: 'Disk Read',
+                    label: 'Lectura de disco',
                     data: @json($disk_read),
                     borderColor: 'rgba(255, 159, 64, 1)',
                     backgroundColor: 'rgba(255, 159, 64, 0.2)',
                     fill: false,
                 }, {
-                    label: 'Disk Write',
+                    label: 'Escritura de disco',
                     data: @json($disk_write),
                     borderColor: 'rgba(255, 99, 132, 0.7)',
                     backgroundColor: 'rgba(255, 99, 132, 0.1)',
                     fill: false,
                 }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + ' MB/s'; // Agrega el sufijo MB/s
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Uso de Disco (MB/s)'
+                        }
+                    }
+                }
             }
         });
 
@@ -66,21 +131,44 @@
             data: {
                 labels: @json($timestamps),
                 datasets: [{
-                    label: 'Network Receive (Mbps)',
+                    label: 'Velocidad de bajada',
                     data: @json($network_receive_mbps),
                     borderColor: 'rgba(255, 205, 86, 1)',
                     backgroundColor: 'rgba(255, 205, 86, 0.2)',
                     fill: false,
                 }, {
-                    label: 'Network Transmit (Mbps)',
+                    label: 'Velocidad de subida',
                     data: @json($network_transmit_mbps),
                     borderColor: 'rgba(201, 203, 207, 1)',
                     backgroundColor: 'rgba(201, 203, 207, 0.2)',
                     fill: false,
                 }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + ' Mbps'; // Agrega el sufijo Mbps
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Uso de Red (Mbps)'
+                        }
+                    }
+                }
             }
         });
     }
+
 
     // Inicializar gráficos al mostrar la pestaña activa
     document.addEventListener('DOMContentLoaded', function () {
