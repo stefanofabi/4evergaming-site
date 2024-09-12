@@ -346,7 +346,7 @@
 
 @section('right-content')
 <h1 class="mb-4">Nodos</h1>
-<div class="col-6">
+<div class="col-md-6">
     <form action="{{ route('admin/nodes') }}">
         <div class="row">
             <div class="col-auto">
