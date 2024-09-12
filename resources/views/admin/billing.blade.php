@@ -102,12 +102,16 @@
 <div class="row"> 
     <div class="col">
         <div class="border p-4 mb-3 rounded bg-light text-dark">
-            <span class="fs-4 fw-bold">Total facturado hoy</span>
-            @foreach ($billingToday as $payment)
-            <div style="color: {{ $payment->color }};">
-                <span class="fs-4 fw-bold">{{ $payment->currency_code }} {{ $payment->total }}</span>
-            </div>
-            @endforeach
+            <span class="fs-4 fw-bold"> Total cobrado </span>
+            @forelse ($billingToday as $payment)
+                <div style="color: {{ $payment->color }};">
+                    <span class="fs-4 fw-bold">{{ $payment->currency_code }} {{ $payment->total }}</span>
+                </div>
+            @empty
+                <div class="text-danger fs-4 fw-bold">
+                    No hay cobros hasta el momento
+                </div>
+            @endforelse
         </div>   
     </div>
 

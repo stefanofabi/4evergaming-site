@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 trait WHMCS {
@@ -158,13 +159,16 @@ trait WHMCS {
     }
 
 
-    function GetMoreFrequentPaymentMethods() 
+    function getMoreFrequentPaymentMethods() 
     {
+        $startDate = Carbon::now()->subDays(365)->toDateString();
+        
         return DB::connection('whmcs')
-        ->table('tblinvoices')
-        ->selectRaw('paymentmethod as label, count(*) as count')
-        ->where('tblinvoices.status', 'Paid')
-        ->groupBy('paymentmethod')
-        ->get();
+            ->table('tblinvoices')
+            ->selectRaw('paymentmethod as label, count(*) as count')
+            ->where('status', 'Paid')
+            ->whereDate('date', '>=', $startDate)
+            ->groupBy('paymentmethod')
+            ->get();
     }
 }

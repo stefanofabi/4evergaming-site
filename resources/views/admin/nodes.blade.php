@@ -254,16 +254,19 @@
 </ul>
 <div class="tab-content mt-3">
     <div class="tab-pane fade show active" id="cpu" role="tabpanel" aria-labelledby="cpu-tab">
-        <div><canvas id="cpuChart"></canvas></div>
+        <div style="height: 400px"><canvas id="cpuChart"></canvas></div>
     </div>
+
     <div class="tab-pane fade" id="memory" role="tabpanel" aria-labelledby="memory-tab">
-        <div><canvas id="memoryChart"></canvas></div>
+        <div style="height: 400px"><canvas id="memoryChart"></canvas></div>
     </div>
+
     <div class="tab-pane fade" id="disk" role="tabpanel" aria-labelledby="disk-tab">
-        <div><canvas id="diskChart"></canvas></div>
+        <div style="height: 400px"><canvas id="diskChart"></canvas></div>
     </div>
+
     <div class="tab-pane fade" id="network" role="tabpanel" aria-labelledby="network-tab">
-        <div><canvas id="networkChart"></canvas></div>
+        <div style="height: 400px"><canvas id="networkChart"></canvas></div>
     </div>
 </div>
 @else 

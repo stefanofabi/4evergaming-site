@@ -38,7 +38,7 @@ class AdminController extends Controller
 
         $billingByYear = $this->getBillingByYear();
 
-        $getMoreFrequentPaymentMethods = $this->GetMoreFrequentPaymentMethods();
+        $getMoreFrequentPaymentMethods = $this->getMoreFrequentPaymentMethods();
         
         return view('admin.billing')
             ->with('billingToday', $billingToday)
@@ -65,11 +65,11 @@ class AdminController extends Controller
             $twentyFourHoursAgo = $now->subHours(24);
 
             $data = DB::connection($node->mysql_connection)
-                        ->table('system_stats')
-                        ->select('timestamp', 'cpu_total', 'memory_used', 'disk_read', 'disk_write', 'network_receive_mbps', 'network_transmit_mbps')
-                        ->where('timestamp', '>=', $twentyFourHoursAgo)
-                        ->orderBy('timestamp', 'asc')
-                        ->get();
+                ->table('system_stats')
+                ->select(DB::raw('DATE_FORMAT(timestamp, "%H:%i") as timestamp'), 'cpu_total', 'memory_used', 'disk_read', 'disk_write', 'network_receive_mbps', 'network_transmit_mbps')
+                ->where('timestamp', '>=', $twentyFourHoursAgo)
+                ->orderBy('timestamp', 'asc')
+                ->get();
 
             // Preparar los datos para enviar a la vista
             $timestamps = $data->pluck('timestamp');
