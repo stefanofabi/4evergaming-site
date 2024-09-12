@@ -49,8 +49,6 @@ class AdminController extends Controller
 
     public function nodes(Request $request) 
     {
-        $billing = $this->getBilling(2024);
-        
         $nodes = Node::all();
 
         $node = Node::find($request->node);
@@ -66,31 +64,35 @@ class AdminController extends Controller
 
             $data = DB::connection($node->mysql_connection)
                 ->table('system_stats')
-                ->select(DB::raw('DATE_FORMAT(timestamp, "%H:%i") as timestamp'), 'cpu_total', 'memory_used', 'disk_read', 'disk_write', 'network_receive_mbps', 'network_transmit_mbps')
+                ->select(DB::raw('DATE_FORMAT(timestamp, "%H:%i") as timestamp'), 'cpu', 'memory', 'disk', 'disk_read', 'disk_write', 'network_receive', 'network_transmit', 'cpu_temp')
                 ->where('timestamp', '>=', $twentyFourHoursAgo)
                 ->orderBy('timestamp', 'asc')
                 ->get();
 
             // Preparar los datos para enviar a la vista
             $timestamps = $data->pluck('timestamp');
-            $cpu_total = $data->pluck('cpu_total');
-            $memory_used = $data->pluck('memory_used');
+            $cpu = $data->pluck('cpu');
+            $memory = $data->pluck('memory');
+            $disk = $data->pluck('disk');
             $disk_read = $data->pluck('disk_read');
             $disk_write = $data->pluck('disk_write');
-            $network_receive_mbps = $data->pluck('network_receive_mbps');
-            $network_transmit_mbps = $data->pluck('network_transmit_mbps');
+            $network_receive = $data->pluck('network_receive');
+            $network_transmit = $data->pluck('network_transmit');
+            $cpu_temp = $data->pluck('cpu_temp');
             
             $view
             ->with('timestamps', $timestamps)
-            ->with('cpu_total', $cpu_total)
-            ->with('memory_used', $memory_used)
+            ->with('cpu', $cpu)
+            ->with('memory', $memory)
+            ->with('disk', $disk)
             ->with('disk_read', $disk_read)
             ->with('disk_write', $disk_write)
-            ->with('network_receive_mbps', $network_receive_mbps)
-            ->with('network_transmit_mbps', $network_transmit_mbps);
+            ->with('network_receive', $network_receive)
+            ->with('network_transmit', $network_transmit)
+            ->with('cpu_temp', $cpu_temp);
         }
 
-        return $view->with('billing', $this->getDatasets($billing));
+        return $view;
     }
     
     private function getDatasets($billing) 

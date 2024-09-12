@@ -11,39 +11,72 @@
             data: {
                 labels: @json($timestamps),
                 datasets: [{
-                    label: 'CPU Total',
-                    data: @json($cpu_total),
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    label: 'CPU',
+                    data: @json($cpu),
+                    borderColor: 'rgba(54, 162, 235, 1)', // Azul
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Azul claro
+                    fill: false,
+                }, {
+                    label: 'Temperatura CPU',
+                    data: @json($cpu_temp),
+                    borderColor: 'rgba(255, 159, 64, 1)', // Naranja
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)', // Naranja claro
                     fill: false,
                 }]
             },
             options: {
                 scales: {
                     x: {
+                        title: {
+                            display: true,
+                            text: 'Hora'
+                        },
                         ticks: {
                             autoSkip: true,
-                            maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
+                            maxTicksLimit: 10
                         }
                     },
                     y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'cpu-y-axis',
                         beginAtZero: true,
-                        min: 0, // Establece el valor mínimo del eje Y
-                        max: 100, // Establece el valor máximo del eje Y
+                        min: 0,
+                        max: 100,
                         ticks: {
-                            callback: function(value, index, values) {
-                                return value + ' %'; // Agrega el símbolo de porcentaje
+                            callback: function(value) {
+                                return value + ' %';
                             }
                         },
                         title: {
                             display: true,
                             text: 'Uso de CPU (%)'
                         }
+                    },
+                    y2: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        id: 'temp-y-axis',
+                        min: 0, // Ajusta el rango según la temperatura esperada
+                        max: 100, // Ajusta el rango según la temperatura esperada
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' °C'; // Ajusta la unidad de temperatura si es necesario
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Temperatura CPU (°C)'
+                        },
+                        grid: {
+                            drawOnChartArea: false // Oculta las líneas de la cuadrícula en esta escala
+                        }
                     }
                 }
             }
         });
-
 
         // Gráfico de Memoria
         var memoryCtx = document.getElementById('memoryChart');
@@ -52,8 +85,8 @@
             data: {
                 labels: @json($timestamps),
                 datasets: [{
-                    label: 'Memoria usada',
-                    data: @json($memory_used),
+                    label: 'Memoria',
+                    data: @json($memory),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     fill: false,
@@ -62,6 +95,10 @@
             options: {
                 scales: {
                     x: {
+                        title: {
+                            display: true,
+                            text: 'Hora' // Cambiado a "Hora" para el gráfico de CPU
+                        },
                         ticks: {
                             autoSkip: true,
                             maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
@@ -69,16 +106,16 @@
                     },
                     y: {
                         beginAtZero: true,
-                        min: 0,// Ajusta el número máximo de etiquetas visibles
-                        max: {{ $node->memory }}, 
+                        min: 0,
+                        max: 100, 
                         ticks: {
                             callback: function(value, index, values) {
-                                return value + ' MB'; // Agrega el sufijo MB
+                                return value + ' %';
                             }
                         },
                         title: {
                             display: true,
-                            text: 'Memoria Usada (MB)'
+                            text: 'Uso de Memoria (%)'
                         }
                     }
                 }
@@ -88,6 +125,48 @@
 
         // Gráfico de Disco
         var diskCtx = document.getElementById('diskChart');
+        var diskChart = new Chart(diskCtx, {
+            type: 'line',
+            data: {
+                labels: @json($timestamps),
+                datasets: [{
+                    label: 'Uso de Disco',
+                    data: @json($disk),
+                    borderColor: 'rgba(54, 162, 235, 1)', // Azul
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Azul claro
+                    fill: false,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Hora'
+                        },
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + ' %';
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Uso de Disco (%)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Disco IO
+        var diskCtx = document.getElementById('diskIOChart');
         var diskChart = new Chart(diskCtx, {
             type: 'line',
             data: {
@@ -109,6 +188,10 @@
             options: {
                 scales: {
                     x: {
+                        title: {
+                            display: true,
+                            text: 'Hora'
+                        },
                         ticks: {
                             autoSkip: true,
                             maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
@@ -138,13 +221,13 @@
                 labels: @json($timestamps),
                 datasets: [{
                     label: 'Velocidad de bajada',
-                    data: @json($network_receive_mbps),
+                    data: @json($network_receive),
                     borderColor: 'rgba(255, 205, 86, 1)',
                     backgroundColor: 'rgba(255, 205, 86, 0.2)',
                     fill: false,
                 }, {
                     label: 'Velocidad de subida',
-                    data: @json($network_transmit_mbps),
+                    data: @json($network_transmit),
                     borderColor: 'rgba(201, 203, 207, 1)',
                     backgroundColor: 'rgba(201, 203, 207, 0.2)',
                     fill: false,
@@ -153,6 +236,10 @@
             options: {
                 scales: {
                     x: {
+                        title: {
+                            display: true,
+                            text: 'Hora' // Cambiado a "Hora" para el gráfico de CPU
+                        },
                         ticks: {
                             autoSkip: true,
                             maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
@@ -240,18 +327,26 @@
 <!-- Tabs -->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="cpu-tab" data-bs-toggle="tab" href="#cpu" role="tab" aria-controls="cpu" aria-selected="true">Uso de CPU</a>
+        <a class="nav-link active" id="cpu-tab" data-bs-toggle="tab" href="#cpu" role="tab" aria-controls="cpu" aria-selected="true"> CPU </a>
     </li>
+
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="memory-tab" data-bs-toggle="tab" href="#memory" role="tab" aria-controls="memory" aria-selected="false">Uso de Memoria</a>
+        <a class="nav-link" id="memory-tab" data-bs-toggle="tab" href="#memory" role="tab" aria-controls="memory" aria-selected="false"> Memoria </a>
     </li>
+
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="disk-tab" data-bs-toggle="tab" href="#disk" role="tab" aria-controls="disk" aria-selected="false">Uso de Disco</a>
+        <a class="nav-link" id="disk-tab" data-bs-toggle="tab" href="#disk" role="tab" aria-controls="disk" aria-selected="false"> Disco </a>
     </li>
+
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="network-tab" data-bs-toggle="tab" href="#network" role="tab" aria-controls="network" aria-selected="false">Uso de Red</a>
+        <a class="nav-link" id="disk-io-tab" data-bs-toggle="tab" href="#disk-io" role="tab" aria-controls="disk-io" aria-selected="false"> Disco I/O </a>
+    </li>
+
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="network-tab" data-bs-toggle="tab" href="#network" role="tab" aria-controls="network" aria-selected="false"> Red </a>
     </li>
 </ul>
+
 <div class="tab-content mt-3">
     <div class="tab-pane fade show active" id="cpu" role="tabpanel" aria-labelledby="cpu-tab">
         <div style="height: 400px"><canvas id="cpuChart"></canvas></div>
@@ -263,6 +358,10 @@
 
     <div class="tab-pane fade" id="disk" role="tabpanel" aria-labelledby="disk-tab">
         <div style="height: 400px"><canvas id="diskChart"></canvas></div>
+    </div>
+
+    <div class="tab-pane fade" id="disk-io" role="tabpanel" aria-labelledby="disk-io-tab">
+        <div style="height: 400px"><canvas id="diskIOChart"></canvas></div>
     </div>
 
     <div class="tab-pane fade" id="network" role="tabpanel" aria-labelledby="network-tab">
