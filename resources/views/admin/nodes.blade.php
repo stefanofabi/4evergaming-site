@@ -124,11 +124,11 @@
     <h5>Especificaciones</h5>
 
     <ul>
-        <li><strong>CPU:</strong> {{ $node->cpu_specification }} ({{ $node->cpu }})</li>
-        <li><strong>RAM:</strong> {{ $node->ram_specification }} ({{ $node->ram }})</li>
-        <li><strong>Disk:</strong> {{ $node->disk_specification }} ({{ $node->disk }})</li>
-        <li><strong>Connection:</strong> {{ $node->connection_specification }} ({{ $node->connection }})</li>
-        <li><strong>Power Supply:</strong> {{ $node->power_supply_specification }} ({{ $node->power_supply }})</li>
+        <li><strong>CPU:</strong> {{ $node->cpu_specification }} </li>
+        <li><strong>RAM:</strong> {{ $node->ram_specification }} </li>
+        <li><strong>Disk:</strong> {{ $node->disk_specification }} </li>
+        <li><strong>Connection:</strong> {{ $node->connection_specification }} </li>
+        <li><strong>Power Supply:</strong> {{ $node->power_supply_specification }} </li>
         <li><strong>Operating System:</strong> {{ $node->operating_system }}</li>
 
         <li><strong>PHPMyAdmin:</strong> 
