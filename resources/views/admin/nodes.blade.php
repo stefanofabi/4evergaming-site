@@ -74,6 +74,24 @@
                             drawOnChartArea: false // Oculta las líneas de la cuadrícula en esta escala
                         }
                     }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.dataset.label === 'CPU') {
+                                    label += context.raw.toFixed(2) + ' %';
+                                } else if (context.dataset.label === 'Temperatura CPU') {
+                                    label += context.raw.toFixed(2) + ' °C';
+                                }
+                                return label;
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -97,7 +115,7 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Hora' // Cambiado a "Hora" para el gráfico de CPU
+                            text: 'Hora'
                         },
                         ticks: {
                             autoSkip: true,
@@ -118,10 +136,18 @@
                             text: 'Uso de Memoria (%)'
                         }
                     }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.raw.toFixed(2) + ' %';
+                            }
+                        }
+                    }
                 }
             }
         });
-
 
         // Gráfico de Disco
         var diskCtx = document.getElementById('diskChart');
@@ -130,7 +156,7 @@
             data: {
                 labels: @json($timestamps),
                 datasets: [{
-                    label: 'Uso de Disco',
+                    label: 'Disco',
                     data: @json($disk),
                     borderColor: 'rgba(54, 162, 235, 1)', // Azul
                     backgroundColor: 'rgba(54, 162, 235, 0.2)', // Azul claro
@@ -151,6 +177,8 @@
                     },
                     y: {
                         beginAtZero: true,
+                        min: 0,
+                        max: 100, 
                         ticks: {
                             callback: function(value, index, values) {
                                 return value + ' %';
@@ -161,13 +189,22 @@
                             text: 'Uso de Disco (%)'
                         }
                     }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.raw.toFixed(2) + ' %';
+                            }
+                        }
+                    }
                 }
             }
         });
 
         // Gráfico de Disco IO
-        var diskCtx = document.getElementById('diskIOChart');
-        var diskChart = new Chart(diskCtx, {
+        var diskIOCtx = document.getElementById('diskIOChart');
+        var diskIOChart = new Chart(diskIOCtx, {
             type: 'line',
             data: {
                 labels: @json($timestamps),
@@ -209,6 +246,20 @@
                             text: 'Uso de Disco (MB/s)'
                         }
                     }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.raw.toFixed(2) + ' MB/s';
+                                return label;
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -238,7 +289,7 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Hora' // Cambiado a "Hora" para el gráfico de CPU
+                            text: 'Hora'
                         },
                         ticks: {
                             autoSkip: true,
@@ -255,6 +306,20 @@
                         title: {
                             display: true,
                             text: 'Uso de Red (Mbps)'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.raw.toFixed(2) + ' Mbps';
+                                return label;
+                            }
                         }
                     }
                 }
