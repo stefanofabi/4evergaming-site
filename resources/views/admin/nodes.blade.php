@@ -28,6 +28,8 @@
                     },
                     y: {
                         beginAtZero: true,
+                        min: 0, // Establece el valor mínimo del eje Y
+                        max: 100, // Establece el valor máximo del eje Y
                         ticks: {
                             callback: function(value, index, values) {
                                 return value + ' %'; // Agrega el símbolo de porcentaje
@@ -41,6 +43,7 @@
                 }
             }
         });
+
 
         // Gráfico de Memoria
         var memoryCtx = document.getElementById('memoryChart');
@@ -66,6 +69,8 @@
                     },
                     y: {
                         beginAtZero: true,
+                        min: 0,// Ajusta el número máximo de etiquetas visibles
+                        max: {{ $node->memory }}, 
                         ticks: {
                             callback: function(value, index, values) {
                                 return value + ' MB'; // Agrega el sufijo MB
@@ -79,6 +84,7 @@
                 }
             }
         });
+
 
         // Gráfico de Disco
         var diskCtx = document.getElementById('diskChart');
@@ -213,7 +219,7 @@
 
     <ul>
         <li><strong>CPU:</strong> {{ $node->cpu_specification }} </li>
-        <li><strong>RAM:</strong> {{ $node->ram_specification }} </li>
+        <li><strong>RAM:</strong> {{ $node->memory_specification }} </li>
         <li><strong>Disk:</strong> {{ $node->disk_specification }} </li>
         <li><strong>Connection:</strong> {{ $node->connection_specification }} </li>
         <li><strong>Power Supply:</strong> {{ $node->power_supply_specification }} </li>
