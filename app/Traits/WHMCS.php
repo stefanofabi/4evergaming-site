@@ -114,7 +114,7 @@ trait WHMCS {
                 SUM(tblinvoices.total) as total
             ")
             ->where('tblinvoices.status', 'Paid')
-            ->whereDate('tblinvoices.date', '=', now()->toDateString())
+            ->whereDate('tblinvoices.datepaid', '=', now()->toDateString())
             ->groupBy('currency_code')
             ->get();
     }
