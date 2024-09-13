@@ -61,16 +61,16 @@ class AdminController extends Controller
         { 
             $now = Carbon::now();
             $twentyFourHoursAgo = $now->subHours(24);
-
+            
             $data = DB::connection($node->mysql_connection)
                 ->table('system_stats')
-                ->select(DB::raw('DATE_FORMAT(timestamp, "%H:%i") as timestamp'), 'cpu', 'memory', 'disk', 'disk_read', 'disk_write', 'network_receive', 'network_transmit', 'cpu_temp')
+                ->select(DB::raw('CONCAT(DAYNAME(timestamp), " ", DAY(timestamp), " ", DATE_FORMAT(timestamp, "%H:%i")) as measurement_date'), 'cpu', 'memory', 'disk', 'disk_read', 'disk_write', 'network_receive', 'network_transmit', 'cpu_temp')
                 ->where('timestamp', '>=', $twentyFourHoursAgo)
                 ->orderBy('timestamp', 'asc')
                 ->get();
 
             // Preparar los datos para enviar a la vista
-            $timestamps = $data->pluck('timestamp');
+            $timestamps = $data->pluck('measurement_date');
             $cpu = $data->pluck('cpu');
             $memory = $data->pluck('memory');
             $disk = $data->pluck('disk');
