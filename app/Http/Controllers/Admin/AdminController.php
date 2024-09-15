@@ -80,6 +80,15 @@ class AdminController extends Controller
             $network_transmit = $data->pluck('network_transmit');
             $cpu_temp = $data->pluck('cpu_temp');
             
+
+            // Last stats
+            $lastRecord = $data->last();
+            $current_cpu = round($lastRecord->cpu);
+            $current_memory = round($lastRecord->memory);
+            $current_disk = round($lastRecord->disk);
+            $current_network = round($lastRecord->network_transmit);
+            $current_measurement_date = $lastRecord->measurement_date;
+
             $view
             ->with('timestamps', $timestamps)
             ->with('cpu', $cpu)
@@ -89,7 +98,12 @@ class AdminController extends Controller
             ->with('disk_write', $disk_write)
             ->with('network_receive', $network_receive)
             ->with('network_transmit', $network_transmit)
-            ->with('cpu_temp', $cpu_temp);
+            ->with('cpu_temp', $cpu_temp)
+            ->with('current_cpu', $current_cpu)
+            ->with('current_memory', $current_memory)
+            ->with('current_disk', $current_disk)
+            ->with('current_network', $current_network)
+            ->with('current_measurement_date', $current_measurement_date);
         }
 
         return $view;
