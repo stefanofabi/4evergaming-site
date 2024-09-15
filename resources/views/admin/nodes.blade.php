@@ -376,18 +376,15 @@
 
 <!-- Tabs -->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <!-- Monitor Tab -->
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="monitor-tab" data-bs-toggle="tab" href="#monitor" role="tab" aria-controls="monitor" aria-selected="true"> Monitor </a>
+    </li>
 
     <!-- Specifications Tab -->
     <li class="nav-item" role="presentation">
         <a class="nav-link" id="specifications-tab" data-bs-toggle="tab" href="#specifications" role="tab" aria-controls="specifications" aria-selected="false"> Especificaciones </a>
     </li>
-
-    <!-- Monitor Tab -->
-    @if (!empty($node) && $node->enable_monitor)
-    <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="monitor-tab" data-bs-toggle="tab" href="#monitor" role="tab" aria-controls="monitor" aria-selected="true"> Monitor </a>
-    </li>
-    @endif
 </ul>
 
 <div class="tab-content mt-3">
@@ -489,8 +486,6 @@
             </div>
         </div>
     </div>
-    @else
-    <p class="text-danger"> Monitor deshabilitado </p>
     @endif
 </div>
 
