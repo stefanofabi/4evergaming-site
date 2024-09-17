@@ -17,7 +17,7 @@ return new class extends Migration
 
             // specifications
             $table->string('cpu_specification');
-            $table->string('ram_specification');
+            $table->string('memory_specification');
             $table->string('disk_specification');
             $table->string('connection_specification');
             $table->string('power_supply_specification'); 
@@ -26,7 +26,7 @@ return new class extends Migration
 
             // numbers
             $table->integer('cpu');
-            $table->integer('ram');   
+            $table->integer('memory');   
             $table->integer('disk');     
             $table->integer('connection'); 
             $table->integer('power_supply'); 

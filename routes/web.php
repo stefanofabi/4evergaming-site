@@ -27,6 +27,7 @@ use App\Http\Controllers\Communities\CommunityController;
 use App\Http\Controllers\Server\ServerController;
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\FirewallController;
 
 require('old_urls.php');
 require('api.php');
@@ -88,9 +89,26 @@ Route::group([
     'as' => 'admin/',
 ], function () {
 
+    Route::get('', function () {
+        return redirect()->route('admin/index');
+    });
+
     Route::get('index', [AdminController::class, 'index'])->name('index');
    
     Route::get('billing', [AdminController::class, 'billing'])->name('billing');
     
     Route::get('nodes', [AdminController::class, 'nodes'])->name('nodes');
+
+    Route::group([
+        'prefix' => 'firewall',
+        'as' => 'firewall/',
+    ], function () {
+    
+        Route::get('', [FirewallController::class, 'index'])->name('index');
+        Route::post('store', [FirewallController::class, 'store'])->name('store')->middleware('check_firewall_rule');
+        Route::delete('destroy/{id}', [FirewallController::class, 'destroy'])->name('destroy');
+    
+    });
 });
+
+

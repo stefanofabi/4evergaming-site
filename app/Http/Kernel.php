@@ -73,5 +73,6 @@ class Kernel extends HttpKernel
         'check_last_update' => \App\Http\Middleware\Servers\CheckLastUpdate::class,
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
         'register_server_if_official' => \App\Http\Middleware\Servers\RegisterServerIfOfficial::class,
+        'check_firewall_rule' => \App\Http\Middleware\Firewall\CheckFirewallRule::class,
     ];
 }

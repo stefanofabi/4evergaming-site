@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Node extends Model
+class NetworkAddress extends Model
 {
     use HasFactory;
 
-    public function networkAddresses()
+    public function node()
     {
-        return $this->hasMany(NetworkAddress::class);
+        return $this->belongsTo(Node::class);
     }
+    
 }
