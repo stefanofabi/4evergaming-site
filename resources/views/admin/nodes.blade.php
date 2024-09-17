@@ -6,22 +6,45 @@
     function createCharts() {
         // Gráfico de CPU
         var cpuCtx = document.getElementById('cpuChart');
+        var cpuData = @json($cpu); // Datos de CPU
+        var averageCpu = cpuData.reduce((a, b) => a + b, 0) / cpuData.length;
+
+        var cpuTempData = @json($cpu_temp); 
+        var averageCpuTemp = cpuTempData.reduce((a, b) => a + b, 0) / cpuTempData.length;
+
         var cpuChart = new Chart(cpuCtx, {
             type: 'line',
             data: {
                 labels: @json($timestamps),
                 datasets: [{
                     label: 'CPU',
-                    data: @json($cpu),
+                    data: cpuData,
                     borderColor: 'rgba(54, 162, 235, 1)', // Azul
                     backgroundColor: 'rgba(54, 162, 235, 0.2)', // Azul claro
                     fill: false,
                     pointRadius: 0, // Esto oculta los puntos
                 }, {
                     label: 'Temperatura CPU',
-                    data: @json($cpu_temp),
+                    data: cpuTempData,
                     borderColor: 'rgba(255, 159, 64, 1)', // Naranja
                     backgroundColor: 'rgba(255, 159, 64, 0.2)', // Naranja claro
+                    fill: false,
+                    pointRadius: 0,
+                }, {
+                    label: 'Promedio CPU',
+                    // Crear un array con el promedio repetido para todas las etiquetas
+                    data: @json($timestamps).map(() => averageCpu),
+                    borderColor: 'rgba(75, 192, 192, 1)', // Verde claro
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Verde claro
+                    borderDash: [5, 5], // Línea discontinua
+                    fill: false,
+                    pointRadius: 0,
+                }, {
+                    label: 'Promedio Temperatura CPU',
+                    data: @json($timestamps).map(() => averageCpuTemp),
+                    borderColor: 'rgba(255, 99, 132, 1)', // Rojo cálido
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Rojo cálido, transparente
+                    borderDash: [5, 5], // Línea discontinua
                     fill: false,
                     pointRadius: 0,
                 }]
@@ -89,6 +112,10 @@
                                     label += context.raw.toFixed(2) + ' %';
                                 } else if (context.dataset.label === 'Temperatura CPU') {
                                     label += context.raw.toFixed(2) + ' °C';
+                                } else if (context.dataset.label === 'Promedio CPU') {
+                                    label += context.raw.toFixed(2) + ' %';
+                                } else if (context.dataset.label === 'Promedio Temperatura CPU') {
+                                    label += context.raw.toFixed(2) + ' %';
                                 }
                                 return label;
                             }
@@ -272,22 +299,45 @@
 
         // Gráfico de Red
         var networkCtx = document.getElementById('networkChart');
+
+        var networkReceiveData = @json($network_receive);
+        var averageNetworkReceive = networkReceiveData.reduce((a, b) => a + b, 0) / networkReceiveData.length;
+        
+        var networkTransmitData = @json($network_transmit);
+        var averageNetworkTransmit = networkTransmitData.reduce((a, b) => a + b, 0) / networkTransmitData.length;
+        
         var networkChart = new Chart(networkCtx, {
             type: 'line',
             data: {
                 labels: @json($timestamps),
                 datasets: [{
                     label: 'Velocidad de bajada',
-                    data: @json($network_receive),
+                    data: networkReceiveData,
                     borderColor: 'rgba(255, 205, 86, 1)',
                     backgroundColor: 'rgba(255, 205, 86, 0.2)',
                     fill: false,
                     pointRadius: 0,
                 }, {
                     label: 'Velocidad de subida',
-                    data: @json($network_transmit),
+                    data: networkTransmitData,
                     borderColor: 'rgba(201, 203, 207, 1)',
                     backgroundColor: 'rgba(201, 203, 207, 0.2)',
+                    fill: false,
+                    pointRadius: 0,
+                }, {
+                    label: 'Promedio de velocidad de bajada',
+                    data: @json($timestamps).map(() => averageNetworkReceive),
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderDash: [10, 5], // Línea discontinua para diferenciar
+                    fill: false,
+                    pointRadius: 0,
+                }, {
+                    label: 'Promedio de velocidad de subida',
+                    data: @json($timestamps).map(() => averageNetworkTransmit),
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderDash: [10, 5], // Línea discontinua para diferenciar
                     fill: false,
                     pointRadius: 0,
                 }]
@@ -325,7 +375,15 @@
                                 if (label) {
                                     label += ': ';
                                 }
-                                label += context.raw.toFixed(2) + ' Mbps';
+                                if (context.dataset.label === 'Velocidad de bajada') {
+                                    label += context.raw.toFixed(2) + ' Mbps';
+                                } else if (context.dataset.label === 'Velocidad de subida') {
+                                    label += context.raw.toFixed(2) + ' Mbps';
+                                } else if (context.dataset.label === 'Promedio de de velocidad de bajada') {
+                                    label += context.raw.toFixed(2) + ' Mbps';
+                                } else if (context.dataset.label === 'Promedio de velocidad de subida') {
+                                    label += context.raw.toFixed(2) + ' Mbps';
+                                }
                                 return label;
                             }
                         }
