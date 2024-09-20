@@ -47,7 +47,7 @@ class ServerStatusController extends Controller
                     
                     $data = $this->getSystemStats($iNode->mysql_connection, $FourHoursAgo);
 
-                    if ($node->id == $iNode->id) {
+                    if (! empty($node) && $node->id == $iNode->id) {
                         $timestamps = $data->pluck('measurement_date');
                         $cpu = $data->pluck('cpu');
                         $memory = $data->pluck('memory');
