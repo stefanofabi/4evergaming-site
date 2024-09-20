@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\Models\Node;
+use App\Models\OnlinePlayerHistory;
+use App\Models\Server;
+use App\Models\Game;
 
 use App\Traits\WHMCS;
 use DB;
@@ -145,4 +148,48 @@ class AdminController extends Controller
         return $colors[$currency] ?? 'rgba(75, 192, 192, 1)'; // Default color if currency not found
     }
 
+    public function gameHistory(Request $request)
+    {   
+        $games = Game::all();
+
+        $game = Game::find($request->game);
+
+        $gameHistory = [
+            'day' => [],
+            'count' => [],
+        ];
+
+        if (! empty($game)) 
+        {
+            $subquery = OnlinePlayerHistory::selectRaw('DATE(created_at) AS day, server_id, MAX(count) AS count')
+            ->groupBy('day', 'server_id');
+        
+            $serversSubquery = Server::selectRaw('oph.day, servers.game_id, SUM(count) AS count')
+                ->joinSub($subquery, 'oph', function($join) {
+                    $join->on('oph.server_id', '=', 'servers.id');
+                })
+                ->where('servers.game_id', $game->id)
+                ->groupBy('oph.day', 'servers.game_id');
+            
+            $results = Game::select('servers.day', 'games.name', 'servers.count')
+                ->joinSub($serversSubquery, 'servers', function($join) {
+                    $join->on('servers.game_id', '=', 'games.id');
+                })
+                ->orderBy('games.name')
+                ->orderBy('servers.day')
+                ->get();
+                
+            
+            foreach ($results as $result) 
+            {
+                $gameHistory['day'][] = $result->day;
+                $gameHistory['count'][] = (int)$result->count;
+            }
+        }
+
+        return view('admin.game_history')
+            ->with('games', $games)
+            ->with('game', $game)
+            ->with('gameHistory', $gameHistory);
+    }
 }

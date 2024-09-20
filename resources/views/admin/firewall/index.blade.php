@@ -66,46 +66,49 @@
         </button>
     </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>IP de Origen</th>
-                <th> Flujo </th>
-                <th> Protocolo </th>
-                <th> Dirección IP </th>
-                <th> Puerto Destino </th>
-                <th> Acción </th>
-                <th> Comentario </th>
-                <th class="text-end">Acciones</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @forelse($firewallRules as $rule)
+    <!-- Contenedor de tabla responsiva -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td> {{ $rule->source_ip }} </td>
-                    <td> {{ $rule->flow }} </td>
-                    <td> {{ $rule->protocol }} </td>
-                    <td> {{ $rule->networkAddress->ip_address ?? 'ANY' }} </td>
-                    <td> {{ $rule->destination_port ?? 'ANY' }} </td>
-                    <td> {{ $rule->action }} </td>
-                    <td> {{ $rule->comment ?? 'N/A' }} </td>
-                    <td class="text-end">
-                        <form action="{{ route('admin/firewall/destroy', ['id' => $rule->id]) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
+                    <th>IP de Origen</th>
+                    <th>Flujo</th>
+                    <th>Protocolo</th>
+                    <th>Dirección IP</th>
+                    <th>Puerto Destino</th>
+                    <th>Acción</th>
+                    <th>Comentario</th>
+                    <th class="text-end">Acciones</th>
+                </tr>
+            </thead>
 
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar esta regla?')">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="8" class="text-center">No se encontraron reglas de firewall.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            <tbody>
+                @forelse($firewallRules as $rule)
+                    <tr>
+                        <td>{{ $rule->source_ip }}</td>
+                        <td>{{ $rule->flow }}</td>
+                        <td>{{ $rule->protocol }}</td>
+                        <td>{{ $rule->networkAddress->ip_address ?? 'ANY' }}</td>
+                        <td>{{ $rule->destination_port ?? 'ANY' }}</td>
+                        <td>{{ $rule->action }}</td>
+                        <td>{{ $rule->comment ?? 'N/A' }}</td>
+                        <td class="text-end">
+                            <form action="{{ route('admin/firewall/destroy', ['id' => $rule->id]) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar esta regla?')">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-center">No se encontraron reglas de firewall.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
    @include('admin/firewall/create')
 </div>
