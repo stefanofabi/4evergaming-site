@@ -21,6 +21,7 @@ use App\Http\Controllers\Pages\CounterStrikePageController;
 use App\Http\Controllers\Pages\CounterStrikeGlobalOffensivePageController;
 use App\Http\Controllers\Pages\CounterStrike2PageController;
 use App\Http\Controllers\Pages\MultiTheftAutoPageController;
+use App\Http\Controllers\Pages\ServerStatusController;
 
 use App\Http\Controllers\Communities\CommunityController;
 
@@ -36,6 +37,8 @@ Route::get('login', [SteamAuthController::class, 'login'])->name('login');
 Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/', [PageController::class, 'index'])->name('index');
+
+Route::get('server-status', [ServerStatusController::class, 'index'])->name('server-status');
 
 Route::get('/games/counter-strike', [CounterStrikePageController::class, 'index'])->name('games/counter-strike');
 

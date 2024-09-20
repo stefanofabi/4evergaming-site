@@ -12,13 +12,14 @@ use App\Models\Server;
 use App\Models\Game;
 
 use App\Traits\WHMCS;
-use DB;
+use App\Traits\SystemStats;
 
 class AdminController extends Controller
 {
     //
 
     use WHMCS;
+    use SystemStats;
 
     public function index()
     {
@@ -65,12 +66,7 @@ class AdminController extends Controller
             $now = Carbon::now();
             $twentyFourHoursAgo = $now->subHours(24);
             
-            $data = DB::connection($node->mysql_connection)
-                ->table('system_stats')
-                ->select(DB::raw('CONCAT(DAYNAME(timestamp), " ", DAY(timestamp), " ", DATE_FORMAT(timestamp, "%H:%i")) as measurement_date'), 'cpu', 'memory', 'disk', 'disk_read', 'disk_write', 'network_receive', 'network_transmit', 'cpu_temp')
-                ->where('timestamp', '>=', $twentyFourHoursAgo)
-                ->orderBy('timestamp', 'asc')
-                ->get();
+            $data = $this->getSystemStats($node->mysql_connection, $twentyFourHoursAgo);
 
             // Preparar los datos para enviar a la vista
             $timestamps = $data->pluck('measurement_date');
