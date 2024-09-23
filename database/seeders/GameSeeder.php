@@ -112,7 +112,7 @@ class GameSeeder extends Seeder
                 'short_name' => 'PZ',
                 'logo' => 'pz.ico',
                 'large_logo' => 'project-zomboid-large-logo.png',
-                'protocol' => 'nmrih',
+                'protocol' => 'zomboid',
             ],
             [
                 'name' => 'Half-Life', 
