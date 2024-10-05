@@ -110,7 +110,7 @@ class AdminController extends Controller
     
     private function getDatasets($billing) 
     {
-        $timeline = $billing->pluck('label')->unique()->sort()->values();
+        $timeline = $billing->pluck('label')->unique()->values();
         $currencies = $billing->pluck('currency_code')->unique();
         $datasets = $currencies->map(function($currency) use ($billing, $timeline) {
             return [
