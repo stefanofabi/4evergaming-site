@@ -88,6 +88,36 @@ class AdminController extends Controller
             $current_network = round($lastRecord->network_transmit);
             $current_measurement_date = $lastRecord->measurement_date;
 
+
+
+            $latencies = $this->getSensors($node->mysql_connection, $twentyFourHoursAgo);
+
+            // Agrupamos los datos por sensor_name
+            $grouped = $latencies->groupBy('sensor_name');
+
+            // Inicializamos un array para los datos que serán usados en Chart.js
+            $dataset = [];
+
+            // Iteramos sobre cada sensor
+            foreach ($grouped as $sensorName => $entries) {
+                // Ordenamos las latencias por response_time de menor a mayor
+                $sortedEntries = $entries->sortBy('measurement_date');
+
+                // Extraemos las fechas (measurement_date) y los tiempos de respuesta (response_time)
+                $labels = $sortedEntries->pluck('measurement_date')->toArray();
+                $data = $sortedEntries->pluck('response_time')->toArray();
+
+                // Agregamos el conjunto de datos para este sensor
+                $dataset[] = [
+                    'label' => $sensorName,
+                    'data' => $data,
+                    'backgroundColor' => 'rgba(0, 123, 255, 0.2)',  // Color de fondo (puedes personalizarlo)
+                    'borderColor' => 'rgba(0, 123, 255, 1)',        // Color del borde
+                    'borderWidth' => 1,
+                    'fill' => false
+                ];
+            }
+
             $view
             ->with('timestamps', $timestamps)
             ->with('cpu', $cpu)
@@ -102,7 +132,8 @@ class AdminController extends Controller
             ->with('current_memory', $current_memory)
             ->with('current_disk', $current_disk)
             ->with('current_network', $current_network)
-            ->with('current_measurement_date', $current_measurement_date);
+            ->with('current_measurement_date', $current_measurement_date)
+            ->with('dataset', $dataset);
         }
 
         return $view;
