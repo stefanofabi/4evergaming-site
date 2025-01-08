@@ -399,6 +399,61 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
                 }
             }
         });
+
+        @if (! empty($latencies))
+        // Gráfico de Latencia
+        var latencyCtx = document.getElementById('latencyChart');
+        var latencyChart = new Chart(latencyCtx, {
+            type: 'line',
+            data: {
+                labels: @json($latencies->pluck('measurement_date')),
+                datasets: [{
+                    label: 'Latencia',
+                    data: @json($latencies->pluck('response_time')),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: false,
+                    pointRadius: 0,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Hora'
+                        },
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + ' ms';
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Latencia (ms)'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.raw.toFixed(2) + ' ms';
+                            }
+                        }
+                    }
+                }
+            }    
+        });
+        @endif
     }
 
 
@@ -421,7 +476,7 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
 @section('content')
 <div class="container mt-5">
     <h1 class="mb-4">Estado de los Servidores de Juegos</h1>
-    <p>Consulta a continuación el estado de nuestros servidores:</p>
+    <p>Consulta a continuación el estado de nuestros servidores</p>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -462,7 +517,8 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
 @if (!empty($node))
 <div class="container">
     <div class="mt-3">
-        <h5>Especificaciones</h5>
+        <h4>Especificaciones</h4>
+
         <ul>
             <li><strong>CPU:</strong> {{ $node->cpu_specification }} </li>
             <li><strong>RAM:</strong> {{ $node->memory_specification }} </li>
@@ -483,6 +539,8 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
     <!-- Monitor content -->
     @if ($node->enable_monitor)
     <div class="mt-3">
+        <h4 class="mt-3">Recursos</h4>
+
         <!-- Monitor graphs -->
         <ul class="nav nav-tabs" id="monitorTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -520,6 +578,28 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
             </div>
         </div>
     </div>
+
+
+    <h4 class="mt-3">Sensores</h4>
+    <div class="row mt-3">
+        <div class="col-md">
+            @foreach ($sensors as $iSensor)
+                @if (! empty($sensor) && $sensor->id == $iSensor->id)
+                <a class="btn btn-danger @if (! $iSensor->active) disabled @endif" href="{{ route('server-status', ['node' => $node->name, 'sensor' => $iSensor->name]) }}"> 
+                    {{ $iSensor->name }} ({{ $iSensor->last_response_time }} ms)
+                </a>
+                @else
+                <a class="btn btn-outline-danger @if (! $iSensor->active) disabled @endif" href="{{ route('server-status', ['node' => $node->name, 'sensor' => $iSensor->name]) }}"> 
+                    {{ $iSensor->name }} ({{ $iSensor->last_response_time }} ms)
+                </a>
+                @endif
+            @endforeach
+        </div>
+    </div>
+
+    @if (! empty($sensor))
+    <div class="mt-3" style="height: 400px"><canvas id="latencyChart"></canvas></div>
+    @endif
     @endif
 </div>
 @endif

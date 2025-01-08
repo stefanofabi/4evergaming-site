@@ -1,12 +1,12 @@
 @extends('admin.index')
 
 @section('javascript')
-@if (! empty($sensor))
+@if (! empty($latencies))
 <script type="module">
     function createCharts() {
         // Gráfico de Latencia
-        var memoryCtx = document.getElementById('latencyChart');
-        var memoryChart = new Chart(memoryCtx, {
+        var latencyCtx = document.getElementById('latencyChart');
+        var latencyChart = new Chart(latencyCtx, {
             type: 'line',
             data: {
                 labels: @json($latencies->pluck('measurement_date')),
@@ -84,7 +84,7 @@
                 <select class="form-select" aria-label="Seleccione un Nodo" name="node">
                     <option value=""> Seleccione un Nodo </option>
                     @foreach($nodes as $iNode)
-                    <option value="{{ $iNode->id }}" @if (!empty($node) && $node->id == $iNode->id) selected @endif> {{ $iNode->name }} </option>
+                    <option value="{{ $iNode->name }}" @if (!empty($node) && $node->id == $iNode->id) selected @endif> {{ $iNode->name }} </option>
                     @endforeach
                 </select>
             </div>
@@ -98,17 +98,22 @@
 
 @if (! empty($node))
 <div class="row mt-3">
-    <div class="col-md text-center">
+    <div class="col-md">
         @foreach ($sensors as $iSensor)
-            <a class="btn btn-outline-danger @if (! $iSensor->active) disabled @endif m-2" href="{{ route('admin/sensors', ['node' => $node->id, 'sensor' => $iSensor->id]) }}"> 
+            @if (! empty($sensor) && $sensor->id == $iSensor->id)
+            <a class="btn btn-danger @if (! $iSensor->active) disabled @endif" href="{{ route('admin/sensors', ['node' => $node->name, 'sensor' => $iSensor->name]) }}"> 
                 {{ $iSensor->name }} ({{ $iSensor->last_response_time }} ms)
             </a>
+            @else
+            <a class="btn btn-outline-danger @if (! $iSensor->active) disabled @endif" href="{{ route('admin/sensors', ['node' => $node->name, 'sensor' => $iSensor->name]) }}"> 
+                {{ $iSensor->name }} ({{ $iSensor->last_response_time }} ms)
+            </a>
+            @endif
         @endforeach
     </div>
 </div>
 
 @if (! empty($sensor))
-<h2 class="text-center mt-3"> {{ $sensor->name }} </h2>
 <div class="mt-3"><canvas id="latencyChart"></canvas></div>
 @endif
 

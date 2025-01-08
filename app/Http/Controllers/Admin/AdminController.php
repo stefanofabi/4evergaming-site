@@ -55,7 +55,7 @@ class AdminController extends Controller
     {
         $nodes = Node::all();
 
-        $node = Node::find($request->node);
+        $node = Node::where('name', $request->node)->first();
 
         $view = view('admin.nodes')
             ->with('nodes', $nodes)
@@ -112,7 +112,7 @@ class AdminController extends Controller
     {
         $nodes = Node::all();
 
-        $node = Node::find($request->node);
+        $node = Node::where('name', $request->node)->first();
 
         $view = view('admin.sensors')
         ->with('nodes', $nodes)
@@ -120,7 +120,7 @@ class AdminController extends Controller
 
         if (! empty($node) ) {
             $sensors = $this->getSensors($node->mysql_connection);
-            $sensor = $sensors->where('id', $request->sensor)->first();
+            $sensor = $sensors->where('name', $request->sensor)->first();
             
             if (! empty($sensor)) 
             {   

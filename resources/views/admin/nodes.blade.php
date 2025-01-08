@@ -419,7 +419,7 @@
                 <select class="form-select" aria-label="Seleccione un Nodo" name="node">
                     <option value=""> Seleccione un Nodo </option>
                     @foreach($nodes as $iNode)
-                    <option value="{{ $iNode->id }}" @if (!empty($node) && $node->id == $iNode->id) selected @endif> {{ $iNode->name }} </option>
+                    <option value="{{ $iNode->name }}" @if (!empty($node) && $node->id == $iNode->id) selected @endif> {{ $iNode->name }} </option>
                     @endforeach
                 </select>
             </div>

@@ -43,9 +43,9 @@ class ServerStatusController extends Controller
                 try 
                 {
                     $now = Carbon::now();
-                    $FourHoursAgo = $now->subHours(4);
+                    $fourHoursAgo = $now->subHours(4);
                     
-                    $data = $this->getSystemStats($iNode->mysql_connection, $FourHoursAgo);
+                    $data = $this->getSystemStats($iNode->mysql_connection, $fourHoursAgo);
 
                     if (! empty($node) && $node->id == $iNode->id) {
                         $timestamps = $data->pluck('measurement_date');
@@ -68,6 +68,20 @@ class ServerStatusController extends Controller
                             ->with('network_receive', $network_receive)
                             ->with('network_transmit', $network_transmit)
                             ->with('cpu_temp', $cpu_temp);
+
+                            $sensors = $this->getSensors($node->mysql_connection);
+                            $sensor = $sensors->where('name', $request->sensor)->first();
+
+                            if (! empty($sensor)) 
+                            {                  
+                                $latencies = $this->getLatencies($node->mysql_connection, $sensor->id, $fourHoursAgo);
+
+                                $view->with('latencies', $latencies);
+                            }
+                            
+                            $view->with('sensors', $sensors);
+                            $view->with('sensor', $sensor);
+
                     }
 
                     $last_measurement = $data->last();
@@ -91,8 +105,7 @@ class ServerStatusController extends Controller
                 }
         }
         
-        return $view
-            ->with('measurements', $measurements);
+        return $view->with('measurements', $measurements);
     }
 
     /**
