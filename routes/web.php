@@ -102,6 +102,8 @@ Route::group([
     
     Route::get('nodes', [AdminController::class, 'nodes'])->name('nodes');
 
+    Route::get('sensors', [AdminController::class, 'sensors'])->name('sensors');
+
     Route::get('game-history', [AdminController::class, 'gameHistory'])->name('game_history');
 
     Route::group([

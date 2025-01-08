@@ -391,95 +391,8 @@
                 }
             }
         });
-
-
-        // Colores predefinidos para cada sensor
-        var sensorColors = [
-            'rgba(54, 162, 235, 1)',    // Azul
-            'rgba(255, 99, 132, 1)',    // Rojo
-            'rgba(75, 192, 192, 1)',    // Verde
-            'rgba(153, 102, 255, 1)',   // Violeta
-            'rgba(255, 159, 64, 1)',    // Naranja
-            'rgba(255, 205, 86, 1)',    // Amarillo
-            'rgba(0, 123, 255, 1)',     // Azul fuerte
-            'rgba(40, 167, 69, 1)'      // Verde fuerte
-        ];
-
-
-        var ctx = document.getElementById('sensorsChart');
-        var dataset = @json($dataset); // Datos procesados de los sensores (obtenidos de la función `processSensorData`)
-
-        // Definir las etiquetas (por ejemplo, las fechas o los tiempos de respuesta)
-        var labels = @json($timestamps); // Las fechas o los tiempos específicos de medición
-
-        var sensorChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,  // Las fechas o tiempos de medición
-                datasets: dataset.map(function(sensor, index) {
-                    // Para cada sensor, agregamos un dataset con los tiempos de respuesta
-                    var color = sensorColors[index % sensorColors.length];
-                    
-                    return {
-                        label: sensor.label, // Nombre del sensor
-                        data: sensor.data,   // Los tiempos de respuesta del sensor
-                        borderColor: color,
-                        backgroundColor: color.replace('1)', '0.2)'), // Azul claro
-                        fill: false,
-                        pointRadius: 0, // Esto oculta los puntos
-                    };
-                })
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Hora'  // O el nombre adecuado para la etiqueta en el eje X
-                        },
-                        ticks: {
-                            autoSkip: true,
-                            maxTicksLimit: 10
-                        }
-                    },
-                    y: {
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        id: 'latency-y-axis',
-                        beginAtZero: true,
-                        min: 0,  // Ajusta este valor según el rango de latencias que esperas
-                        //max: 1000,  // Ajusta el máximo según el rango esperado de tiempos de respuesta
-                        ticks: {
-                            callback: function(value) {
-                                return value + ' ms';  // Si tus latencias son en milisegundos
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Tiempo de Respuesta (ms)'
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                // Aquí se maneja el formato de cada valor
-                                label += context.raw.toFixed(2) + ' ms';  // Mostrar el tiempo de respuesta en milisegundos
-                                return label;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    
     }
+
 
     // Inicializar gráficos al mostrar la pestaña activa
     document.addEventListener('DOMContentLoaded', function () {
@@ -526,11 +439,6 @@
         <a class="nav-link active" id="monitor-tab" data-bs-toggle="tab" href="#monitor" role="tab" aria-controls="monitor" aria-selected="true"> Monitor </a>
     </li>
 
-    <!-- Sensors Tab -->
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="sensors-tab" data-bs-toggle="tab" href="#sensors" role="tab" aria-controls="sensors" aria-selected="false"> Sensores </a>
-    </li>
-
     <!-- Specifications Tab -->
     <li class="nav-item" role="presentation">
         <a class="nav-link" id="specifications-tab" data-bs-toggle="tab" href="#specifications" role="tab" aria-controls="specifications" aria-selected="false"> Especificaciones </a>
@@ -561,11 +469,6 @@
             </ul>
         </div>
         @endif
-    </div>
-
-    <!-- Sensors Content -->
-    <div class="tab-pane fade" id="sensors" role="tabpanel" aria-labelledby="sensors-tab">
-        <div style="height: 400px"><canvas id="sensorsChart"></canvas></div>
     </div>
 
     <!-- Monitor content -->
@@ -641,8 +544,6 @@
             </div>
         </div>
     </div>
-
-
     @endif
 </div>
 

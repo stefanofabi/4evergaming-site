@@ -15,6 +15,7 @@
                 <li class="list-group-item"> <a href="{{ route('admin/index') }}"> Tablero </a> </li>
                 <li class="list-group-item"> <a href="{{ route('admin/billing') }}"> Facturacion </a> </li>
                 <li class="list-group-item"> <a href="{{ route('admin/nodes') }}"> Nodos </a> </li>
+                <li class="list-group-item"> <a href="{{ route('admin/sensors') }}"> Sensores </a> </li>
                 <li class="list-group-item"> <a href="{{ route('admin/firewall/index') }}"> Firewall </a> </li>
                 <li class="list-group-item"> <a href="{{ route('admin/game_history') }}"> Historial de juegos </a> </li>
             </ul>      
