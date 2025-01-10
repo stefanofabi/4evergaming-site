@@ -13,7 +13,7 @@ class CounterStrikePageController extends Controller
 
     function index(Request $request)
     {
-        return view('pages/counter-strike/index')
+        return view('pages.games.counter-strike.index')
         ->with('dollar_price', $this->getCurrencyPrice('ARS'))
         ->with('slot_300fps_price', $this->getGamePrices(3, 2))
         ->with('slot_500fps_price', $this->getGamePrices(2, 2))

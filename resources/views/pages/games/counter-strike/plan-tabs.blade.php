@@ -11,7 +11,7 @@
             </ul>
 
             <div class="tab-content" id="myTabContent">
-                @include('pages/counter-strike/plans/300fps')
-                @include('pages/counter-strike/plans/500fps')
-                @include('pages/counter-strike/plans/1000fps')
+                @include('pages.games.counter-strike.plans.300fps')
+                @include('pages.games.counter-strike.plans.500fps')
+                @include('pages.games.counter-strike.plans.1000fps')
             </div>

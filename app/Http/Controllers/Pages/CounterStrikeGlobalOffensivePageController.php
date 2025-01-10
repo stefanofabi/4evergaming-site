@@ -13,7 +13,7 @@ class CounterStrikeGlobalOffensivePageController extends Controller
 
     function index(Request $request)
     {
-        return view('pages/counter-strike-global-offensive/index')
+        return view('pages.games.counter-strike-global-offensive.index')
         ->with('dollar_price', $this->getCurrencyPrice('ARS'))
         ->with('slot_64tickrate_price', 0.60)
         ->with('slot_128tickrate_price', 0.75);

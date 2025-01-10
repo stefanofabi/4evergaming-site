@@ -83,7 +83,7 @@
 
     <div class="row">
         <div class="col-md-8 d-none d-lg-block">   
-            @include('pages/counter-strike/carousel-slides')
+            @include('pages.games.counter-strike.carousel-slides')
         </div>
 
         <div class="col">
@@ -92,37 +92,37 @@
 
             <p class="game-description-snippet"> Disfruta del juego de acción en línea n° 1 en el mundo. Sumérgete en el fragor de la guerra antiterrorista más realista con este archiconocido juego por equipos. Alíate con compañeros para superar misiones estratégicas, asalta bases enemigas, rescata rehenes, y recuerda que tu personaje contribuye al éxito del equipo...</p>							
             
-            @include('pages/counter-strike/qualification-service')
+            @include('pages.games.counter-strike.qualification-service')
             
-            @include('pages/counter-strike/service-labels')
+            @include('pages.games.counter-strike.service-labels')
         </div>
     </div>
 
-    @include('pages/counter-strike/national-latency')
+    @include('pages.games.counter-strike.national-latency')
     
-    @include('pages/counter-strike/server-information')
+    @include('pages.games.counter-strike.server-information')
 
-    @include('pages/counter-strike/characteristics-servers')
+    @include('pages.games.counter-strike.characteristics-servers')
 
     <div class="row mt-4">
         <div class="col">
-            @include('pages/counter-strike/what-are-fps-server')
+            @include('pages.games.counter-strike.what-are-fps-server')
 
             <div class="d-none d-lg-block">
-                @include('pages/counter-strike/contact-by-whatsapp')
+                @include('pages.games.counter-strike.contact-by-whatsapp')
             </div>
         </div>
 
         <div class="col-md">
-            @include('pages/counter-strike/plan-tabs')
+            @include('pages.games.counter-strike.plan-tabs')
         </div>
     </div>
 
     <div class="d-lg-none">
-        @include('pages/counter-strike/contact-by-whatsapp')
+        @include('pages.games.counter-strike.contact-by-whatsapp')
     </div>
     
-    @include('pages.counter-strike.frequently-questions')
+    @include('pages.games.counter-strike.frequently-questions')
 </div>
 
 @include('modals/ixp-points')

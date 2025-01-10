@@ -22,6 +22,7 @@ use App\Http\Controllers\Pages\CounterStrikeGlobalOffensivePageController;
 use App\Http\Controllers\Pages\CounterStrike2PageController;
 use App\Http\Controllers\Pages\MultiTheftAutoPageController;
 use App\Http\Controllers\Pages\ServerStatusController;
+use App\Http\Controllers\Pages\VirtualPrivateServerController;
 
 use App\Http\Controllers\Communities\CommunityController;
 
@@ -38,7 +39,7 @@ Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/', [PageController::class, 'index'])->name('index');
 
-Route::get('server-status', [ServerStatusController::class, 'index'])->name('server-status');
+Route::get('status', [ServerStatusController::class, 'index'])->name('server-status');
 
 Route::get('/games/counter-strike', [CounterStrikePageController::class, 'index'])->name('games/counter-strike');
 
@@ -47,6 +48,9 @@ Route::get('/games/counter-strike-global-offensive', [CounterStrikeGlobalOffensi
 Route::get('/games/counter-strike-2', [CounterStrike2PageController::class, 'index'])->name('games/counter-strike-2');
 
 Route::get('/games/multi-theft-auto', [MultiTheftAutoPageController::class, 'index'])->name('games/multi-theft-auto');
+
+Route::get('vps-hosting',  [VirtualPrivateServerController::class, 'index'])->name('vps-hosting');
+
 
 Route::group([
     'prefix' => 'communities',

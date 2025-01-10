@@ -13,7 +13,7 @@ class MultiTheftAutoPageController extends Controller
 
     function index(Request $request)
     {
-        return view('pages/multi-theft-auto/index')
+        return view('pages.games.multi-theft-auto.index')
         ->with('dollar_price', $this->getCurrencyPrice('ARS'));
     }
 }

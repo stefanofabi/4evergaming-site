@@ -88,14 +88,6 @@ Route::get('hosting/games/v-rising', function () {
     return redirect()->away('https://clientes.4evergaming.com.ar/store/servidores-de-zombies-and-vampiros/v-rising?currency=2');
 });
 
-Route::get('hosting/vps/windows', function () {
-    return redirect()->away('https://clientes.4evergaming.com.ar/store/servidores-virtuales?currency=2');
-});
-
-Route::get('hosting/vps/linux', function () {
-    return redirect()->away('https://clientes.4evergaming.com.ar/store/servidores-virtuales?currency=2');
-});
-
 Route::get('sobrenosotros/datacenter', function () {
     return redirect()->away('https://4evergaming.com.ar');
 });
