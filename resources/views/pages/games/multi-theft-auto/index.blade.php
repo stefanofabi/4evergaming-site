@@ -46,15 +46,15 @@
 @endsection
 
 @section('content')
-@include('pages.multi-theft-auto.header')
+@include('pages.games.multi-theft-auto.header')
 
-@include('pages.multi-theft-auto.characteristics-servers')
+@include('pages.games.multi-theft-auto.characteristics-servers')
 
-@include('pages.multi-theft-auto.server-location')
+@include('pages.games.multi-theft-auto.server-location')
 
-@include('pages.multi-theft-auto.available-plans')
+@include('pages.games.multi-theft-auto.available-plans')
 
-@include('pages.multi-theft-auto.trust-pilot')
+@include('pages.games.multi-theft-auto.trust-pilot')
 
-@include('pages.multi-theft-auto.frequently-questions')
+@include('pages.games.multi-theft-auto.frequently-questions')
 @endsection

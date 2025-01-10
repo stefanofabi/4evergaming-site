@@ -67,7 +67,7 @@
 @endsection
 
 @section('content')
-@include('pages.counter-strike-2.header')
+@include('pages.games.counter-strike-2.header')
 
 <div class="container mt-3">
   <div class="d-none d-md-block"> Todos los juegos > Shooters > Counter-Strike 2 </div>
@@ -76,7 +76,7 @@
   
   <div class="row">
     <div class="col-md-8 d-none d-lg-block">
-      @include('pages.counter-strike-2.carousel-slides')
+      @include('pages.games.counter-strike-2.carousel-slides')
     </div> 
 
     <div class="col">
@@ -86,18 +86,18 @@
         Durante las dos últimas décadas, Counter‑Strike ha proporcionado una experiencia competitiva de primer nivel para los millones de jugadores de todo el mundo que contribuyeron a darle forma. Ahora el próximo capítulo en la historia de CS está a punto de comenzar. Hablamos de Counter‑Strike 2.
       </p>
     
-      @include('pages.counter-strike-2.qualification-service')
+      @include('pages.games.counter-strike-2.qualification-service')
                 
-      @include('pages.counter-strike-2.service-labels')
+      @include('pages.games.counter-strike-2.service-labels')
     </div>
   </div>
 
-  @include('pages.counter-strike-2.our-recommendations')                
-  @include('pages.counter-strike-2.server-information')
+  @include('pages.games.counter-strike-2.our-recommendations')                
+  @include('pages.games.counter-strike-2.server-information')
 
   <div class="row">
     <div class="col-md-6">
-      @include('pages.counter-strike-2.contact-by-whatsapp')
+      @include('pages.games.counter-strike-2.contact-by-whatsapp')
     </div>
   </div>
 </div>
