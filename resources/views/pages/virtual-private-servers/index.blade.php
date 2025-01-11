@@ -67,7 +67,7 @@
 <div class="hero">
     <h1>SUBITE A LA NUBE</h1>
     <p class="fs-4">Almacenamiento SSD. Linux o Windows. Anti DDoS. 100% configurables.</p>
-    <img src="{{ asset('images/vps-hosting/intel-core-i9-fastest-desktop-processor.jpg') }}" alt="Máxima Potencia con Intel Core i9" class="img-fluid mt-2 shadow" width="80%">
+    <a href="https://clientes.4evergaming.com.ar/store/servidores-virtuales?currency=2" target="_blank"> <img src="{{ asset('images/vps-hosting/intel-core-i9-fastest-desktop-processor.jpg') }}" alt="Máxima Potencia con Intel Core i9" class="img-fluid mt-2 shadow"> </a>
 </div>
 
 <div class="container py-4">
