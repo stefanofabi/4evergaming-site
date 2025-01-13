@@ -23,6 +23,7 @@ use App\Http\Controllers\Pages\CounterStrike2PageController;
 use App\Http\Controllers\Pages\MultiTheftAutoPageController;
 use App\Http\Controllers\Pages\ServerStatusController;
 use App\Http\Controllers\Pages\VirtualPrivateServerController;
+use App\Http\Controllers\Pages\WebHostingController;
 
 use App\Http\Controllers\Communities\CommunityController;
 
@@ -51,6 +52,7 @@ Route::get('/games/multi-theft-auto', [MultiTheftAutoPageController::class, 'ind
 
 Route::get('vps-hosting',  [VirtualPrivateServerController::class, 'index'])->name('vps-hosting');
 
+Route::get('web-hosting',  [WebHostingController::class, 'index'])->name('web-hosting');
 
 Route::group([
     'prefix' => 'communities',

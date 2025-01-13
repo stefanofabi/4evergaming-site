@@ -45,7 +45,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="https://clientes.4evergaming.com.ar/store/alojamiento-web?currency=2" target="_blank">Web Hosting</a>
+                    <a class="nav-link" href="{{ route('web-hosting') }}">Web Hosting</a>
                 </li>
                 
                 <!--
