@@ -36,8 +36,8 @@ trait UpdateServer {
             $server->players = $server_info['players'];
 
             // calculate points
-            $server->rank_points += $server->num_players;
-                    
+            //$server->rank_points += $server->num_players;
+            $server->rank_points = round($server->rank_points + $server->num_players) / 2;      
 
             // add to the favorite maps counter
             $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();
