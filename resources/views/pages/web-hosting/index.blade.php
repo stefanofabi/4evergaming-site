@@ -43,7 +43,7 @@
     <header class="banner">
         <h1>WEB HOSTING</h1>
         <p>
-            ✔ Dominio, SSL y Correo incluido.<br>
+            ✔ SSL, Bases de datos y Correo incluido.<br>
             ✔ Migración gratuita y asistida.<br>
             ✔ Atención al cliente 24/7.
         </p>
