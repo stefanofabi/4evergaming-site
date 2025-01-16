@@ -162,7 +162,13 @@ class ServerController extends Controller
         })->orderBy('rank', 'ASC')
         ->get();
         
-        $top_servers = Server::where('game_id', $game->id)->orderBy('rank', 'ASC')->limit(3)->get();
+        $top_servers = Server::selectRaw('MIN(servers.rank) as rank, communities.name, communities.logo')
+        ->join('communities', 'servers.community_id', '=', 'communities.id')
+        ->where('servers.game_id', $game->id)
+        ->groupBy('servers.community_id', 'communities.name', 'communities.logo') 
+        ->orderBy('rank', 'ASC')
+        ->limit(3)
+        ->get();
         
         $countries = Country::orderBy('name', 'ASC')->get();
 
