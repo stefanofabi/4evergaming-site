@@ -239,7 +239,7 @@
                 <div class="col-md-4 feature">
                     <img src="{{ asset('images/web-hosting/availability.png') }}" alt="High Availability" width="100">
                     <h4 class="mt-3">Alta Disponibilidad</h4>
-                    <p>Replicamos tu información en más de un servidor para garantizarte la continuidad operacional.</p>
+                    <p>Hardware de último nivel para tu sitio web. <br />No hacemos Over Selling.</p>
                 </div>
 
                 <div class="col-md-4 feature">
@@ -252,13 +252,13 @@
                 <div class="col-md-4 feature">
                     <img src="{{ asset('images/web-hosting/backup.png') }}" alt="Backup" width="100">
                     <h4 class="mt-3">Backups para tu Tranquilidad</h4>
-                    <p>Hacemos copias de respaldo semanales estándar, mejorables a diarias.</p>
+                    <p>Hacemos copias de respaldo mensuales para tu seguridad.</p>
                 </div>
 
                 <div class="col-md-4 feature">
                     <img src="{{ asset('images/web-hosting/antivirus.png') }}" alt="Anti-Spam" width="100">
                     <h4 class="mt-3">Anti-Spam/Anti-Virus</h4>
-                    <p>Basta de correos basura y sitios infectados. Auditamos tu alojamiento periódicamente.</p>
+                    <p>Basta de correos basura y sitios infectados. <br /> Auditamos tu alojamiento periódicamente.</p>
                 </div>
                 
                 <div class="col-md-4 feature">
