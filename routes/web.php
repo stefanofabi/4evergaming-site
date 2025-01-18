@@ -1,5 +1,10 @@
 <?php
 
+// force all routes to https
+if (app()->environment('production')) {
+    URL::forceScheme('https');
+}
+
 use Illuminate\Support\Facades\Route;
 
 /*
