@@ -95,7 +95,7 @@ class SubscriptionController extends Controller
                     $subscription->phonenumber = $customer->phonenumber;
                     $subscription->client_id = $customer->id;
                     $subscription->next_payment_date = now(); 
-                    $subscription->subscription_link = null;
+                    $subscription->link = null;
 
                     $subscription->save();
                 }
