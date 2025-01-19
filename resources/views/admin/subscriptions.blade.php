@@ -42,7 +42,6 @@
 @append
 
 @section('right-content')
-
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1>Clientes suscriptos</h1>
 
@@ -58,6 +57,8 @@
             </button>
         </form>
     </div>
+
+    <p> Clientes suscriptos totales: {{ $subscriptions->count() }} </p>
 
     @if($subscriptions->isEmpty())
         <div class="alert alert-warning" role="alert">
