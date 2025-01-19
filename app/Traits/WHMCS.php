@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 trait WHMCS {
 
+    const SUBSCRIBED_GROUP_ID = 1;
+    
     function getCurrencyPrice($currency_code) 
     {
         return DB::connection('whmcs')
@@ -169,6 +171,15 @@ trait WHMCS {
             ->where('status', 'Paid')
             ->whereDate('date', '>=', $startDate)
             ->groupBy('paymentmethod')
+            ->get();
+    }
+
+    function getSubscribedCustomers()
+    {
+        return DB::connection('whmcs')
+            ->table('tblclients')
+            ->where('groupid', self::SUBSCRIBED_GROUP_ID)
+            ->select('id', 'firstname', 'lastname', 'email', 'phonenumber', 'groupid')
             ->get();
     }
 }

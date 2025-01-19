@@ -35,6 +35,7 @@ use App\Http\Controllers\Communities\CommunityController;
 use App\Http\Controllers\Server\ServerController;
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\FirewallController;
 
 require('old_urls.php');
@@ -110,12 +111,25 @@ Route::group([
     Route::get('index', [AdminController::class, 'index'])->name('index');
    
     Route::get('billing', [AdminController::class, 'billing'])->name('billing');
-    
+
     Route::get('nodes', [AdminController::class, 'nodes'])->name('nodes');
 
     Route::get('sensors', [AdminController::class, 'sensors'])->name('sensors');
 
     Route::get('game-history', [AdminController::class, 'gameHistory'])->name('game_history');
+
+    Route::group([
+        'prefix' => 'subscriptions',
+        'as' => 'subscriptions/',
+    ], function () {
+        Route::get('', [SubscriptionController::class, 'index'])->name('index');
+
+        Route::post('synchronize', [SubscriptionController::class, 'synchronize'])->name('synchronize');
+
+        Route::post('renew', [SubscriptionController::class, 'renew'])->name('renew');
+
+        Route::delete('cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
+    });
 
     Route::group([
         'prefix' => 'firewall',

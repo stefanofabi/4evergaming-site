@@ -160,21 +160,6 @@ class AdminController extends Controller
         return ['timeline' => $timeline, 'datasets' => $datasets];
     }
 
-    private function getColorForCurrency($currency)
-    {
-        // Define unique colors for each currency
-        $colors = [
-            'ARS' => 'rgba(0, 137, 209, 1)', 
-            'CLP' => 'rgba(255, 0, 0, 1)',   
-            'USD' => 'rgba(0, 0, 255, 1)',  
-            'PYG' => 'rgba(139, 0, 0, 1)',    
-            'BRL' => 'rgba(0, 128, 0, 1)',   
-            'UYU' => 'rgba(0, 0, 139, 1)'    
-        ];
-
-        return $colors[$currency] ?? 'rgba(75, 192, 192, 1)'; // Default color if currency not found
-    }
-
     public function gameHistory(Request $request)
     {   
         $games = Game::all();
@@ -220,4 +205,18 @@ class AdminController extends Controller
             ->with('gameHistory', $gameHistory);
     }
     
+    private function getColorForCurrency($currency)
+    {
+        // Define unique colors for each currency
+        $colors = [
+            'ARS' => 'rgba(0, 137, 209, 1)', 
+            'CLP' => 'rgba(255, 0, 0, 1)',   
+            'USD' => 'rgba(0, 0, 255, 1)',  
+            'PYG' => 'rgba(139, 0, 0, 1)',    
+            'BRL' => 'rgba(0, 128, 0, 1)',   
+            'UYU' => 'rgba(0, 0, 139, 1)'    
+        ];
+
+        return $colors[$currency] ?? 'rgba(75, 192, 192, 1)'; // Default color if currency not found
+    }
 }
