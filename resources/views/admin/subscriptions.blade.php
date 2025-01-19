@@ -16,6 +16,31 @@
 </script>
 @append
 
+@section('css')
+<style>
+    .custom-badge {
+        display: inline-block;
+        padding: 0.125rem 0.25rem;
+        font-size: 0.625rem;        
+        font-weight: 600;         
+        border-radius: 10px;       
+        color: #000000;
+        margin-left: 5px;
+    }
+
+    .badge-mercadopago {
+        background-color: #ffca28;
+        border: 1px solid #e0a800;
+    }
+
+    .badge-paypal {
+        background-color: #0070ba;
+        border: 1px solid #005ba1;
+    }
+
+</style>
+@append
+
 @section('right-content')
 
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -46,6 +71,7 @@
                         <th>Cliente</th>
                         <th>Celular</th>
                         <th>Fecha de cobro</th>
+                        <th>Referencia</th>
                         <th class="text-end">Acciones</th>
                     </tr>
                 </thead>
@@ -55,13 +81,21 @@
                             <td> 
                                 <a href="https://clientes.4evergaming.com.ar/admin/clientssummary.php?userid={{ $subscription->client_id }}" target="_blank"> 
                                     {{ $subscription->firstname }} {{ $subscription->lastname }}
-                                </a> {{ $subscription->reference }}
+                                </a> 
+                                
+                                @if (str_contains($subscription->link, 'mercadopago'))
+                                    <span class="custom-badge badge-mercadopago">MercadoPago</span>
+                                @elseif (str_contains($subscription->link, 'paypal'))
+                                    <span class="custom-badge badge-paypal">PayPal</span>
+                                @endif
                             </td>
+
                             <td>{{ $subscription->phonenumber }}</td>
                             <td>{{ \Carbon\Carbon::parse($subscription->next_payment_date)->format('d M Y') }}</td>
+                            <td>{{ $subscription->reference }}</td>
 
                             <td class="text-end">
-                                <a href="{{ $subscription->subscription_link }}" target="_blank" class="btn btn-outline-dark btn-sm ms-1 @if (empty($subscription->subscription_link)) disabled @endif" @if (empty($subscription->subscription_link)) style="pointer-events: none; color: #6c757d;" @endif role="button" title="Ver suscripcion">
+                                <a href="{{ $subscription->link }}" target="_blank" class="btn btn-outline-dark btn-sm ms-1 @if (empty($subscription->link)) disabled @endif" @if (empty($subscription->link)) style="pointer-events: none; color: #6c757d;" @endif role="button" title="Ver suscripcion">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"/>
                                         <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"/>
@@ -70,7 +104,6 @@
                                     </svg>
                                 </a>
 
-                                <!-- Botón para renovar suscripción -->
                                 <a href="#" class="btn btn-outline-dark btn-sm ms-1" onclick="confirmRenew({{ $subscription->id }});" role="button" title="Renovar suscripción">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
@@ -78,13 +111,11 @@
                                     </svg>
                                 </a>
                             
-                                <!-- Formulario de renovación oculto -->
                                 <form id="renewForm_{{ $subscription->id }}" action="{{ route('admin/subscriptions/renew', ['id' => $subscription->id]) }}" method="POST" style="display: none;">
                                     @csrf
-                                    @method('POST') <!-- Cambia a 'POST' si es una operación de renovación -->
+                                    @method('POST')
                                 </form>
                                 
-                                <!-- Botón para cancelar suscripción -->
                                 <a href="#" class="btn btn-outline-dark btn-sm ms-1" onclick="confirmCancel({{ $subscription->id }});" role="button" title="Cancelar suscripción">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x" viewBox="0 0 16 16">
                                         <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
@@ -92,7 +123,6 @@
                                     </svg>
                                 </a>
 
-                                <!-- Formulario de cancelación -->
                                 <form id="cancelForm_{{ $subscription->id }}" action="{{ route('admin/subscriptions/cancel', ['id' => $subscription->id]) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phonenumber')->nullable();
             $table->integer('client_id')->unique();
             $table->date('next_payment_date'); 
-            $table->string('subscription_link')->nullable(); 
+            $table->string('link')->nullable(); 
             $table->string('reference')->nullable(); 
 
             $table->timestamps(); 
