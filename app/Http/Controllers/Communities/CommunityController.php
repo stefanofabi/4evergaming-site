@@ -77,6 +77,13 @@ class CommunityController extends Controller
     public function show(string $id)
     {
         //
+
+        $community = Community::findOrFail($id);
+        $servers = $community->servers()->orderBy('rank', 'DESC')->get();
+
+        return view('communities.show')
+            ->with('community', $community)
+            ->with('servers', $servers);
     }
 
     /**

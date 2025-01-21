@@ -65,7 +65,7 @@
                 <div class="col-md-auto">
                     <h3> ➡️ Comunidad </h3>
                     
-                    <a href="@if (empty($server->community->contact_url)) # @else {{ $server->community->contact_url }} @endif" @if (! empty($server->community->contact_url)) target="_blank" @endif> 
+                    <a href="{{ route('communities/show', ['id' => $server->community_id]) }}"> 
                         <img class="img-fluid rounded" src="{{ asset('storage/communities/'.$server->community->logo) }}" alt="{{ $server->community->name }}" width="200">
                     </a>
                 </div>
