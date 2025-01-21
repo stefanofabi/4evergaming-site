@@ -68,6 +68,7 @@ Route::group([
     Route::get('show/{id}', [CommunityController::class, 'show'])->name('show');
 
     Route::post('store', [CommunityController::class, 'store'])->name('store')->middleware('auth');
+    Route::post('update', [CommunityController::class, 'update'])->name('update')->middleware('auth');
 });
 
 Route::group([

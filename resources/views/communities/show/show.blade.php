@@ -64,15 +64,15 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
-            flex: 1; /* Asegura que esta columna ocupe el espacio restante */
+            flex: 1;
         }
 
         .server-details h3 {
             margin-top: 0;
-            white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-            overflow: hidden; /* Oculta el desbordamiento */
-            text-overflow: ellipsis; /* Agrega "..." al final si el texto es demasiado largo */
-            max-width: 100%; /* Asegura que no se desborde fuera de su contenedor */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
         }
 
         .server-details p {
@@ -98,14 +98,14 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            flex: 0 1 auto; /* Permite que el mapa ocupe el espacio necesario */
-            height: 100%; /* Asegura que la imagen ocupe toda la altura disponible */
+            flex: 0 1 auto;
+            height: 100%;
         }
 
         .server-map img {
-            width: 100%; /* Hace que la imagen ocupe todo el ancho disponible */
-            height: 100%; /* Hace que la imagen ocupe toda la altura disponible */
-            object-fit: cover; /* Mantiene la proporción de la imagen y cubre el contenedor */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -182,6 +182,14 @@
                     </a>
                 @endif
             </div>
+
+            @if(auth()->id() === $community->user_id)
+            <div class="mt-3">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#editDataModal">Editar datos</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#editLogoModal">Editar logo</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#editSocialModal">Editar redes sociales</button>
+            </div>
+            @endif
         </div>
 
         <div class="servers-list">
@@ -223,4 +231,8 @@
             @endforeach
         </div>
     </div>
+
+    @include('communities.show.modal_edit_data')
+    @include('communities.show.modal_edit_social_links')
+    @include('communities.show.modal_edit_logo')
 @endsection
