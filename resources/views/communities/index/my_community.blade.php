@@ -1,45 +1,41 @@
-@php
-    $community = auth()->check() ? auth()->user()->community()->first() : null;
-@endphp
-
-@if ($community)
+@if ($myCommunity)
 <div class="col-md-4 mb-4">
     <div class="card h-100 shadow-lg rounded bg-light text-dark">
-        <a href="{{ route('communities/show', $community->id) }}">
-            <img src="{{ asset('storage/communities/' . $community->logo) }}" class="card-img-top" alt="{{ $community->name }}">
+        <a href="{{ route('communities/show', $myCommunity->id) }}">
+            <img src="{{ asset('storage/communities/' . $myCommunity->logo) }}" class="card-img-top" alt="{{ $myCommunity->name }}">
         </a>
         <div class="card-body d-flex flex-column mt-3">
-            <h5 class="card-title">{{ $community->name }}</h5>
+            <h5 class="card-title">{{ $myCommunity->name }}</h5>
             <p class="card-text text-muted">
-                @if ($community->description)
-                    {{ Str::limit($community->description, 120) }}
+                @if ($myCommunity->description)
+                    {{ Str::limit($myCommunity->description, 120) }}
                 @endif
             </p>
 
              <!-- Redes Sociales -->
              <div class="social-icons mt-3">
-              @if ($community->whatsapp)
-                  <a href="https://wa.me/{{ $community->whatsapp }}" target="_blank" title="WhatsApp">
+              @if ($myCommunity->whatsapp)
+                  <a href="https://wa.me/{{ $myCommunity->whatsapp }}" target="_blank" title="WhatsApp">
                       <i class="bi bi-whatsapp"></i>
                   </a>
               @endif
-              @if ($community->instagram)
-                  <a href="https://www.instagram.com/{{ $community->instagram }}" target="_blank" title="Instagram">
+              @if ($myCommunity->instagram)
+                  <a href="https://www.instagram.com/{{ $myCommunity->instagram }}" target="_blank" title="Instagram">
                       <i class="bi bi-instagram"></i>
                   </a>
               @endif
-              @if ($community->tiktok)
-                  <a href="https://www.tiktok.com/@{{ $community->tiktok }}" target="_blank" title="TikTok">
+              @if ($myCommunity->tiktok)
+                  <a href="https://www.tiktok.com/@{{ $myCommunity->tiktok }}" target="_blank" title="TikTok">
                       <i class="bi bi-tiktok"></i>
                   </a>
               @endif
-              @if ($community->youtube)
-                  <a href="https://www.youtube.com/{{ $community->youtube }}" target="_blank" title="YouTube">
+              @if ($myCommunity->youtube)
+                  <a href="https://www.youtube.com/{{ $myCommunity->youtube }}" target="_blank" title="YouTube">
                       <i class="bi bi-youtube"></i>
                   </a>
               @endif
-              @if ($community->website)
-                  <a href="{{ $community->website }}" target="_blank" title="Sitio Web">
+              @if ($myCommunity->website)
+                  <a href="{{ $myCommunity->website }}" target="_blank" title="Sitio Web">
                       <i class="bi bi-globe"></i>
                   </a>
               @endif

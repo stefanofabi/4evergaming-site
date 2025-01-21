@@ -74,13 +74,19 @@
 
 @section('content')
 
+@php
+    $myCommunity = auth()->check() ? auth()->user()->community()->first() : null;
+@endphp
+
 <div class="container mt-5">
   <h1 class="text-center mb-4">¡Explora Nuestras Comunidades!</h1>
 
   <div class="row">
-    @include('communities.index.my_community')
+    @include('communities.index.my_community', ['myCommunity' => $myCommunity])
     
       @foreach ($communities as $community)
+        @if ($myCommunity && $myCommunity->id === $community->id) @continue @endif
+
           <div class="col-md-4 mb-4">
               <div class="card h-100 shadow-lg rounded">
                   <a href="{{ route('communities/show', $community->id) }}">
