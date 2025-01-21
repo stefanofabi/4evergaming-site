@@ -17,6 +17,11 @@ class CommunityController extends Controller
     public function index()
     {
         //
+
+        $communities = Community::has('servers')->orderBy('calification', 'desc')->get();
+
+        return view('communities.index.index')
+            ->with('communities', $communities);
     }
 
     /**

@@ -15,7 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description', 10000)->nullable();
-            $table->string('contact_url')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('tiktok')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('discord')->nullable();
+            $table->string('website')->nullable();
             $table->string('logo')->default('default.png');
             $table->double('calification')->default(0.0);
             $table->unsignedBigInteger('user_id')->unique();

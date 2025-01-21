@@ -64,6 +64,9 @@ Route::group([
     'prefix' => 'communities',
     'as' => 'communities/',
 ], function () {
+    Route::get('', [CommunityController::class, 'index'])->name('index');
+    Route::get('show/{id}', [CommunityController::class, 'show'])->name('show');
+
     Route::post('store', [CommunityController::class, 'store'])->name('store')->middleware('auth');
 });
 
