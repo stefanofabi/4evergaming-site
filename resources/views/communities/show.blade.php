@@ -1,3 +1,6 @@
+Aquí tienes el código sin los comentarios:
+
+```php
 @extends('base')
 
 @section('javascript')
@@ -16,10 +19,8 @@
     <style>
         .community-logo img {
             max-width: 100%;
-            height: 200px; /* Tamaño fijo para el logo de la comunidad */
-            object-fit: cover; /* Asegura que la imagen se ajuste sin distorsionarse */
-            //border-radius: 10px;
-            //box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 200px;
+            object-fit: cover;
         }
 
         .community-details {
@@ -31,11 +32,11 @@
             margin: 0 10px;
             font-size: 24px;
             color: #007bff;
-            text-decoration: none; /* Removemos subrayado */
+            text-decoration: none;
         }
 
         .community-links a:hover {
-            text-decoration: underline; /* Aparece subrayado al pasar el ratón */
+            text-decoration: underline;
         }
 
         .servers-list {
@@ -54,7 +55,7 @@
 
         .server-logo img {
             width: 80px;
-            height: 80px; /* Tamaño fijo para el logo del juego */
+            height: 80px;
             object-fit: cover;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -71,7 +72,7 @@
         .server-details a {
             display: inline-block;
             margin-top: 10px;
-            background-color: #dc3545; /* btn-danger color */
+            background-color: #dc3545;
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
@@ -79,28 +80,28 @@
         }
 
         .server-details a:hover {
-            background-color: #c82333; /* btn-danger hover */
+            background-color: #c82333;
         }
 
         .server-map-wrapper {
             display: flex;
-            justify-content: center; /* Centra la imagen horizontalmente */
-            align-items: center; /* Centra la imagen verticalmente */
-            width: 100%; /* Asegura que ocupe el espacio de la columna */
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
         .server-map img {
-            width: 100%; /* Hace que ocupe todo el ancho de su contenedor */
-            max-width: 150px; /* Limita el ancho de la imagen del mapa */
-            max-height: 150px; /* Limita la altura de la imagen del mapa */
-            object-fit: cover; /* Asegura que la imagen se ajuste correctamente sin distorsionar */
+            width: 100%;
+            max-width: 150px;
+            max-height: 150px;
+            object-fit: cover;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .server-buttons {
             display: flex;
-            gap: 10px; /* Espacio entre los botones */
+            gap: 10px;
             margin-top: 10px;
         }
 
@@ -112,7 +113,7 @@
         }
 
         .server-buttons .btn-join {
-            background-color: #dc3545; /* btn-danger */
+            background-color: #dc3545;
         }
 
         .server-buttons .btn-join:hover {
@@ -120,7 +121,7 @@
         }
 
         .server-buttons .btn-stats {
-            background-color: #007bff; /* btn-primary */
+            background-color: #007bff;
         }
 
         .server-buttons .btn-stats:hover {
@@ -131,7 +132,6 @@
 
 @section('content')
     <div class="container mt-5">
-        <!-- Datos de la comunidad -->
         <div class="community-details">
             <div class="community-logo mb-4">
                 <img src="{{ asset('storage/communities/' . $community->logo) }}" alt="{{ $community->name }} Logo">
@@ -139,7 +139,6 @@
             <h1>{{ $community->name }}</h1>
             <p class="lead">{{ $community->description ?? 'No hay descripción disponible para esta comunidad.' }}</p>
 
-            <!-- Enlaces de la comunidad con Bootstrap Icons -->
             <div class="community-links">
                 @if($community->whatsapp)
                     <a href="{{ $community->whatsapp }}" target="_blank" class="text-dark text-decoration-none" title="WhatsApp">
@@ -174,16 +173,15 @@
             </div>
         </div>
 
-        <!-- Lista de servidores -->
         <div class="servers-list">
             <h2>Servidores de la Comunidad</h2>
 
             @foreach($servers as $server)
                 <div class="server">
-                    <!-- Contenedor de columnas -->
                     <div class="row w-100">
+
                         <div class="col-md-8">
-                            <!-- Información del servidor -->
+
                             <div class="server-details">
                                 <h3>{{ $server->hostname }}</h3>
                                 <p><strong>IP:</strong> {{ $server->ip }}:{{ $server->port }}</p>
@@ -191,23 +189,25 @@
                                 <p><strong>Mapa:</strong> {{ $server->map }}</p>
                                 <p><strong>Estado:</strong> {{ $server->status ? 'ONLINE' : 'OFFLINE' }}</p>
 
-                                <!-- Botones de unirse y ver estadísticas alineados horizontalmente -->
                                 <div class="server-buttons">
-                                    <a href="{{ $server->join_link }}" target="_blank" class="btn-join">Unirse al servidor</a>
+                                    <a href="{{ $server->join_link }}" class="btn-join">Unirse al servidor</a>
                                     <a href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" class="btn-stats">Ver estadísticas</a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Columna derecha con la imagen del mapa -->
                         <div class="col-md-4 d-flex justify-content-center align-items-center">
+                            @if(Storage::exists('public/maps/'. $server->game->protocol .'/'.$server->map .'.jpg'))
                             <div class="server-map-wrapper">
                                 <img src="{{ asset('storage/maps/'. $server->game->protocol .'/'. $server->map .'.jpg') }}" alt="{{ $server->map }}" title="{{ $server->map }}" class="server-map img-fluid shadow" width="100%" />
                             </div>
+                            @endif
                         </div>
+
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
 @endsection
+```
