@@ -1,5 +1,5 @@
 @php
-$community = auth()->user()->community()->first();    
+    $community = auth()->check() ? auth()->user()->community()->first() : null;
 @endphp
 
 @if ($community)
