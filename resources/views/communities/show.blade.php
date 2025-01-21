@@ -180,12 +180,15 @@
                         <div class="col-md-8">
 
                             <div class="server-details">
-                                <h3>{{ $server->hostname }}</h3>
+                                <h3>
+                                    <img src="{{ asset('images/games-icons/' . $server->game->logo) }}" alt="{{ $server->game->name }} Logo" class="game-logo" style="width: 40px; height: 40px; object-fit: cover; margin-right: 10px;">
+                                    {{ $server->hostname }}
+                                </h3>
                                 <p><strong>IP:</strong> {{ $server->ip }}:{{ $server->port }}</p>
                                 <p><strong>Jugadores:</strong> {{ $server->num_players }} / {{ $server->max_players }}</p>
                                 <p><strong>Mapa:</strong> {{ $server->map }}</p>
                                 <p><strong>Estado:</strong> {{ $server->status ? 'ONLINE' : 'OFFLINE' }}</p>
-
+                            
                                 <div class="server-buttons">
                                     <a href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" class="btn-stats">Ver estadísticas</a>
                                     <a href="{{ $server->join_link }}" class="btn-join">Unirse al servidor</a>
