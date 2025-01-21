@@ -190,8 +190,8 @@ Aquí tienes el código sin los comentarios:
                                 <p><strong>Estado:</strong> {{ $server->status ? 'ONLINE' : 'OFFLINE' }}</p>
 
                                 <div class="server-buttons">
-                                    <a href="{{ $server->join_link }}" class="btn-join">Unirse al servidor</a>
                                     <a href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" class="btn-stats">Ver estadísticas</a>
+                                    <a href="{{ $server->join_link }}" class="btn-join">Unirse al servidor</a>
                                 </div>
                             </div>
                         </div>
