@@ -48,6 +48,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
         }
 
         .server-logo img {
@@ -58,8 +59,20 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .server-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            flex: 1; /* Asegura que esta columna ocupe el espacio restante */
+        }
+
         .server-details h3 {
             margin-top: 0;
+            white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+            overflow: hidden; /* Oculta el desbordamiento */
+            text-overflow: ellipsis; /* Agrega "..." al final si el texto es demasiado largo */
+            max-width: 100%; /* Asegura que no se desborde fuera de su contenedor */
         }
 
         .server-details p {
@@ -85,13 +98,14 @@
             justify-content: center;
             align-items: center;
             width: 100%;
+            flex: 0 1 auto; /* Permite que el mapa ocupe el espacio necesario */
+            height: 100%; /* Asegura que la imagen ocupe toda la altura disponible */
         }
 
         .server-map img {
-            width: 100%;
-            max-width: 150px;
-            max-height: 150px;
-            object-fit: cover;
+            width: 100%; /* Hace que la imagen ocupe todo el ancho disponible */
+            height: 100%; /* Hace que la imagen ocupe toda la altura disponible */
+            object-fit: cover; /* Mantiene la proporción de la imagen y cubre el contenedor */
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -196,10 +210,10 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="col-md-4 d-flex justify-content-center align-items-center mt-3 mt-md-0">
                             @if(Storage::exists('public/maps/'. $server->game->protocol .'/'.$server->map .'.jpg'))
                             <div class="server-map-wrapper">
-                                <img src="{{ asset('storage/maps/'. $server->game->protocol .'/'. $server->map .'.jpg') }}" alt="{{ $server->map }}" title="{{ $server->map }}" class="server-map img-fluid shadow" width="100%" />
+                                <img src="{{ asset('storage/maps/'. $server->game->protocol .'/'. $server->map .'.jpg') }}" alt="{{ $server->map }}" title="{{ $server->map }}" class="server-map img-fluid shadow" />
                             </div>
                             @endif
                         </div>
