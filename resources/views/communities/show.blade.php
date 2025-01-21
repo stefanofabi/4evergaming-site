@@ -1,6 +1,3 @@
-Aquí tienes el código sin los comentarios:
-
-```php
 @extends('base')
 
 @section('javascript')
@@ -210,4 +207,3 @@ Aquí tienes el código sin los comentarios:
         </div>
     </div>
 @endsection
-```
