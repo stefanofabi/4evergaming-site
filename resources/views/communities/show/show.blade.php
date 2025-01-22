@@ -152,27 +152,27 @@
 
             <div class="community-links">
                 @if($community->whatsapp)
-                    <a href="{{ $community->whatsapp }}" target="_blank" class="text-dark text-decoration-none" title="WhatsApp">
+                    <a href="https://wa.me/{{ $community->whatsapp }}" target="_blank" class="text-dark text-decoration-none" title="WhatsApp">
                         <i class="bi bi-whatsapp"></i>
                     </a>
                 @endif
                 @if($community->instagram)
-                    <a href="{{ $community->instagram }}" target="_blank" class="text-dark text-decoration-none" title="Instagram">
+                    <a href="https://instagram.com/{{ $community->instagram }}" target="_blank" class="text-dark text-decoration-none" title="Instagram">
                         <i class="bi bi-instagram"></i>
                     </a>
                 @endif
                 @if($community->tiktok)
-                    <a href="{{ $community->tiktok }}" target="_blank" class="text-dark text-decoration-none" title="TikTok">
+                    <a href="https://tiktok.com/{{ '@'. $community->tiktok }}" target="_blank" class="text-dark text-decoration-none" title="TikTok">
                         <i class="bi bi-tiktok"></i>
                     </a>
                 @endif
                 @if($community->youtube)
-                    <a href="{{ $community->youtube }}" target="_blank" class="text-dark text-decoration-none" title="YouTube">
+                    <a href="https://youtube.com/{{ '@'. $community->youtube }}" target="_blank" class="text-dark text-decoration-none" title="YouTube">
                         <i class="bi bi-youtube"></i>
                     </a>
                 @endif
                 @if($community->discord)
-                    <a href="{{ $community->discord }}" target="_blank" class="text-dark text-decoration-none" title="Discord">
+                    <a href="https://discord.gg/{{ $community->discord }}" target="_blank" class="text-dark text-decoration-none" title="Discord">
                         <i class="bi bi-discord"></i>
                     </a>
                 @endif
