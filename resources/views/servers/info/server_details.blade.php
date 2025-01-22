@@ -66,7 +66,7 @@
                     <h3> ➡️ Comunidad </h3>
                     
                     <a href="{{ route('communities/show', ['id' => $server->community_id]) }}"> 
-                        <img class="img-fluid rounded" src="{{ asset('storage/communities/'.$server->community->logo) }}" alt="{{ $server->community->name }}" width="200">
+                        <img class="img-fluid rounded" src="{{ asset('storage/communities/'.$server->community->logo) }}?t={{ $server->community->updated_at }}" alt="{{ $server->community->name }}" width="200">
                     </a>
                 </div>
 
