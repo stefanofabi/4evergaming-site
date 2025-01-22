@@ -1,8 +1,94 @@
 @extends('base')
 
 @section('javascript')
-    @parent
-@endsection
+<script type="module">
+  $("#communityDataForm").on('submit', function(e){
+    e.preventDefault();
+    
+    $.ajax({
+            type: 'POST',
+            url: "{{ route('communities/update', ['id' => $community->id]) }}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(){
+                $('#saveCommunityDataButton').addClass("disabled");
+                $('#communityDataForm').css("opacity",".5");
+                $('#responseCommunityData').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
+            }
+          }).done(function(response) {
+            $('#responseCommunityData').html('<span style="font-size:18px;color:#34A853"> Comunidad '+ response.name +' actualizada exitosamente </span>');
+            $('#communityDataForm').css("opacity","");
+            $("#saveCommunityDataButton").removeClass("disabled");
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            $('#responseCommunityData').html('<span style="font-size:18px;color: red"> '+ jqXHR.responseJSON.message +' </span>');
+            $('#communityDataForm').css("opacity","");
+            $("#saveCommunityDataButton").removeClass("disabled");
+          });
+  });
+
+  $("#communityLogoForm").on('submit', function(e){
+    e.preventDefault();
+    
+    $.ajax({
+            type: 'POST',
+            url: "{{ route('communities/update', ['id' => $community->id]) }}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(){
+                $('#saveCommunityLogoButton').addClass("disabled");
+                $('#communityLogoForm').css("opacity",".5");
+                $('#responseCommunityLogo').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
+            }
+          }).done(function(response) {
+            $('#responseCommunityLogo').html('<span style="font-size:18px;color:#34A853"> Logo de la Comunidad '+ response.name +' actualizado exitosamente </span>');
+            $('#communityLogoForm').css("opacity","");
+            $("#saveCommunityLogoButton").removeClass("disabled");
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            $('#responseCommunityLogo').html('<span style="font-size:18px;color: red"> '+ jqXHR.responseJSON.message +' </span>');
+            $('#communityLogoForm').css("opacity","");
+            $("#saveCommunityLogoButton").removeClass("disabled");
+          });
+  });
+
+  $("#communitySocialLinkForm").on('submit', function(e){
+    e.preventDefault();
+    
+    $.ajax({
+            type: 'POST',
+            url: "{{ route('communities/update', ['id' => $community->id]) }}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(){
+                $('#saveCommunitySocialLinkButton').addClass("disabled");
+                $('#communitySocialLinkForm').css("opacity",".5");
+                $('#responseCommunitySocialLink').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
+            }
+          }).done(function(response) {
+            $('#responseCommunitySocialLink').html('<span style="font-size:18px;color:#34A853"> Redes sociales de la Comunidad '+ response.name +' actualizado exitosamente </span>');
+            $('#communitySocialLinkForm').css("opacity","");
+            $("#saveCommunitySocialLinkButton").removeClass("disabled");
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            $('#responseCommunitySocialLink').html('<span style="font-size:18px;color: red"> '+ jqXHR.responseJSON.message +' </span>');
+            $('#communitySocialLinkForm').css("opacity","");
+            $("#saveCommunitySocialLinkButton").removeClass("disabled");
+          });
+  });
+</script>
+
+
+<script>
+  function saveCommunity() 
+  {
+    $('#communityFormSubmitButton').click();
+  }
+</script>
+@append
 
 @section('robots', 'index, follow')
 
@@ -145,7 +231,7 @@
     <div class="container mt-5">
         <div class="community-details">
             <div class="community-logo mb-4">
-                <img src="{{ asset('storage/communities/' . $community->logo) }}" alt="{{ $community->name }} Logo">
+                <img src="{{ asset('storage/communities/' . $community->logo) }}?t={{ strtotime($community->updated_at) }}" alt="{{ $community->name }} Logo">
             </div>
             <h1>{{ $community->name }}</h1>
             <p class="lead">{{ $community->description ?? 'No hay descripción disponible para esta comunidad.' }}</p>

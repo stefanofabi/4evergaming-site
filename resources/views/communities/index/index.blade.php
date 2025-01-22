@@ -90,7 +90,7 @@
           <div class="col-md-4 mb-4">
               <div class="card h-100 shadow-lg rounded">
                   <a href="{{ route('communities/show', $community->id) }}">
-                      <img src="{{ asset('storage/communities/' . $community->logo) }}" class="card-img-top" alt="{{ $community->name }}">
+                      <img src="{{ asset('storage/communities/' . $community->logo) }}?t={{ strtotime($community->updated_at) }}" class="card-img-top" alt="{{ $community->name }}">
                   </a>
                   <div class="card-body d-flex flex-column mt-3">
                       <h5 class="card-title text-dark">{{ $community->name }}</h5>

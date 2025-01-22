@@ -9,19 +9,15 @@ class Community extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'contact_url',
-        'logo',
-        'user_id',
-        'description',
-        
+    protected $guarded = [
+        'user_id',  
+        'calification'
     ];
 
     /**
      * Get the user associated with the community.
-    */
-	public function user() 
+     */
+    public function user() 
     {
         return $this->belongsTo(User::class);
     }

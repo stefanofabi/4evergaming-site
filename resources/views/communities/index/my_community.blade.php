@@ -2,7 +2,7 @@
 <div class="col-md-4 mb-4">
     <div class="card h-100 shadow-lg rounded bg-light text-dark">
         <a href="{{ route('communities/show', $myCommunity->id) }}">
-            <img src="{{ asset('storage/communities/' . $myCommunity->logo) }}" class="card-img-top" alt="{{ $myCommunity->name }}">
+            <img src="{{ asset('storage/communities/' . $myCommunity->logo) }}?t={{ strtotime($myCommunity->updated_at) }}" class="card-img-top" alt="{{ $myCommunity->name }}">
         </a>
         <div class="card-body d-flex flex-column mt-3">
             <h5 class="card-title">{{ $myCommunity->name }}</h5>

@@ -41,7 +41,6 @@ class CommunityController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'contact_url' => 'url|nullable',
             'logo' => 'mimes:jpg,jpeg,png|max:1048|nullable',
         ]);
 
@@ -59,14 +58,14 @@ class CommunityController extends Controller
             $logo_name = "default.png";
         }
 
-        $community = Community::updateOrCreate([
-            'user_id' => $user->id,
-        ], [
+        $community = Community([
             'name' => $request->name,
             'description' => $request->description,
-            'contact_url' => $request->contact_url,
             'logo' => $logo_name,
+            'user_id' => $user->id
         ]);
+
+        $community->save();
 
         return response()->json($community, 200);
     }
@@ -99,7 +98,43 @@ class CommunityController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $community = Community::find($id);
+
+        if (!$community) {
+            return response()->json(['error' => 'Comunidad no encontrada'], 404);
+        }
+
+        $validatedData = $request->validate([
+            'name' => 'sometimes|required|string|min:2',
+            'description' => 'sometimes|string|nullable',
+            'whatsapp' => 'sometimes|string|nullable',
+            'instagram' => 'sometimes|string|nullable',
+            'tiktok' => 'sometimes|string|nullable',
+            'youtube' => 'sometimes|string|nullable',
+            'discord' => 'sometimes|string|nullable',
+            'website' => 'sometimes|string|nullable',
+            'logo' => 'sometimes|required|mimes:jpg,jpeg,png|max:1048'
+        ]);
+        
+        if ($request->has('logo')) {
+            $user = auth()->user();
+
+            $logo = $request->file('logo');
+            $ext = $logo->guessExtension();
+            $logo_name = "logo_$user->id.$ext";
+
+            Storage::disk('public')->put("communities/$logo_name",  File::get($logo));
+            
+            $community->logo = $logo_name;
+        } else {
+            $logo_name = $community->logo ?: 'default.png';
+        }
+
+        unset($validatedData['logo']);
+
+        $community->update($validatedData);
+
+        return response()->json($community, 200);
     }
 
     /**

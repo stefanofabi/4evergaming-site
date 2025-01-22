@@ -68,7 +68,10 @@ Route::group([
     Route::get('show/{id}', [CommunityController::class, 'show'])->name('show');
 
     Route::post('store', [CommunityController::class, 'store'])->name('store')->middleware('auth');
-    Route::post('update', [CommunityController::class, 'update'])->name('update')->middleware('auth');
+    Route::put('update/{id}', [CommunityController::class, 'update'])->name('update')
+    ->middleware('auth')
+    ->middleware('user_have_community')
+    ->middleware('verify_community_owner');
 });
 
 Route::group([
@@ -82,13 +85,13 @@ Route::group([
     ->where('id', '[1-9][0-9]*')
     ->middleware('auth')
     ->middleware('user_have_community')
-    ->middleware('verify_owner');
+    ->middleware('verify_server_owner');
 
     Route::delete('delete/{id}', [ServerController::class, 'destroy'])->name('destroy')
     ->where('id', '[1-9][0-9]*')
     ->middleware('auth')
     ->middleware('user_have_community')
-    ->middleware('verify_owner');
+    ->middleware('verify_server_owner');
 
     Route::get('search/{game}', [ServerController::class, 'search'])->name('search');
 

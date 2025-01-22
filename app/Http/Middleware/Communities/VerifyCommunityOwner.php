@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Middleware\Servers;
+namespace App\Http\Middleware\Communities;
 
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class VerifyOwner
+class VerifyCommunityOwner
 {
     /**
      * Handle an incoming request.
@@ -17,12 +17,9 @@ class VerifyOwner
     {
         $user = auth()->user();
 
-        foreach ($user->community->servers as $server) {
-            if ($server->id == $request->id) {
-                return $next($request);
-            }
-        }
-        
-        return response()->json(['errors' => true, 'message' => 'No sos el propietario del servidor'], 412);
+        if ($user->community->id == $request->id)
+            return $next($request);
+
+        return response()->json(['errors' => true, 'message' => 'No sos el propietario de la Comunidad'], 412);
     }
 }
