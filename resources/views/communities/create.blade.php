@@ -74,13 +74,6 @@
             </div>
 
             <div class="form-group mt-2 col-md-9">
-                  <label for="name" class="fw-bold"> Página web / Discord / Redes Sociales / Grupo WhatsApp / Etc. </label>
-                  <input type="url" class="form-control" name="contact_url" id="contact_url" value="" aria-describedby="websiteHelp" @guest disabled @endguest>
-
-                  <small id="websiteHelp" class="form-text text-muted"> Dejanos un enlace para invitar a futuros jugadores a unirse a tu Comunidad </small>
-            </div>
-
-            <div class="form-group mt-2 col-md-9">
                   <label for="name" class="fw-bold"> Logo </label>
                   <input type="file" class="form-control" name="logo" id="logo" value="" aria-describedby="logoHelp" @guest disabled @endguest>
 

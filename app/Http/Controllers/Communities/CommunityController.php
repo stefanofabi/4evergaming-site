@@ -37,8 +37,6 @@ class CommunityController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
         $request->validate([
             'name' => 'required',
             'logo' => 'mimes:jpg,jpeg,png|max:1048|nullable',
@@ -52,23 +50,22 @@ class CommunityController extends Controller
             $ext = $logo->guessExtension();
             $logo_name = "logo_$user->id.$ext";
 
-            Storage::disk('public')->put("communities/$logo_name",  File::get($logo));
+            Storage::disk('public')->put("communities/$logo_name", File::get($logo));
         } else 
         {
             $logo_name = "default.png";
         }
 
-        $community = Community([
-            'name' => $request->name,
-            'description' => $request->description,
-            'logo' => $logo_name,
-            'user_id' => $user->id
-        ]);
-
+        $community = new Community();
+        $community->name = $request->name;
+        $community->description = $request->description;
+        $community->logo = $logo_name;
+        $community->user_id = $user->id;
         $community->save();
 
         return response()->json($community, 200);
     }
+
 
     /**
      * Display the specified resource.
