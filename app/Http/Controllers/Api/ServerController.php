@@ -26,7 +26,6 @@ class ServerController extends Controller
     public function show(Request $request)
     {
         $request->validate([
-            'game' => 'required',
             'ip' => 'required|ip',
             'port' => 'required|numeric|min:0|max:65535',
         ]);
@@ -37,7 +36,30 @@ class ServerController extends Controller
             return response()->json(['message' => 'No existe este servidor en nuestra base de datos'], 404);
         }
 
-        return response()->json($server);
+        $gameTags = $server->serverTags->map(function ($serverTag) {
+            return $serverTag->gameTag->name;
+        });
+
+        $favoriteMaps = $server->favoriteMaps->pluck('map')->unique();
+
+        return response()->json([
+            'hostname' => $server->hostname,
+            'ip' => $server->ip .':'. $server->port, 
+            'game' => $server->game->name,
+            'rank' => $server->rank,
+            'map' => $server->map,
+            'num_players' => $server->num_players,
+            'max_players' => $server->max_players,
+            'status' => $server->status,
+            'join_link' => $server->join_link,
+            'community' => $server->community->name,
+            'country' => $server->country->name,
+            'vars' => $server->vars,
+            'server_tags' => $gameTags,
+            'favorite_maps' => $this->getTopMapsStatistics($server->id),
+            'online_players_history' => $this->getOnlinePlayerStatistics($server->id),
+            'player_ranking' => $this->getRankings($server->id)
+        ]);
     }
 
     public function updateAll(Request $request) 
@@ -109,4 +131,120 @@ class ServerController extends Controller
 
         echo "Actualizacion completada <br />";
     }
+
+    /**
+     * Get the statistics of the top 9 most played maps of a server and the "others" category.
+     *
+     * @param int $serverId The ID of the server.
+     * @return array An array containing the names of the maps and their percentages, including the "others" category.
+     */
+    function getTopMapsStatistics($serverId)
+    {
+        $server = Server::find($serverId); // Assumes you have the server's ID
+
+        $favoriteMaps = $server->favoriteMaps;
+
+        // Count the occurrences of each map
+        $mapCounts = $favoriteMaps->groupBy('map')->map(function ($group) {
+            return $group->count(); // Count how many times each map appears
+        });
+
+        // Sort the maps by their count in descending order
+        $sortedMaps = $mapCounts->sortDesc();
+
+        // Get the top 9 most played maps
+        $topMaps = $sortedMaps->take(9);
+
+        // Sum the count of the remaining maps as "others"
+        $otherMapsCount = $sortedMaps->slice(9)->sum();
+
+        // Get the total number of maps
+        $totalMaps = $favoriteMaps->count();
+
+        // Calculate the percentage for each map
+        $mapPercentages = $topMaps->mapWithKeys(function ($count, $map) use ($totalMaps) {
+            return [$map => round(($count / $totalMaps) * 100, 2)]; 
+        });
+
+        // Add the "others" category with its percentage
+        $mapPercentages['others'] = round(($otherMapsCount / $totalMaps) * 100, 2);
+
+        // Return the statistics as an array
+        return $mapPercentages->toArray();
+    }
+
+    public function getOnlinePlayerStatistics($serverId)
+    {
+        $server = Server::findOrFail($serverId);
+
+        $dailyStats = $this->getStatsByPeriod($server, 'day');
+        $monthlyStats = $this->getStatsByPeriod($server, 'month');
+        $yearlyStats = $this->getStatsByPeriod($server, 'year');
+        
+        return [
+            'daily' => $dailyStats,
+            'monthly' => $monthlyStats,
+            'yearly' => $yearlyStats,
+        ];
+    }
+
+    /**
+     * Get statistics grouped by the given period (day, month, year).
+     *
+     * @param $server
+     * @param $period
+     * @return array
+     */
+    private function getStatsByPeriod($server, $period)
+    {
+        $query = $server->onlinePlayerHistories();
+
+        switch ($period) {
+            case 'day':
+                $stats = $query->select(DB::raw('DATE(created_at) as date'), DB::raw('CEIL(AVG(count)) as avg_count'))
+                            ->groupBy(DB::raw('DATE(created_at)'))
+                            ->orderBy('date')
+                            ->get()
+                            ->pluck('avg_count', 'date');
+                break;
+
+            case 'month':
+                $stats = $query->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), DB::raw('CEIL(AVG(count)) as avg_count'))
+                            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
+                            ->orderBy('month')
+                            ->get()
+                            ->pluck('avg_count', 'month');
+                break;
+
+            case 'year':
+                $stats = $query->select(DB::raw('YEAR(created_at) as year'), DB::raw('CEIL(AVG(count)) as avg_count'))
+                            ->groupBy(DB::raw('YEAR(created_at)'))
+                            ->orderBy('year')
+                            ->get()
+                            ->pluck('avg_count', 'year');
+                break;
+        }
+
+        return $stats->toArray();
+    }
+
+    /**
+     * Get the player rankings for the specific server, ordered by score descending.
+     *
+     * @param $serverId
+     * @param int $limit - (Optional) Limit the number of rankings to return
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getRankings($serverId, $limit = 10)
+    {
+        $server = Server::findOrFail($serverId);
+
+        $rankings = $server->playerRankings()
+            ->orderByDesc('score')
+            ->limit($limit) 
+            ->get(['name', 'score', 'time']); 
+
+        return $rankings;
+    }
+
 }
