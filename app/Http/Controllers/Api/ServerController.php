@@ -57,7 +57,13 @@ class ServerController extends Controller
             'vars' => $server->vars,
             'server_tags' => $gameTags,
             'favorite_maps' => $this->getTopMapsStatistics($server->id),
-            'online_players_history' => $this->getOnlinePlayerStatistics($server->id),
+            'online_players_history' => [
+                '30_days' => json_decode($server->stats_30_days, true),
+                '1_year' => json_decode($server->stats_1_year, true),
+                '3_years' => json_decode($server->stats_3_years, true),
+                '5_years' => json_decode($server->stats_5_years, true),
+                '10_years' => json_decode($server->stats_10_years, true),
+            ],
             'player_ranking' => $this->getRankings($server->id)
         ]);
     }
@@ -171,61 +177,6 @@ class ServerController extends Controller
 
         // Return the statistics as an array
         return $mapPercentages->toArray();
-    }
-
-    public function getOnlinePlayerStatistics($serverId)
-    {
-        $server = Server::findOrFail($serverId);
-
-        $dailyStats = $this->getStatsByPeriod($server, 'day');
-        $monthlyStats = $this->getStatsByPeriod($server, 'month');
-        $yearlyStats = $this->getStatsByPeriod($server, 'year');
-        
-        return [
-            'daily' => $dailyStats,
-            'monthly' => $monthlyStats,
-            'yearly' => $yearlyStats,
-        ];
-    }
-
-    /**
-     * Get statistics grouped by the given period (day, month, year).
-     *
-     * @param $server
-     * @param $period
-     * @return array
-     */
-    private function getStatsByPeriod($server, $period)
-    {
-        $query = $server->onlinePlayerHistories();
-
-        switch ($period) {
-            case 'day':
-                $stats = $query->select(DB::raw('DATE(created_at) as date'), DB::raw('CEIL(AVG(count)) as avg_count'))
-                            ->groupBy(DB::raw('DATE(created_at)'))
-                            ->orderBy('date')
-                            ->get()
-                            ->pluck('avg_count', 'date');
-                break;
-
-            case 'month':
-                $stats = $query->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), DB::raw('CEIL(AVG(count)) as avg_count'))
-                            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
-                            ->orderBy('month')
-                            ->get()
-                            ->pluck('avg_count', 'month');
-                break;
-
-            case 'year':
-                $stats = $query->select(DB::raw('YEAR(created_at) as year'), DB::raw('CEIL(AVG(count)) as avg_count'))
-                            ->groupBy(DB::raw('YEAR(created_at)'))
-                            ->orderBy('year')
-                            ->get()
-                            ->pluck('avg_count', 'year');
-                break;
-        }
-
-        return $stats->toArray();
     }
 
     /**

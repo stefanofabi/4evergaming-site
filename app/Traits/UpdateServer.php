@@ -66,7 +66,7 @@ trait UpdateServer {
 
             $now = Carbon::now();
 
-            // Procesar las estadísticas para cada rango de tiempo
+            // Process statistics for each time range
             $ranges = [
                 'stats_30_days' => 30,
                 'stats_1_year' => 12,
@@ -83,15 +83,21 @@ trait UpdateServer {
             
                 // Group by days (for 30 days) or by months (for the rest)
                 if ($key == 'stats_30_days') {
-                    $stats = $stats->filter(fn($record) => Carbon::parse($record['date'])->diffInDays($now) < $limit);
+                    $stats = $stats->filter(fn($record) => Carbon::parse($record['date'])->diffInDays($now) < $limit)
+                        ->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m-d'))
+                        ->map(fn($group) => [
+                            'date' => $group->first()['date'], 
+                            'count' => ceil($group->avg('count')),
+                        ])
+                        ->values();
                 } else {
-                    // Group by month (Y-m) and get the average of records per month
                     $stats = $stats->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m'))
                         ->map(fn($group) => [
                             'date' => $group->first()['date'], 
-                            'count' => $group->avg('count'), 
+                            'count' => ceil($group->avg('count')), 
                         ])
-                        ->slice(-$limit);  
+                        ->slice(-$limit)
+                        ->values();
                 }
             
                 // Ensure that logs are properly formatted and dated
