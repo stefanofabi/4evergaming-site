@@ -62,13 +62,49 @@ trait UpdateServer {
             ]);
 
             // delete history of connected players from the last 30 days
-            $server->onlinePlayerHistories()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
+            //$server->onlinePlayerHistories()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
 
+            $now = Carbon::now();
+
+            // Procesar las estadísticas para cada rango de tiempo
+            $ranges = [
+                'stats_30_days' => 30,
+                'stats_1_year' => 12,
+                'stats_3_years' => 36,
+                'stats_5_years' => 60,
+                'stats_10_years' => 120,
+            ];
+            
+            foreach ($ranges as $key => $limit) {
+                $stats = collect(json_decode($server->{$key}, true) ?? []);
+            
+                // Record the current data
+                $stats->push(['date' => $now->toDateString(), 'count' => $server->num_players]);
+            
+                // Group by days (for 30 days) or by months (for the rest)
+                if ($key == 'stats_30_days') {
+                    $stats = $stats->filter(fn($record) => Carbon::parse($record['date'])->diffInDays($now) < $limit);
+                } else {
+                    // Group by month (Y-m) and get the average of records per month
+                    $stats = $stats->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m'))
+                        ->map(fn($group) => [
+                            'date' => $group->first()['date'], 
+                            'count' => $group->avg('count'), 
+                        ])
+                        ->slice(-$limit);  
+                }
+            
+                // Ensure that logs are properly formatted and dated
+                $server->{$key} = $stats->values()->toJson();
+            }
+            
             // save data of offline players since the last update
             $playersCollection = new Collection($server->players);
                 
             foreach ($lastPlayers as $player) 
             {
+                if  (! isset($player['gq_time'])) continue;
+
                 $player_playing= $playersCollection->firstWhere('gq_name', $player['gq_name']);
                 
                 if ($player_playing) {
@@ -97,6 +133,8 @@ trait UpdateServer {
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
+
+            dd($e);
             
             return false;
         }
