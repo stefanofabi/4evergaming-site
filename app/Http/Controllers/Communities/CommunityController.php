@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Stevebauman\Purify\Facades\Purify;
 
 use App\Models\Community;
 
@@ -58,7 +59,7 @@ class CommunityController extends Controller
 
         $community = new Community();
         $community->name = $request->name;
-        $community->description = $request->description;
+        $community->description = Purify::clean($request->description);
         $community->logo = $logo_name;
         $community->user_id = $user->id;
         $community->save();
@@ -128,6 +129,8 @@ class CommunityController extends Controller
         }
 
         unset($validatedData['logo']);
+
+        $validatedData['description'] = Purify::clean($request->description);
 
         $community->update($validatedData);
 

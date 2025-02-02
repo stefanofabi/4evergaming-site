@@ -234,7 +234,7 @@
                 <img src="{{ asset('storage/communities/' . $community->logo) }}?t={{ strtotime($community->updated_at) }}" alt="{{ $community->name }} Logo">
             </div>
             <h1>{{ $community->name }}</h1>
-            <p class="lead">{{ $community->description }}</p>
+            <p class="lead">{!! $community->description !!}</p>
 
             <div class="community-links">
                 @if($community->whatsapp)
