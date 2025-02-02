@@ -35,11 +35,6 @@ trait UpdateServer {
             $server->vars = $server_info['var'];
             $server->players = $server_info['players'];
 
-            // calculate points
-            //$server->rank_points += $server->num_players;
-            //$server->rank_points = round(($server->rank_points + $server->num_players) / 2); 
-            $server->rank_points = round(($server->rank_points + $server->onlinePlayerHistories()->avg('count')) / 2);
-
             // add to the favorite maps counter
             $lastMapUpdated = $server->favoriteMaps()->orderBy('updated_at', 'DESC')->first();
             $map_changed = is_null($lastMapUpdated) || $lastMapUpdated->map != $server->map;
@@ -133,6 +128,17 @@ trait UpdateServer {
 
             // delete records of players who have not entered in the last 30 days
             $server->playerRankings()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
+
+            // calculate points
+            //$server->rank_points += $server->num_players;
+            //$server->rank_points = round(($server->rank_points + $server->num_players) / 2); 
+            //$server->rank_points = round(($server->rank_points + $server->onlinePlayerHistories()->avg('count')) / 2);
+            $stats5Years = json_decode($server->stats_5_years, true) ?? [];
+
+            if (!empty($stats5Years)) {
+                $averageCount = round(collect($stats5Years)->pluck('count')->avg());
+                $server->rank_points = round(($server->rank_points + $averageCount) / 2);
+            }
 
             $server->saveOrFail();
 
