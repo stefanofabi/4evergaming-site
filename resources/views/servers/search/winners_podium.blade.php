@@ -22,11 +22,11 @@
 }
 
 .winner-image {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #000000;
+      width: 400px;
+      height: 200px;
+      //border-radius: 50%;
+      object-fit: contain;
+      //border: 3px solid #000000;
       margin-bottom: 10px;
     }
 
