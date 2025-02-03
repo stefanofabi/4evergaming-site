@@ -46,7 +46,7 @@
     <div class="w-100 p-0 p-md-3">
         <div class="text-center"> 
           @if ($top_servers->skip(1)->take(1)->first()) 
-          <img class="winner-image img-fluid" src="{{ asset('storage/communities/'.$top_servers->skip(1)->take(1)->first()->logo) }}" alt="Ganador 2">
+          <a href="{{ route('communities/show', ['id' => $top_servers->skip(1)->take(1)->first()->community_id]) }}"> <img class="winner-image img-fluid" src="{{ asset('storage/communities/'.$top_servers->skip(1)->take(1)->first()->logo) }}" alt="Ganador 2">  </a>
           @else 
           <img class="winner-image img-fluid" src="{{ asset('storage/communities/default.png') }}" alt="Ganador 2">
           @endif
@@ -58,8 +58,8 @@
 
     <div class="w-100 p-0 p-md-3">
         <div class="text-center"> 
-            @if ($top_servers->skip(1)->take(1)->first()) 
-            <img class="winner-image img-fluid" src="{{ asset('storage/communities/'.$top_servers->first()->logo) }}" alt="Ganador 1">
+            @if ($top_servers->first()) 
+            <a href="{{ route('communities/show', ['id' => $top_servers->first()->community_id]) }}"> <img class="winner-image img-fluid" src="{{ asset('storage/communities/'.$top_servers->first()->logo) }}" alt="Ganador 1"> </a>
             @else 
             <img class="winner-image img-fluid" src="{{ asset('storage/communities/default.png') }}" alt="Ganador 1">
             @endif
@@ -79,10 +79,11 @@
     <div class="w-100 p-0 p-md-3">
         <div class="text-center"> 
             @if ($top_servers->skip(2)->take(1)->first())
-            <img class="winner-image img-fluid" src="{{ asset('storage/communities/'.$top_servers->skip(2)->take(1)->first()->logo ?? 'storage/communities/default.png') }}" alt="Ganador 3">
+            <a href="{{ route('communities/show', ['id' => $top_servers->skip(2)->take(1)->first()->community_id]) }}"> <img class="winner-image img-fluid" src="{{ asset('storage/communities/'.$top_servers->skip(2)->take(1)->first()->logo ?? 'storage/communities/default.png') }}" alt="Ganador 3"> </a>
             @else 
             <img class="winner-image img-fluid" src="{{ asset('storage/communities/default.png') }}" alt="Ganador 3">
             @endif
+
             <div class="text-center fs-2 m-1"> {{ $top_servers->skip(2)->take(1)->first()->name ?? 'Vacante' }} </div>
         </div>
 

@@ -162,11 +162,11 @@ class ServerController extends Controller
         })->orderBy('rank', 'ASC')
         ->get();
         
-        $top_servers = Server::selectRaw('MIN(servers.rank) as rank, communities.name, communities.logo')
+        $top_servers = Server::selectRaw('MIN(servers.rank) as rank, communities.id as community_id, communities.name, communities.logo')
         ->join('communities', 'servers.community_id', '=', 'communities.id')
         ->where('servers.game_id', $game->id)
         ->where('communities.name', '<>', '4evergaming')
-        ->groupBy('servers.community_id', 'communities.name', 'communities.logo') 
+        ->groupBy('communities.id', 'communities.name', 'communities.logo') 
         ->orderBy('rank', 'ASC')
         ->limit(3)
         ->get();
