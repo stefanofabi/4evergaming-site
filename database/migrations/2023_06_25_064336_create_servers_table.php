@@ -33,6 +33,12 @@ return new class extends Migration
             
             $table->unsignedBigInteger('failed_attempts')->default(0);
 
+            $table->json('stats_30_days');
+            $table->json('stats_1_year');
+            $table->json('stats_3_years');
+            $table->json('stats_5_years');
+            $table->json('stats_10_years');
+            
             $table->unique(['ip', 'port']);
             $table->unique(['rank', 'game_id']);
 
