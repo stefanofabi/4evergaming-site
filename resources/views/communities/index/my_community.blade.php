@@ -8,7 +8,7 @@
             <h5 class="card-title">{{ $myCommunity->name }}</h5>
             <p class="card-text text-muted">
                 @if ($myCommunity->description)
-                    {{ Str::limit($myCommunity->description, 120) }}
+                    {!! $myCommunity->description!!}
                 @endif
             </p>
 
