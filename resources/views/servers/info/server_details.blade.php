@@ -93,7 +93,7 @@
             </div>
 
             <div class="col-md">
-                <div class="fs-5 mt-md-5 mt-3"> <strong> Nombre: </strong> {{ $server->community->name }} </div>
+                <div class="fs-4 mt-md-5 mt-3"> {{ $server->community->name }} </div>
 
                 <p class="mt-1"> {!! $server->community->description !!} </p>
             </div>
