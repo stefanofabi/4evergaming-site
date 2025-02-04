@@ -71,7 +71,7 @@ trait UpdateServer {
             ];
             
             foreach ($ranges as $key => $limit) {
-                $stats = collect(json_decode($server->{$key}, true) ?? []);
+                $stats = collect($server->{$key} ?? []);
             
                 // Record the current data
                 $stats->push(['date' => $now->toDateString(), 'count' => $server->num_players]);
