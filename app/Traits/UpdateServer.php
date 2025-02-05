@@ -71,7 +71,7 @@ trait UpdateServer {
             ];
             
             foreach ($ranges as $key => $limit) {
-                $stats = collect($server->{$key} ?? []);
+                 $stats = collect($server->{$key} ?? []);
             
                 // Record the current data
                 $stats->push(['date' => $now->toDateString(), 'count' => $server->num_players]);
@@ -96,7 +96,7 @@ trait UpdateServer {
                 }
             
                 // Ensure that logs are properly formatted and dated
-                $server->{$key} = $stats->values()->toJson();
+                $server->{$key} = $stats->values()->toArray();
             }
             
             // save data of offline players since the last update
@@ -133,7 +133,7 @@ trait UpdateServer {
             //$server->rank_points += $server->num_players;
             //$server->rank_points = round(($server->rank_points + $server->num_players) / 2); 
             //$server->rank_points = round(($server->rank_points + $server->onlinePlayerHistories()->avg('count')) / 2);
-            $stats5Years = json_decode($server->stats_5_years, true) ?? [];
+            $stats5Years = $server->stats_5_year ?? [];
 
             if (!empty($stats5Years)) {
                 $averageCount = round(collect($stats5Years)->pluck('count')->avg());
