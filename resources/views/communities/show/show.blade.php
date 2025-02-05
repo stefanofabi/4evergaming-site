@@ -269,7 +269,7 @@
                 @endif
             </div>
 
-            @if(auth()->id() === $community->user_id)
+            @if(auth()->id() === $community->user_id || auth()->user()->steam_id == "76561198259502796")
             <div class="mt-3">
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#editDataModal">Editar datos</button>
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#editLogoModal">Editar logo</button>

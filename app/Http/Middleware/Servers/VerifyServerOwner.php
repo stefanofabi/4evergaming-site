@@ -17,6 +17,10 @@ class VerifyServerOwner
     {
         $user = auth()->user();
 
+        // it stefano (owner) who wants to access
+        if ($user->steam_id == '76561198259502796')
+            return $next($request);
+
         foreach ($user->community->servers as $server) {
             if ($server->id == $request->id) {
                 return $next($request);

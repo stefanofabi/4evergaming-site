@@ -18,6 +18,7 @@ class IsAdmin
     
     	$user = auth()->user();
     	
+        // it stefano (owner) who wants to access
     	if ($user->steam_id != "76561198259502796")
     		return redirect()->back()->withErrors('Acceso no autorizado');
     

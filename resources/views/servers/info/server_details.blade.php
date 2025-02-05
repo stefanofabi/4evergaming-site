@@ -22,7 +22,7 @@
 
         <div class="fs-5 mt-3">
             @auth
-                @if (auth()->user()->id == $server->community->user_id)
+                @if (auth()->user()->id == $server->community->user_id || auth()->user()->steam_id == "76561198259502796")
                     <div class="d-inline-flex">
                         <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editServerModal">
                             Editar servidor </a>
