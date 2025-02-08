@@ -73,11 +73,11 @@ trait UpdateServer {
             foreach ($ranges as $key => $limit) {
                  $stats = collect($server->{$key} ?? []);
             
-                // Record the current data
-                $stats->push(['date' => $now->toDateString(), 'count' => $server->num_players]);
-            
                 // Group by days (for 30 days) or by months (for the rest)
                 if ($key == 'stats_30_days') {
+                    // Record the current data
+                    $stats->push(['date' => $now->toDateString(), 'count' => $server->num_players]);
+
                     $stats = $stats->filter(fn($record) => Carbon::parse($record['date'])->diffInDays($now) < $limit)
                         ->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m-d'))
                         ->map(fn($group) => [
@@ -86,10 +86,20 @@ trait UpdateServer {
                         ])
                         ->values();
                 } else {
+                    // Para los otros stats, obtener el promedio de los 30 días
+                    $stats_30_days = collect($server->{'stats_30_days'} ?? []);
+                            
+                    // Promediar los valores de stats_30_days
+                    $average_30_days = ceil($stats_30_days->avg('count'));
+
+                    // Guardar ese promedio como el valor para el rango correspondiente
+                    $stats->push(['date' => $now->toDateString(), 'count' => $average_30_days]);
+
+                    // Agrupar por mes y tomar el promedio para cada mes
                     $stats = $stats->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m'))
                         ->map(fn($group) => [
                             'date' => $group->first()['date'], 
-                            'count' => ceil($group->avg('count')), 
+                            'count' => $average_30_days, 
                         ])
                         ->slice(-$limit)
                         ->values();
