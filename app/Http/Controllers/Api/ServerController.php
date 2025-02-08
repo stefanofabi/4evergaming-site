@@ -58,11 +58,11 @@ class ServerController extends Controller
             'server_tags' => $gameTags,
             'favorite_maps' => $this->getTopMapsStatistics($server->id),
             'online_players_history' => [
-                '30_days' => json_decode($server->stats_30_days, true),
-                '1_year' => json_decode($server->stats_1_year, true),
-                '3_years' => json_decode($server->stats_3_years, true),
-                '5_years' => json_decode($server->stats_5_years, true),
-                '10_years' => json_decode($server->stats_10_years, true),
+                '30_days' => $server->stats_30_days,
+                '1_year' => $server->stats_1_year,
+                '3_years' => $server->stats_3_years,
+                '5_years' => $server->stats_5_years,
+                '10_years' => $server->stats_10_years,
             ],
             'player_ranking' => $this->getRankings($server->id)
         ]);
