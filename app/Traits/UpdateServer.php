@@ -139,7 +139,7 @@ trait UpdateServer {
             //$server->rank_points += $server->num_players;
             //$server->rank_points = round(($server->rank_points + $server->num_players) / 2); 
             //$server->rank_points = round(($server->rank_points + $server->onlinePlayerHistories()->avg('count')) / 2);
-            $stats5Years = $server->stats_5_year ?? [];
+            $stats5Years = $server->stats_5_years ?? [];
 
             if (!empty($stats5Years)) {
                 $averageCount = round(collect($stats5Years)->pluck('count')->avg());
