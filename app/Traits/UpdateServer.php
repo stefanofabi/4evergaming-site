@@ -86,16 +86,12 @@ trait UpdateServer {
                         ])
                         ->values();
                 } else {
-                    // Para los otros stats, obtener el promedio de los 30 días
                     $stats_30_days = collect($server->{'stats_30_days'} ?? []);
                             
-                    // Promediar los valores de stats_30_days
                     $average_30_days = ceil($stats_30_days->avg('count'));
 
-                    // Guardar ese promedio como el valor para el rango correspondiente
                     $stats->push(['date' => $now->toDateString(), 'count' => $average_30_days]);
 
-                    // Agrupar por mes y tomar el promedio para cada mes
                     $stats = $stats->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m'))
                         ->map(fn($group) => [
                             'date' => $group->first()['date'], 
