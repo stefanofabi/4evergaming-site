@@ -55,6 +55,7 @@ class ServerStatusController extends Controller
                         $disk = $data->pluck('disk');
                         $disk_read = $data->pluck('disk_read');
                         $disk_write = $data->pluck('disk_write');
+                        $disk_wait = $data->pluck('disk_wait');
                         $network_receive = $data->pluck('network_receive');
                         $network_transmit = $data->pluck('network_transmit');
                         $cpu_temp = $data->pluck('cpu_temp');
@@ -67,6 +68,7 @@ class ServerStatusController extends Controller
                             ->with('disk', $disk)
                             ->with('disk_read', $disk_read)
                             ->with('disk_write', $disk_write)
+                            ->with('disk_wait', $disk_wait)
                             ->with('network_receive', $network_receive)
                             ->with('network_transmit', $network_transmit)
                             ->with('cpu_temp', $cpu_temp);

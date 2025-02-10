@@ -11,7 +11,7 @@ trait SystemStats {
     {
         return DB::connection($node)
             ->table('system_stats')
-            ->select(DB::raw('CONCAT(DAYNAME(timestamp), " ", DAY(timestamp), " ", DATE_FORMAT(timestamp, "%H:%i")) as measurement_date'), 'cpu', 'memory', 'swap', 'disk', 'disk_read', 'disk_write', 'network_receive', 'network_transmit', 'cpu_temp', 'timestamp')
+            ->select(DB::raw('CONCAT(DAYNAME(timestamp), " ", DAY(timestamp), " ", DATE_FORMAT(timestamp, "%H:%i")) as measurement_date'), 'cpu', 'memory', 'swap', 'disk', 'disk_read', 'disk_write', 'disk_wait', 'network_receive', 'network_transmit', 'cpu_temp', 'timestamp')
             ->where('timestamp', '>=', $fromDate)
             ->orderBy('timestamp', 'asc')
             ->get();

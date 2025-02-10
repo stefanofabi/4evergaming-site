@@ -199,57 +199,6 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
             }
         });
 
-        var memoryCtx  = document.getElementById('memoryChart');
-        var memoryChart = new Chart(memoryCtx, {
-            type: 'line',
-            data: {
-                labels: @json($timestamps),
-                datasets: [{
-                    label: 'Memoria',
-                    data: @json($memory),
-
-                    fill: false,
-                    pointRadius: 0,
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Hora'
-                        },
-                        ticks: {
-                            autoSkip: true,
-                            maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        min: 0,
-                        max: 100, 
-                        ticks: {
-                            callback: function(value, index, values) {
-                                return value + ' %';
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Uso de Memoria (%)'
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.raw.toFixed(2) + ' %';
-                            }
-                        }
-                    }
-                }
-            }
-        });
 
         // Gráfico de Disco
         var diskCtx = document.getElementById('diskChart');
@@ -325,6 +274,14 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
                     backgroundColor: 'rgba(255, 99, 132, 0.1)',
                     fill: false,
                     pointRadius: 0,
+                }, {
+                    label: 'Esperas de disco',
+                    data: @json($disk_wait),
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: false,
+                    pointRadius: 0,
+                    yAxisID: 'y1',  // Usa el eje Y derecho
                 }]
             },
             options: {
@@ -343,13 +300,27 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
                         beginAtZero: true,
                         ticks: {
                             callback: function(value, index, values) {
-                                return value + ' MB/s'; // Agrega el sufijo MB/s
+                                return value + ' MB/s'; // Agrega el sufijo MB/s para el eje izquierdo
                             }
                         },
                         title: {
                             display: true,
                             text: 'Uso de Disco (MB/s)'
                         }
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        max: 100,  // Limita el eje derecho a 100%
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + '%'; // Agrega el sufijo % para el eje derecho
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Esperas de Disco (%)'
+                        },
+                        position: 'right' // Coloca el eje a la derecha
                     }
                 },
                 plugins: {
@@ -360,7 +331,12 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
                                 if (label) {
                                     label += ': ';
                                 }
-                                label += context.raw.toFixed(2) + ' MB/s';
+                                // Si el dataset es de % (esperas de disco), muestra el valor como porcentaje
+                                if (context.dataset.label === 'Esperas de disco') {
+                                    label += context.raw.toFixed(2) + '%';
+                                } else {
+                                    label += context.raw.toFixed(2) + ' MB/s';
+                                }
                                 return label;
                             }
                         }
@@ -368,6 +344,7 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
                 }
             }
         });
+
 
         // Gráfico de Red
         var networkCtx = document.getElementById('networkChart');
