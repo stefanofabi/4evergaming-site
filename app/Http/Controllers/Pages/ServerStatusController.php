@@ -51,6 +51,7 @@ class ServerStatusController extends Controller
                         $timestamps = $data->pluck('measurement_date');
                         $cpu = $data->pluck('cpu');
                         $memory = $data->pluck('memory');
+                        $swap = $data->pluck('swap');
                         $disk = $data->pluck('disk');
                         $disk_read = $data->pluck('disk_read');
                         $disk_write = $data->pluck('disk_write');
@@ -62,6 +63,7 @@ class ServerStatusController extends Controller
                             ->with('timestamps', $timestamps)
                             ->with('cpu', $cpu)
                             ->with('memory', $memory)
+                            ->with('swap', $swap)
                             ->with('disk', $disk)
                             ->with('disk_read', $disk_read)
                             ->with('disk_write', $disk_write)

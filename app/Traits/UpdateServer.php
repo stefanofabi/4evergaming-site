@@ -152,8 +152,6 @@ trait UpdateServer {
         } catch (Exception $e) {
             DB::rollBack();
 
-            dd($e);
-            
             return false;
         }
 

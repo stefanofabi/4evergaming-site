@@ -143,7 +143,71 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
                     label: 'Memoria',
                     data: @json($memory),
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',    
+                    fill: false,
+                    pointRadius: 0,
+                }, {
+                    label: 'Swap',
+                    data: @json($swap),
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    fill: false,
+                    pointRadius: 0,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Hora'
+                        },
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10 // Ajusta el número máximo de etiquetas visibles
+                        }
+                    },
+                    y: {
+                        min: 0,
+                        max: 100,
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + '%';
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Uso de Memoria (%)'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.raw.toFixed(2) + '%';
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        var memoryCtx  = document.getElementById('memoryChart');
+        var memoryChart = new Chart(memoryCtx, {
+            type: 'line',
+            data: {
+                labels: @json($timestamps),
+                datasets: [{
+                    label: 'Memoria',
+                    data: @json($memory),
+
                     fill: false,
                     pointRadius: 0,
                 }]
