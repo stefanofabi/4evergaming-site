@@ -108,55 +108,32 @@ class ServerStatusController extends Controller
                     ];
                 }
         }
+
+        if (empty($node)) {
+            $totalOnlinePlayers = $this->getTotalOnlinePlayers();        
+            $view->with('totalOnlinePlayers', $totalOnlinePlayers);
+        }
         
         return $view->with('measurements', $measurements);
+            
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    private function getTotalOnlinePlayers() 
     {
-        //
+        return DB::table('servers')
+            ->select(
+                DB::raw("DATE_FORMAT(STR_TO_DATE(JSON_UNQUOTE(JSON_EXTRACT(json_obj, '$.date')), '%Y-%m-%d'), '%d %b %Y') AS date"),
+                DB::raw("SUM(CAST(JSON_UNQUOTE(JSON_EXTRACT(json_obj, '$.count')) AS UNSIGNED)) AS total_count")
+            )
+            ->join(
+                DB::raw('JSON_TABLE(servers.stats_30_days, "$[*]" COLUMNS (json_obj JSON PATH "$")) AS jt'),
+                DB::raw('1'), // Esto es necesario para poder usar el JSON_TABLE en MySQL, se hace como una "unión cruzada".
+                '=',
+                DB::raw('1')
+            )
+            ->groupBy(DB::raw("date"))
+            ->orderBy('date')
+            ->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
