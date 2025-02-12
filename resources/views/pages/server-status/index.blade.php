@@ -34,10 +34,21 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
 @endif
 @endsection
 
+@section('css')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container mt-5">
-    <h1 class="mb-4">Estado de los Servidores de Juegos</h1>
-    <p>Consulta a continuación el estado de nuestros servidores</p>
+    <h1 class="mb-4 d-flex align-items-center">
+        Estado de los Servidores de Juegos
+    </h1>
+    <p> 
+        Consulta a continuación el estado de nuestros servidores en 
+        <a href="https://chat.whatsapp.com/BC8FwByF4pvEZDyHC9aifM" target="_blank" class="ml-3">
+            WhatsApp
+        </a>
+    </p>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -73,15 +84,14 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
             </tbody>
         </table>
     </div>
+    
+    @if (empty($node))
+    <div class="container mt-4">
+        <h3>Jugadores en línea</h3>
+        <canvas id="onlinePlayerHistoryChart"></canvas>
+    </div>
+    @endif
 </div>
-
-
-@if (empty($node))
-<div class="container mt-4">
-    <h3>Jugadores en línea</h3>
-    <canvas id="onlinePlayerHistoryChart"></canvas>
-</div>
-@endif
 
 @if (!empty($node))
 <div class="container">
@@ -96,4 +106,5 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
     @endif
 </div>
 @endif
+
 @endsection
