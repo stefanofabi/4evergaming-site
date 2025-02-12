@@ -34,10 +34,6 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
 @endif
 @endsection
 
-@section('css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-@endsection
-
 @section('content')
 <div class="container mt-5">
     <h1 class="mb-4 d-flex align-items-center">
