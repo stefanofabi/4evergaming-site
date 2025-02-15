@@ -40,7 +40,7 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
         Estado de los Servidores de Juegos
     </h1>
     <p> 
-        Consulta a continuación el estado de nuestros servidores en 
+        Recibí también alertas de nuestros servidores en 
         <a href="https://chat.whatsapp.com/BC8FwByF4pvEZDyHC9aifM" target="_blank" class="ml-3">
             WhatsApp
         </a>
