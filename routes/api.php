@@ -27,4 +27,6 @@ Route::group([
     Route::get('servers/show', [ServerController::class, 'show'])->name('servers/show');
 
     Route::get('servers/update-all', [ServerController::class, 'updateAll'])->name('servers/update_all');
+
+    Route::get('servers/synchronize/{protocol}', [ServerController::class, 'synchronize'])->name('servers/synchronize');
 });

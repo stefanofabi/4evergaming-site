@@ -62,6 +62,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+
         'whmcs' => [
             'driver'    => env('DB_CONNECTION_WHMCS'),
             'host'      => env('DB_HOST_WHMCS'),
@@ -69,6 +70,15 @@ return [
             'database'  => env('DB_DATABASE_WHMCS'),
             'username'  => env('DB_USERNAME_WHMCS'),
             'password'  => env('DB_PASSWORD_WHMCS'),
+        ],
+
+        'tcadmin' => [
+            'driver'    => env('DB_CONNECTION_TCADMIN'),
+            'host'      => env('DB_HOST_TCADMIN'),
+            'port'      => env('DB_PORT_TCADMIN'),
+            'database'  => env('DB_DATABASE_TCADMIN'),
+            'username'  => env('DB_USERNAME_TCADMIN'),
+            'password'  => env('DB_PASSWORD_TCADMIN'),
         ],
 
         'chain' => [

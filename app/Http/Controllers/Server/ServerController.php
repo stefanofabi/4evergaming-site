@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Server;
 use App\Models\Game;
@@ -15,7 +16,6 @@ use App\Models\ServerTag;
 
 use App\Traits\ServerInfo;
 
-use DB;
 use Exception;
 
 class ServerController extends Controller

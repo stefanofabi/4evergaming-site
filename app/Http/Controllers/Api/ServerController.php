@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Server;
 use App\Models\Game;
+use App\Models\Community;
+use App\Models\Country;
 
 use App\Traits\ServerInfo;
 use App\Traits\UpdateServer;
 
-use DB;
+use Exception;
 
 class ServerController extends Controller
 {
@@ -198,4 +201,83 @@ class ServerController extends Controller
         return $rankings;
     }
 
+    public function synchronize(Request $request) 
+    {
+        $game = Game::where('protocol', $request->protocol)->firstOrFail();
+        
+        $community = Community::where('name', '4evergaming')->firstOrFail();
+
+        $country = Country::where('short_name', 'AR')->firstOrFail();
+
+        switch ($game->protocol) {
+            case 'cs16': {
+                $servers = DB::connection('tcadmin')
+                    ->table('tc_game_services')
+                    ->select('ip_address', 'game_port')
+                    ->whereIn('game_id', [120, 121, 122])
+                    ->get();
+
+                break;
+            }
+
+            default: {
+                echo 'Protocolo no disponible para sincronizar <br />';
+            }
+        }
+
+        $rank = Server::selectRaw('MAX(rank) as max_rank')->where('game_id', $game->id)->first()->max_rank + 1;
+    
+        foreach ($servers as $iServer) 
+        {
+            $exists = Server::where('ip', $iServer->ip_address)->where('port', $iServer->game_port)->first();
+
+            if ($exists) 
+            {
+                echo 'El servidor ya está registrado en la plataforma  <br />';
+                continue;
+            }
+
+            echo "Obteniendo datos del servidor $iServer->ip_address:$iServer->game_port  <br />";
+
+            $server_info = $this->getServerInfo($game->protocol, $iServer->ip_address, $iServer->game_port);
+
+            if (isset($server_info['errors']) || is_null($server_info['var']['gq_hostname'])) 
+            {
+                echo "Error al obtener la informacion del servidor  <br />";
+                continue;
+            }
+            
+            try {
+                
+                $server = new Server();
+                $server->ip = $iServer->ip_address;
+                $server->port = $iServer->game_port;
+                $server->server_address = $server_info['id'];
+                $server->hostname = $server_info['var']['gq_hostname'];
+                $server->map = $server_info['var']['gq_mapname'];
+                $server->num_players = $server_info['var']['gq_numplayers'];
+                $server->max_players = $server_info['var']['gq_maxplayers'];
+                $server->status = $server_info['var']['gq_online'];
+                $server->vars = $server_info['var'];
+                $server->players = $server_info['players'];
+                $server->join_link = $server_info['var']['gq_joinlink'];
+                $server->country_id = $country->id;
+                $server->game_id = $game->id;
+                $server->rank = ++$rank;
+                $server->community_id = $community->id;
+    
+                $server->save();
+    
+
+                echo 'Servidor guardado exitosamente <br />';
+            } catch (Exception $e) {
+                echo 'Error al registrar el servidor en la plataforma <br />';
+                echo $e->getMessage() . '<br />';
+
+                continue;
+            } 
+        }
+
+        echo "Servidores sincronizados";
+    }
 }
