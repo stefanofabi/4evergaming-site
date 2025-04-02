@@ -122,18 +122,20 @@ class ServerStatusController extends Controller
     {
         return DB::table('servers')
             ->select(
+                DB::raw("STR_TO_DATE(JSON_UNQUOTE(JSON_EXTRACT(json_obj, '$.date')), '%Y-%m-%d') AS original_date"),
                 DB::raw("DATE_FORMAT(STR_TO_DATE(JSON_UNQUOTE(JSON_EXTRACT(json_obj, '$.date')), '%Y-%m-%d'), '%d %b %Y') AS date"),
                 DB::raw("SUM(CAST(JSON_UNQUOTE(JSON_EXTRACT(json_obj, '$.count')) AS UNSIGNED)) AS total_count")
             )
             ->join(
                 DB::raw('JSON_TABLE(servers.stats_30_days, "$[*]" COLUMNS (json_obj JSON PATH "$")) AS jt'),
-                DB::raw('1'), // Esto es necesario para poder usar el JSON_TABLE en MySQL, se hace como una "unión cruzada".
+                DB::raw('1'),
                 '=',
                 DB::raw('1')
             )
-            ->groupBy(DB::raw("date"))
-            ->orderBy('date')
+            ->groupBy(DB::raw("original_date, date"))
+            ->orderBy(DB::raw("original_date"))
             ->get();
     }
+
 
 }
