@@ -104,6 +104,8 @@ class ServerController extends Controller
 
                     // punish if server is offline
                     $server->rank_points -= $server->max_players;
+
+                    $this->runStadistics($server);
                         
                     $server->save();
 

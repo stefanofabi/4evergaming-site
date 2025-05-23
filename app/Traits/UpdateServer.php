@@ -59,51 +59,7 @@ trait UpdateServer {
             // delete history of connected players from the last 30 days
             //$server->onlinePlayerHistories()->where('updated_at', '<=', Carbon::now()->subDays(30)->toDateString())->delete();
 
-            $now = Carbon::now();
-
-            // Process statistics for each time range
-            $ranges = [
-                'stats_30_days' => 30,
-                'stats_1_year' => 12,
-                'stats_3_years' => 36,
-                'stats_5_years' => 60,
-                'stats_10_years' => 120,
-            ];
-            
-            foreach ($ranges as $key => $limit) {
-                 $stats = collect($server->{$key} ?? []);
-            
-                // Group by days (for 30 days) or by months (for the rest)
-                if ($key == 'stats_30_days') {
-                    // Record the current data
-                    $stats->push(['date' => $now->toDateString(), 'count' => $server->num_players]);
-
-                    $stats = $stats->filter(fn($record) => Carbon::parse($record['date'])->diffInDays($now) < $limit)
-                        ->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m-d'))
-                        ->map(fn($group) => [
-                            'date' => $group->first()['date'], 
-                            'count' => ceil($group->avg('count')),
-                        ])
-                        ->values();
-                } else {
-                    $stats_30_days = collect($server->{'stats_30_days'} ?? []);
-                            
-                    $average_30_days = ceil($stats_30_days->avg('count'));
-
-                    $stats->push(['date' => $now->toDateString(), 'count' => $average_30_days]);
-
-                    $stats = $stats->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m'))
-                        ->map(fn($group) => [
-                            'date' => $group->first()['date'], 
-                            'count' => $average_30_days, 
-                        ])
-                        ->slice(-$limit)
-                        ->values();
-                }
-            
-                // Ensure that logs are properly formatted and dated
-                $server->{$key} = $stats->values()->toArray();
-            }
+            $this->runStadistics($server);
             
             // save data of offline players since the last update
             $playersCollection = new Collection($server->players);
@@ -156,5 +112,55 @@ trait UpdateServer {
         }
 
         return $server;
+    }
+
+
+    public function runStadistics(Server $server) 
+    {
+        $now = Carbon::now();
+
+        // Process statistics for each time range
+        $ranges = [
+            'stats_30_days' => 30,
+            'stats_1_year' => 12,
+            'stats_3_years' => 36,
+            'stats_5_years' => 60,
+            'stats_10_years' => 120,
+        ];
+            
+        foreach ($ranges as $key => $limit) {
+            $stats = collect($server->{$key} ?? []);
+            
+            // Group by days (for 30 days) or by months (for the rest)
+            if ($key == 'stats_30_days') {
+                // Record the current data
+                $stats->push(['date' => $now->toDateString(), 'count' => $server->num_players]);
+
+                $stats = $stats->filter(fn($record) => Carbon::parse($record['date'])->diffInDays($now) < $limit)
+                    ->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m-d'))
+                    ->map(fn($group) => [
+                        'date' => $group->first()['date'], 
+                        'count' => ceil($group->avg('count')),
+                    ])
+                    ->values();
+            } else {
+                $stats_30_days = collect($server->{'stats_30_days'} ?? []);
+                            
+                $average_30_days = ceil($stats_30_days->avg('count'));
+
+                $stats->push(['date' => $now->toDateString(), 'count' => $average_30_days]);
+
+                $stats = $stats->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m'))
+                    ->map(fn($group) => [
+                        'date' => $group->first()['date'], 
+                        'count' => $average_30_days, 
+                    ])
+                    ->slice(-$limit)
+                    ->values();
+            }
+            
+            // Ensure that logs are properly formatted and dated
+            $server->{$key} = $stats->values()->toArray();
+        }
     }
 }
