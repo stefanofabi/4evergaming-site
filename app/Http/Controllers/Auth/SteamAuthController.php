@@ -2,85 +2,62 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Ilzrv\LaravelSteamAuth\SteamAuth;
-use Ilzrv\LaravelSteamAuth\SteamData;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\HttpFactory;
+use GuzzleHttp\Psr7\Uri;
+use Illuminate\Auth\AuthManager;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Ilzrv\LaravelSteamAuth\Exceptions\Authentication\SteamResponseNotValidAuthenticationException;
+use Ilzrv\LaravelSteamAuth\Exceptions\Validation\ValidationException;
+use Ilzrv\LaravelSteamAuth\SteamAuthenticator;
+use Ilzrv\LaravelSteamAuth\SteamUserDto;
 
-class SteamAuthController extends Controller
+final class SteamAuthController
 {
-    /**
-     * The SteamAuth instance.
-     *
-     * @var SteamAuth
-     */
-    protected $steamAuth;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = "/";
-
-    /**
-     * SteamAuthController constructor.
-     *
-     * @param SteamAuth $steamAuth
-     */
-    public function __construct(SteamAuth $steamAuth)
-    {
-        $this->steamAuth = $steamAuth;
-    }
-
-    /**
-     * Get user data and login
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function login()
-    {
-        if (!$this->steamAuth->validate()) {
-            return $this->steamAuth->redirect();
-        }
-
-        $data = $this->steamAuth->getUserData();
-
-        if (is_null($data)) {
-            return $this->steamAuth->redirect();
-        }
-        $user = $this->updateOrCreate($data);
-        
-        if ($user->isBanned()) {
-            return redirect($this->redirectTo);
-        }
-
-        Auth::login(
-            $user,
-            true // remember me
+    public function __invoke(
+        Request $request,
+        Redirector $redirector,
+        Client $client,
+        HttpFactory $httpFactory,
+        AuthManager $authManager,
+    ): RedirectResponse {
+        $steamAuthenticator = new SteamAuthenticator(
+            new Uri($request->getUri()),
+            $client,
+            $httpFactory,
         );
 
-        return redirect($this->redirectTo);
+        try {
+            $steamAuthenticator->auth();
+        } catch (ValidationException|SteamResponseNotValidAuthenticationException) {
+            return $redirector->to(
+                $steamAuthenticator->buildAuthUrl()
+            );
+        }
+
+        $steamUser = $steamAuthenticator->getSteamUser();
+
+        $authManager->login(
+            $this->firstOrCreate($steamUser),
+            true
+        );
+
+        return $redirector->to('servers/index');
     }
 
-    /**
-     * Update the first user by SteamID or create new
-     *
-     * @param SteamData $data
-     * @return User|\Illuminate\Database\Eloquent\Model
-     */
-    protected function updateOrCreate(SteamData $data)
+    private function firstOrCreate(SteamUserDto $steamUser): User
     {
-        return User::updateOrCreate([
-            'steam_id' => $data->getSteamId(),
+        return User::firstOrCreate([
+            'steam_id' => $steamUser->getSteamId(),
         ], [
-            'name' => $data->getPersonaName(),
-            'avatar' => $data->getAvatar(),
-            'player_level' => $data->getPlayerLevel(),
-            'profile_url' => $data->getProfileUrl(),
-            'country_code' => $data->getLocCountryCode(),
+            'name' => $steamUser->getPersonaName(),
+            'avatar' => $steamUser->getAvatar(),
+            'player_level' => $steamUser->getPlayerLevel(),
+            'profile_url' => $steamUser->getProfileUrl(),
+            'country_code' => $steamUser->getLocCountryCode()
         ]);
     }
 }

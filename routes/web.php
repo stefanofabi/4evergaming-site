@@ -41,7 +41,7 @@ use App\Http\Controllers\Admin\FirewallController;
 require('old_urls.php');
 require('api.php');
 
-Route::get('login', [SteamAuthController::class, 'login'])->name('login');
+Route::get('login', SteamAuthController::class)->name('login');
 Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/', [PageController::class, 'index'])->name('index');
@@ -78,6 +78,8 @@ Route::group([
     'prefix' => 'servers',
     'as' => 'servers/',
 ], function () {
+
+    Route::get('', [ServerController::class, 'index'])->name('index');
     
     Route::post('store', [ServerController::class, 'store'])->name('store')->middleware('auth');
 

@@ -1,12 +1,5 @@
+// Variables
+@use 'variables' as *;
+
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
-
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import "~bootstrap/scss/bootstrap";
-
-@import '~swiper/swiper';
-@import '~swiper/modules/navigation/navigation';
-@import '~swiper/modules/pagination/pagination';

@@ -13,6 +13,7 @@ use App\Models\Server;
 use App\Models\Game;
 use App\Models\Country;
 use App\Models\ServerTag;
+use App\Models\Community;
 
 use App\Traits\ServerInfo;
 
@@ -28,6 +29,23 @@ class ServerController extends Controller
     public function index()
     {
         //
+
+        $games = Game::orderBy('name', 'ASC')->whereIn('protocol', ['cs16', 'mta', 'minecraft', 'cod2', 'l4d2', 'bf2', 'hl1', 'mohaa'])->get();
+
+        $servers = Server::orderBy('num_players', 'DESC')
+        ->whereHas('game', function ($query) {
+            $query->where('protocol', 'cs16');
+        })
+        ->orderBy('rank', 'ASC')
+        ->limit(3)
+        ->get();
+        
+        $communities = Community::has('servers')->orderBy('calification', 'desc')->take(4)->get();
+        
+        return view('gametracker.home.index')
+            ->with('games', $games)
+            ->with('communities', $communities)
+            ->with('servers', $servers);
     }
 
     /**
