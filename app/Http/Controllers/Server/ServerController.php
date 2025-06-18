@@ -170,8 +170,8 @@ class ServerController extends Controller
 
         $games = Game::orderBy('name', 'ASC')->get();
 
-        $gameTag = GameTag::where('game_id', $game->id)->where('name', $request->game_tag)->first();
-
+        $game_tag = GameTag::where('game_id', $game->id)->where('name', $request->game_tag)->first();
+        
         $filter = $request->filter;
 
         $servers = Server::where('game_id', $game->id)
@@ -205,6 +205,7 @@ class ServerController extends Controller
 
         return view('servers.search.index')
             ->with('game', $game)
+            ->with('game_tag', $game_tag)
             ->with('games', $games)
             ->with('servers', $servers)
             ->with('top_servers', $top_servers)
