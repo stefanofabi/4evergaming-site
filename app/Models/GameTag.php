@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class GameTag extends Model
 {
     use HasFactory;
+
+    /**
+    * Get the game associated with the server.
+    */
+        public function game() 
+    {
+        return $this->belongsTo(Game::class);
+    }
 }

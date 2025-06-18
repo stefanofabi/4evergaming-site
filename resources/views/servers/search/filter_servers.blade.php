@@ -14,16 +14,16 @@
         </div>
     </div>
 
- <!-- Botones dinámicos de gameTags debajo del buscador -->
-<div class="text-center mb-5">
-    <div class="d-flex flex-wrap justify-content-center gap-3">
+    <!-- Botones dinámicos de gameTags debajo del buscador -->
+    <div class="text-center mb-5">
+        <div class="d-flex flex-wrap justify-content-center gap-3">
 
-        @foreach ($game->gameTags as $gameTag)
-            <a href="" 
-               class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold shadow-sm transition">
-                {{ $gameTag->name }}
-            </a>
-        @endforeach
+            @foreach ($game->gameTags as $gameTag)
+                <a href="{{ route('servers/search', ['game' => $game->protocol, 'game_tag' => $gameTag->name]) }}" 
+                class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold shadow-sm transition">
+                    {{ $gameTag->name }}
+                </a>
+            @endforeach
 
+        </div>
     </div>
-</div>

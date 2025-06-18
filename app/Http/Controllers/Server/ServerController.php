@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Server;
 use App\Models\Game;
+use App\Models\GameTag;
 use App\Models\Country;
 use App\Models\ServerTag;
 use App\Models\Community;
@@ -169,16 +170,27 @@ class ServerController extends Controller
 
         $games = Game::orderBy('name', 'ASC')->get();
 
+        $gameTag = GameTag::where('game_id', $game->id)->where('name', $request->game_tag)->first();
+
         $filter = $request->filter;
 
         $servers = Server::where('game_id', $game->id)
-        ->where(function ($query) use ($filter) {
-            if (! empty($filter)) {
-                $query->orWhere("servers.server_address", "like", "%$filter%")
-                    ->orWhere("servers.hostname", "like", "%$filter%");
-            }
-        })->orderBy('rank', 'ASC')
+        ->when(!empty($filter), function ($query) use ($filter) {
+            $query->where(function ($q) use ($filter) {
+                $q->orWhere("servers.server_address", "like", "%$filter%")
+                ->orWhere("servers.hostname", "like", "%$filter%");
+            });
+        })
+        ->when(!empty($request->game_tag), function ($query) use ($request) {
+            $query->whereHas('serverTags', function ($q) use ($request) {
+                $q->whereHas('gameTag', function ($qq) use ($request) {
+                    $qq->where('name', $request->game_tag);
+                });
+            });
+        })
+        ->orderBy('rank', 'ASC')
         ->get();
+
         
         $top_servers = Server::selectRaw('MIN(servers.rank) as rank, communities.id as community_id, communities.name, communities.logo')
         ->join('communities', 'servers.community_id', '=', 'communities.id')

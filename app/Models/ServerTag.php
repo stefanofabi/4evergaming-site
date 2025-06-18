@@ -17,6 +17,6 @@ class ServerTag extends Model
 
     public function gameTag()
     {
-        return $this->belongsTo(GameTag::class, 'game_tag_id');
+        return $this->belongsTo(GameTag::class);
     }
 }
