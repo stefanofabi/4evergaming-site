@@ -33,13 +33,14 @@ class ServerController extends Controller
 
         $games = Game::orderBy('name', 'ASC')->whereIn('protocol', ['cs16', 'mta', 'minecraft', 'cod2', 'l4d2', 'bf2', 'hl1', 'mohaa'])->get();
 
-        $servers = Server::orderBy('num_players', 'DESC')
-        ->whereHas('game', function ($query) {
+        $servers = Server::whereHas('game', function ($query) {
             $query->where('protocol', 'cs16');
         })
+        ->orderBy('num_players', 'DESC')
         ->orderBy('rank', 'ASC')
-        ->limit(3)
-        ->get();
+        ->get()
+        ->unique('community_id')
+        ->take(3);
         
         $communities = Community::has('servers')->orderBy('calification', 'desc')->take(4)->get();
         
