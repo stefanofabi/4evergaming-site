@@ -237,8 +237,6 @@
                 </div>
             </div>
 
-            
-
             <div class="fs-5 text-light mb-3">
                 Jugadores <span id="num_players" class="fw-bold text-warning">{{ $server->num_players }}</span> / {{ $server->max_players }}
             </div>

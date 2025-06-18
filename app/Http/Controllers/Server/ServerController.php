@@ -36,6 +36,9 @@ class ServerController extends Controller
         $servers = Server::whereHas('game', function ($query) {
             $query->where('protocol', 'cs16');
         })
+        ->whereHas('community', function ($query) {
+            $query->where('name', '!=', '4evergaming');
+        })
         ->orderBy('num_players', 'DESC')
         ->orderBy('rank', 'ASC')
         ->get()

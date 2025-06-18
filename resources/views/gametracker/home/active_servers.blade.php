@@ -1,3 +1,24 @@
+@section('css')
+<style>
+    /* Glow suave para botones */
+    .btn-glow-light {
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        transition: box-shadow 0.3s ease;
+    }
+    .btn-glow-light:hover {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-glow-warning {
+        box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+        transition: box-shadow 0.3s ease;
+    }
+    .btn-glow-warning:hover {
+        box-shadow: 0 0 20px rgba(255, 193, 7, 0.9);
+    }
+</style>
+@append
+
 <div class="mb-5">
     <h2 class="text-light mb-4">🔥 <span class="text-warning">Servidores Destacados</span></h2>
     
@@ -15,7 +36,7 @@
                     </div>
 
                     <div class="card-body d-flex flex-column" style="padding-top: 3.5rem;">
-                        {{-- Nombre del servidor --}}
+                        {{-- Nombre de la Comunidad --}}
                         <h5 class="card-title text-warning fw-bold fs-3 text-uppercase mb-3" style="text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);">
                             {{ \Illuminate\Support\Str::limit($server->community->name, 20, '...') }}
                         </h5>
@@ -35,6 +56,14 @@
                              id="map"
                              width="400" 
                              style="object-fit: cover; max-height: 180px;" />
+
+                        <p class="mb-1 text-light fs-5 fw-semibold">
+                            @php
+                            $cleanHostname = Str::replace(strtoupper($server->community->name), '', strtoupper($server->hostname));
+                            @endphp
+
+                            {{ $cleanHostname }}
+                        </p>
 
                         <p class="mb-3 text-light fs-5" style="opacity: 0.9;">
                             IP: {{ $server->ip }}:{{ $server->port }}
@@ -58,24 +87,3 @@
         @endforeach
     </div>
 </div>
-
-@section('css')
-<style>
-    /* Glow suave para botones */
-    .btn-glow-light {
-        box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-        transition: box-shadow 0.3s ease;
-    }
-    .btn-glow-light:hover {
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
-    }
-
-    .btn-glow-warning {
-        box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
-        transition: box-shadow 0.3s ease;
-    }
-    .btn-glow-warning:hover {
-        box-shadow: 0 0 20px rgba(255, 193, 7, 0.9);
-    }
-</style>
-@append
