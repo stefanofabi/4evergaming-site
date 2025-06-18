@@ -1,68 +1,197 @@
 @section('javascript')
-    <script>
-        function deleteServer() {
-            $('#deleteServerForm').submit();
+<script>
+    function deleteServer() {
+        if(confirm("¿Estás seguro que quieres eliminar este servidor? Esta acción no se puede deshacer.")) {
+            document.getElementById('deleteServerForm').submit();
         }
-    </script>
+    }
+
+    // Tooltip bootstrap init
+    document.addEventListener('DOMContentLoaded', () => {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        tooltipTriggerList.map(t => new bootstrap.Tooltip(t))
+    });
+</script>
 @append
 
-<div class="row p-1">
-    <div class="col-md">
-        <h4> <strong> Detalles del servidor </strong> </h4>
-        <div class="fs-5"> <strong> Nombre: </strong> {{ $server->hostname }} </div>
-        <div class="fs-5"> <strong> IP: </strong> {{ $server->server_address }} </div>
-        <div class="fs-5"> <strong> Rank: </strong> <span id="rank"> #{{ $server->rank }} </span> </div>
-        <div class="fs-5"> <strong> Estado: </strong>
-            @if ($server->status)
-                <span class="badge text-bg-success" id="status"> ONLINE </span>
-            @else
-                <span class="badge text-bg-danger" id="status"> OFFLINE </span>
-            @endif
-        </div>
+@section('css')
+<style>
+.btn-gradient {
+    background: linear-gradient(45deg, #ff0057, #ff8a00);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 50px;
+}
 
-        <div class="fs-5 mt-3">
-            @auth
-                @if (auth()->user()->id == $server->community->user_id || auth()->user()->steam_id == "76561198259502796")
-                    <div class="d-inline-flex">
-                        <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editServerModal">
-                            Editar servidor </a>
-                        <a class="btn btn-danger btn-sm ms-2" onclick="deleteServer()"> Eliminar servidor </a>
+.btn-gradient:hover, .btn-gradient:focus {
+    background: linear-gradient(45deg, #ff8a00, #ff0057);
+    box-shadow: 0 0 15px #ff0057cc, 0 0 25px #ff8a0088;
+    color: white;
+    text-decoration: none;
+}
+</style>
 
-                        <form method="post" action="{{ route('servers/destroy', ['id' => $server->id]) }}"
-                            id="deleteServerForm">
+
+<style>
+    /* Animación pulso para estado online */
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 8px 2px #28a745cc; }
+        50% { box-shadow: 0 0 14px 4px #28a745ee; }
+    }
+    .status-online {
+        animation: pulse 2s infinite;
+    }
+
+    /* Glassmorphism para la descripción */
+    .glass-desc {
+        background: rgba(255 255 255 / 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 0 30px rgba(0,0,0,0.25);
+        margin-top: 2rem;
+        transition: transform 0.3s ease;
+    }
+    .glass-desc:hover {
+        transform: scale(1.02);
+    }
+
+    /* Ripple effect on buttons */
+    .btn-ripple {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-ripple:after {
+        content: "";
+        position: absolute;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 100%;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        opacity: 0;
+        transform: scale(0);
+        transition: transform 0.4s, opacity 0.8s;
+    }
+    .btn-ripple:active:after {
+        transform: scale(1);
+        opacity: 1;
+        transition: 0s;
+    }
+
+    /* Mejora visual botones edit/eliminar */
+    .btn-danger {
+        box-shadow: 0 0 10px #ff3b3baa;
+        transition: box-shadow 0.3s ease;
+    }
+    .btn-danger:hover, .btn-danger:focus {
+        box-shadow: 0 0 20px #ff1a1aee;
+    }
+
+    /* Mejor separación responsive */
+    @media (max-width: 991px) {
+        .row > div {
+            margin-bottom: 1.8rem;
+        }
+    }
+</style>
+@append
+<div class="card h-100 text-light shadow-lg border-0 p-5" style="background: linear-gradient(135deg, #121212 40%, #000 100%); border-radius: 1.25rem;">
+    <div class="row g-5">
+        {{-- Detalles --}}
+        <div class="col-lg-7 d-flex flex-column justify-content-between">
+            <div>
+                <h4 class="fw-bold mb-4 border-start border-5 border-danger ps-4" style="font-size: 1.8rem;">
+                    <i class="bi bi-server me-2"></i>Detalles del servidor
+                </h4>
+
+                <div class="fs-5 mb-3"><strong>Nombre:</strong> <span class="text-warning">{{ $server->hostname }}</span></div>
+                <div class="fs-5 mb-3"><strong>IP:</strong> <span class="text-info">{{ $server->server_address }}</span></div>
+                <div class="fs-5 mb-3"><strong>Rank:</strong> <span id="rank" class="badge bg-warning text-dark px-3 fs-6">#{{ $server->rank }}</span></div>
+
+                <div class="fs-5 mb-4 d-flex align-items-center gap-3">
+                    <strong>Estado:</strong>
+                    @if ($server->status)
+                        <span class="badge bg-success status-online px-4 py-2 fs-6" id="status" data-bs-toggle="tooltip" data-bs-placement="top" title="El servidor está online y disponible">
+                            <i class="bi bi-check-circle-fill me-1"></i> ONLINE
+                        </span>
+                    @else
+                        <span class="badge bg-danger px-4 py-2 fs-6" id="status" data-bs-toggle="tooltip" data-bs-placement="top" title="El servidor está offline">
+                            <i class="bi bi-x-circle-fill me-1"></i> OFFLINE
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Botones --}}
+            <div class="d-flex flex-wrap gap-3">
+                @auth
+                    @if (auth()->user()->id == $server->community->user_id || auth()->user()->steam_id == "76561198259502796")
+                        <button class="btn btn-danger btn-lg btn-ripple d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#editServerModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar la información del servidor">
+                            <i class="bi bi-pencil-square fs-5"></i> Editar servidor
+                        </button>
+
+                        <button class="btn btn-outline-danger btn-lg btn-ripple d-flex align-items-center gap-2" onclick="deleteServer()" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar este servidor">
+                            <i class="bi bi-trash3 fs-5"></i> Eliminar servidor
+                        </button>
+
+                        <form method="post" action="{{ route('servers/destroy', ['id' => $server->id]) }}" id="deleteServerForm">
                             @csrf
                             @method('DELETE')
                         </form>
-                    </div>
-                @else
-                    <div> <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#claimServerModal">
-                            Reclamar propiedad </a> </div>
-                @endif
-            @endauth
-        </div>
-
-        <div class="mt-3">
-            <div> Ultima actualización hace <span id="lastUpdate">{{ \Carbon\Carbon::now()->diffInMinutes($server->updated_at) }} </span> minutos </div>
-        </div>
-    </div>
-
-    <div class="col-md-auto mt-md-1 text-center">
-        @if (!Storage::exists('public/maps/' . $server->game->protocol . '/' . $server->map . '.jpg'))
-            <div class="m-1" id="uploadMapMessage">
-                <a class="text-danger text-decoration-none" href="#" data-bs-toggle="modal"
-                    data-bs-target="#uploadMapModal"> Por favor, ayudános y subí el mapa del servidor. Click
-                    aquí </a>
+                    @else
+                        <button class="btn btn-outline-danger btn-lg btn-ripple" data-bs-toggle="modal" data-bs-target="#claimServerModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Solicita la propiedad de este servidor">
+                            <i class="bi bi-flag-fill me-2"></i> Reclamar propiedad
+                        </button>
+                    @endif
+                @endauth
             </div>
-        @endif
 
-        <img class="img-fluid rounded mt-1"
-            src="{{ asset('storage/maps/' . $server->game->protocol . '/' . $server->map . '.jpg') }}"
-            alt="{{ $server->map }}" title="{{ $server->map }}" id="map" width="400" />
+            <div class="mt-5 fs-6 fst-italic text-white-50">
+                Última actualización hace <span id="lastUpdate" class="fw-semibold">{{ \Carbon\Carbon::now()->diffInMinutes($server->updated_at) }}</span> minutos
+            </div>
+        </div>
 
-        <div class="fs-5 mt-1"> Jugadores <span id="num_players"> {{ $server->num_players }} </span> /
-            {{ $server->max_players }} </div>
-        <a type="button" class="btn btn-outline-dark m-1" href="{{ $server->join_link }}"> Conectarse </a>
+        {{-- Imagen + conexión --}}
+        <div class="col-lg-5 d-flex flex-column align-items-center justify-content-center">
+            @if (!Storage::exists('public/maps/' . $server->game->protocol . '/' . $server->map . '.jpg'))
+                <div class="mb-4 text-center">
+                    <a class="text-danger text-decoration-underline fw-semibold fs-6" href="#" data-bs-toggle="modal" data-bs-target="#uploadMapModal" data-bs-toggle="tooltip" data-bs-placement="top" title="¡Subí la imagen del mapa!">
+                        ⚠️ Por favor, ayudános y subí el mapa del servidor. Click aquí
+                    </a>
+                </div>
+            @endif
+
+            <img 
+                class="img-fluid rounded shadow-lg mb-4" 
+                src="{{ asset('storage/maps/' . $server->game->protocol . '/' . $server->map . '.jpg') }}" 
+                alt="{{ $server->map }}" 
+                title="{{ $server->map }}" 
+                style="max-height: 300px; object-fit: contain; filter: drop-shadow(0 0 10px #ff0057aa);"
+            >
+
+            <div class="fs-5 text-light mb-3">
+                Jugadores <span id="num_players" class="fw-bold text-warning">{{ $server->num_players }}</span> / {{ $server->max_players }}
+            </div>
+
+            <a 
+                href="{{ $server->join_link }}" 
+                class="btn btn-gradient btn-lg px-5 d-flex align-items-center gap-3 shadow"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="¡Conectate ya!"
+            >
+                <i class="bi bi-controller fs-4"></i> Conectarse
+            </a>
+        </div>
     </div>
-</div>
 
-<div class="mt-5"> {!! $server->description !!} </div>
+    {{-- Descripción con efecto vidrio solo si hay contenido --}}
+    @if (!empty(trim($server->description)))
+    <div class="glass-desc text-light fs-6" style="white-space: pre-line;">
+        {!! $server->description !!}
+    </div>
+    @endif
+</div>

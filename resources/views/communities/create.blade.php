@@ -53,12 +53,11 @@
         </p>
 
         @guest
-<div class="alert alert-danger small py-2 text-dark">
-  Antes de poder registrar tu Comunidad, es necesario que
-  <a href="{{ route('login') }}" class="text-dark fw-semibold text-decoration-underline">inicies sesión</a>.
-</div>
-@endguest
-
+        <div class="alert alert-danger small py-2 text-dark">
+          Antes de poder registrar tu Comunidad, es necesario que
+          <a href="{{ route('login') }}" class="text-dark fw-semibold text-decoration-underline">inicies sesión</a>.
+        </div>
+        @endguest
 
         <form enctype="multipart/form-data" id="communityForm">
           @csrf

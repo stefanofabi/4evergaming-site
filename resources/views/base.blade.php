@@ -33,7 +33,7 @@
 
             $( document ).ready(function() {
                 $.ajax({
-                    url: "{{ route('api/ping/gameservers') }}",
+                    url: "https://4evergaming.com.ar/api/ping/gameservers",
                     type: 'get',
                     error: function (xhr, status) {
                         $("#statusServer").removeClass("text-success");

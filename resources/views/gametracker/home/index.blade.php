@@ -12,7 +12,7 @@
 <div class="container py-5">
     <!-- Título principal -->
     <div class="text-center mb-5">
-        <h1 class="display-5 text-danger fw-bold">Explorá Servidores y Comunidades de Juegos</h1>
+        <h1 class="display-5 text-danger fw-bold">Explorá Servidores en línea</h1>
         <p class="text-light">Buscá servidores activos, descubrí comunidades y unite a partidas épicas.</p>
     </div>
 

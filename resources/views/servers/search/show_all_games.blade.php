@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center mt-4">
-    <a class="text-decoration-none text-dark fs-5" data-bs-toggle="collapse" href="#gamesCollapse" role="button" aria-expanded="false" aria-controls="gamesCollapse">
+    <a class="text-decoration-none text-light fs-5" data-bs-toggle="collapse" href="#gamesCollapse" role="button" aria-expanded="false" aria-controls="gamesCollapse">
         Ver todos los juegos ⬇️
     </a>
 </div>
