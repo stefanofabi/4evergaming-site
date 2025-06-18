@@ -72,7 +72,6 @@
                 min-height: 100vh;
             }
             */
-
         </style>
 
         @section('css') @show

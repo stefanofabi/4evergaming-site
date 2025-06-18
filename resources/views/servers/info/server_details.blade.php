@@ -12,25 +12,53 @@
         tooltipTriggerList.map(t => new bootstrap.Tooltip(t))
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            .forEach(tooltipEl => {
+                new Tooltip(tooltipEl, {
+                    trigger: 'manual' // <--- Este cambio es clave
+                });
+            });
+    });
+
+    function copyToClipboard(element) {
+        const address = element.textContent.trim();
+        const textToCopy = `connect ${address}`;
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const tooltip = Tooltip.getInstance(element);
+            tooltip.show();
+
+            setTimeout(() => {
+                tooltip.hide();
+            }, 2000);
+        }).catch(err => {
+            console.error('Error al copiar al portapapeles:', err);
+        });
+    }
+
+</script>
 @append
 
 @section('css')
 <style>
-.btn-gradient {
-    background: linear-gradient(45deg, #ff0057, #ff8a00);
-    border: none;
-    color: white;
-    font-weight: 600;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 50px;
-}
+    .btn-gradient {
+        background: linear-gradient(45deg, #ff0057, #ff8a00);
+        border: none;
+        color: white;
+        font-weight: 600;
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 50px;
+    }
 
-.btn-gradient:hover, .btn-gradient:focus {
-    background: linear-gradient(45deg, #ff8a00, #ff0057);
-    box-shadow: 0 0 15px #ff0057cc, 0 0 25px #ff8a0088;
-    color: white;
-    text-decoration: none;
-}
+    .btn-gradient:hover, .btn-gradient:focus {
+        background: linear-gradient(45deg, #ff8a00, #ff0057);
+        box-shadow: 0 0 15px #ff0057cc, 0 0 25px #ff8a0088;
+        color: white;
+        text-decoration: none;
+    }
 </style>
 
 
@@ -99,7 +127,25 @@
         }
     }
 </style>
+
+<style>
+    .map-image-container {
+        overflow: hidden;
+        border-radius: 1rem; /* igual que la imagen para que quede armonioso */
+    }
+
+    .map-name-overlay {
+        background: rgba(0, 0, 0, 0.6); /* Fondo negro semi-transparente */
+        //text-shadow: 0 0 8px rgba(255, 0, 87, 0.9); /* Sombra rosa para resaltar */
+        padding: 0.4rem 0;
+        backdrop-filter: blur(4px); /* efecto vidrio sutil */
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        user-select: none;
+    }
+</style>
 @append
+
 <div class="card h-100 text-light shadow-lg border-0 p-5" style="background: linear-gradient(135deg, #121212 40%, #000 100%); border-radius: 1.25rem;">
     <div class="row g-5">
         {{-- Detalles --}}
@@ -110,7 +156,17 @@
                 </h4>
 
                 <div class="fs-5 mb-3"><strong>Nombre:</strong> <span class="text-warning">{{ $server->hostname }}</span></div>
-                <div class="fs-5 mb-3"><strong>IP:</strong> <span class="text-info">{{ $server->server_address }}</span></div>
+                
+                <span class="fs-5 fw-bold">IP:</span> 
+                <div class="fs-5 mb-3 text-info d-inline-block" 
+                    style="cursor: pointer;" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Copiado" 
+                    onclick="copyToClipboard(this)">
+                    {{ $server->server_address }}
+                </div>
+
                 <div class="fs-5 mb-3"><strong>Rank:</strong> <span id="rank" class="badge bg-warning text-dark px-3 fs-6">#{{ $server->rank }}</span></div>
 
                 <div class="fs-5 mb-4 d-flex align-items-center gap-3">
@@ -152,7 +208,7 @@
             </div>
 
             <div class="mt-5 fs-6 fst-italic text-white-50">
-                Última actualización hace <span id="lastUpdate" class="fw-semibold">{{ \Carbon\Carbon::now()->diffInMinutes($server->updated_at) }}</span> minutos
+                Última actualización hace <span id="lastUpdate" class="fw-semibold">{{ round(\Carbon\Carbon::now()->diffInMinutes($server->updated_at)) }}</span> minutos
             </div>
         </div>
 
@@ -166,23 +222,30 @@
                 </div>
             @endif
 
-            <img 
-                class="img-fluid rounded shadow-lg mb-4" 
-                src="{{ asset('storage/maps/' . $server->game->protocol . '/' . $server->map . '.jpg') }}" 
-                alt="{{ $server->map }}" 
-                title="{{ $server->map }}" 
-                style="max-height: 300px; object-fit: contain; filter: drop-shadow(0 0 10px #ff0057aa);"
-            >
+            <div class="map-image-container position-relative mb-4" style="max-height: 300px;">
+
+                <img 
+                    class="img-fluid rounded shadow-lg" 
+                    src="{{ asset('storage/maps/' . $server->game->protocol . '/' . $server->map . '.jpg') }}" 
+                    alt="{{ $server->map }}" 
+                    title="{{ $server->map }}" 
+                    style="max-height: 300px; object-fit: contain; filter: drop-shadow(0 0 10px #ff0057aa);"
+                >
+
+                <div class="map-name-overlay position-absolute bottom-0 w-100 text-center text-light fw-semibold fs-5">
+                    {{ $server->map }}
+                </div>
+            </div>
+
+            
 
             <div class="fs-5 text-light mb-3">
                 Jugadores <span id="num_players" class="fw-bold text-warning">{{ $server->num_players }}</span> / {{ $server->max_players }}
             </div>
 
-            <a 
-                href="{{ $server->join_link }}" 
+            <a href="{{ $server->join_link }}" 
                 class="btn btn-gradient btn-lg px-5 d-flex align-items-center gap-3 shadow"
-                data-bs-toggle="tooltip" data-bs-placement="top" title="¡Conectate ya!"
-            >
+                data-bs-toggle="tooltip" data-bs-placement="top" title="¡Conectate ya!">
                 <i class="bi bi-controller fs-4"></i> Conectarse
             </a>
         </div>
@@ -190,7 +253,7 @@
 
     {{-- Descripción con efecto vidrio solo si hay contenido --}}
     @if (!empty(trim($server->description)))
-    <div class="glass-desc text-light fs-6" style="white-space: pre-line;">
+    <div class="glass-desc text-light fs-6 mt-5" style="white-space: pre-line;">
         {!! $server->description !!}
     </div>
     @endif

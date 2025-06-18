@@ -100,7 +100,7 @@ a.text-warning:hover {
 
 @include('servers.search.filter_servers')
 
-<div class="mt-4 ms-4 me-4">
+<div class="mt-4 ms-4 me-4 mb-5">
     @include('servers.search.ranking_table')
 </div>
 

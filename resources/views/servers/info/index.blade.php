@@ -16,7 +16,7 @@
 
         function updateTimer() {
             timer++;
-            updateValue("lastUpdate", timer);
+            updateValue("lastUpdate", Math.round(Math.abs(timer)));
 
             setTimeout(updateTimer, 60000);
         }

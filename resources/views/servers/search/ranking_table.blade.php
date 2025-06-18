@@ -38,14 +38,14 @@
                     @endif
                 </td>
 
-<td class="text-center text-light"
-    style="cursor: pointer;"
-    data-bs-toggle="tooltip"
-    data-bs-placement="top"
-    title="Copiado"
-    onclick="copyToClipboard(this)">
-    {{ $server->server_address }}
-</td>
+                <td class="text-center text-light"
+                    style="cursor: pointer;"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Copiado"
+                    onclick="copyToClipboard(this)">
+                    {{ $server->server_address }}
+                </td>
 
                 
                 <td class="text-center text-light">{{ $server->num_players . '/' . $server->max_players }}</td>
