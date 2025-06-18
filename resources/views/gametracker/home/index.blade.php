@@ -26,12 +26,24 @@
         </div>
     </div>
 
-    <!-- Botón destacado debajo del buscador -->
+    <!-- Botones destacados debajo del buscador -->
     <div class="text-center mb-5">
-        <a href="{{ route('communities/index') }}" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold shadow-sm transition">
-            🌐 Ver todas las comunidades
-        </a>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+
+            {{-- Ver todas las comunidades --}}
+            <a href="{{ route('communities/index') }}" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold shadow-sm transition">
+                🌐 Ver todas las comunidades
+            </a>
+
+            {{-- Agregar servidor --}}
+            <button class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold shadow-sm transition"
+                data-bs-toggle="modal" data-bs-target="#addServerModal">
+                🎮 Agregar Servidor
+            </button>
+
+        </div>
     </div>
+
 
     <!-- Servidores destacados -->
     @include('gametracker.home.active_servers')
@@ -39,6 +51,8 @@
 
     <!-- Active communities -->
     @include('gametracker.home.communities')
+
+    @include('communities.create')
 
 </div>
 @endsection

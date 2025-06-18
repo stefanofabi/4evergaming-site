@@ -1,4 +1,4 @@
-@extends('base')
+@extends('gametracker.base')
 
 @section('javascript')
 <script type="module">
@@ -168,7 +168,7 @@
         .server-details a {
             display: inline-block;
             margin-top: 10px;
-            background-color: #dc3545;
+            //background-color: #dc3545;
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
@@ -195,35 +195,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        .server-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .server-buttons a {
-            padding: 10px 20px;
-            border-radius: 5px;
-            color: white;
-            text-decoration: none;
-        }
-
-        .server-buttons .btn-join {
-            background-color: #dc3545;
-        }
-
-        .server-buttons .btn-join:hover {
-            background-color: #c82333;
-        }
-
-        .server-buttons .btn-stats {
-            background-color: #007bff;
-        }
-
-        .server-buttons .btn-stats:hover {
-            background-color: #0056b3;
-        }
     </style>
 @append
 
@@ -238,32 +209,32 @@
 
             <div class="community-links">
                 @if($community->whatsapp)
-                    <a href="https://wa.me/{{ $community->whatsapp }}" target="_blank" class="text-dark text-decoration-none" title="WhatsApp">
+                    <a href="https://wa.me/{{ $community->whatsapp }}" target="_blank" class="text-light text-decoration-none" title="WhatsApp">
                         <i class="bi bi-whatsapp"></i>
                     </a>
                 @endif
                 @if($community->instagram)
-                    <a href="https://instagram.com/{{ $community->instagram }}" target="_blank" class="text-dark text-decoration-none" title="Instagram">
+                    <a href="https://instagram.com/{{ $community->instagram }}" target="_blank" class="text-light text-decoration-none" title="Instagram">
                         <i class="bi bi-instagram"></i>
                     </a>
                 @endif
                 @if($community->tiktok)
-                    <a href="https://tiktok.com/{{ '@'. $community->tiktok }}" target="_blank" class="text-dark text-decoration-none" title="TikTok">
+                    <a href="https://tiktok.com/{{ '@'. $community->tiktok }}" target="_blank" class="text-light text-decoration-none" title="TikTok">
                         <i class="bi bi-tiktok"></i>
                     </a>
                 @endif
                 @if($community->youtube)
-                    <a href="https://youtube.com/{{ '@'. $community->youtube }}" target="_blank" class="text-dark text-decoration-none" title="YouTube">
+                    <a href="https://youtube.com/{{ '@'. $community->youtube }}" target="_blank" class="text-light text-decoration-none" title="YouTube">
                         <i class="bi bi-youtube"></i>
                     </a>
                 @endif
                 @if($community->discord)
-                    <a href="https://discord.gg/{{ $community->discord }}" target="_blank" class="text-dark text-decoration-none" title="Discord">
+                    <a href="https://discord.gg/{{ $community->discord }}" target="_blank" class="text-light text-decoration-none" title="Discord">
                         <i class="bi bi-discord"></i>
                     </a>
                 @endif
                 @if($community->website)
-                    <a href="{{ $community->website }}" target="_blank" class="text-dark text-decoration-none" title="Sitio Web">
+                    <a href="{{ $community->website }}" target="_blank" class="text-light text-decoration-none" title="Sitio Web">
                         <i class="bi bi-house-door"></i>
                     </a>
                 @endif
@@ -286,10 +257,8 @@
             @foreach($servers as $server)
                 <div class="server">
                     <div class="row w-100">
-
                         <div class="col-md-8">
-
-                            <div class="server-details">
+                            <div class="col-md-6 server-details">
                                 <h3>
                                     <img src="{{ asset('images/games-icons/' . $server->game->logo) }}" alt="{{ $server->game->name }} Logo" class="game-logo" style="width: 40px; height: 40px; object-fit: cover; margin-right: 10px;">
                                     {{ $server->hostname }}
@@ -299,9 +268,21 @@
                                 <p><strong>Mapa:</strong> {{ $server->map }}</p>
                                 <p><strong>Estado:</strong> {{ $server->status ? 'ONLINE' : 'OFFLINE' }}</p>
                             
-                                <div class="server-buttons">
-                                    <a href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" class="btn-stats">Ver estadísticas</a>
-                                    <a href="{{ $server->join_link }}" class="btn-join">Unirse al servidor</a>
+                                @php
+                                    $connectLink = "steam://connect/{$server->ip}:{$server->port}";
+                                @endphp
+                                
+                                <div class="d-flex gap-2 mt-auto">
+                                    <a href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" 
+                                    class="btn btn-outline-danger btn-sm flex-grow-1">
+                                    Ver Estadísticas
+                                    </a>
+
+                                    <a href="{{ $connectLink }}" 
+                                    class="btn btn-danger btn-sm flex-grow-1" 
+                                    rel="noopener noreferrer">
+                                    Conectarse
+                                    </a>
                                 </div>
                             </div>
                         </div>
