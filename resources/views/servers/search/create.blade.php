@@ -106,6 +106,7 @@
               </div>
             </div>
 
+            @if ($game)
             <div class="row mt-3">
               <div class="col-md-9">
                 <div> <label for="country" class="fw-bold"> Etiquetas del servidor </label> </div>
@@ -118,7 +119,8 @@
                 @endforeach 
               </div>
             </div>   
-
+            @endif
+            
             <input type="submit" class="d-none" id="serverFormSubmit">
           </form>
         </div>

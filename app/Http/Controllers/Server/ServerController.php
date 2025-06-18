@@ -164,17 +164,20 @@ class ServerController extends Controller
         return redirect()->route('servers/search', ['game' => $server->game->protocol]);
     }
 
-    public function search(Request $request, string $game)
+    public function search(Request $request, string $game = null)
     {
-        $game = Game::where('protocol', $game)->firstOrFail();
+        $game = Game::where('protocol', $game)->first();
 
         $games = Game::orderBy('name', 'ASC')->get();
 
-        $game_tag = GameTag::where('game_id', $game->id)->where('name', $request->game_tag)->first();
-        
+        $game_tag = $game ? GameTag::where('game_id', $game->id)->where('name', $request->game_tag)->first() : null;
+
         $filter = $request->filter;
 
-        $servers = Server::where('game_id', $game->id)
+        $servers = Server::query()
+        ->when($game, function ($query) use ($game) {
+            $query->where('game_id', $game->id);
+        })
         ->when(!empty($filter), function ($query) use ($filter) {
             $query->where(function ($q) use ($filter) {
                 $q->orWhere("servers.server_address", "like", "%$filter%")
@@ -191,7 +194,7 @@ class ServerController extends Controller
         ->orderBy('rank', 'ASC')
         ->get();
 
-        
+        /*
         $top_servers = Server::selectRaw('MIN(servers.rank) as rank, communities.id as community_id, communities.name, communities.logo')
         ->join('communities', 'servers.community_id', '=', 'communities.id')
         ->where('servers.game_id', $game->id)
@@ -200,7 +203,8 @@ class ServerController extends Controller
         ->orderBy('rank', 'ASC')
         ->limit(3)
         ->get();
-        
+        */
+
         $countries = Country::orderBy('name', 'ASC')->get();
 
         return view('servers.search.index')
@@ -208,7 +212,7 @@ class ServerController extends Controller
             ->with('game_tag', $game_tag)
             ->with('games', $games)
             ->with('servers', $servers)
-            ->with('top_servers', $top_servers)
+            //->with('top_servers', $top_servers)
             ->with('filter', $request->filter)
             ->with('countries', $countries);
     }

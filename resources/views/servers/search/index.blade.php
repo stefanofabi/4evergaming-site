@@ -5,7 +5,7 @@
 @section('robots', 'index, follow')
 
 @section('title')
-4evergaming: Búsqueda de servidores de {{ $game->name }}, búsqueda de jugadores, estádisticas, rankings y mucho más! 
+4evergaming: Búsqueda de servidores de {{ $game->name ?? 'juegos' }}, búsqueda de jugadores, estádisticas, rankings y mucho más! 
 @endsection
 
 @section('css')

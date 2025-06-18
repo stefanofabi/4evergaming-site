@@ -21,16 +21,23 @@
                 <td class="text-center">
                     <span class="badge bg-secondary text-light">{{ $server->rank }}</span>
                 </td>
+
                 <td>
+                    <img src="{{ asset('images/games-icons/' . $server->game->logo) }}" alt="{{ $server->game->name }} Logo" 
+                        width="24" height="24" class="me-2 align-middle" style="border-radius: 4px;">
+                  
+
                     <a href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" 
-                       title="{{ $server->hostname }}" 
-                       class="text-decoration-none text-warning fw-semibold">
+                    title="{{ $server->hostname }}" 
+                    class="text-decoration-none text-warning fw-semibold">
                         {{ substr($server->hostname, 0, 80) }}
                     </a>
+
                     @if (! $server->status) 
                         <span class="badge bg-danger ms-2">OFFLINE</span> 
                     @endif
                 </td>
+
                 <td class="text-center text-light">{{ $server->server_address }}</td>
                 <td class="text-center text-light">{{ $server->num_players . '/' . $server->max_players }}</td>
                 <td class="text-center">

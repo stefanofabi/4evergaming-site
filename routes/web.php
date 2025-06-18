@@ -95,7 +95,7 @@ Route::group([
     ->middleware('user_have_community')
     ->middleware('verify_server_owner');
 
-    Route::get('search/{game}', [ServerController::class, 'search'])->name('search');
+    Route::get('search/{game?}', [ServerController::class, 'search'])->name('search');
 
     Route::get('info', [ServerController::class, 'showInfo'])->name('info')->middleware('register_server_if_official');
 
