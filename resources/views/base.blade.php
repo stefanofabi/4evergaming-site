@@ -71,7 +71,7 @@
                 
         <style>
             body {
-                font-family: 'Nunito', sans-serif;
+                font-family: 'Nunito', sans-serif !important;
                 position: relative;
                 min-height: 100vh;
                 padding-bottom: 12em;

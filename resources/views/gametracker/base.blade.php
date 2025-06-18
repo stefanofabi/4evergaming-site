@@ -48,10 +48,14 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
+        <!-- Fonts -->
+        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+           
         @section('javascript') @show
 
         <style>
             html, body {
+                font-family: 'Nunito', sans-serif !important;
                 background: linear-gradient(135deg, #2b0000, #000000);
                 color: #eee !important;
                 margin: 0;

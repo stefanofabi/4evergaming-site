@@ -82,11 +82,12 @@
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
             <form action="/buscar-servidores" method="GET" class="input-group">
-                <input type="text" name="query" class="form-control" placeholder="Buscar por nombre de la comunidad...">
-                <button class="btn btn-danger" type="submit">Buscar</button>
+                <input type="text" name="query" class="form-control form-control-lg" placeholder="Buscar por nombre de la comunidad...">
+                <button class="btn btn-danger btn-lg" type="submit">Buscar</button>
             </form>
         </div>
     </div>
+
 
     <!-- Botón destacado debajo del buscador -->
     @if (auth()->user() && auth()->user()->community)

@@ -8,8 +8,37 @@
 4evergaming: Búsqueda de servidores de {{ $game->name ?? 'juegos' }}, búsqueda de jugadores, estádisticas, rankings y mucho más! 
 @endsection
 
-@section('css')
+@section('javascript')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            .forEach(tooltipEl => {
+                new Tooltip(tooltipEl, {
+                    trigger: 'manual' // <--- Este cambio es clave
+                });
+            });
+    });
 
+    function copyToClipboard(element) {
+        const address = element.textContent.trim();
+        const textToCopy = `connect ${address}`;
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const tooltip = Tooltip.getInstance(element);
+            tooltip.show();
+
+            setTimeout(() => {
+                tooltip.hide();
+            }, 2000);
+        }).catch(err => {
+            console.error('Error al copiar al portapapeles:', err);
+        });
+    }
+
+</script>
+@endsection
+
+@section('css')
 <style>
   .badge-game {
     display: inline-block;
@@ -63,7 +92,6 @@ a.text-warning:hover {
     background-color: #3a3a3a !important;
     color: #ccc;
 }
-
 </style>
 @endsection
 

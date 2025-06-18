@@ -20,12 +20,13 @@
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
             <form action="{{ route('servers/search') }}" method="GET" class="input-group">
-                <input type="text" name="filter" class="form-control" placeholder="Buscar servidor, IP o comunidad...">
+                <input type="text" name="filter" class="form-control form-control-lg" placeholder="Buscar servidor, IP o comunidad...">
                 
-                <button class="btn btn-danger" type="submit">Buscar</button>
+                <button class="btn btn-danger btn-lg" type="submit">Buscar</button>
             </form>
         </div>
     </div>
+
 
     <!-- Botones destacados debajo del buscador -->
     <div class="text-center mb-5">

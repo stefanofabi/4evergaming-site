@@ -1,7 +1,8 @@
 import './bootstrap';
 
-import { Button, Carousel, Collapse, Modal, Dropdown, Offcanvas, Tab, Toast } from 'bootstrap';
+import { Button, Carousel, Collapse, Modal, Dropdown, Offcanvas, Tab, Toast, Tooltip } from 'bootstrap';
 window.Toast = Toast;
+window.Tooltip = Tooltip;
 
 import $ from 'jquery';
 window.$ = $;
@@ -21,7 +22,3 @@ import Chart from 'chart.js/auto';
 window.Chart = Chart;
 
 import 'bootstrap/dist/css/bootstrap.css';
-
-import '../sass/app.scss'
-
-
