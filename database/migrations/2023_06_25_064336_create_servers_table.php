@@ -33,6 +33,7 @@ return new class extends Migration
             
             $table->unsignedBigInteger('failed_attempts')->default(0);
 
+            $table->json('stats_24_hours');
             $table->json('stats_30_days');
             $table->json('stats_1_year');
             $table->json('stats_3_years');

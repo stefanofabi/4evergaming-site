@@ -40,6 +40,7 @@ class Server extends Model
     protected $casts = [
       'vars' => 'json',
       'players' => 'json',
+      'stats_24_hours' => 'json',
       'stats_30_days' => 'json',
       'stats_1_year' => 'json',
       'stats_3_years' => 'json',

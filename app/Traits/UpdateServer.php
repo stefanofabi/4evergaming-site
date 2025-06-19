@@ -119,21 +119,40 @@ trait UpdateServer {
     {
         $now = Carbon::now();
 
-        // Process statistics for each time range
+        // Definimos todos los rangos, incluyendo el nuevo de 24 horas
         $ranges = [
+            'stats_24_hours' => 24,
             'stats_30_days' => 30,
             'stats_1_year' => 12,
             'stats_3_years' => 36,
             'stats_5_years' => 60,
             'stats_10_years' => 120,
         ];
-            
+
         foreach ($ranges as $key => $limit) {
             $stats = collect($server->{$key} ?? []);
-            
-            // Group by days (for 30 days) or by months (for the rest)
-            if ($key == 'stats_30_days') {
-                // Record the current data
+
+            if ($key === 'stats_24_hours') {
+                // Obtener el timestamp redondeado a la hora actual
+                $currentHour = $now->copy()->minute(0)->second(0);
+
+                // Agregar la nueva entrada redondeada a la hora actual
+                $stats->push([
+                    'date' => $currentHour->toDateTimeString(),
+                    'count' => $server->num_players
+                ]);
+
+                // Filtrar solo las últimas 24 horas (comparando con el timestamp actual redondeado a la hora)
+                $stats = $stats
+                    ->filter(fn($record) => Carbon::parse($record['date'])->diffInHours($currentHour) < 24)
+                    ->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m-d H:00:00')) // Agrupar por hora exacta
+                    ->map(fn($group, $hour) => [
+                        'date' => $hour,
+                        'count' => ceil(collect($group)->avg('count'))
+                    ])
+                    ->sortBy('date') // Ordenar cronológicamente
+                    ->values();
+            } elseif ($key === 'stats_30_days') {
                 $stats->push(['date' => $now->toDateString(), 'count' => $server->num_players]);
 
                 $stats = $stats->filter(fn($record) => Carbon::parse($record['date'])->diffInDays($now) < $limit)
@@ -142,10 +161,10 @@ trait UpdateServer {
                         'date' => $group->first()['date'], 
                         'count' => ceil($group->avg('count')),
                     ])
+                    ->sortBy('date')
                     ->values();
             } else {
                 $stats_30_days = collect($server->{'stats_30_days'} ?? []);
-                            
                 $average_30_days = ceil($stats_30_days->avg('count'));
 
                 $stats->push(['date' => $now->toDateString(), 'count' => $average_30_days]);
@@ -155,12 +174,13 @@ trait UpdateServer {
                         'date' => $group->first()['date'], 
                         'count' => $average_30_days, 
                     ])
+                    ->sortBy('date')
                     ->slice(-$limit)
                     ->values();
             }
-            
-            // Ensure that logs are properly formatted and dated
-            $server->{$key} = $stats->values()->toArray();
+
+            $server->{$key} = $stats->toArray();
         }
     }
+
 }
