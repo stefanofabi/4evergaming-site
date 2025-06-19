@@ -214,23 +214,36 @@
 
         {{-- Imagen + conexión --}}
         <div class="col-lg-5 d-flex flex-column align-items-center justify-content-center">
-            @if (!Storage::exists('public/maps/' . $server->game->protocol . '/' . $server->map . '.jpg'))
-                <div class="mb-4 text-center">
-                    <a class="text-danger text-decoration-underline fw-semibold fs-6" href="#" data-bs-toggle="modal" data-bs-target="#uploadMapModal" data-bs-toggle="tooltip" data-bs-placement="top" title="¡Subí la imagen del mapa!">
-                        ⚠️ Por favor, ayudános y subí el mapa del servidor. Click aquí
-                    </a>
-                </div>
-            @endif
+            @php
+                $mapImageExists = Storage::exists('public/maps/' . $server->game->protocol . '/' . $server->map . '.jpg');
+                $mapPath = 'storage/maps/' . $server->game->protocol . '/' . $server->map . '.jpg';
+            @endphp
 
-            <div class="map-image-container position-relative mb-4" style="max-height: 300px;">
-
-                <img 
-                    class="img-fluid rounded shadow-lg" 
-                    src="{{ asset('storage/maps/' . $server->game->protocol . '/' . $server->map . '.jpg') }}" 
-                    alt="{{ $server->map }}" 
-                    title="{{ $server->map }}" 
-                    style="max-height: 300px; object-fit: contain; filter: drop-shadow(0 0 10px #ff0057aa);"
+            <div class="map-image-container position-relative mb-4 w-100" style="max-height: 300px;">
+                <div 
+                    role="button"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#uploadMapModal"
+                    class="w-100 h-100"
                 >
+                    @if ($mapImageExists)
+                        <img 
+                            class="img-fluid rounded shadow-lg w-100" 
+                            src="{{ asset($mapPath) }}" 
+                            alt="{{ $server->map }}" 
+                            title="{{ $server->map }} (Click para subir nuevo)" 
+                            style="max-height: 300px; object-fit: contain; cursor: pointer; filter: drop-shadow(0 0 10px #ff0057aa);"
+                        >
+                    @else
+                        <div 
+                            class="not-found-placeholder d-flex flex-column justify-content-center align-items-center text-center rounded shadow-lg w-100" 
+                            style="height: 300px; background: repeating-linear-gradient(45deg, #2c2c2c, #2c2c2c 10px, #1f1f1f 10px, #1f1f1f 20px); border: 2px dashed #ff0057; cursor: pointer;"
+                        >
+                            <div class="text-light fw-bold fs-4">🗺️ MAPA NO ENCONTRADO</div>
+                            <div class="text-secondary fs-6">Click para subir imagen</div>
+                        </div>
+                    @endif
+                </div>
 
                 <div class="map-name-overlay position-absolute bottom-0 w-100 text-center text-light fw-semibold fs-5">
                     {{ $server->map }}
@@ -247,6 +260,9 @@
                 <i class="bi bi-controller fs-4"></i> Conectarse
             </a>
         </div>
+
+        
+        
     </div>
 
     {{-- Descripción con efecto vidrio solo si hay contenido --}}

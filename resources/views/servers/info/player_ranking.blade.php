@@ -20,7 +20,24 @@
                     <td> #{{ $rank_player }} </td>
                     <td> {{ $player->name }} </td>
                     <td class="text-center"> {{ $player->score }} </td>
-                    <td class="text-center"> {{ $player->time }} minutos </td>
+
+                    @php
+                        $time = $player->time;
+
+                        if ($time < 60) {
+                            $timeFormatted = $time . ' minutos';
+                        } elseif ($time < 1440) {
+                            $timeFormatted = floor($time / 60) . ' horas';
+                        } elseif ($time < 43200) {
+                            $timeFormatted = floor($time / 1440) . ' días';
+                        } elseif ($time < 518400) {
+                            $timeFormatted = floor($time / 43200) . ' meses';
+                        } else {
+                            $timeFormatted = floor($time / 518400) . ' años';
+                        }
+                    @endphp
+
+                    <td class="text-center">{{ $timeFormatted }}</td>
                 </tr>
 
                 @php $rank_player++ @endphp
