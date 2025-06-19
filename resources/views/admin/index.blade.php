@@ -13,6 +13,7 @@
         <div class="col-md-2 mt-2"> 
             <ul class="list-group">
                 <li class="list-group-item"> <a href="{{ route('admin/index') }}"> Tablero </a> </li>
+                <li class="list-group-item"> <a href="{{ route('admin/payments') }}"> Pagos </a> </li>
                 <li class="list-group-item"> <a href="{{ route('admin/billing') }}"> Facturacion </a> </li>
                 <li class="list-group-item"> <a href="{{ route('admin/subscriptions/index') }}"> Suscripciones </a> </li>
                 <li class="list-group-item"> <a href="{{ route('admin/nodes') }}"> Nodos </a> </li>

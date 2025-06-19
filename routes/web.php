@@ -118,6 +118,8 @@ Route::group([
     });
 
     Route::get('index', [AdminController::class, 'index'])->name('index');
+
+    Route::get('payments', [AdminController::class, 'payments'])->name('payments');
    
     Route::get('billing', [AdminController::class, 'billing'])->name('billing');
 

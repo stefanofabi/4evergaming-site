@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 use App\Models\Node;
 use App\Models\OnlinePlayerHistory;
 use App\Models\Server;
 use App\Models\Game;
+use App\Models\Payment;
 
 use App\Traits\WHMCS;
 use App\Traits\SystemStats;
@@ -21,9 +24,21 @@ class AdminController extends Controller
     use WHMCS;
     use SystemStats;
 
+    private const MY_COLLECTOR_ID = 169507153;
+
+    private const MY_EMAIL = "cobranzas@4evergaming.com.ar";
+
     public function index()
     {
         return view('admin.index');
+    }
+
+    public function payments()
+    {
+        $payments = Payment::where('verified', false)->orderBy('date', 'asc')->get();
+        
+        return view('admin.payments')
+            ->with('payments', $payments);
     }
 
     public function billing()
@@ -219,4 +234,114 @@ class AdminController extends Controller
 
         return $colors[$currency] ?? 'rgba(75, 192, 192, 1)'; // Default color if currency not found
     }
+
+    public function fetchAndStorePayments()
+    {
+        // Obtener el token desde .env
+        $accessToken = env('MERCADOPAGO_ACCESS_TOKEN');
+
+        if (empty($accessToken)) {
+            return response()->json(['error' => 'Token de acceso de MercadoPago no configurado'], 500);
+        }
+
+        $url = "https://api.mercadopago.com/v1/payments/search";
+        $params = [
+            'status'         => 'approved',
+            'begin_date'     => 'NOW-3DAYS',
+            'end_date'       => 'NOW',
+            'range'          => 'date_last_updated',
+            'sort'           => 'date_last_updated',
+            'criteria'       => 'desc',
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization'     => 'Bearer ' . $accessToken,
+            'Content-Type'      => 'application/json',
+            'x-integrator-id'   => 'dev_ea52525a0a6e11eb98420242ac130004',
+        ])->get($url, $params);
+
+        if (!$response->successful()) {
+            return response()->json(['error' => 'Error al consultar pagos en MercadoPago'], 500);
+        }
+
+        $pagos = $response->json()['results'];
+        $creados = 0;
+        $actualizados = 0;
+
+        foreach ($pagos as $pago) {
+            // no es un pago que haya recibido 
+            if (!isset($pago['collector_id']) || $pago['collector_id'] != self::MY_COLLECTOR_ID)
+                continue;
+
+            // recibí un pago pero fue un depósito mío
+            if (!isset($pago['payer']['email']) || $pago['payer']['email'] == self::MY_EMAIL)
+                continue;
+
+            // recibí un pago pero fue un crédito solicitado
+            if ($pago['payer']['email'] == "creditos@mercadopago.com")
+                continue;
+
+            $firstName = $pago['payer']['first_name'] ?? null;
+            $lastName = $pago['payer']['last_name'] ?? null;
+            $email = $pago['payer']['email'] ?? null;
+
+            // verificar email en WHMCS
+            $clientWhmcs = DB::connection('whmcs')
+                ->table('tblclients')
+                ->where('email', $email)
+                ->first();
+
+            if ($clientWhmcs) {
+                $firstName = $clientWhmcs->firstname;
+                $lastName = $clientWhmcs->lastname;
+            }
+
+            $description = $pago['description'] ?? null;
+            $transactionId = $pago['id'];
+            $paymentMethod = $pago['payment_method_id'] ?? null;
+            $paymentType = $pago['payment_type_id'] ?? null;
+            $external_reference = $pago['external_reference'] ?? null;
+            $date = substr($pago['date_approved'], 0, 10);
+            $amount = $pago['transaction_amount'];
+            $status = ucfirst($pago['status']);
+
+            $verified = DB::connection('whmcs')
+                ->table('tblaccounts')
+                ->where('transid', $transactionId)
+                ->first();
+
+            $existingPayment = Payment::where('transaction', $transactionId)->first();
+
+            if ($existingPayment) {
+                $actualizados++;
+            } else {
+                $creados++;
+            }
+
+            Payment::updateOrCreate(
+                ['transaction' => $transactionId],
+                [
+                    'first_name'    => $firstName,
+                    'last_name'     => $lastName,
+                    'email'         => $email,
+                    'description'   => $description,
+                    'payment_method'=> $paymentMethod,
+                    'payment_type'  => $paymentType,
+                    'external_reference' => $external_reference,
+                    'date'          => $date,
+                    'amount'        => $amount,
+                    'status'        => $status,
+                    'verified'      => $verified ? true : false,
+                    'client_id'     => $clientWhmcs->id ?? null,
+                ]
+            );
+        }
+
+        return response()->json([
+            'mensaje'      => 'Proceso completado',
+            'creados'      => $creados,
+            'actualizados' => $actualizados,
+        ]);
+    }
+
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\PingController;
 use App\Http\Controllers\Api\ServerController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,6 @@ Route::group([
     Route::get('servers/update-all', [ServerController::class, 'updateAll'])->name('servers/update_all');
 
     Route::get('servers/synchronize/{protocol}', [ServerController::class, 'synchronize'])->name('servers/synchronize');
+
+    Route::get('payments/synchronize', [AdminController::class, 'fetchAndStorePayments'])->name('payments/synchronize');
 });
