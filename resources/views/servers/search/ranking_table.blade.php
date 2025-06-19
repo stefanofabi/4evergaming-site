@@ -1,8 +1,61 @@
+@section('css')
+<style>
+    .arrow-icon {
+        transition: transform 0.3s ease;
+        color: #f39c12;
+    }
+
+    .server-card.active .arrow-icon {
+        transform: rotate(180deg);
+        color: #e74c3c;
+    }
+
+    /* Transición para detalles en móviles */
+    .details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, opacity 0.4s ease;
+        opacity: 0;
+    }
+
+    .server-card.active .details {
+        max-height: 300px; /* Ajusta según contenido */
+        opacity: 1;
+    }
+
+    .server-card a {
+        cursor: pointer;
+    }
+</style>
+@append
+
+@section('javascript')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.server-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('a')) return;
+
+                // Cierra otros abiertos (opcional)
+                document.querySelectorAll('.server-card.active').forEach(otherCard => {
+                    if (otherCard !== card) {
+                        otherCard.classList.remove('active');
+                    }
+                });
+
+                card.classList.toggle('active');
+            });
+        });
+    });
+</script>
+@append
+
 <div class="fs-3 mt-5 text-light">
     ⚔️ Listado de servidores
 </div>
 
-<div class="table-responsive">
+<!-- Tabla para md+ -->
+<div class="table-responsive d-none d-md-block">
     <table class="table table-dark table-striped table-hover mt-4 align-middle">
         <thead>
             <tr>
@@ -26,7 +79,6 @@
                     <img src="{{ asset('images/games-icons/' . $server->game->logo) }}" alt="{{ $server->game->name }} Logo" 
                         width="24" height="24" class="me-2 align-middle" style="border-radius: 4px;">
                   
-
                     <a href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" 
                     title="{{ $server->hostname }}" 
                     class="text-decoration-none text-warning fw-semibold">
@@ -78,8 +130,6 @@
                         </svg>
                     </a>
                 </td>
-
-
             </tr>
             @empty
             <tr>
@@ -88,4 +138,57 @@
             @endforelse
         </tbody>
     </table>
+</div>
+
+<!-- Lista para móviles (sm y menos) -->
+<div class="d-md-none mt-3">
+    @forelse ($servers as $server)
+    <div class="card mb-3 text-light shadow border-0" style="background: linear-gradient(135deg, #222 30%, #111 100%); cursor: pointer;">
+        <div class="row g-0 align-items-center">
+            {{-- Columna izquierda: Logo del juego --}}
+            <div class="col d-flex align-items-center justify-content-center p-2">
+                <img src="{{ asset('images/games-icons/' . $server->game->logo) }}" alt="{{ $server->game->name }} Logo" 
+                    class="img-fluid rounded" style="max-height: 60px; object-fit: contain;">
+            </div>
+
+            {{-- Columna derecha: Info y toggle detalles --}}
+            <div class="col-9">
+                <div class="p-2 server-card" style="position: relative;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-secondary text-light">{{ $server->rank }}</span>
+                            {{-- Nombre servidor con link --}}
+                            <a href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" 
+                               class="fw-semibold text-warning text-decoration-none ms-2"
+                               title="Ver información {{ $server->server_address }}">
+                                {{ substr($server->hostname, 0, 80) }}
+                            </a>
+
+                            @if (! $server->status)
+                                <span class="badge bg-danger ms-2">OFFLINE</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="details mt-3" style="font-size: 0.9rem;">
+                        <div><strong>IP:</strong> {{ $server->server_address }}</div>
+                        <div><strong>Jugadores:</strong> {{ $server->num_players . '/' . $server->max_players }}</div>
+                        <div><strong>País:</strong> {{ $server->country->name }}</div>
+                        <div><strong>Mapa:</strong> {{ $server->map }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="d-flex align-items-center gap-1 text-muted small arrow-container" title="Toca para detalles">
+                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    @empty
+    <div class="text-danger text-center">No encontramos servidores</div>
+    @endforelse
 </div>
