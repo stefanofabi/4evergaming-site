@@ -260,8 +260,12 @@
                         <div class="col-md-8">
                             <div class="col-md-6 server-details">
                                 <h3>
+                                    @php
+                                    $cleanHostname = Str::replace(strtoupper($server->community->name), '', strtoupper($server->hostname));
+                                    @endphp
+
                                     <img src="{{ asset('images/games-icons/' . $server->game->logo) }}" alt="{{ $server->game->name }} Logo" class="game-logo" style="width: 40px; height: 40px; object-fit: cover; margin-right: 10px;">
-                                    {{ $server->hostname }}
+                                    {{ $cleanHostname }}
                                 </h3>
                                 <p><strong>IP:</strong> {{ $server->ip }}:{{ $server->port }}</p>
                                 <p><strong>Jugadores:</strong> {{ $server->num_players }} / {{ $server->max_players }}</p>
