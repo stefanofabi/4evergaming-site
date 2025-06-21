@@ -7,14 +7,17 @@
         Muy útil a la hora de jugar cerrados 5v5 o mods de competición. 
     </p>
 
+    <!--
     <div class="row position-center ps-5 pe-5 mt-2">
         <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-1000fps?currency=2" target="_blank" class="btn btn-danger"> Ver lista completa de precios </a>
     </div>
+    -->
 
     <table class="table mt-4">
         <thead>
             <tr>
             <th scope="col">Jugadores</th>
+            <th scope="col">Ubicación</th>
             <th scope="col">Precio</th>
             <th> </th>
             </tr>
@@ -30,7 +33,8 @@
                     @if ($slot_1000fps->sortorder == 20) <span class="badge text-bg-success"> Ideal para Mod Deathmatch </span> @endif  
                     @if ($slot_1000fps->sortorder == 24) <span class="badge text-bg-success"> Ideal para Mods exigentes </span> @endif 
                 </td>
-                <td>  ${{ $slot_1000fps->monthly }}/mes </td>
+                <td>  Argentina </td>
+                <td>  ${{ round($slot_1000fps->monthly) }}/mes </td>
                 <td class="text-end"> 
                     <a href="https://clientes.4evergaming.com.ar/store/counter-strike/counter-strike-16-1000fps?currency=2" target="_blank" class="text-dark"> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">

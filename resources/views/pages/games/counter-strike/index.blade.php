@@ -104,17 +104,17 @@
 
     @include('pages.games.counter-strike.characteristics-servers')
 
-    <div class="row mt-4">
-        <div class="col">
-            @include('pages.games.counter-strike.what-are-fps-server')
+    <div class="mt-3">
+        @include('pages.games.counter-strike.plans.1000fps')
+    </div>
 
-            <div class="d-none d-lg-block">
-                @include('pages.games.counter-strike.contact-by-whatsapp')
-            </div>
+    <div class="row mt-4">
+        <div class="col-md">
+            @include('pages.games.counter-strike.what-are-fps-server')
         </div>
 
-        <div class="col-md">
-            @include('pages.games.counter-strike.plan-tabs')
+        <div class="col">
+            @include('pages.games.counter-strike.contact-by-whatsapp')
         </div>
     </div>
 
