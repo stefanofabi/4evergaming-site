@@ -95,10 +95,10 @@ trait UpdateServer {
             //$server->rank_points += $server->num_players;
             //$server->rank_points = round(($server->rank_points + $server->num_players) / 2); 
             //$server->rank_points = round(($server->rank_points + $server->onlinePlayerHistories()->avg('count')) / 2);
-            $stats5Years = $server->stats_5_years ?? [];
+            $statsHourly= $server->stats_hourly ?? [];
 
-            if (!empty($stats5Years)) {
-                $averageCount = round(collect($stats5Years)->pluck('count')->avg());
+            if (!empty($statsHourly)) {
+                $averageCount = round(collect($statsHourly)->pluck('count')->avg());
                 $server->rank_points = round(($server->rank_points + $averageCount) / 2);
             }
 
@@ -115,72 +115,85 @@ trait UpdateServer {
     }
 
 
-    public function runStadistics(Server $server) 
+    public function runStadistics(Server $server)
     {
-        $now = Carbon::now();
+        $now = Carbon::now()->minute(0)->second(0);
 
-        // Definimos todos los rangos, incluyendo el nuevo de 24 horas
-        $ranges = [
-            'stats_24_hours' => 24,
-            'stats_30_days' => 30,
-            'stats_1_year' => 12,
-            'stats_3_years' => 36,
-            'stats_5_years' => 60,
-            'stats_10_years' => 120,
-        ];
+        // --- 1. Estadísticas por hora (últimas 24h)
+        $hourly = collect($server->stats_hourly ?? []);
+        $hourly->push([
+            'date'  => $now->format('Y-m-d H:00:00'),
+            'count' => $server->num_players
+        ]);
 
-        foreach ($ranges as $key => $limit) {
-            $stats = collect($server->{$key} ?? []);
+        $hourly = $hourly
+            ->filter(fn($r) => Carbon::parse($r['date'])->diffInHours($now) < 24)
+            ->groupBy(fn($r) => Carbon::parse($r['date'])->format('Y-m-d H:00:00'))
+            ->map(fn($grp, $hour) => [
+                'date'  => $hour,
+                'count' => ceil(collect($grp)->avg('count'))
+            ])
+            ->sortBy('date')
+            ->values();
 
-            if ($key === 'stats_24_hours') {
-                // Obtener el timestamp redondeado a la hora actual
-                $currentHour = $now->copy()->minute(0)->second(0);
+        $server->stats_hourly = $hourly->toArray();
 
-                // Agregar la nueva entrada redondeada a la hora actual
-                $stats->push([
-                    'date' => $currentHour->toDateTimeString(),
-                    'count' => $server->num_players
-                ]);
+        // --- 2. Estadísticas diarias (últimos 30 días)
+        $daily = $hourly
+            ->groupBy(fn($r) => Carbon::parse($r['date'])->format('Y-m-d'))
+            ->map(fn($grp, $day) => [
+                'date'  => $day,
+                'count' => ceil(collect($grp)->avg('count'))
+            ])
+            ->sortBy('date')
+            ->values();
 
-                // Filtrar solo las últimas 24 horas (comparando con el timestamp actual redondeado a la hora)
-                $stats = $stats
-                    ->filter(fn($record) => Carbon::parse($record['date'])->diffInHours($currentHour) < 24)
-                    ->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m-d H:00:00')) // Agrupar por hora exacta
-                    ->map(fn($group, $hour) => [
-                        'date' => $hour,
-                        'count' => ceil(collect($group)->avg('count'))
-                    ])
-                    ->sortBy('date') // Ordenar cronológicamente
-                    ->values();
-            } elseif ($key === 'stats_30_days') {
-                $stats->push(['date' => $now->toDateString(), 'count' => $server->num_players]);
+        $existingDaily = collect($server->stats_daily ?? [])
+            ->groupBy(fn($r) => $r['date'])
+            ->map(fn($grp, $date) => [
+                'date'  => $date,
+                'count' => ceil(collect($grp)->avg('count'))
+            ]);
 
-                $stats = $stats->filter(fn($record) => Carbon::parse($record['date'])->diffInDays($now) < $limit)
-                    ->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m-d'))
-                    ->map(fn($group) => [
-                        'date' => $group->first()['date'], 
-                        'count' => ceil($group->avg('count')),
-                    ])
-                    ->sortBy('date')
-                    ->values();
-            } else {
-                $stats_30_days = collect($server->{'stats_30_days'} ?? []);
-                $average_30_days = ceil($stats_30_days->avg('count'));
+        $today = $now->toDateString();
+        $existingDaily->put($today, [
+            'date'  => $today,
+            'count' => ceil($daily->avg('count'))
+        ]);
 
-                $stats->push(['date' => $now->toDateString(), 'count' => $average_30_days]);
+        $server->stats_daily = $existingDaily
+            ->sortBy('date')
+            ->filter(fn($r) => Carbon::parse($r['date'])->diffInDays($now) < 30)
+            ->values()
+            ->toArray();
 
-                $stats = $stats->groupBy(fn($record) => Carbon::parse($record['date'])->format('Y-m'))
-                    ->map(fn($group) => [
-                        'date' => $group->first()['date'], 
-                        'count' => $average_30_days, 
-                    ])
-                    ->sortBy('date')
-                    ->slice(-$limit)
-                    ->values();
-            }
+        // --- 3. Estadísticas mensuales (últimos 5–10 años, hasta 120 meses)
+        $monthly = $daily
+            ->groupBy(fn($r) => Carbon::parse($r['date'])->format('Y-m'))
+            ->map(fn($grp, $month) => [
+                'date'  => $month,
+                'count' => ceil(collect($grp)->avg('count'))
+            ])
+            ->sortBy('date')
+            ->values();
 
-            $server->{$key} = $stats->toArray();
-        }
+        $existingMonthly = collect($server->stats_monthly ?? [])
+            ->groupBy(fn($r) => $r['date'])
+            ->map(fn($grp, $date) => [
+                'date'  => $date,
+                'count' => ceil(collect($grp)->avg('count'))
+            ]);
+
+        $currentMonth = $now->format('Y-m');
+        $existingMonthly->put($currentMonth, [
+            'date'  => $currentMonth,
+            'count' => ceil($monthly->avg('count'))
+        ]);
+
+        $server->stats_monthly = $existingMonthly
+            ->sortBy('date')
+            ->slice(-120)
+            ->values()
+            ->toArray();
     }
-
 }
