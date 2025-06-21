@@ -62,8 +62,9 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
                 @foreach ($nodes as $iNode)
                     @php
                         $measurement = $measurements[$iNode->name] ?? null;
-                        $minutesSinceUpdate = $measurement ? now()->diffInMinutes($measurement['timestamp']) : 'No disponible';
+                        $minutesSinceUpdate = $measurement && !empty($measurement['timestamp']) ? round(now()->diffInMinutes(\Carbon\Carbon::parse($measurement['timestamp']), true)) : 'No disponible';
                     @endphp
+                    
                     <tr>
                         <td>
                             <a href="{{ route('server-status', ['node' => $iNode->name]) }}">
@@ -74,7 +75,13 @@ Estado de Servidores - 4evergaming: Hosting de Juegos en Argentina
                         <td class="text-center">{{ $measurement ? round($measurement['memory']) . '%' : 'No disponible' }}</td>
                         <td class="text-center">{{ $measurement ? round($measurement['disk']) . '%' : 'No disponible' }}</td>
                         <td class="text-center">{{ $measurement ? round($measurement['network']) . ' Mbps' : 'No disponible' }}</td>
-                        <td class="text-center">{{ $minutesSinceUpdate }} min</td>
+                        <td class="text-center">
+                            @if ($minutesSinceUpdate === 'No disponible')
+                            {{ $minutesSinceUpdate }}
+                            @else
+                            {{ $minutesSinceUpdate }} min
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
