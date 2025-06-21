@@ -44,13 +44,16 @@ class ServerController extends Controller
         ->get()
         ->unique('community_id')
         ->take(3);
+
+        $countries = Country::orderBy('name', 'ASC')->get();
         
         $communities = Community::has('servers')->orderBy('calification', 'desc')->take(4)->get();
         
         return view('gametracker.home.index')
             ->with('games', $games)
             ->with('communities', $communities)
-            ->with('servers', $servers);
+            ->with('servers', $servers)
+            ->with('countries', $countries);
     }
 
     /**

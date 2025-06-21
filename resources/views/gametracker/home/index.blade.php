@@ -55,6 +55,7 @@
     @include('gametracker.home.communities')
 
     @include('communities.create')
+    @include('servers.search.create')
 
 </div>
 @endsection

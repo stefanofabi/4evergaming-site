@@ -209,7 +209,7 @@
 
             <div class="community-links">
                 @if($community->whatsapp)
-                    <a href="https://wa.me/{{ $community->whatsapp }}" target="_blank" class="text-light text-decoration-none" title="WhatsApp">
+                    <a href="{{ $community->whatsapp }}" target="_blank" class="text-light text-decoration-none" title="WhatsApp">
                         <i class="bi bi-whatsapp"></i>
                     </a>
                 @endif
