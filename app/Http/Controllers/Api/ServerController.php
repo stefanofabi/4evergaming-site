@@ -212,6 +212,16 @@ class ServerController extends Controller
         $country = Country::where('short_name', 'AR')->firstOrFail();
 
         switch ($game->protocol) {
+            case 'hl1': {
+                $servers = DB::connection('tcadmin')
+                    ->table('tc_game_services')
+                    ->select('ip_address', 'game_port')
+                    ->whereIn('game_id', [123, 124, 126])
+                    ->get();
+
+                break;
+            }
+
             case 'cs16': {
                 $servers = DB::connection('tcadmin')
                     ->table('tc_game_services')
@@ -222,8 +232,78 @@ class ServerController extends Controller
                 break;
             }
 
+            case 'css': {
+                $servers = DB::connection('tcadmin')
+                    ->table('tc_game_services')
+                    ->select('ip_address', 'game_port')
+                    ->whereIn('game_id', [133, 135, 157, 158, 201])
+                    ->get();
+
+                break;
+            }
+
+            case 'csgo': {
+                $servers = DB::connection('tcadmin')
+                    ->table('tc_game_services')
+                    ->select('ip_address', 'game_port')
+                    ->whereIn('game_id', [125, 127])
+                    ->get();
+
+                break;
+            }
+
+            case 'mta': {
+                $servers = DB::connection('tcadmin')
+                    ->table('tc_game_services')
+                    ->select('ip_address', 'game_port')
+                    ->whereIn('game_id', [132])
+                    ->get();
+
+                break;
+            }
+
+            case 'cod2': {
+                $servers = DB::connection('tcadmin')
+                    ->table('tc_game_services')
+                    ->select('ip_address', 'game_port')
+                    ->whereIn('game_id', [64])
+                    ->get();
+
+                break;
+            }
+
+            case 'l4d2': {
+                $servers = DB::connection('tcadmin')
+                    ->table('tc_game_services')
+                    ->select('ip_address', 'game_port')
+                    ->whereIn('game_id', [183])
+                    ->get();
+
+                break;
+            }
+
+            case 'mohaa': {
+                $servers = DB::connection('tcadmin')
+                    ->table('tc_game_services')
+                    ->select('ip_address', 'game_port')
+                    ->whereIn('game_id', [156])
+                    ->get();
+
+                break;
+            }
+
+            case 'minecraft': {
+                $servers = DB::connection('tcadmin')
+                    ->table('tc_game_services')
+                    ->select('ip_address', 'game_port')
+                    ->whereIn('game_id', [84])
+                    ->get();
+
+                break;
+            }
+
             default: {
-                echo 'Protocolo no disponible para sincronizar <br />';
+                die('Protocolo no disponible para sincronizar');
             }
         }
 

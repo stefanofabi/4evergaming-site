@@ -258,7 +258,7 @@
                 <div class="server">
                     <div class="row w-100">
                         <div class="col-md-8">
-                            <div class="col-md-6 server-details">
+                            <div class="server-details">
                                 <h3>
                                     @php
                                     $cleanHostname = Str::replace(strtoupper($server->community->name), '', strtoupper($server->hostname));
@@ -276,7 +276,7 @@
                                     $connectLink = "steam://connect/{$server->ip}:{$server->port}";
                                 @endphp
                                 
-                                <div class="d-flex gap-2 mt-auto">
+                                <div class="col-md-6 d-flex gap-2 mt-auto">
                                     <a href="{{ route('servers/info', ['ip' => $server->ip, 'port' => $server->port]) }}" 
                                     class="btn btn-outline-danger btn-sm flex-grow-1">
                                     Ver Estadísticas
