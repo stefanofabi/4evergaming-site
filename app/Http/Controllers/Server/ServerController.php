@@ -201,14 +201,14 @@ class ServerController extends Controller
         ->orderBy('rank', 'ASC')
         ->get();
 
-        $game_tags = $game->servers
-                    ->load('serverTags.gameTag')
-                    ->pluck('serverTags') 
-                    ->flatten()
-                    ->pluck('gameTag') 
-                    ->filter() 
-                    ->unique('id')
-                    ->sortBy('name');
+        $game_tags = $game?->servers
+            ?->load('serverTags.gameTag')
+            ?->pluck('serverTags')
+            ?->flatten()
+            ?->pluck('gameTag')
+            ?->filter()
+            ?->unique('id')
+            ?->sortBy('name');
 
         $countries = Country::orderBy('name', 'ASC')->get();
 
