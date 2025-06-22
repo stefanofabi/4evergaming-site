@@ -131,27 +131,27 @@
                             </div>
                             <div class="text-end mt-2">
                                 @if ($community->whatsapp)
-                                    <a href="https://wa.me/{{ $community->whatsapp }}" target="_blank" title="WhatsApp" class="text-light ms-2 text-decoration-none">
+                                    <a href="{{ $community->whatsapp }}" target="_blank" title="WhatsApp" class="text-light ms-2 text-decoration-none">
                                         <i class="bi bi-whatsapp fs-5"></i>
                                     </a>
                                 @endif
                                 @if ($community->instagram)
-                                    <a href="https://instagram.com/{{ $community->instagram }}" target="_blank" title="Instagram" class="text-light ms-2 text-decoration-none">
+                                    <a href="{{ $community->instagram }}" target="_blank" title="Instagram" class="text-light ms-2 text-decoration-none">
                                         <i class="bi bi-instagram fs-5"></i>
                                     </a>
                                 @endif
                                 @if ($community->tiktok)
-                                    <a href="https://www.tiktok.com/@{{ $community->tiktok }}" target="_blank" title="TikTok" class="text-light ms-2 text-decoration-none">
+                                    <a href="{{ $community->tiktok }}" target="_blank" title="TikTok" class="text-light ms-2 text-decoration-none">
                                         <i class="bi bi-tiktok fs-5"></i>
                                     </a>
                                 @endif
                                 @if ($community->youtube)
-                                    <a href="https://youtube.com/{{ $community->youtube }}" target="_blank" title="YouTube" class="text-light ms-2 text-decoration-none">
+                                    <a href="{{ $community->youtube }}" target="_blank" title="YouTube" class="text-light ms-2 text-decoration-none">
                                         <i class="bi bi-youtube fs-5"></i>
                                     </a>
                                 @endif
                                 @if ($community->discord)
-                                    <a href="https://discord.gg/{{ $community->discord }}" target="_blank" title="Discord" class="text-light ms-2 text-decoration-none">
+                                    <a href="{{ $community->discord }}" target="_blank" title="Discord" class="text-light ms-2 text-decoration-none">
                                         <i class="bi bi-discord fs-5"></i>
                                     </a>
                                 @endif

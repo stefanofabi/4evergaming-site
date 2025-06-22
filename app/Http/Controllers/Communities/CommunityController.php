@@ -140,9 +140,11 @@ class CommunityController extends Controller
 
         unset($validatedData['logo']);
 
-        $validatedData['description'] = $request->filled('description') ? Purify::clean($request->description) : null;
+        if ($request->filled('description')) 
+            $validatedData['description'] =  Purify::clean($request->description);
 
-        if ($slug = Str::slug($request->name)) $validatedData['slug'] = $slug;
+        if ($slug = Str::slug($request->name)) 
+            $validatedData['slug'] = $slug;
 
         $community->update($validatedData);
 
