@@ -6,7 +6,7 @@
                     <div class="row g-0 h-100">
                         {{-- Columna izquierda: Logo --}}
                         <div class="col-md-4 d-flex align-items-center justify-content-center p-3">
-                            <a href="{{ route('communities/show', ['id' => $server->community_id]) }}">
+                            <a href="{{ route('communities/show', ['slug' => $server->community->slug]) }}">
                                 <img src="{{ asset('storage/communities/' . $server->community->logo) }}?t={{ $server->community->updated_at }}"
                                     class="img-fluid rounded" alt="{{ $server->community->name }} Logo">
                             </a>

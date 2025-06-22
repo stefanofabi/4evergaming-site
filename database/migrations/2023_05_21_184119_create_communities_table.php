@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('communities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->string('description', 10000)->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('instagram')->nullable();

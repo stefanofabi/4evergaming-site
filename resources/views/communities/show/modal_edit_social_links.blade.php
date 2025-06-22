@@ -27,40 +27,40 @@
             <div class="col-md-6">
               <div class="mb-3">
                 <label for="whatsapp" class="form-label fw-bold">WhatsApp</label>
-                <input type="text" class="form-control bg-dark text-light border-secondary" id="whatsapp" name="whatsapp" value="{{ $community->whatsapp }}" placeholder="URL de WhatsApp">
+                <input type="text" class="form-control bg-dark text-light border-secondary" id="whatsapp" name="whatsapp" value="{{ $community->whatsapp }}">
               </div>
 
               <div class="mb-3">
                 <label for="instagram" class="form-label fw-bold">Instagram</label>
-                <input type="text" class="form-control bg-dark text-light border-secondary" id="instagram" name="instagram" value="{{ $community->instagram }}" placeholder="Usuario de Instagram">
+                <input type="text" class="form-control bg-dark text-light border-secondary" id="instagram" name="instagram" value="{{ $community->instagram }}">
               </div>
 
               <div class="mb-3">
                 <label for="tiktok" class="form-label fw-bold">TikTok</label>
-                <input type="text" class="form-control bg-dark text-light border-secondary" id="tiktok" name="tiktok" value="{{ $community->tiktok }}" placeholder="Usuario de Tiktok sin @">
+                <input type="text" class="form-control bg-dark text-light border-secondary" id="tiktok" name="tiktok" value="{{ $community->tiktok }}">
               </div>
             </div>
 
             <div class="col-md-6">
               <div class="mb-3">
                 <label for="youtube" class="form-label fw-bold">YouTube</label>
-                <input type="text" class="form-control bg-dark text-light border-secondary" id="youtube" name="youtube" value="{{ $community->youtube }}" placeholder="Usuario de YouTube sin @">
+                <input type="text" class="form-control bg-dark text-light border-secondary" id="youtube" name="youtube" value="{{ $community->youtube }}">
               </div>
 
               <div class="mb-3">
                 <label for="discord" class="form-label fw-bold">Discord</label>
-                <input type="text" class="form-control bg-dark text-light border-secondary" id="discord" name="discord" value="{{ $community->discord }}" placeholder="ID Canal Discord">
+                <input type="text" class="form-control bg-dark text-light border-secondary" id="discord" name="discord" value="{{ $community->discord }}">
               </div>
 
               <div class="mb-3">
                 <label for="website" class="form-label fw-bold">Sitio Web</label>
-                <input type="text" class="form-control bg-dark text-light border-secondary" id="website" name="website" value="{{ $community->website }}" placeholder="URL con HTTP">
+                <input type="text" class="form-control bg-dark text-light border-secondary" id="website" name="website" value="{{ $community->website }}">
               </div>
             </div>
           </div>
 
           <div class="text-end">
-            <button type="submit" class="btn btn-danger text-light border-light" id="saveCommunitySocialLinkButton">Guardar Cambios</button>
+            <button type="submit" class="btn btn-danger text-light" id="saveCommunitySocialLinkButton">Guardar Cambios</button>
             <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
           </div>
         </form>

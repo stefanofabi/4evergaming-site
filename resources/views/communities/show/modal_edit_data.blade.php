@@ -24,7 +24,7 @@
           </div>
 
           <div class="d-flex justify-content-end gap-2">
-            <button type="submit" class="btn btn-danger text-light border-light" id="saveCommunityDataButton">Guardar Cambios</button>
+            <button type="submit" class="btn btn-danger text-light" id="saveCommunityDataButton">Guardar Cambios</button>
             <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
           </div>
         </form>

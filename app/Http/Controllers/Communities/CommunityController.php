@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Stevebauman\Purify\Facades\Purify;
 
 use App\Models\Community;
@@ -15,14 +16,22 @@ class CommunityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
 
-        $communities = Community::has('servers')->orderBy('calification', 'desc')->get();
-
+        $communities = Community::query()
+        ->when($request->filled('filter'), function ($query) use ($request) {
+            $query->where('name', 'like', '%' . $request->filter . '%');
+            // Puedes cambiar 'name' por cualquier campo que estés buscando
+        })
+        ->has('servers')
+        ->orderBy('calification', 'desc')
+        ->get();
+        
         return view('communities.index.index')
-            ->with('communities', $communities);
+            ->with('communities', $communities)
+            ->with('filter', $request->filter);
     }
 
     /**
@@ -59,6 +68,7 @@ class CommunityController extends Controller
 
         $community = new Community();
         $community->name = $request->name;
+        $community->slug = Str::slug($request->name);
         $community->description = Purify::clean($request->description);
         $community->logo = $logo_name;
         $community->user_id = $user->id;
@@ -71,11 +81,11 @@ class CommunityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
         //
 
-        $community = Community::findOrFail($id);
+        $community = Community::where('slug', $slug)->firstOrFail();
         $servers = $community->servers()->orderBy('rank', 'ASC')->get();
 
         return view('communities.show.show')
@@ -130,7 +140,9 @@ class CommunityController extends Controller
 
         unset($validatedData['logo']);
 
-        $validatedData['description'] = Purify::clean($request->description);
+        $validatedData['description'] = $request->filled('description') ? Purify::clean($request->description) : null;
+
+        if ($slug = Str::slug($request->name)) $validatedData['slug'] = $slug;
 
         $community->update($validatedData);
 

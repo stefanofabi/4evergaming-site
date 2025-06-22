@@ -65,7 +65,7 @@ Route::group([
     'as' => 'communities/',
 ], function () {
     Route::get('', [CommunityController::class, 'index'])->name('index');
-    Route::get('show/{id}', [CommunityController::class, 'show'])->name('show');
+    Route::get('{slug}', [CommunityController::class, 'show'])->name('show');
 
     Route::post('store', [CommunityController::class, 'store'])->name('store')->middleware('auth');
     Route::put('update/{id}', [CommunityController::class, 'update'])->name('update')

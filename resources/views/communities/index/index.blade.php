@@ -71,6 +71,7 @@
 @append
 
 @section('content')
+
 @php
     $myCommunity = auth()->check() ? auth()->user()->community()->first() : null;
 @endphp
@@ -81,20 +82,19 @@
     <!-- Buscador -->
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
-            <form action="/buscar-servidores" method="GET" class="input-group">
-                <input type="text" name="query" class="form-control form-control-lg" placeholder="Buscar por nombre de la comunidad...">
+            <form action="{{ route('communities/index') }}" method="GET" class="input-group">
+                <input type="text" name="filter" class="form-control form-control-lg" placeholder="Buscar por nombre de la comunidad..." value="{{ $filter }}">
                 <button class="btn btn-danger btn-lg" type="submit">Buscar</button>
             </form>
         </div>
     </div>
 
-
     <!-- Botón destacado debajo del buscador -->
-    @if (auth()->user() && auth()->user()->community)
+    @if ($myCommunity)
     <div class="text-center mb-5">
-        <a href="{{ route('communities/show', auth()->user()->community->id) }}"
+        <a href="{{ route('communities/show', $myCommunity->slug) }}"
            class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold shadow-sm transition">
-            🏠 Mi Comunidad
+            🏠 {{ $myCommunity->name }}
         </a>
     </div>
     @else 
@@ -118,7 +118,7 @@
                     <div class="row g-0 h-100">
                         {{-- Logo --}}
                         <div class="col-md-4 d-flex align-items-center justify-content-center p-3">
-                            <a href="{{ route('communities/show', $community->id) }}">
+                            <a href="{{ route('communities/show', ['slug' => $community->slug]) }}">
                                 <img src="{{ asset('storage/communities/' . $community->logo) }}?t={{ strtotime($community->updated_at) }}" class="img-fluid rounded" alt="{{ $community->name }}">
                             </a>
                         </div>

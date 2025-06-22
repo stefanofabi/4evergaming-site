@@ -7,7 +7,7 @@
                     <div class="row g-0 h-100">
                         {{-- Columna izquierda: Logo --}}
                         <div class="col-md-4 d-flex align-items-center justify-content-center p-3">
-                            <a href="{{ url('/comunidades/' . Str::slug($community->name)) }}">
+                            <a href="{{ route('communities/show', ['slug' => $community->slug]) }}">
                                 <img src="{{ asset('storage/communities/' . $community->logo) }}" class="img-fluid rounded" alt="{{ $community->name }} Logo">
                             </a>
                         </div>
@@ -20,25 +20,29 @@
                             </div>
                             <div class="text-end mt-2">
                                 @if($community->instagram)
-                                    <a href="http://instagram.com/{{ $community->instagram }}" target="_blank" class="text-light ms-2 text-decoration-none" title="Instagram">
+                                    <a href="{{ $community->instagram }}" target="_blank" class="text-light ms-2 text-decoration-none" title="Instagram">
                                         <i class="bi bi-instagram fs-5"></i>
                                     </a>
                                 @endif
+                                
                                 @if($community->youtube)
-                                    <a href="http://youtube.com/channel/{{ $community->youtube }}" target="_blank" class="text-light ms-2 text-decoration-none" title="YouTube">
+                                    <a href="{{ $community->youtube }}" target="_blank" class="text-light ms-2 text-decoration-none" title="YouTube">
                                         <i class="bi bi-youtube fs-5"></i>
                                     </a>
                                 @endif
+
                                 @if($community->discord)
-                                    <a href="http://discord.gg/{{ $community->discord }}" target="_blank" class="text-light ms-2 text-decoration-none" title="Discord">
+                                    <a href="{{ $community->discord }}" target="_blank" class="text-light ms-2 text-decoration-none" title="Discord">
                                         <i class="bi bi-discord fs-5"></i>
                                     </a>
                                 @endif
+
                                 @if($community->tiktok)
-                                    <a href="http://tiktok.com/{{ '@'. $community->tiktok }}" target="_blank" class="text-light ms-2 text-decoration-none" title="TikTok">
+                                    <a href="{{ $community->tiktok }}" target="_blank" class="text-light ms-2 text-decoration-none" title="TikTok">
                                         <i class="bi bi-tiktok fs-5"></i>
                                     </a>
                                 @endif
+
                                 @if($community->website)
                                     <a href="{{ $community->website }}" target="_blank" class="text-light ms-2 text-decoration-none" title="Sitio Web">
                                         <i class="bi bi-globe2 fs-5"></i>
