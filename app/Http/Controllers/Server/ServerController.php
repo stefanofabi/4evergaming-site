@@ -201,6 +201,17 @@ class ServerController extends Controller
         ->orderBy('rank', 'ASC')
         ->get();
 
+        $game_tags = $game->servers
+                    ->load('serverTags.gameTag')
+                    ->pluck('serverTags') 
+                    ->flatten()
+                    ->pluck('gameTag') 
+                    ->filter() 
+                    ->unique('id')
+                    ->sortBy('name');
+
+        $countries = Country::orderBy('name', 'ASC')->get();
+
         /*
         $top_servers = Server::selectRaw('MIN(servers.rank) as rank, communities.id as community_id, communities.name, communities.logo')
         ->join('communities', 'servers.community_id', '=', 'communities.id')
@@ -212,11 +223,10 @@ class ServerController extends Controller
         ->get();
         */
 
-        $countries = Country::orderBy('name', 'ASC')->get();
-
         return view('servers.search.index')
             ->with('game', $game)
             ->with('game_tag', $game_tag)
+            ->with('game_tags', $game_tags)
             ->with('games', $games)
             ->with('servers', $servers)
             //->with('top_servers', $top_servers)

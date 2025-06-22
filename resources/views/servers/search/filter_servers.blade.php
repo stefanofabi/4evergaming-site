@@ -20,7 +20,7 @@
     @if ($game)
     <div class="text-center mb-5 ps-3 pe-3">
         <div class="d-flex flex-wrap justify-content-center gap-3 align-items-center">
-            @foreach ($game->gameTags->sortBy('name') as $gameTag)
+            @foreach ($game_tags as $gameTag)
                 <a href="{{ route('servers/search', ['game' => $game->protocol, 'game_tag' => $gameTag->name, 'filter' => $filter ?? '']) }}" 
                 class="btn {{ isset($game_tag) && $gameTag->id === $game_tag->id ? 'btn-danger' : 'btn-outline-light' }} rounded-pill px-4 py-2 fw-semibold shadow-sm transition">
                     {{ $gameTag->name }}
