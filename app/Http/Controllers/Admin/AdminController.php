@@ -312,6 +312,9 @@ class AdminController extends Controller
 
             $existingPayment = Payment::where('transaction', $transactionId)->first();
 
+            if ($existingPayment && $existingPayment->verified)
+                continue;
+                        
             if ($existingPayment) {
                 $actualizados++;
             } else {
