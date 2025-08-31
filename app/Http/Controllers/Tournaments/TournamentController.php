@@ -103,11 +103,9 @@ class TournamentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Tournament $tournament)
     {
         //
-
-        $tournament = Tournament::findOrFail($id);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -166,10 +164,8 @@ class TournamentController extends Controller
         return back();
     }
 
-    public function updateBanner(Request $request, $id)
+    public function updateBanner(Request $request, Tournament $tournament)
     {
-        $tournament = Tournament::findOrFail($id);
-
         $request->validate([
             'tournament_image' => 'required|image|max:2048',
         ]);

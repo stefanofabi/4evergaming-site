@@ -201,7 +201,7 @@
     
     $.ajax({
             type: 'POST',
-            url: "{{ route('tournaments/update', ['id' => $tournament->id]) }}",
+            url: "{{ route('tournaments/update', ['tournament' => $tournament->id]) }}",
             data: new FormData(this),
             contentType: false,
             cache: false,
@@ -227,7 +227,7 @@
     
     $.ajax({
             type: 'POST',
-            url: "{{ route('tournaments/update-banner', ['id' => $tournament->id]) }}",
+            url: "{{ route('tournaments/update-banner', ['tournament' => $tournament->id]) }}",
             data: new FormData(this),
             contentType: false,
             cache: false,
@@ -389,7 +389,6 @@
   </div>
 </div>
 
-
 {{-- Participantes --}}
 <div class="participants-section mt-4">
   <h2 class="text-danger" style="text-shadow: 0 0 5px #ff0000;">👥 Participantes</h2>
@@ -397,6 +396,7 @@
   @if($tournament->participants && $tournament->participants->count())
     <div class="participant-list mt-3">
       <div class="participant-header d-flex fw-bold border-bottom pb-2 mb-2">
+        <div style="width: 50px;" class="text-start">&nbsp #</div>
         <div class="flex-grow-1">Jugador</div>
         <div style="width: 80px" class="text-center">Puntos</div>
         @if (auth()->user() && ($tournament->organizer_id == auth()->user()->id || auth()->user()->steam_id == "76561198259502796"))
@@ -404,8 +404,12 @@
         @endif
       </div>
 
+      @php $position = 1; @endphp
+
       @foreach($tournament->participants->sortByDesc('points') as $participant)
         <div class="participant-item d-flex mb-1 align-items-center">
+          <div style="width: 50px;" class="text-start">{{ $position++ }}</div>
+
           <div class="flex-grow-1 d-flex align-items-center">
             @if($participant->user->avatar)
               @if($participant->user->profile_url)
@@ -426,19 +430,19 @@
           @if (auth()->user() && ($tournament->organizer_id == auth()->user()->id || auth()->user()->steam_id == "76561198259502796"))
             <div style="width: 150px;" class="text-center d-flex justify-content-center gap-2">
               {{-- Botón sumar punto --}}
-              <form action="{{ route('tournaments/participants/increment', [$tournament->id, $participant->id]) }}" method="POST" style="display:inline;">
+              <form action="{{ route('tournaments/participants/increment', ['tournament' => $tournament->id, 'participant' => $participant->id]) }}" method="POST" style="display:inline;">
                 @csrf
                 <button class="btn btn-success btn-sm" title="Sumar punto">+</button>
               </form>
 
               {{-- Botón restar punto --}}
-              <form action="{{ route('tournaments/participants/decrement', [$tournament->id, $participant->id]) }}" method="POST" style="display:inline;">
+              <form action="{{ route('tournaments/participants/decrement', ['tournament' => $tournament->id, 'participant' => $participant->id]) }}" method="POST" style="display:inline;">
                 @csrf
                 <button class="btn btn-warning btn-sm" title="Restar punto">−</button>
               </form>
 
               {{-- Botón borrar participante --}}
-              <form action="{{ route('tournaments/participants/remove', [$tournament->id, $participant->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar este participante?');">
+              <form action="{{ route('tournaments/participants/remove', ['tournament' => $tournament->id, 'participant' => $participant->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar este participante?');">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger btn-sm" title="Eliminar">🗑️</button>
@@ -452,8 +456,6 @@
     <p>No hay participantes registrados aún.</p>
   @endif
 </div>
-
-
 
 <!-- Modal: Editar Torneo -->
 <div class="modal fade" id="editTournamentModal" tabindex="-1" aria-labelledby="editTournamentModalLabel" aria-hidden="true">
@@ -548,8 +550,6 @@
     </form>
   </div>
 </div>
-
-
 
 <!-- Modal: Editar Banner -->
 <div class="modal fade" id="editBannerModal" tabindex="-1" aria-labelledby="editBannerModalLabel" aria-hidden="true">

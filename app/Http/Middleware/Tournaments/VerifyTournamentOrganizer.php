@@ -17,9 +17,8 @@ class VerifyTournamentOrganizer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $tournamentId = $request->tournament ?? $request->id;
+        $tournament = $request->tournament ?? Tournament::findOrFail($request->id);
 
-        $tournament = Tournament::findOrFail($tournamentId);
         $user = auth()->user();
 
         if ($tournament->organizer_id == $user->id)
