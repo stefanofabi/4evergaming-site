@@ -120,8 +120,8 @@ class TournamentController extends Controller
         $tournament = Tournament::findOrFail($id);
 
         $participant = new Participant();
-        $participant->user_id = auth()->user()->id;      // asigna el id del usuario
-        $participant->tournament_id = $tournament->id;   // asigna el id del torneo
+        $participant->user_id = auth()->user()->id;     
+        $participant->tournament_id = $tournament->id; 
         $participant->save();
 
         return redirect()->route('tournaments/show', ['slug' => $tournament->slug]);

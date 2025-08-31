@@ -75,5 +75,7 @@ class Kernel extends HttpKernel
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
         'register_server_if_official' => \App\Http\Middleware\Servers\RegisterServerIfOfficial::class,
         'check_firewall_rule' => \App\Http\Middleware\Firewall\CheckFirewallRule::class,
+        'verify_tournament_organizer' => \App\Http\Middleware\Tournaments\VerifyTournamentOrganizer::class,
+
     ];
 }
