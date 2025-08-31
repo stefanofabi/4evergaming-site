@@ -126,5 +126,22 @@ class TournamentController extends Controller
 
         return redirect()->route('tournaments/show', ['slug' => $tournament->slug]);
     }
+    
+    public function incrementPoints(Tournament $tournament, Participant $participant)
+    {
+        $participant->increment('points');
+        return back();
+    }
 
+    public function decrementPoints(Tournament $tournament, Participant $participant)
+    {
+        $participant->decrement('points');
+        return back();
+    }
+
+    public function removeParticipant(Tournament $tournament, Participant $participant)
+    {
+        $participant->delete();
+        return back();
+    }
 }

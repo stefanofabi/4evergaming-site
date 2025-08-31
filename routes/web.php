@@ -124,6 +124,15 @@ Route::group([
     Route::post('register/{id}', [TournamentController::class, 'register'])->name('register')
         ->middleware('auth');
 
+    Route::post('{tournament}/participants/{participant}/increment', [TournamentController::class, 'incrementPoints'])->name('participants/increment')
+        ->middleware('auth');
+
+    Route::post('{tournament}/participants/{participant}/decrement', [TournamentController::class, 'decrementPoints'])->name('participants/decrement')
+        ->middleware('auth');
+
+    Route::delete('{tournament}/participants/{participant}', [TournamentController::class, 'removeParticipant'])->name('participants/remove')
+        ->middleware('auth');
+
 });
 
 Route::group([

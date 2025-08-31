@@ -325,7 +325,11 @@
       <div class="participant-header d-flex fw-bold border-bottom pb-2 mb-2">
         <div class="flex-grow-1">Jugador</div>
         <div style="width: 80px" class="text-center">Puntos</div>
+        @if (auth()->user() && $tournament->organizer_id == auth()->user()->id)
+          <div style="width: 150px;" class="text-center">Acciones</div>
+        @endif
       </div>
+
       
       @foreach($tournament->participants->sortByDesc('points') as $participant)
         <div class="participant-item d-flex mb-1 align-items-center">
@@ -343,9 +347,34 @@
             @endif
             {{ $participant->user->name }}
           </div>
+
           <div style="width: 80px;" class="text-center">{{ $participant->points }}</div>
+
+          @if (auth()->user() && $tournament->organizer_id == auth()->user()->id)
+            <div style="width: 150px;" class="text-center d-flex justify-content-center gap-2">
+              {{-- Botón sumar punto --}}
+              <form action="{{ route('tournaments/participants/increment', [$tournament->id, $participant->id]) }}" method="POST" style="display:inline;">
+                @csrf
+                <button class="btn btn-success btn-sm" title="Sumar punto">+</button>
+              </form>
+
+              {{-- Botón restar punto --}}
+              <form action="{{ route('tournaments/participants/decrement', [$tournament->id, $participant->id]) }}" method="POST" style="display:inline;">
+                @csrf
+                <button class="btn btn-warning btn-sm" title="Restar punto">−</button>
+              </form>
+
+              {{-- Botón borrar participante --}}
+              <form action="{{ route('tournaments/participants/remove', [$tournament->id, $participant->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar este participante?');">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger btn-sm" title="Eliminar">🗑️</button>
+              </form>
+            </div>
+          @endif
         </div>
       @endforeach
+
 
     </div>
   @else

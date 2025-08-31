@@ -154,6 +154,8 @@
     }
 
     .btn-inscribirse-gamer {
+        display: inline-block;
+        text-decoration: none;
         background: linear-gradient(45deg, #ff1c1c, #ff6f00);
         color: #fff;
         padding: 0.75rem 1.5rem;
@@ -193,8 +195,6 @@
         border-color: #ff6f00;
         cursor: pointer;
     }
-
-
 </style>
 
 <style>
@@ -246,6 +246,9 @@
     label.form-label {
         color: #ffcccc;
     }
+
+
+
 </style>
 @endsection
 
@@ -259,7 +262,7 @@
     @auth
         <div class="tournament-section mb-5">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="section-title m-0 w-50">Mis Torneos</h2>
+                <h2 class="section-title gamer-glow m-0 w-50"> 🎮 Mis Torneos </h2>
                 <button type="button" class="btn-gamer-dark" data-bs-toggle="modal" data-bs-target="#createTournamentModal">
                     + Crear Torneo
                 </button>
@@ -284,26 +287,26 @@
     @endauth
 
 
-    <div class="section-title">Torneos Activos</div>
+    <div class="section-title gamer-glow">🔥 Torneos en Curso </div>
 
     @forelse ($upcoming_tournaments as $tournament)
         <div class="tournament-card">
             <h3>{{ $tournament->name }}</h3>
             <p><strong>Fecha:</strong> {{ \Carbon\Carbon::parse($tournament->start_date)->format('d/m/Y') }}</p>
-            @if ($tournament->prize) <p><strong>Premio:</strong> ${{ $tournament->prize }}</p> @endif
-            
-            <form action="{{ route('tournaments/show', ['slug' => $tournament->slug]) }}" method="GET" style="display: inline;">
-                @csrf
-                
-                <button type="submit" class="btn-inscribirse-gamer">Mas informacion</button>
-            </form>
+            @if ($tournament->prize) 
+                <p><strong>Premio:</strong> ${{ $tournament->prize }}</p> 
+            @endif
+
+            <a href="{{ route('tournaments/show', ['slug' => $tournament->slug]) }}" class="btn-inscribirse-gamer">
+                Más información
+            </a>
         </div>
     @empty
         <p>No hay torneos activos en este momento.</p>
     @endforelse
 
     <div class="tournament-section">
-        <div class="section-title">Últimos Torneos</div>
+        <div class="section-title gamer-glow">🏆 Torneos Finalizados</div>
 
         <!-- Torneos completados dinámicos -->
         @forelse ($completed_tournaments as $tournament)
