@@ -32,6 +32,8 @@ use App\Http\Controllers\Pages\WebHostingController;
 
 use App\Http\Controllers\Communities\CommunityController;
 
+use App\Http\Controllers\Tournaments\TournamentController;
+
 use App\Http\Controllers\Server\ServerController;
 
 use App\Http\Controllers\Admin\AdminController;
@@ -105,6 +107,23 @@ Route::group([
 
     Route::post('upload-map', [ServerController::class, 'uploadMap'])->name('upload_map')
     ->middleware('auth');
+});
+
+Route::group([
+    'prefix' => 'tournaments',
+    'as' => 'tournaments/',
+], function () {
+
+    Route::get('', [TournamentController::class, 'index'])->name('index');
+    
+    Route::post('store', [TournamentController::class, 'store'])->name('store')
+    ->middleware('auth');
+
+    Route::get('{slug}', [TournamentController::class, 'show'])->name('show');
+
+    Route::post('register/{id}', [TournamentController::class, 'register'])->name('register')
+        ->middleware('auth');
+
 });
 
 Route::group([

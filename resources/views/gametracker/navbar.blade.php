@@ -33,9 +33,8 @@
         <li class="nav-item me-3">
           <a class="nav-link text-danger" href="{{ route('communities/index') }}">Comunidades</a>
         </li>
-        
 
-        <li class="nav-item"><a class="nav-link text-danger disabled" href="/torneos">Torneos</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="{{ route('tournaments/index') }}">Torneos</a></li>
       </ul>
 
       <!-- Botones a la derecha -->
