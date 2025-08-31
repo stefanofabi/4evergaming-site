@@ -8,6 +8,18 @@ class Tournament extends Model
 {
     //
 
+    protected $fillable = [
+        'name',
+        'description',
+        'start_date',
+        'end_date',
+        'organizer_id',
+        'location',
+        'max_players',
+        'game_id',
+    ];
+
+
     public function organizer()
     {
         return $this->belongsTo(User::class, 'organizer_id');

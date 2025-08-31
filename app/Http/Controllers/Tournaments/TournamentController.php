@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tournaments;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Tournament;
 use App\Models\Participant;
@@ -105,6 +106,26 @@ class TournamentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
+        $tournament = Tournament::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'max_participants' => 'nullable|integer|min:1',
+            'max_participants_per_team' => 'nullable|integer|min:1',
+            'location' => 'nullable|string|max:255',
+            'status' => 'required|in:upcoming,ongoing,completed,cancelled',
+            'prize' => 'nullable|string|max:255',
+            'entry_fee' => 'nullable|numeric|min:0',
+            'event_url' => 'nullable|url|max:255',
+        ]);
+
+        $tournament->update($validated);
+
+        return $tournament;
     }
 
     /**
@@ -143,5 +164,26 @@ class TournamentController extends Controller
     {
         $participant->delete();
         return back();
+    }
+
+    public function updateBanner(Request $request, $id)
+    {
+        $tournament = Tournament::findOrFail($id);
+
+        $request->validate([
+            'tournament_image' => 'required|image|max:2048',
+        ]);
+
+        if ($tournament->tournament_image && Storage::disk('public')->exists('tournaments/' . $tournament->tournament_image)) {
+            Storage::disk('public')->delete('tournaments/' . $tournament->tournament_image);
+        }
+
+        $path = $request->file('tournament_image')->store('tournaments', 'public');
+        $filename = basename($path);
+
+        $tournament->tournament_image = $filename;
+        $tournament->save();
+
+        return $tournament;
     }
 }

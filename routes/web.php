@@ -136,6 +136,13 @@ Route::group([
         ->middleware('auth')
         ->middleware('verify_tournament_organizer');
 
+    Route::put('/tournaments/{id}/update', [TournamentController::class, 'update'])->name('update')
+        ->middleware('auth')
+        ->middleware('verify_tournament_organizer');
+
+    Route::put('/tournaments/{id}/update-banner', [TournamentController::class, 'updateBanner'])->name('update-banner')
+        ->middleware('auth')
+        ->middleware('verify_tournament_organizer');
 });
 
 Route::group([

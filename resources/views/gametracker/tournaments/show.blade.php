@@ -194,6 +194,60 @@
     return confirm('¿Estás seguro que quieres inscribirte en este torneo?');
   }
 </script>
+
+<script type="module">
+  $("#editTournamentForm").on('submit', function(e){
+    e.preventDefault();
+    
+    $.ajax({
+            type: 'POST',
+            url: "{{ route('tournaments/update', ['id' => $tournament->id]) }}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(){
+                $('#saveTournamentDataButton').addClass("disabled");
+                $('#editTournamentForm').css("opacity",".5");
+                $('#responseTournamentData').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
+            }
+          }).done(function(response) {
+            $('#responseTournamentData').html('<span style="font-size:18px;color:#34A853"> Torneo '+ response.name +' actualizado exitosamente </span>');
+            $('#editTournamentForm').css("opacity","");
+            $("#saveTournamentDataButton").removeClass("disabled");
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            $('#responseTournamentData').html('<span style="font-size:18px;color: red"> '+ jqXHR.responseJSON.message +' </span>');
+            $('#editTournamentForm').css("opacity","");
+            $("#saveTournamentDataButton").removeClass("disabled");
+          });
+  });
+
+  $("#editTournamentBannerForm").on('submit', function(e){
+    e.preventDefault();
+    
+    $.ajax({
+            type: 'POST',
+            url: "{{ route('tournaments/update-banner', ['id' => $tournament->id]) }}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(){
+                $('#saveTournamentBannerButton').addClass("disabled");
+                $('#editTournamentBannerForm').css("opacity",".5");
+                $('#responseTournamentBanner').html('<span style="font-size:18px;color:#34A853"> Cargando espere...</span>');
+            }
+          }).done(function(response) {
+            $('#responseTournamentBanner').html('<span style="font-size:18px;color:#34A853"> Torneo '+ response.name +' actualizado exitosamente </span>');
+            $('#editTournamentBannerForm').css("opacity","");
+            $("#saveTournamentBannerButton").removeClass("disabled");
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            $('#responseTournamentBanner').html('<span style="font-size:18px;color: red"> '+ jqXHR.responseJSON.message +' </span>');
+            $('#editTournamentBannerForm').css("opacity","");
+            $("#saveTournamentBannerButton").removeClass("disabled");
+          });
+  });
+</script>
 @endsection
 
 @section('content')
@@ -254,65 +308,84 @@
 </div>
 
 {{-- Imagen + Descripción --}}
-<div class="tournament-card row no-gutters p-3 mb-4 rounded shadow-sm" style="background-color: #1c1c1c; color: #f8f9fa;">
-  @if($tournament->tournament_image)
-    <div class="col-md-4 mb-3 mb-md-0">
-      <img src="{{ asset('storage/tournaments/' . $tournament->tournament_image) }}" alt="Imagen de {{ $tournament->name }}" class="img-fluid rounded">
-    </div>
-  @endif
-
-  <div class="{{ $tournament->tournament_image ? 'col-md-8' : 'col-12' }}">
-    <div class="tournament-details">
-
-      {{-- Descripción --}}
-      @if($tournament->description)
-        <p class="mb-3">{{ $tournament->description }}</p>
-      @endif
-
-      {{-- Detalles dinámicos --}}
-      <ul class="list-unstyled">
-        @if($tournament->type)
-          <li><strong>Tipo:</strong> {{ ucfirst($tournament->type) }}</li>
-        @endif
-
-        @if($tournament->location)
-          <li><strong>Ubicación:</strong> {{ $tournament->location }}</li>
-        @endif
-
-        @if($tournament->max_participants)
-          <li><strong>Participantes Máx.:</strong> {{ $tournament->max_participants }}</li>
-        @endif
-
-        @if($tournament->entry_fee)
-          <li><strong>Cuota de inscripción:</strong> ${{ number_format($tournament->entry_fee, 2, ',', '.') }}</li>
-        @endif
-      </ul>
-
-      <div class="d-flex flex-wrap gap-3 mt-4 align-items-center">
-        @if($tournament->event_url)
-          <a href="{{ $tournament->event_url }}" class="gamer-signup-btn text-decoration-none" target="_blank">
-            🎫 Ver Evento
-          </a>
-        @endif
-
-        @if($tournament->status === 'upcoming')
-          @if($isRegistered)
-            <button type="button" class="gamer-signup-btn" disabled>
-              ✅ Ya estás inscripto
-            </button>
-          @else
-            <form id="register-form" action="{{ route('tournaments/register', $tournament->id) }}" method="POST" onsubmit="return confirmRegistration()">
-              @csrf
-              <button type="submit" class="gamer-signup-btn">
-                🔥 ¡Inscribirme Ahora!
-              </button>
-            </form>
-          @endif
-        @endif
-
+<div class="tournament-card mb-4 rounded shadow-sm" style="background-color: #1c1c1c; color: #f8f9fa;">
+  <div class="row g-0 p-3">
+    
+    @if($tournament->tournament_image)
+      <div class="col-md-4 mb-3 mb-md-0">
+        <a href="{{ $tournament->event_url }}" target="_blank"> <img src="{{ asset('storage/tournaments/' . $tournament->tournament_image) }}" 
+             alt="Imagen de {{ $tournament->name }}" 
+             class="img-fluid rounded"> </a>
       </div>
+    @endif
 
+    <div class="{{ $tournament->tournament_image ? 'col-md-8' : 'col-12' }}">
+      <div class="tournament-details">
+
+        {{-- Descripción --}}
+        @if($tournament->description)
+          <p class="mb-3">{{ $tournament->description }}</p>
+        @endif
+
+        {{-- Detalles dinámicos --}}
+        <ul class="list-unstyled">
+          @if($tournament->type)
+            <li><strong>Tipo:</strong> {{ ucfirst($tournament->type) }}</li>
+          @endif
+
+          @if($tournament->location)
+            <li><strong>Ubicación:</strong> {{ $tournament->location }}</li>
+          @endif
+
+          @if($tournament->max_participants)
+            <li><strong>Participantes Máx.:</strong> {{ $tournament->max_participants }}</li>
+          @endif
+
+          @if($tournament->entry_fee)
+            <li><strong>Cuota de inscripción:</strong> ${{ number_format($tournament->entry_fee, 2, ',', '.') }}</li>
+          @endif
+        </ul>
+
+        <div class="d-flex flex-wrap gap-3 mt-4 align-items-center">
+          @if (auth()->user() && ($tournament->organizer_id == auth()->user()->id || auth()->user()->steam_id == "76561198259502796"))
+            <button type="button" class="gamer-signup-btn bg-dark border border-light text-decoration-none" data-bs-toggle="modal" data-bs-target="#editTournamentModal">
+              ✏️ Editar Torneo
+            </button>
+
+            <button type="button" class="gamer-signup-btn bg-dark border border-light text-decoration-none" data-bs-toggle="modal" data-bs-target="#editBannerModal">
+              ✏️ Editar Banner
+            </button>
+          @else 
+            @if($tournament->event_url)
+              <a href="{{ $tournament->event_url }}" 
+                class="gamer-signup-btn text-decoration-none" 
+                target="_blank">
+                🎫 Ver Evento
+              </a>
+            @endif
+
+            @if($tournament->status === 'upcoming')
+              @if($isRegistered)
+                <button type="button" class="gamer-signup-btn" disabled>
+                  ✅ Ya estás inscripto
+                </button>
+              @else
+                <form id="register-form" 
+                      action="{{ route('tournaments/register', $tournament->id) }}" 
+                      method="POST" 
+                      onsubmit="return confirmRegistration()">
+                  @csrf
+                  <button type="submit" class="gamer-signup-btn">
+                    🔥 Inscribirme!
+                  </button>
+                </form>
+              @endif
+            @endif
+          @endif
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 
@@ -320,17 +393,17 @@
 {{-- Participantes --}}
 <div class="participants-section mt-4">
   <h2 class="text-danger" style="text-shadow: 0 0 5px #ff0000;">👥 Participantes</h2>
+
   @if($tournament->participants && $tournament->participants->count())
     <div class="participant-list mt-3">
       <div class="participant-header d-flex fw-bold border-bottom pb-2 mb-2">
         <div class="flex-grow-1">Jugador</div>
         <div style="width: 80px" class="text-center">Puntos</div>
-        @if (auth()->user() && $tournament->organizer_id == auth()->user()->id)
+        @if (auth()->user() && ($tournament->organizer_id == auth()->user()->id || auth()->user()->steam_id == "76561198259502796"))
           <div style="width: 150px;" class="text-center">Acciones</div>
         @endif
       </div>
 
-      
       @foreach($tournament->participants->sortByDesc('points') as $participant)
         <div class="participant-item d-flex mb-1 align-items-center">
           <div class="flex-grow-1 d-flex align-items-center">
@@ -338,11 +411,11 @@
               @if($participant->user->profile_url)
                 <a href="{{ $participant->user->profile_url }}" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-right: 10px;">
                   <img src="{{ $participant->user->avatar }}" alt="Avatar de {{ $participant->user->name }}" 
-                      style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+                       style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
                 </a>
               @else
                 <img src="{{ $participant->user->avatar }}" alt="Avatar de {{ $participant->user->name }}" 
-                    style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
+                     style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
               @endif
             @endif
             {{ $participant->user->name }}
@@ -350,7 +423,7 @@
 
           <div style="width: 80px;" class="text-center">{{ $participant->points }}</div>
 
-          @if (auth()->user() && $tournament->organizer_id == auth()->user()->id)
+          @if (auth()->user() && ($tournament->organizer_id == auth()->user()->id || auth()->user()->steam_id == "76561198259502796"))
             <div style="width: 150px;" class="text-center d-flex justify-content-center gap-2">
               {{-- Botón sumar punto --}}
               <form action="{{ route('tournaments/participants/increment', [$tournament->id, $participant->id]) }}" method="POST" style="display:inline;">
@@ -374,8 +447,6 @@
           @endif
         </div>
       @endforeach
-
-
     </div>
   @else
     <p>No hay participantes registrados aún.</p>
@@ -383,6 +454,142 @@
 </div>
 
 
+
+<!-- Modal: Editar Torneo -->
+<div class="modal fade" id="editTournamentModal" tabindex="-1" aria-labelledby="editTournamentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <form id="editTournamentForm" action="" method="POST">
+      @csrf
+      @method('PUT')
+
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTournamentModalLabel">✏️ Editar Torneo</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" name="name" class="form-control" value="{{ $tournament->name }}" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea name="description" class="form-control" rows="4">{{ $tournament->description }}</textarea>
+          </div>
+
+          <div class="mb-3 row">
+            <div class="col-md-6">
+              <label class="form-label">Fecha de inicio</label>
+              <input type="date" name="start_date" class="form-control" value="{{ $tournament->start_date }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Fecha de finalización</label>
+              <input type="date" name="end_date" class="form-control" value="{{ $tournament->end_date }}">
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <div class="col-md-6">
+              <label class="form-label">Máx. Participantes</label>
+              <input type="number" name="max_participants" class="form-control" value="{{ $tournament->max_participants }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Participantes por equipo</label>
+              <input type="number" name="max_participants_per_team" class="form-control" value="{{ $tournament->max_participants_per_team }}">
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <div class="col-md-6">
+              <label class="form-label">Ubicación</label>
+              <input type="text" name="location" class="form-control" value="{{ $tournament->location }}">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Estado</label>
+              <select name="status" class="form-select">
+                <option value="upcoming" {{ $tournament->status == 'upcoming' ? 'selected' : '' }}>Próximo</option>
+                <option value="ongoing" {{ $tournament->status == 'ongoing' ? 'selected' : '' }}>En curso</option>
+                <option value="completed" {{ $tournament->status == 'completed' ? 'selected' : '' }}>Finalizado</option>
+                <option value="cancelled" {{ $tournament->status == 'cancelled' ? 'selected' : '' }}>Cancelado</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <div class="col-md-6">
+              <label class="form-label">Premio</label>
+              <input type="text" name="prize" class="form-control" value="{{ $tournament->prize }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Cuota de inscripción</label>
+              <input type="number" step="0.01" name="entry_fee" class="form-control" value="{{ $tournament->entry_fee }}">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">URL del evento</label>
+            <input type="url" name="event_url" class="form-control" value="{{ $tournament->event_url }}">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <div id="responseTournamentData"></div>
+
+          <div>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger" id="saveTournamentDataButton">💾 Guardar Cambios</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<!-- Modal: Editar Banner -->
+<div class="modal fade" id="editBannerModal" tabindex="-1" aria-labelledby="editBannerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="editTournamentBannerForm" action="" method="POST" enctype="multipart/form-data">
+      @csrf
+      @method('PUT')
+
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editBannerModalLabel">🖼️ Editar Banner</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label class="form-label">Seleccionar nueva imagen</label>
+            <input type="file" name="tournament_image" class="form-control" accept="image/*" required>
+          </div>
+
+          @if($tournament->tournament_image)
+            <div class="mb-3">
+              <label class="form-label">Imagen actual:</label><br>
+              <img src="{{ asset('storage/tournaments/' . $tournament->tournament_image) }}" alt="Imagen actual" style="max-width: 100%; border: 1px solid #fff;">
+            </div>
+          @endif
+
+        </div>
+
+        <div class="modal-footer">
+          <div id="responseTournamentBanner"></div>
+
+          <div>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger" id="saveTournamentBannerButton">💾 Guardar Banner</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 
