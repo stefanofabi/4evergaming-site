@@ -311,8 +311,12 @@
         <!-- Torneos completados dinámicos -->
         @forelse ($completed_tournaments as $tournament)
             <div class="tournament-card">
-                <h3>{{ $tournament->name }}</h3>
-                <p><strong>Ganador:</strong> {{ $tournament->winner_name ?? 'Pendiente' }}</p>
+                <h3> <a class="text-decoration-none text-white" href="{{ route('tournaments/show', ['slug' => $tournament->slug]) }}"> {{ $tournament->name }} </a> </h3>
+
+                @php 
+                    $topParticipant = $tournament->participants->sortByDesc('points')->first(); 
+                @endphp
+                <p><strong>Ganador:</strong> {{ $topParticipant->user->name ?? 'Pendiente' }}</p>
                 @if ($tournament->prize) <p><strong>Premio:</strong> ${{ $tournament->prize }}</p> @endif
             </div>
         @empty
