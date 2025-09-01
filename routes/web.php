@@ -122,27 +122,33 @@ Route::group([
     Route::get('{slug}', [TournamentController::class, 'show'])->name('show');
 
     Route::post('register/{id}', [TournamentController::class, 'register'])->name('register')
-        ->middleware('auth');
+        ->middleware('auth')
+        ->middleware('tournament_is_upcoming');
 
     Route::post('{tournament}/participants/{participant}/increment', [TournamentController::class, 'incrementPoints'])->name('participants/increment')
         ->middleware('auth')
-        ->middleware('verify_tournament_organizer');
+        ->middleware('verify_tournament_organizer')
+        ->middleware('tournament_in_progress');
 
     Route::post('{tournament}/participants/{participant}/decrement', [TournamentController::class, 'decrementPoints'])->name('participants/decrement')
         ->middleware('auth')
-        ->middleware('verify_tournament_organizer');
+        ->middleware('verify_tournament_organizer')
+        ->middleware('tournament_in_progress');
 
     Route::delete('{tournament}/participants/{participant}', [TournamentController::class, 'removeParticipant'])->name('participants/remove')
         ->middleware('auth')
-        ->middleware('verify_tournament_organizer');
+        ->middleware('verify_tournament_organizer')
+        ->middleware('tournament_not_completed');
 
     Route::put('/tournaments/{tournament}/update', [TournamentController::class, 'update'])->name('update')
         ->middleware('auth')
-        ->middleware('verify_tournament_organizer');
+        ->middleware('verify_tournament_organizer')
+        ->middleware('tournament_not_completed');
 
     Route::put('/tournaments/{tournament}/update-banner', [TournamentController::class, 'updateBanner'])->name('update-banner')
         ->middleware('auth')
-        ->middleware('verify_tournament_organizer');
+        ->middleware('verify_tournament_organizer')
+        ->middleware('tournament_not_completed');
 });
 
 Route::group([

@@ -76,6 +76,9 @@ class Kernel extends HttpKernel
         'register_server_if_official' => \App\Http\Middleware\Servers\RegisterServerIfOfficial::class,
         'check_firewall_rule' => \App\Http\Middleware\Firewall\CheckFirewallRule::class,
         'verify_tournament_organizer' => \App\Http\Middleware\Tournaments\VerifyTournamentOrganizer::class,
+        'tournament_in_progress' => \App\Http\Middleware\Tournaments\TournamentInProgress::class,
+        'tournament_is_upcoming' => \App\Http\Middleware\Tournaments\TournamentIsUpcoming::class,
+        'tournament_not_completed' => \App\Http\Middleware\Tournaments\TournamentNotCompleted::class,
 
     ];
 }
