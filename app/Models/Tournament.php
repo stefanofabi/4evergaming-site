@@ -16,6 +16,7 @@ class Tournament extends Model
         'organizer_id',
         'location',
         'max_players',
+        'prize',
         'game_id',
     ];
 
