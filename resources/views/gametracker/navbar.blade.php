@@ -45,7 +45,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="btn btn-danger" href="#">Mi perfil</a>
+          <a class="btn btn-danger" href="{{ route('profile', ['user' => auth()->user()->id]) }}">Mi perfil</a>
         </li>
         @endauth
         

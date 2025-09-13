@@ -40,6 +40,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\FirewallController;
 
+use App\Http\Controllers\Profiles\ProfileController;
+
 require('old_urls.php');
 require('api.php');
 
@@ -198,4 +200,4 @@ Route::group([
     });
 });
 
-
+Route::get('profile/{user}',  [ProfileController::class, 'show'])->name('profile');

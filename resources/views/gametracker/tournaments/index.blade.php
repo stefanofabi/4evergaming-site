@@ -308,7 +308,6 @@
     <div class="tournament-section">
         <div class="section-title gamer-glow">🏆 Torneos Finalizados</div>
 
-        <!-- Torneos completados dinámicos -->
         @forelse ($completed_tournaments as $tournament)
             <div class="tournament-card">
                 <h3> <a class="text-decoration-none text-white" href="{{ route('tournaments/show', ['slug' => $tournament->slug]) }}"> {{ $tournament->name }} </a> </h3>
