@@ -8,8 +8,6 @@ Perfil Gamer - {{ $user->name }} | 4evergaming
 
 @section('css')
 <!-- Bootstrap Icons (por si no lo tenés aún) -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
 <style>
     /* Fondo general oscuro estilo gamer */
     body {
@@ -36,13 +34,6 @@ Perfil Gamer - {{ $user->name }} | 4evergaming
         color: #dcdcdc;
     }
 
-    /* Avatar estilo hover gamer */
-    a:hover img {
-        transform: scale(1.05);
-        transition: transform 0.2s ease-in-out;
-        box-shadow: 0 0 10px #1f6feb;
-    }
-
     /* Badges estilo gamer */
     .badge {
         font-size: 0.85rem;
@@ -50,29 +41,9 @@ Perfil Gamer - {{ $user->name }} | 4evergaming
         border-radius: 0.5rem;
     }
 
-    /* Botones estilo futuro */
-    .btn-primary {
-        background-color: #1f6feb;
-        border: none;
-    }
-
-    .btn-primary:hover {
-        background-color: #265dc1;
-    }
-
     /* Placeholder para comentarios y equipo vacíos */
     .text-muted {
         color: #8b949e !important;
-    }
-
-    /* Links */
-    a {
-        color: #58a6ff;
-    }
-
-    a:hover {
-        color: #1f6feb;
-        text-decoration: underline;
     }
 </style>
 @endsection
@@ -118,6 +89,72 @@ Perfil Gamer - {{ $user->name }} | 4evergaming
             <p class="text-muted mb-0">Este jugador aún no se ha unido a un equipo.</p>
         </div>
     </div>
+
+    {{-- 🌐 Sección: Mi Comunidad --}}
+    @if($user->community)
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <strong><i class="bi bi-house-door-fill me-1"></i>Mi Comunidad</strong>
+            </div>
+            <div class="card-body d-flex align-items-start">
+                {{-- Logo de la comunidad --}}
+                <a href="{{ route('communities/show', ['slug' => $user->community->slug]) }}"> 
+                    <img src="{{ asset('storage/communities/' . $user->community->logo) }}"
+                        alt="{{ $user->community->name }}"
+                        class="rounded me-4"
+                        style="max-width: 200px; object-fit: cover;">
+                </a>
+
+                <div>
+                    <h5 class="mb-1">{{ $user->community->name }}</h5>
+                    <p class="mb-2 text-muted" style="max-width: 100%;">
+                        {{ Str::limit($user->community->description, 200, '...') }}
+                    </p>
+
+                    {{-- Calificación --}}
+                    <span class="badge bg-warning text-dark me-2">
+                        ⭐ {{ number_format($user->community->calification, 1) }}/5
+                    </span>
+
+                    <br /> <br /> <br /> 
+
+                    {{-- Redes sociales --}} 
+                    <div class="mt-2">
+                        @if($user->community->discord)
+                            <a href="{{ $user->community->discord }}" target="_blank" class="me-2 text-decoration-none" title="Discord">
+                                <i class="bi bi-discord fs-4 text-light"></i>
+                            </a>
+                        @endif
+                        @if($user->community->instagram)
+                            <a href="{{ $user->community->instagram }}" target="_blank" class="me-2 text-decoration-none" title="Instagram">
+                                <i class="bi bi-instagram fs-4 text-light"></i>
+                            </a>
+                        @endif
+                        @if($user->community->tiktok)
+                            <a href="{{ $user->community->tiktok }}" target="_blank" class="me-2 text-decoration-none" title="TikTok">
+                                <i class="bi bi-tiktok fs-4 text-light"></i>
+                            </a>
+                        @endif
+                        @if($user->community->youtube)
+                            <a href="{{ $user->community->youtube }}" target="_blank" class="me-2 text-decoration-none" title="YouTube">
+                                <i class="bi bi-youtube fs-4 text-light"></i>
+                            </a>
+                        @endif
+                        @if($user->community->whatsapp)
+                            <a href="{{ $user->community->whatsapp }}" target="_blank" class="me-2 text-decoration-none" title="WhatsApp">
+                                <i class="bi bi-whatsapp fs-4 text-light"></i>
+                            </a>
+                        @endif
+                        @if($user->community->website)
+                            <a href="{{ $user->community->website }}" target="_blank" class="me-2 text-decoration-none" title="Sitio Web">
+                                <i class="bi bi-globe fs-4 text-light"></i>
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     {{-- 💬 Sección: Comentarios --}}
     <div class="card mb-4 shadow-sm">

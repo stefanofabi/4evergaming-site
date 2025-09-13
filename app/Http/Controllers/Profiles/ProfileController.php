@@ -36,10 +36,12 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(string $steam_id)
     {
         //
-
+        
+        $user = User::where('steam_id', $steam_id)->firstOrFail();
+        
         return view('gametracker.profiles.show')
             ->with('user', $user);
     }

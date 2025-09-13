@@ -200,4 +200,4 @@ Route::group([
     });
 });
 
-Route::get('profile/{user}',  [ProfileController::class, 'show'])->name('profile');
+Route::get('profile/{steam_id}',  [ProfileController::class, 'show'])->name('profile');
