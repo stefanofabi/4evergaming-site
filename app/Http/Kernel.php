@@ -79,6 +79,7 @@ class Kernel extends HttpKernel
         'tournament_in_progress' => \App\Http\Middleware\Tournaments\TournamentInProgress::class,
         'tournament_is_upcoming' => \App\Http\Middleware\Tournaments\TournamentIsUpcoming::class,
         'tournament_not_completed' => \App\Http\Middleware\Tournaments\TournamentNotCompleted::class,
+        'check_registration_requirements' => \App\Http\Middleware\Tournaments\CheckRegistrationRequirements::class,
 
     ];
 }

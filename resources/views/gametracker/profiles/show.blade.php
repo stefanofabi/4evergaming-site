@@ -82,13 +82,56 @@ Perfil Gamer - {{ $user->name }} | 4evergaming
     {{-- 🛡️ Sección: Mi equipo --}}
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-            <strong><i class="bi bi-people-fill me-1"></i>Mi equipo</strong>
+            <strong><i class="bi bi-people-fill me-1 text-danger"></i>Mi equipo</strong>
         </div>
         <div class="card-body">
-            {{-- Placeholder (hasta que conectes Team model) --}}
-            <p class="text-muted mb-0">Este jugador aún no se ha unido a un equipo.</p>
+
+            @if(!$user->team)
+                <p class="text-muted">Aún no te uniste a un equipo.</p>
+
+                {{-- Botón para crear equipo --}}
+                <button class="btn btn-outline-danger btn-sm mb-3" onclick="document.getElementById('create-team-form').classList.toggle('d-none')">
+                    ¿Querés crear tu propio equipo?
+                </button>
+
+                {{-- Formulario de creación --}}
+                <form id="create-team-form" class="d-none mt-3" method="POST" action="{{ route('teams/store') }}" enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="mb-3" style="max-width: 500px;">
+                        <label for="teamName" class="form-label text-light">Nombre del equipo</label>
+                        <input type="text" name="name" id="teamName"
+                            class="form-control bg-dark text-white border border-danger"
+                            placeholder="Ej: Red Demons" required>
+                    </div>
+
+                    <div class="mb-3" style="max-width: 500px;">
+                        <label for="teamLogo" class="form-label text-light">Logo del equipo</label>
+                        <input type="file" name="logo" id="teamLogo"
+                            class="form-control bg-dark text-white border border-danger"
+                            accept="image/*" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">🔥 Crear equipo</button>
+                </form>
+            @else
+                <div class="d-flex align-items-start">
+                    {{-- Logo del equipo --}}
+                    <a href="{{ route('teams/show', ['slug' => $user->team->slug]) }}"> 
+                        <img src="{{ asset('storage/teams/logos/' . $user->team->logo) }}"
+                            alt="{{ $user->team->name }}"
+                            class="rounded border border-danger me-4"
+                            style="width: 100px; height: 100px; object-fit: cover;">
+                        </a>
+                    <div>
+                        <h5 class="mb-1 text-white">{{ $user->team->name }}</h5>
+                    </div>
+                </div>
+            @endif
+
         </div>
     </div>
+
 
     {{-- 🌐 Sección: Mi Comunidad --}}
     @if($user->community)

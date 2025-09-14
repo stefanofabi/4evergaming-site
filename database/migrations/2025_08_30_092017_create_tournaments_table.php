@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('tournament_image')->nullable();
-            $table->enum('type', ['single', 'team']);
+            $table->enum('type', ['single', 'team', 'community']);
 
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

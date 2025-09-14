@@ -63,4 +63,12 @@ class User extends Authenticatable implements BannableInterface
     {
         return $this->hasMany(Tournament::class, 'organizer_id');
     }
+
+    /**
+     * Get the team associated with the user.
+     */
+    public function team()
+    {
+        return $this->hasOne(Team::class, 'owner_id');
+    }
 }

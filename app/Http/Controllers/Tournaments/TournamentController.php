@@ -134,10 +134,8 @@ class TournamentController extends Controller
         //
     }
     
-    public function register($id) 
+    public function register(Tournament $tournament) 
     {
-        $tournament = Tournament::findOrFail($id);
-
         $participant = new Participant();
         $participant->user_id = auth()->user()->id;     
         $participant->tournament_id = $tournament->id; 

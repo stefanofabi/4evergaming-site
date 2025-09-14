@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('logo')->nullable();
-            $table->unsignedBigInteger('owner'); 
+            $table->unsignedBigInteger('owner_id'); 
 
-            $table->foreign('owner')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             
             $table->timestamps();
         });

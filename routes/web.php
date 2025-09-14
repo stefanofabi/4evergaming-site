@@ -33,6 +33,7 @@ use App\Http\Controllers\Pages\WebHostingController;
 use App\Http\Controllers\Communities\CommunityController;
 
 use App\Http\Controllers\Tournaments\TournamentController;
+use App\Http\Controllers\Teams\TeamController;
 
 use App\Http\Controllers\Server\ServerController;
 
@@ -123,9 +124,10 @@ Route::group([
 
     Route::get('{slug}', [TournamentController::class, 'show'])->name('show');
 
-    Route::post('register/{id}', [TournamentController::class, 'register'])->name('register')
+    Route::post('register/{tournament}', [TournamentController::class, 'register'])->name('register')
         ->middleware('auth')
-        ->middleware('tournament_is_upcoming');
+        ->middleware('tournament_is_upcoming')
+        ->middleware('check_registration_requirements');
 
     Route::post('{tournament}/participants/{participant}/increment', [TournamentController::class, 'incrementPoints'])->name('participants/increment')
         ->middleware('auth')
@@ -151,6 +153,16 @@ Route::group([
         ->middleware('auth')
         ->middleware('verify_tournament_organizer')
         ->middleware('tournament_not_completed');
+});
+
+Route::group([
+    'prefix' => 'teams',
+    'as' => 'teams/',
+], function () {
+    Route::post('store', [TeamController::class, 'store'])->name('store')
+        ->middleware('auth');
+
+    Route::get('{slug}', [TeamController::class, 'show'])->name('show');
 });
 
 Route::group([
