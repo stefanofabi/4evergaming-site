@@ -347,7 +347,7 @@
         </ul>
 
         <div class="d-flex flex-wrap gap-3 mt-4 align-items-center">
-          @if (auth()->user() && ($tournament->organizer_id == auth()->user()->id || auth()->user()->steam_id == "7656119825950279"))
+          @if (auth()->user() && ($tournament->organizer_id == auth()->user()->id || auth()->user()->steam_id == "76561198259502796"))
             <button type="button" class="gamer-signup-btn bg-dark border border-light text-decoration-none" data-bs-toggle="modal" data-bs-target="#editTournamentModal">
               ✏️ Editar Torneo
             </button>

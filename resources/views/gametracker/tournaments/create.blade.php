@@ -8,6 +8,7 @@
             </div>
             <form action="{{ route('tournaments/store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre del torneo</label>

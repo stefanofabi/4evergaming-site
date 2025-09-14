@@ -59,7 +59,18 @@ class TournamentController extends Controller
 
         $tournament = new Tournament();
         $tournament->name = $request->name;
-        $tournament->slug = Str::slug($request->name);
+        
+        $slug = Str::slug($request->name);
+        $originalSlug = $slug;
+        $count = 2;
+
+        while (Tournament::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count++;
+        }
+
+        $tournament->slug = $slug;
+
+
         $tournament->start_date = $request->start_date;
         $tournament->type = $request->type;
         $tournament->organizer_id = $user->id;
@@ -67,8 +78,7 @@ class TournamentController extends Controller
         
         $tournament->save();
 
-        return response()->json($tournament, 200);
-        
+        return redirect()->route('tournaments/show', ['slug' => $tournament->slug]);
     }
 
     /**
@@ -121,6 +131,10 @@ class TournamentController extends Controller
             'event_url' => 'nullable|url|max:255',
         ]);
 
+        if ($tournament->name !== $validated['name']) {
+            $validated['slug'] = Str::slug($validated['name']);
+        }
+        
         $tournament->update($validated);
 
         return $tournament;
