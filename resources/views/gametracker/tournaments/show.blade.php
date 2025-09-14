@@ -397,7 +397,15 @@
     <div class="participant-list mt-3">
       <div class="participant-header d-flex fw-bold border-bottom pb-2 mb-2">
         <div style="width: 50px;" class="text-start">&nbsp #</div>
-        <div class="flex-grow-1">Jugador</div>
+        <div class="flex-grow-1">
+          @if ($tournament->type === 'team')
+            Equipo
+          @elseif ($tournament->type === 'community')
+            Comunidad
+          @else
+            Jugador
+          @endif
+        </div>
         <div style="width: 80px" class="text-center">Puntos</div>
         @if (auth()->user() && ($tournament->organizer_id == auth()->user()->id || auth()->user()->steam_id == "76561198259502796"))
           <div style="width: 150px;" class="text-center">Acciones</div>
@@ -410,38 +418,66 @@
         <div class="participant-item d-flex mb-1 align-items-center">
           <div style="width: 50px;" class="text-start">{{ $position++ }}</div>
 
+          {{-- 👤 Jugador / 🛡️ Equipo / 🏠 Comunidad --}}
           <div class="flex-grow-1 d-flex align-items-center">
-            @if($participant->user->avatar)
-              @if($participant->user->profile_url)
-                <a href="{{ $participant->user->profile_url }}" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-right: 10px;">
-                  <img src="{{ $participant->user->avatar }}" alt="Avatar de {{ $participant->user->name }}" 
-                       style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+
+          @php
+              $name = '';
+              $avatar = null;
+              $link = null;
+
+              if ($tournament->type === 'team' && $participant->user->team) {
+                  $team = $participant->user->team;
+                  $name = $team->name;
+                  $avatar = $team->logo ? asset('storage/teams/logos/' . $team->logo) : null;
+                  $link = route('teams/show', $team->slug ?? $team->id);
+              } elseif ($tournament->type === 'community' && $participant->user->community) {
+                  $community = $participant->user->community;
+                  $name = $community->name;
+                  $avatar = $community->logo ? asset('storage/communities/' . $community->logo) : null;
+                  $link = route('communities/show', ['slug' => $community->slug]);
+              } else {
+                  $name = $participant->user->name;
+                  $avatar = $participant->user->avatar;
+                  $link = $participant->user->profile_url;
+              }
+          @endphp
+
+            {{-- Mostrar avatar con enlace si existe --}}
+            @if($avatar)
+              @if($link)
+                <a href="{{ $link }}" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-right: 10px;">
+                  <img src="{{ $avatar }}" alt="Avatar de {{ $name }}" 
+                      style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
                 </a>
               @else
-                <img src="{{ $participant->user->avatar }}" alt="Avatar de {{ $participant->user->name }}" 
-                     style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
+                <img src="{{ $avatar }}" alt="Avatar de {{ $name }}" 
+                    style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
               @endif
             @endif
-            {{ $participant->user->name }}
+
+            {{ $name }}
           </div>
 
+          {{-- Puntos --}}
           <div style="width: 80px;" class="text-center">{{ $participant->points }}</div>
 
+          {{-- Acciones para admins u organizador --}}
           @if (auth()->user() && ($tournament->organizer_id == auth()->user()->id || auth()->user()->steam_id == "76561198259502796"))
             <div style="width: 150px;" class="text-center d-flex justify-content-center gap-2">
-              {{-- Botón sumar punto --}}
+              {{-- Sumar punto --}}
               <form action="{{ route('tournaments/participants/increment', ['tournament' => $tournament->id, 'participant' => $participant->id]) }}" method="POST" style="display:inline;">
                 @csrf
                 <button class="btn btn-success btn-sm" title="Sumar punto">+</button>
               </form>
 
-              {{-- Botón restar punto --}}
+              {{-- Restar punto --}}
               <form action="{{ route('tournaments/participants/decrement', ['tournament' => $tournament->id, 'participant' => $participant->id]) }}" method="POST" style="display:inline;">
                 @csrf
                 <button class="btn btn-warning btn-sm" title="Restar punto">−</button>
               </form>
 
-              {{-- Botón borrar participante --}}
+              {{-- Eliminar --}}
               <form action="{{ route('tournaments/participants/remove', ['tournament' => $tournament->id, 'participant' => $participant->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar este participante?');">
                 @csrf
                 @method('DELETE')
@@ -451,6 +487,9 @@
           @endif
         </div>
       @endforeach
+
+
+
     </div>
   @else
     <p>No hay participantes registrados aún.</p>
