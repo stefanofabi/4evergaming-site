@@ -18,6 +18,7 @@
                     <div class="mb-3">
                         <label for="game_id" class="form-label">Juego</label>
                         <select class="form-select" id="game_id" name="game_id" required>
+                            <option value="">Seleccione un Juego</option>
                             @foreach($games as $game)
                                 <option value="{{ $game->id }}">{{ $game->name }}</option>
                             @endforeach
@@ -33,7 +34,8 @@
                         <label for="type" class="form-label">Tipo</label>
                         <select class="form-select" id="type" name="type" required>
                             <option value="single">Individual</option>
-                            <option value="team">Por equipos</option>
+                            <option value="team">Por Equipos</option>
+                            <option value="community">Por Comunidades</option>
                         </select>
                     </div>
 

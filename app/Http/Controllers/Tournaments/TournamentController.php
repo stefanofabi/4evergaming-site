@@ -52,7 +52,7 @@ class TournamentController extends Controller
         $request->validate([
             'name' => 'required',
             'start_date' => 'required|date',
-            'type' => 'in:single,team'
+            'type' => 'in:single,team,community'
         ]);
 
         $user = auth()->user();
