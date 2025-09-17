@@ -14,10 +14,13 @@ class Tournament extends Model
         'description',
         'start_date',
         'end_date',
+        'max_participants',
+        'max_participants_per_team',
         'organizer_id',
         'location',
         'max_players',
         'prize',
+        'entry_fee',
         'game_id',
     ];
 

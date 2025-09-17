@@ -266,8 +266,13 @@
   {{-- Premio destacado --}}
   @if($tournament->prize)
     <div class="tournament-prize">
-      🏆 Premio: ${{ number_format($tournament->prize, 0, ',', '.') }}
-    </div>
+    🏆 Premio:
+    @if (is_numeric($tournament->prize))
+      ${{ number_format($tournament->prize, 0, ',', '.') }}
+    @else
+      {{ $tournament->prize }}
+    @endif
+  </div>
   @endif
 
 <div class="tournament-dates">
