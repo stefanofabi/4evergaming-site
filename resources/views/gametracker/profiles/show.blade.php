@@ -117,7 +117,7 @@ Perfil Gamer - {{ $user->name }} | 4evergaming
             @else
                 <div class="d-flex align-items-start">
                     {{-- Logo del equipo --}}
-                    <a href="{{ route('teams/show', ['slug' => $user->team->slug]) }}"> 
+                    <a href="#"> 
                         <img src="{{ asset('storage/teams/logos/' . $user->team->logo) }}"
                             alt="{{ $user->team->name }}"
                             class="rounded border border-danger me-4"
