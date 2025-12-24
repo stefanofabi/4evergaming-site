@@ -14,19 +14,23 @@
           <a class="nav-link text-danger" href="{{ route('servers/index') }}">Inicio</a>
         </li>
         
+        @php
+          use App\Models\Game;
+
+          $games = Game::whereHas('servers')->get();
+        @endphp
+
         <li class="nav-item dropdown me-3">
-          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown">
             Servidores
           </a>
+
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="{{ route('servers/search', ['game' => 'hl1']) }}">Half Life</a></li>
-            <li><a class="dropdown-item" href="{{ route('servers/search', ['game' => 'cs16']) }}">Counter-Strike 1.6</a></li>
-            <li><a class="dropdown-item" href="{{ route('servers/search', ['game' => 'css']) }}">Counter-Strike: Source</a></li>
-            <li><a class="dropdown-item" href="{{ route('servers/search', ['game' => 'mta']) }}">Multi Theft Auto</a></li>
-            <li><a class="dropdown-item" href="{{ route('servers/search', ['game' => 'cod2']) }}">Call Of Duty 2</a></li>
-            <li><a class="dropdown-item" href="{{ route('servers/search', ['game' => 'cod4']) }}">Call Of Duty 4</a></li>
-            <li><a class="dropdown-item" href="{{ route('servers/search', ['game' => 'mohaa']) }}">Medal Of Honor: Allied Assault</a></li>
-            <li><a class="dropdown-item" href="{{ route('servers/search', ['game' => 'bf2']) }}">Battle Field 2</a></li>
+            @foreach ($games as $game)
+              <li>
+                <a class="dropdown-item" href="{{ route('servers/search', ['game' => $game->protocol]) }}"> {{ $game->name }} </a>
+              </li>
+            @endforeach
           </ul>
         </li>
         
