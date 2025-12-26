@@ -301,4 +301,31 @@ class ServerController extends Controller
 
         return response()->json(['message' => 'Imagen cargada con éxito. Gracias por colaborar.'], 200);
     }
+
+    public function find(Request $request)
+    {
+        $query = DB::table('servers')
+            ->where('status', 1)
+            ->where('rank', '>', 0)
+            ->whereColumn('num_players', '<', 'max_players');
+
+        if ($request->game_id) {
+            $query->where('game_id', $request->game_id);
+        }
+
+        if ($request->country_id) {
+            $query->where('country_id', $request->country_id);
+        }
+
+        if ($request->min_players !== null) {
+            $query->where('num_players', '>=', $request->min_players);
+        }
+
+        $servers = $query
+            ->orderByDesc('rank_points')
+            ->limit(10)
+            ->get();
+
+        return response()->json($servers);
+    }
 }

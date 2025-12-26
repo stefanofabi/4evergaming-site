@@ -110,6 +110,8 @@ Route::group([
 
     Route::post('upload-map', [ServerController::class, 'uploadMap'])->name('upload_map')
     ->middleware('auth');
+
+    Route::post('find', [ServerController::class, 'find'])->name('find');
 });
 
 Route::group([
