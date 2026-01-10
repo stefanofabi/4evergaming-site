@@ -260,7 +260,7 @@
             <label class="form-label">País</label>
 
             @php
-              $games = \App\Models\Country::orderBy('name', 'ASC')->get();
+              $countries = \App\Models\Country::orderBy('name', 'ASC')->get();
             @endphp
 
             <select id="country_id" class="form-select">
