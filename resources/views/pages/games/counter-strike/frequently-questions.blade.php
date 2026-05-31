@@ -1,5 +1,6 @@
 <h3 class="mt-5 text-center"> Preguntas frecuentes </h3>
 <div class="accordion mt-2 ms-md-5 me-md-5" id="accordionExample">
+    @include('pages.games.counter-strike.accordion-frequently-questions.multi-protocol')
     @include('pages.games.counter-strike.accordion-frequently-questions.service-renewal-cost')
     @include('pages.games.counter-strike.accordion-frequently-questions.payment-methods')
     @include('pages.games.counter-strike.accordion-frequently-questions.service-uptime')
